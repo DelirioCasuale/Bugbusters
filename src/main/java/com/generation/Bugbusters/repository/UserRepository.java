@@ -1,4 +1,4 @@
-package com.generation.repository;
+package com.generation.Bugbusters.repository;
 
 public class UserRepository {
 

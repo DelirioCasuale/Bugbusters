@@ -1,4 +1,4 @@
-package com.generation.entity;
+package com.generation.Bugbusters.entity;
 
 public class Campaign {
 

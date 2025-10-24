@@ -1,4 +1,4 @@
-package com.generation.service;
+package com.generation.Bugbusters.service;
 
 public class DMCampaignService {
 

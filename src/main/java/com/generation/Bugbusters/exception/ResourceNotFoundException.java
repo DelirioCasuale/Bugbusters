@@ -1,4 +1,4 @@
-package com.generation.exception;
+package com.generation.Bugbusters.exception;
 
 public class ResourceNotFoundException {
 
