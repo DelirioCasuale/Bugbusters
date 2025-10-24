@@ -21,8 +21,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE players (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
+    user_id INT NOT NULL PRIMARY KEY,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
@@ -30,7 +29,7 @@ CREATE TABLE character_sheet (
     -- aggiungere una funzione di stampa/salvataggio in PDF?
     id INT AUTO_INCREMENT PRIMARY KEY,
     player_id INT NOT NULL, -- verrà anche usato per visualizzare il nome giocatore sulla scheda personaggio 
-    FOREIGN KEY (player_id) REFERENCES players (id) ON DELETE CASCADE,
+    FOREIGN KEY (player_id) REFERENCES players (user_id) ON DELETE CASCADE,
     name VARCHAR(20) NOT NULL,
     primary_class VARCHAR(20) NOT NULL,
     primary_level INT NOT NULL DEFAULT 1,
@@ -136,6 +135,7 @@ CREATE TABLE spells_n_weapons (
         'd10',
         'd12'
     ),
+    bonus_info varchar(100) DEFAULT NULL,
     FOREIGN KEY (character_sheet_id) REFERENCES character_sheet (id) ON DELETE CASCADE,
     PRIMARY KEY (
         character_sheet_id,
@@ -190,8 +190,7 @@ CREATE TABLE spells_n_weapons (
 -- );
 
 CREATE TABLE masters (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
+    user_id INT NOT NULL PRIMARY KEY,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
@@ -203,7 +202,7 @@ CREATE TABLE campaigns (
     start_date DATE,
     -- last_session_date DATE, derivabile da campaign_sessions con join id=campaign_id e max(session_date)
     scheduled_next_session DATE,
-    FOREIGN KEY (master_id) REFERENCES masters (id),
+    FOREIGN KEY (master_id) REFERENCES masters (user_id),
     -- number_of_sessions INT DEFAULT 0
     invite_players_code VARCHAR(10) UNIQUE, -- link visibile al master per invitare nuovi giocatori nella campagna
     invite_masters_code VARCHAR(10) UNIQUE -- questo link è visibile al master se presente per trasferire il controllo da un master all'altro o è visibile ai giocatori se il master non è più presente nella campagna
@@ -211,10 +210,10 @@ CREATE TABLE campaigns (
 
 CREATE TABLE campaign_players (
     campaign_id INT NOT NULL,
-    player_id INT NOT NULL,
-    PRIMARY KEY (campaign_id, player_id),
+    character_id INT NOT NULL,
+    PRIMARY KEY (campaign_id, character_id),
     FOREIGN KEY (campaign_id) REFERENCES campaigns (id),
-    FOREIGN KEY (player_id) REFERENCES players (id)
+    FOREIGN KEY (character_id) REFERENCES character_sheet (id)
 );
 
 CREATE TABLE campaign_sessions (
@@ -238,7 +237,7 @@ BEGIN
     SELECT player_id
     INTO new_player_id
     FROM campaign_players
-    WHERE campaign_id IN (SELECT id FROM campaigns WHERE master_id = OLD.id)
+    WHERE campaign_id IN (SELECT id FROM campaigns WHERE master_id = OLD.user_id)
     LIMIT 1;
 
     -- Proceed if a valid player_id is found
@@ -250,7 +249,7 @@ BEGIN
         -- Update the campaigns table, setting the new master_id to the newly inserted master
         UPDATE campaigns 
         SET master_id = (SELECT MAX(id) FROM masters WHERE user_id = new_player_id)
-        WHERE master_id = OLD.id;
+        WHERE master_id = OLD.user_id;
     END IF;
 END$$
 
