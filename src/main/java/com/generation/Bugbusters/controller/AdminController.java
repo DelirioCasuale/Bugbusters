@@ -1,4 +1,4 @@
-package com.generation.controller;
+package com.generation.Bugbusters.controller;
 
 public class AdminController {
 

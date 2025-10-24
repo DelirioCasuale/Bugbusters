@@ -1,4 +1,4 @@
-package com.generation.scheduler;
+package com.generation.Bugbusters.scheduler;
 
 public class OrphanCampaignScheduler {
 
