@@ -1,0 +1,148 @@
+/* TODO creare variabili di colore e stili ricorrenti */
+
+/* Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* FONT BASE */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at top, #1a1a2e, #0f0f1a);
+  color: #dcdcff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* NAVBAR */
+header {
+  background: linear-gradient(90deg, #1b1b3a, #2b2b5a);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 2rem;
+  border-bottom: 2px solid #4f46e5;
+  /* box-shadow: 0 2px 10px rgba(100, 100, 255, 0.2); */
+}
+
+.logo {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.7rem;
+  color: #a78bfa;
+  text-shadow: 0 0 6px #6d28d9;
+}
+
+nav {
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+header a {
+  color: #d1c4ff;
+  text-decoration: none;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+header a:hover {
+  color: #fff;
+  text-shadow: 0 0 8px #8b5cf6;
+}
+
+/* main */
+main {
+  background: url('../images/tavern_background.gif') no-repeat center
+    center/cover;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* HERO */
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 4rem auto;
+  padding: 1rem 2rem;
+  background: rgba(45, 45, 80, 0.4);
+  border-radius: 12px;
+  /* box-shadow: 0 0 20px rgba(90, 70, 200, 0.2); */
+}
+
+.hero-content h1 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  color: #a78bfa;
+  text-shadow: 0 0 10px #6d28d9;
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: #d1c4ff;
+}
+
+/* BUTTONS */
+.btn-primary {
+  background-color: #4f46e5;
+  color: #fff;
+  border: 2px solid #6d28d9;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  /* box-shadow: 0 0 10px rgba(109, 40, 217, 0.3); */
+}
+
+.btn-primary:hover {
+  background-color: #6d28d9;
+  /* box-shadow: 0 0 15px rgba(167, 139, 250, 0.6); */
+  transform: scale(1.05);
+}
+
+/* BUTTON ANIMATIONS */
+button,
+a,
+.logo {
+  transition: all 0.3s ease;
+}
+
+/* ABOUT */
+.about {
+  max-width: 800px;
+  margin: 3rem auto;
+  text-align: center;
+  padding: 1rem 2rem;
+  background: rgba(45, 45, 80, 0.4);
+  border-radius: 12px;
+  /* box-shadow: 0 0 20px rgba(90, 70, 200, 0.2); */
+}
+
+.about h2 {
+  font-family: 'Cinzel Decorative', serif;
+  color: #c4b5fd;
+  margin-bottom: 1rem;
+}
+
+/* FOOTER */
+.footer {
+  background: #1a1a2e;
+  text-align: center;
+  padding: 1rem;
+  color: #a78bfa;
+  font-size: 0.9rem;
+  border-top: 1px solid #2b2b5a;
+  /* box-shadow: inset 0 1px 4px rgba(80, 70, 150, 0.3); */
+}
