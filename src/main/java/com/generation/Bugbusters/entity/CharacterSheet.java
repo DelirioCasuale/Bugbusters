@@ -23,7 +23,12 @@ import lombok.EqualsAndHashCode;
 public class CharacterSheet {
     
     private Long id;
-    private User user_id; // riferimento alla tua entità utenti
+    @ManyToOne
+    @JoinColumn(
+        name = "user_id",
+        referencedColumnName = "id"
+    )
+    private Player player_id; // riferimento alla tua entità utenti
     private String nome_file;
     private Integer versione = 1;
     private String tipo_mime;
