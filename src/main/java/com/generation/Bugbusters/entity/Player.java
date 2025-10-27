@@ -1,26 +1,35 @@
 package com.generation.Bugbusters.entity;
 
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.annotation.Generated;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.NoArgsConstructor;
 
-@Data
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-public class Player extends Guest{
+@Table(name = "players")
+@Data
+@NoArgsConstructor
+public class Player {
 
-    @OneToMany(mappedBy = "player")
-    @JsonIgnore
-    private List<CharacterSheet> carachterSheets;
+    @Id
+    private Long id;
+
+
+    // relazioni
+
+    @OneToOne(fetch = FetchType.LAZY) // LAZY: non carica user finché non serve esplicitamente
+    @MapsId // serve per dire che l'id di user è l'id per questa entità
+    @JoinColumn(name = "user_id") // specifica la colonna che è sia PK che FK
+    private User user;
+
+    @OneToMany(
+            mappedBy = "player", // player è il nome del campo in characterSheet
+            cascade = CascadeType.ALL, // se elimino il player, elimino le sue schede
+            orphanRemoval = true // se rimuovo una scheda dalla lista, eliminala
+    )
+    private Set<CharacterSheet> characterSheets = new HashSet<>();
+
+    // N.B. da aggiungere qui la relazione con i voti (FORSE)
 }

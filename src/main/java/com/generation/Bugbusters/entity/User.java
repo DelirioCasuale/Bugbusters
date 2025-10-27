@@ -37,9 +37,9 @@ public class User {
     @Column(name = "deletion_scheduled_on")
     private LocalDateTime deletionScheduledOn;
 
+    // relazioni
 
-    // relazione molti-a-molti con Role
-
+    // relazione molti-a-molti con role
     @ManyToMany(fetch = FetchType.EAGER) // EAGER: serve a caricare i ruoli SEMPRE insieme all'utente
     @JoinTable(
             name = "users_roles", // nome della tabella "ponte"
@@ -48,5 +48,20 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
-    // N.B. le relazioni OneToOne con Player e Master sono da aggiungere non appena create quelle entità
+    // relazione uno-a-uno con player
+    @OneToOne(
+            mappedBy = "user", // user è il nome del campo in player
+            cascade = CascadeType.ALL, // se elimino user, elimino il suo profilo player
+            orphanRemoval = true, // rimuovi il profilo se non è più associato
+            fetch = FetchType.LAZY // non caricare il profilo finché non serve esplicitamente
+    )
+    private Player player; // profilo player associato
+
+    @OneToOne(
+            mappedBy = "user", // user è il nome del campo in master
+            cascade = CascadeType.ALL, // se elimino user, elimino il suo profilo master
+            orphanRemoval = true, // rimuovi il profilo se non è più associato
+            fetch = FetchType.LAZY // non caricare il profilo finché non serve esplicitamente
+    )
+    private Master master; // profilo master associato
 }

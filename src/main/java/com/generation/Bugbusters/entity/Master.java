@@ -1,23 +1,35 @@
 package com.generation.Bugbusters.entity;
 
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.NoArgsConstructor;
 
-@Data
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-public class Master extends Guest{
+@Table(name = "masters")
+@Data
+@NoArgsConstructor
+public class Master {
 
-    @OneToMany(mappedBy = "master")
-    @JsonIgnore
-    private List<Campaign> campaings;
+    @Id
+    private Long id;
 
+
+    // relazioni
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId // anche qua l'id del master è l'id del suo user
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(
+            mappedBy = "master", // master è il nome del campo in campaign
+            cascade = CascadeType.ALL, // se elimino il master, elimino le sue campagne
+            orphanRemoval = true // se rimuovo una campagna dalla lista, eliminala
+    )
+    private Set<Campaign> campaigns = new HashSet<>();
+
+    // N.B. l'entità campaign non l'ho ancora implementata, ma possiamo già definire la relazione
 }
