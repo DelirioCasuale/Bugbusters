@@ -12,10 +12,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
+@Entity
+@Table(name="character_sheet")
 @EqualsAndHashCode
 public class CharacterSheet {
     
@@ -24,6 +27,7 @@ public class CharacterSheet {
     private String nome_file;
     private Integer versione = 1;
     private String tipo_mime;
+    @Blob
     private byte[] contenuto;
     private Date data_caricamento = Date.valueOf(LocalDate.now());
     private List<Campaign> campaigns;
