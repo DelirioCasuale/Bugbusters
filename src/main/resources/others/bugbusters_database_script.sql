@@ -26,99 +26,14 @@ CREATE TABLE players (
 );
 
 CREATE TABLE character_sheet (
-    -- aggiungere una funzione di stampa/salvataggio in PDF?
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    player_id INT NOT NULL, -- verrà anche usato per visualizzare il nome giocatore sulla scheda personaggio 
-    FOREIGN KEY (player_id) REFERENCES players (user_id) ON DELETE CASCADE,
-    name VARCHAR(20) NOT NULL,
-    primary_class VARCHAR(20) NOT NULL,
-    primary_level INT NOT NULL DEFAULT 1,
-    secondary_class VARCHAR(20),
-    secondary_level INT DEFAULT NULL,
-    alignment ENUM(
-        'Lawful Good',
-        'Neutral Good',
-        'Chaotic Good',
-        'Lawful Neutral',
-        'True Neutral',
-        'Chaotic Neutral',
-        'Lawful Evil',
-        'Neutral Evil',
-        'Chaotic Evil'
-    ),
-    race ENUM(
-        'Human',
-        'Elf',
-        'Dwarf',
-        'Halfling',
-        'Orc',
-        'Gnome',
-        'Tiefling',
-        'Dragonborn',
-        'Half-Elf',
-        'Half-Orc'
-    ),
-    background VARCHAR(30),
-    experience_points INT DEFAULT 0,
-    strength TINYINT UNSIGNED,
-    dexterity TINYINT UNSIGNED,
-    constitution TINYINT UNSIGNED,
-    intelligence TINYINT UNSIGNED,
-    wisdom TINYINT UNSIGNED,
-    charisma TINYINT UNSIGNED,
-    proficiency_bonus TINYINT,
-    max_hit_points INT,
-    current_hit_points INT,
-    temporary_hit_points INT DEFAULT 0,
-    -- hit_dices derivato da tipo di classe e livello delle classi (es guerriero liello 4 = 4d10), si usa per recuperare punti ferita col riposo breve
-    armor_class TINYINT,
-    initiative TINYINT,
-    speed TINYINT,
-    -- proficiency_bonus TINYINT derivato da livello totale del personaggio
-    -- modifier_strength TINYINT, i modificatori si calcolano come (caratteristica-10)/2 arrotondato per difetto
-    -- modifier_dexterity TINYINT,
-    -- modifier_constitution TINYINT,
-    -- modifier_intelligence TINYINT,
-    -- modifier_wisdom TINYINT,
-    -- modifier_charisma TINYINT,
-    inspiration BOOLEAN DEFAULT FALSE,
-    -- saving_throw_strength BOOLEAN DEFAULT FALSE, derivati dalla classe primaria
-    -- saving_throw_dexterity BOOLEAN DEFAULT FALSE,
-    -- saving_throw_constitution BOOLEAN DEFAULT FALSE,
-    -- saving_throw_intelligence BOOLEAN DEFAULT FALSE,
-    -- saving_throw_wisdom BOOLEAN DEFAULT FALSE,
-    -- saving_throw_charisma BOOLEAN DEFAULT FALSE
-    acrobatics_skill_proficiency BOOLEAN DEFAULT FALSE,
-    animal_handling_skill_proficiency BOOLEAN DEFAULT FALSE,
-    arcana_skill_proficiency BOOLEAN DEFAULT FALSE,
-    athletics_skill_proficiency BOOLEAN DEFAULT FALSE,
-    deception_skill_proficiency BOOLEAN DEFAULT FALSE,
-    history_skill_proficiency BOOLEAN DEFAULT FALSE,
-    insight_skill_proficiency BOOLEAN DEFAULT FALSE,
-    intimidation_skill_proficiency BOOLEAN DEFAULT FALSE,
-    investigation_skill_proficiency BOOLEAN DEFAULT FALSE,
-    medicine_skill_proficiency BOOLEAN DEFAULT FALSE,
-    nature_skill_proficiency BOOLEAN DEFAULT FALSE,
-    perception_skill_proficiency BOOLEAN DEFAULT FALSE,
-    performance_skill_proficiency BOOLEAN DEFAULT FALSE,
-    persuasion_skill_proficiency BOOLEAN DEFAULT FALSE,
-    religion_skill_proficiency BOOLEAN DEFAULT FALSE,
-    sleight_of_hand_skill_proficiency BOOLEAN DEFAULT FALSE,
-    stealth_skill_proficiency BOOLEAN DEFAULT FALSE,
-    survival_skill_proficiency BOOLEAN DEFAULT FALSE,
-    -- weapons and speellcasting gestita in altra tabella many to many
-    copper_pieces INT DEFAULT 0,
-    silver_pieces INT DEFAULT 0,
-    electrum_pieces INT DEFAULT 0,
-    gold_pieces INT DEFAULT 0,
-    platinum_pieces INT DEFAULT 0,
-    equipment TEXT,
-    personality_traits TEXT,
-    ideals TEXT,
-    bonds TEXT,
-    flaws TEXT,
-    features_and_traits TEXT,
-    proficiencies_and_languages TEXT
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  user_id BIGINT NOT NULL,
+  nome_file VARCHAR(255),
+  versione INT DEFAULT 1,
+  tipo_mime VARCHAR(50),
+  contenuto LONGBLOB,
+  data_caricamento TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES utenti(id)
 );
 
 CREATE TABLE spells_n_weapons (
