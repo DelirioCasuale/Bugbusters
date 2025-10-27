@@ -12,6 +12,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Data
+@Entity
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class Player extends Guest{

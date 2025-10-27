@@ -4,10 +4,13 @@ import java.sql.Date;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
+@Entity
+@Table(name="campaigns")
 @EqualsAndHashCode
 public class Campaign {
 
