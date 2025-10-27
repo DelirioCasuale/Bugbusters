@@ -10,7 +10,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -35,5 +37,14 @@ public class CharacterSheet {
     @Blob
     private byte[] contenuto;
     private Date data_caricamento = Date.valueOf(LocalDate.now());
+
+    @ManyToMany
+    @JoinTable(
+        name=" campaign_players",
+        joinColumns =
+        {@JoinColumn (name="character_id")},
+        inverseJoinColumns=
+        {@JoinColumn (name=" campaign_id")}
+    )
     private List<Campaign> campaigns;
 }
