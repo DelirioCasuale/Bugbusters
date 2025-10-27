@@ -1,23 +1,21 @@
 package com.generation.Bugbusters.entity;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import com.generation.Bugbusters.enumeration.RoleName;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Data
 @Entity
-@Table(name="roles")
+@Table(name = "roles") // mappa questa classe alla tabella 'roles' nel database
+@Data 
+@NoArgsConstructor
 public class Role {
 
-    private Long id;
-    private String name;
-    @ManyToMany(mappedBy="users")
-    @JsonIgnore
-    private Map<Long,User> users;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
+    @Enumerated(EnumType.STRING) // serve per indicare a JPA di salvare l'enum come stringa
+    @Column(name = "role_name", nullable = false, unique = true, length = 50)
+    private RoleName roleName;
 }
