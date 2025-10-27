@@ -1,34 +1,52 @@
 package com.generation.Bugbusters.entity;
 
-
-
-import java.sql.Date;
-import java.util.List;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-@Data
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
-@Table(name="users")
-@EqualsAndHashCode
-public abstract class User {
+@Table(name = "users")
+@Data
+@NoArgsConstructor
+public class User {
 
-    private Long id;
-    private String username;
-    private String password;
-    private Date created_at;
-    @ManyToMany
-    @JoinTable
-    (
-        name="users_roles",
-        joinColumns = {@JoinColumn(name="user_id")},
-        inverseJoinColumns = {@JoinColumn(name="role_id")}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; // usare Long per gli id principali è più robusto in termini di scalabilità
+
+    @Column(nullable = false, unique = true, length = 50)
+    private String username; // nome utente unico
+
+    @Column(nullable = false, unique = true, length = 100)
+    private String email; // email unica
+
+    @Column(name = "password_hash", nullable = false)
+    private String passwordHash; // bisogno di mappare snake_case (DB) a camelCase (Java)
+
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    // colonne per la logica di ban
+    @Column(name = "is_banned")
+    private boolean isBanned = false;
+
+    @Column(name = "deletion_scheduled_on")
+    private LocalDateTime deletionScheduledOn;
+
+
+    // relazione molti-a-molti con Role
+
+    @ManyToMany(fetch = FetchType.EAGER) // EAGER: serve a caricare i ruoli SEMPRE insieme all'utente
+    @JoinTable(
+            name = "users_roles", // nome della tabella "ponte"
+            joinColumns = @JoinColumn(name = "user_id"), // colonna che punta a questa entità
+            inverseJoinColumns = @JoinColumn(name = "role_id") // colonna che punta all'altra entità
     )
-    private List<Role> roles;
+    private Set<Role> roles = new HashSet<>();
+
+    // N.B. le relazioni OneToOne con Player e Master sono da aggiungere non appena create quelle entità
 }
