@@ -13,7 +13,7 @@ CREATE TABLE admins (
 );
 
 CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE players (
-    user_id INT NOT NULL PRIMARY KEY,
+    user_id BIGINT NOT NULL PRIMARY KEY,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
@@ -33,17 +33,17 @@ CREATE TABLE character_sheet (
   tipo_mime VARCHAR(50),
   contenuto LONGBLOB,
   data_caricamento TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES utenti(id)
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE masters (
-    user_id INT NOT NULL PRIMARY KEY,
+    user_id BIGINT NOT NULL PRIMARY KEY,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
 CREATE TABLE campaigns (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    master_id INT NOT NULL,
+    master_id BIGINT NOT NULL,
     title VARCHAR(100) NOT NULL,
     description TEXT,
     start_date DATE,
@@ -57,7 +57,7 @@ CREATE TABLE campaigns (
 
 CREATE TABLE campaign_players (
     campaign_id INT NOT NULL,
-    character_id INT NOT NULL,
+    character_id BIGINT NOT NULL,
     PRIMARY KEY (campaign_id, character_id),
     FOREIGN KEY (campaign_id) REFERENCES campaigns (id),
     FOREIGN KEY (character_id) REFERENCES character_sheet (id)
