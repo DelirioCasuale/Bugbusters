@@ -1,50 +1,131 @@
 package com.generation.Bugbusters.entity;
 
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import com.generation.Bugbusters.enumeration.Alignment;
+import com.generation.Bugbusters.enumeration.Race;
+import jakarta.persistence.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-@Data
 @Entity
-@Table(name="character_sheet")
-@EqualsAndHashCode
+@Table(name = "character_sheet")
+@Data
+@NoArgsConstructor
 public class CharacterSheet {
-    
-    private Long id;
-    @ManyToOne
-    @JoinColumn(
-        name = "user_id",
-        referencedColumnName = "id"
-    )
-    private Player player_id; // riferimento alla tua entità utenti
-    private String nome_file;
-    private Integer versione = 1;
-    private String tipo_mime;
-    @Blob
-    private byte[] contenuto;
-    private Date data_caricamento = Date.valueOf(LocalDate.now());
 
-    @ManyToMany
-    @JoinTable(
-        name=" campaign_players",
-        joinColumns =
-        {@JoinColumn (name="character_id")},
-        inverseJoinColumns=
-        {@JoinColumn (name=" campaign_id")}
-    )
-    private List<Campaign> campaigns;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    
+    // relazioni
+
+    @ManyToOne(fetch = FetchType.LAZY) // molte schede appartengono a un solo player
+    @JoinColumn(name = "player_id", nullable = false)
+    private Player player; // questo sarà il campo proprietario della relazione
+
+    // campi scheda base
+
+    @Column(nullable = false, length = 20) // nome del personaggio
+    private String name;
+
+    @Column(name = "primary_class", nullable = false, length = 20)
+    private String primaryClass;
+
+    @Column(name = "primary_level", nullable = false)
+    private int primaryLevel = 1; // livello iniziale di default
+
+    @Column(name = "secondary_class", length = 20) // opzionale
+    private String secondaryClass;
+
+    @Column(name = "secondary_level")
+    private Integer secondaryLevel; // integer per i valori nullabili
+
+    @Enumerated(EnumType.STRING) // salva l'enum come Stringa (es. "LAWFUL_GOOD")
+    @Column(name = "alignment")
+    private Alignment alignment;
+
+    @Enumerated(EnumType.STRING) // stessa cosa per la razza
+    @Column(name = "race")
+    private Race race;
+
+    @Column(length = 30) // background del personaggio
+    private String background;
+
+    @Column(name = "experience_points")
+    private int experiencePoints = 0; // punti esperienza iniziali a 0
+
+    // statistiche
+    private Short strength; // short è più che sufficiente tanto va da 0 a 255
+    private Short dexterity;
+    private Short constitution;
+    private Short intelligence;
+    private Short wisdom;
+    private Short charisma;
+
+    @Column(name = "proficiency_bonus")
+    private Short proficiencyBonus; // bonus di competenza
+
+    @Column(name = "max_hit_points")
+    private Integer maxHitPoints; // punti ferita massimi
+
+    @Column(name = "current_hit_points")
+    private Integer currentHitPoints; // punti ferita attuali
+
+    @Column(name = "temporary_hit_points")
+    private int temporaryHitPoints = 0; // punti ferita temporanei
+
+    @Column(name = "armor_class")
+    private Short armorClass; // classe armatura
+
+    private Short initiative;
+    private Short speed;
+    private boolean inspiration = false; // ispirazione sempre false di default
+
+    // competenze nelle abilità
+    private boolean acrobaticsSkillProficiency = false;
+    private boolean animalHandlingSkillProficiency = false;
+    private boolean arcanaSkillProficiency = false;
+    private boolean athleticsSkillProficiency = false;
+    private boolean deceptionSkillProficiency = false;
+    private boolean historySkillProficiency = false;
+    private boolean insightSkillProficiency = false;
+    private boolean intimidationSkillProficiency = false;
+    private boolean investigationSkillProficiency = false;
+    private boolean medicineSkillProficiency = false;
+    private boolean natureSkillProficiency = false;
+    private boolean perceptionSkillProficiency = false;
+    private boolean performanceSkillProficiency = false;
+    private boolean persuasionSkillProficiency = false;
+    private boolean religionSkillProficiency = false;
+    private boolean sleightOfHandSkillProficiency = false;
+    private boolean stealthSkillProficiency = false;
+    private boolean survivalSkillProficiency = false;
+
+    // inventario e descrizione
+    private int copperPieces = 0;
+    private int silverPieces = 0;
+    private int electrumPieces = 0;
+    private int goldPieces = 0;
+    private int platinumPieces = 0;
+
+    @Column(columnDefinition = "TEXT")
+    private String equipment;
+
+    @Column(columnDefinition = "TEXT")
+    private String personalityTraits;
+
+    @Column(columnDefinition = "TEXT")
+    private String ideals;
+
+    @Column(columnDefinition = "TEXT")
+    private String bonds;
+
+    @Column(columnDefinition = "TEXT")
+    private String flaws;
+
+    @Column(columnDefinition = "TEXT")
+    private String featuresAndTraits;
+
+    @Column(columnDefinition = "TEXT")
+    private String proficienciesAndLanguages;
 }
