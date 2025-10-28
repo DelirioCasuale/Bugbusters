@@ -4,6 +4,7 @@ import com.generation.Bugbusters.dto.CharacterSheetCreateRequest;
 import com.generation.Bugbusters.dto.CharacterSheetDTO;
 import com.generation.Bugbusters.dto.JoinCampaignRequest;
 import com.generation.Bugbusters.dto.JoinedCampaignDTO;
+import com.generation.Bugbusters.dto.PlayerSessionProposalDTO;
 import com.generation.Bugbusters.service.PlayerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,24 @@ public class PlayerController {
     public ResponseEntity<List<JoinedCampaignDTO>> getMyJoinedCampaigns() {
         List<JoinedCampaignDTO> campaigns = playerService.getMyJoinedCampaigns();
         return ResponseEntity.ok(campaigns);
+    }
+
+    /**
+     * endpoint per vedere tutte le proposte di sessione attive per le campagne del giocatore
+     * GET /api/player/proposals
+     */
+    @GetMapping("/proposals")
+    public ResponseEntity<List<PlayerSessionProposalDTO>> getActiveProposals() {
+        List<PlayerSessionProposalDTO> proposals = playerService.getActiveProposals();
+        return ResponseEntity.ok(proposals);
+    }
+
+    /**
+     * endpoint per votare una proposta
+     * POST /api/player/proposals/{id}/vote
+     */
+    @PostMapping("/proposals/{id}/vote")
+    public ResponseEntity<?> voteForProposal(@PathVariable Long id) {
+        return playerService.voteForProposal(id);
     }
 }
