@@ -42,4 +42,16 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * Trova tutti gli utenti bannati la cui data di cancellazione è passata.
      */
     List<User> findByIsBannedTrueAndDeletionScheduledOnBefore(LocalDateTime now);
+
+    /**
+     * trova tutti gli utenti che hanno un profilo player
+     * spring capisce "PlayerIsNotNull" e lo traduce in SQL.
+     */
+    List<User> findByPlayerIsNotNull();
+
+    /**
+     * trova tutti gli utenti che hanno un profilo master
+     * spring capisce "MasterIsNotNull" e lo traduce in SQL.
+     */
+    List<User> findByMasterIsNotNull();
 }
