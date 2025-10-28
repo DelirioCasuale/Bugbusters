@@ -6,13 +6,20 @@ import com.generation.Bugbusters.dto.CharacterSheetSimpleDTO;
 import com.generation.Bugbusters.dto.JoinCampaignRequest;
 import com.generation.Bugbusters.dto.JoinedCampaignDTO;
 import com.generation.Bugbusters.dto.MessageResponse;
+import com.generation.Bugbusters.dto.PlayerSessionProposalDTO;
 import com.generation.Bugbusters.entity.Campaign;
 import com.generation.Bugbusters.entity.CharacterSheet;
 import com.generation.Bugbusters.entity.Player;
+import com.generation.Bugbusters.entity.ProposalVote;
+import com.generation.Bugbusters.entity.ProposalVoteId;
+import com.generation.Bugbusters.entity.SessionProposal;
+import com.generation.Bugbusters.exception.ResourceNotFoundException;
 import com.generation.Bugbusters.mapper.CharacterSheetMapper;
 import com.generation.Bugbusters.repository.CampaignRepository;
 import com.generation.Bugbusters.repository.CharacterSheetRepository;
 import com.generation.Bugbusters.repository.PlayerRepository;
+import com.generation.Bugbusters.repository.ProposalVoteRepository;
+import com.generation.Bugbusters.repository.SessionProposalRepository;
 import com.generation.Bugbusters.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +28,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -39,6 +48,12 @@ public class PlayerService {
 
     @Autowired
     private CampaignRepository campaignRepository; // iniettiamo il repository delle campagne
+
+    @Autowired
+    private SessionProposalRepository sessionProposalRepository; // iniettiamo il repository delle proposte di sessione
+
+    @Autowired
+    private ProposalVoteRepository proposalVoteRepository; // iniettiamo il repository dei voti delle proposte
 
     // crea una nuova scheda personaggio per l'utente loggato
     @Transactional
@@ -175,5 +190,110 @@ public class PlayerService {
             return dto;
             
         }).collect(Collectors.toList());
+    }
+
+    /**
+     * recupera tutte le proposte di sessione attive per tutte le campagne a cui il Player partecipa
+     */
+    @Transactional(readOnly = true)
+    public List<PlayerSessionProposalDTO> getActiveProposals() {
+        Player currentPlayer = getCurrentPlayer();
+        Long playerId = currentPlayer.getId();
+
+        // trova le campagne del giocatore
+        List<Campaign> myCampaigns = campaignRepository.findCampaignsByPlayerId(playerId);
+
+        // colleziona tutte le proposte da tutte le campagne
+        List<PlayerSessionProposalDTO> allProposals = new ArrayList<>();
+
+        for (Campaign campaign : myCampaigns) {
+            // trova le proposte attive per QUESTA campagna
+            List<SessionProposal> activeProposals = sessionProposalRepository
+                    .findByCampaignIdAndExpiresOnAfterAndIsConfirmedFalse(
+                            campaign.getId(), 
+                            LocalDateTime.now());
+            
+            // mappa le proposte nel DTO
+            for (SessionProposal proposal : activeProposals) {
+                
+                // controlla se il giocatore ha già votato
+                // (grazie a @Transactional, proposal.getVotes() viene caricato)
+                boolean hasVoted = proposal.getVotes().stream()
+                        .anyMatch(vote -> vote.getPlayer().getId().equals(playerId));
+
+                // costruisce il DTO
+                allProposals.add(mapProposalToPlayerDTO(proposal, campaign, hasVoted));
+            }
+        }
+        
+        return allProposals;
+    }
+
+    /**
+     * registra il voto del Player loggato per una proposta
+     */
+    @Transactional
+    public ResponseEntity<?> voteForProposal(Long proposalId) {
+        Player currentPlayer = getCurrentPlayer();
+        Long playerId = currentPlayer.getId();
+
+        // trova la proposta
+        SessionProposal proposal = sessionProposalRepository.findById(proposalId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Proposta non trovata con ID: " + proposalId));
+
+        // verifica se è ancora attiva
+        if (proposal.isConfirmed() || proposal.getExpiresOn().isBefore(LocalDateTime.now())) {
+            return new ResponseEntity<>(
+                    new MessageResponse("Errore: La votazione per questa proposta è chiusa."), 
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        // verifica se il player è in questa campagna
+        Campaign campaign = proposal.getCampaign();
+        boolean isMember = campaign.getPlayers().stream()
+                .anyMatch(sheet -> sheet.getPlayer().getId().equals(playerId));
+        
+        if (!isMember) {
+            return new ResponseEntity<>(
+                    new MessageResponse("Errore: Non fai parte della campagna per cui stai votando."), 
+                    HttpStatus.FORBIDDEN);
+        }
+
+        // verifica se il player ha già votato
+        ProposalVoteId voteId = new ProposalVoteId(proposalId, playerId);
+        if (proposalVoteRepository.existsById(voteId)) {
+            return new ResponseEntity<>(
+                    new MessageResponse("Errore: Hai già votato per questa proposta."), 
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        // se tutto ok registra il voto
+        ProposalVote newVote = new ProposalVote();
+        newVote.setId(voteId);
+        newVote.setPlayer(currentPlayer);
+        newVote.setProposal(proposal);
+        
+        proposalVoteRepository.save(newVote);
+
+        return ResponseEntity.ok(new MessageResponse("Voto registrato con successo!"));
+    }
+
+
+    /**
+     * metodo helper per mappare un'entità proposal nel dto
+     */
+    private PlayerSessionProposalDTO mapProposalToPlayerDTO(
+            SessionProposal proposal, Campaign campaign, boolean hasVoted) {
+        
+        PlayerSessionProposalDTO dto = new PlayerSessionProposalDTO();
+        dto.setProposalId(proposal.getId());
+        dto.setCampaignId(campaign.getId());
+        dto.setCampaignTitle(campaign.getTitle());
+        dto.setProposedDate(proposal.getProposedDate());
+        dto.setExpiresOn(proposal.getExpiresOn());
+        dto.setConfirmed(proposal.isConfirmed());
+        dto.setHasVoted(hasVoted);
+        return dto;
     }
 }
