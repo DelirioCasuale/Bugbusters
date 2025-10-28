@@ -7,7 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 // classe che ha il compito di avvolgere la entità user e la traduce per Spring Security
@@ -39,12 +39,23 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     
-    // un metodo factory statico per creare un UserDetailsImpl a partire dalla nostra entità User.
+    
+    // metodo factory MODIFICATO per includere ruoli dinamici
     public static UserDetailsImpl build(User user) {
-        // cosí ora si converte il Set<Role> in una List<SimpleGrantedAuthority>
-        List<GrantedAuthority> authorities = user.getRoles().stream()
+        
+        // prende i ruoli statici dal DB (ROLE_USER, ROLE_ADMIN)
+        Set<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getRoleName().name()))
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet()); // raccoglie in un set
+
+        // aggiunge i ruoli dinamici basati sui profili
+        // N.B: funziona perché il metodo che carica l'User è @Transactional
+        if (user.getPlayer() != null) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_PLAYER"));
+        }
+        if (user.getMaster() != null) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_MASTER"));
+        }
 
         return new UserDetailsImpl(
                 user.getId(),
@@ -52,7 +63,7 @@ public class UserDetailsImpl implements UserDetails {
                 user.getEmail(),
                 user.getPasswordHash(),
                 user.isBanned(),
-                authorities
+                authorities // bisogna passare il set completo di autorità
         );
     }
 
