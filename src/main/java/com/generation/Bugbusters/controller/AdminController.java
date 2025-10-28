@@ -8,6 +8,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -48,5 +51,16 @@ public class AdminController {
     public ResponseEntity<List<AdminUserViewDTO>> getMastersOnly() {
         List<AdminUserViewDTO> users = adminService.getMastersOnly();
         return ResponseEntity.ok(users);
+    }
+
+    /**
+     * endpoint per bannare (sospendere) un utente
+     * POST /api/admin/users/{id}/ban
+     */
+    @PostMapping("/users/{id}/ban")
+    public ResponseEntity<?> banUser(@PathVariable Long id) {
+        
+        // delega tutta la logica (ban utente + gestione campagne) al service
+        return adminService.banUser(id);
     }
 }
