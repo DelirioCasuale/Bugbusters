@@ -1,4 +1,5 @@
 // Spring Security Frontend Validator Mock
+
 class SpringSecurityValidator {
   constructor() {
     this.users = [
@@ -13,12 +14,47 @@ class SpringSecurityValidator {
         password: 'password1',
         role: 'GUEST',
         authorities: ['ROLE_GUEST'],
+        // Non ha master (non è un master)
+        player: {
+          characters: ['My Warrior', 'My Mage'],
+        },
       },
       {
         username: 'guest2',
         password: 'password2',
         role: 'GUEST',
         authorities: ['ROLE_GUEST'],
+        master: {
+          campaigns: ['My Epic Campaign'],
+        },
+        // Non ha player (non è un player)
+      },
+      {
+        username: 'guest3',
+        password: 'password3',
+        role: 'GUEST',
+        authorities: ['ROLE_GUEST'],
+        master: {
+          campaigns: ['Adventure Quest', 'Dark Mystery'],
+        },
+        player: {
+          characters: ['Rogue Assassin'],
+        },
+      },
+      {
+        username: 'guest4',
+        password: 'password4',
+        role: 'GUEST',
+        authorities: ['ROLE_GUEST'],
+        master: {}, // È un master ma non ha ancora campagne
+        player: {}, // È un player ma non ha ancora personaggi
+      },
+      {
+        username: 'guest5',
+        password: 'password5',
+        role: 'GUEST',
+        authorities: ['ROLE_GUEST'],
+        // Non ha né master né player (non può accedere a nessuna vista)
       },
     ];
 
@@ -47,6 +83,8 @@ class SpringSecurityValidator {
         role: user.role,
         authorities: user.authorities,
         authenticated: true,
+        master: user.master,
+        player: user.player,
       };
 
       // Salva nel sessionStorage
@@ -79,6 +117,22 @@ class SpringSecurityValidator {
   hasAuthority(authority) {
     if (!this.isAuthenticated()) return false;
     return this.currentUser.authorities.includes(authority);
+  }
+
+  // Verifica se l'utente è un master
+  isMaster() {
+    if (!this.isAuthenticated()) return false;
+    return (
+      this.currentUser.master !== undefined && this.currentUser.master !== null
+    );
+  }
+
+  // Verifica se l'utente è un giocatore
+  isPlayer() {
+    if (!this.isAuthenticated()) return false;
+    return (
+      this.currentUser.player !== undefined && this.currentUser.player !== null
+    );
   }
 
   // Ottiene l'utente corrente
@@ -183,6 +237,24 @@ class SpringSecurityValidator {
     guestElements.forEach((el) => {
       el.style.display = this.hasRole('GUEST') ? 'block' : 'none';
     });
+
+    // Elementi per utenti che SONO player
+    const playerElements = document.querySelectorAll(
+      '[sec\\:authorize="isPlayer()"]'
+    );
+    playerElements.forEach((el) => {
+      el.style.display =
+        this.isAuthenticated() && this.isPlayer() ? 'block' : 'none';
+    });
+
+    // Elementi per utenti che SONO master
+    const masterElements = document.querySelectorAll(
+      '[sec\\:authorize="isMaster()"]'
+    );
+    masterElements.forEach((el) => {
+      el.style.display =
+        this.isAuthenticated() && this.isMaster() ? 'block' : 'none';
+    });
   }
 
   // Metodo per il login form
@@ -213,6 +285,8 @@ document.addEventListener('DOMContentLoaded', () => {
   window.hasRole = (role) => securityValidator.hasRole(role);
   window.hasAuthority = (authority) =>
     securityValidator.hasAuthority(authority);
+  window.isMaster = () => securityValidator.isMaster();
+  window.isPlayer = () => securityValidator.isPlayer();
   window.getCurrentUser = () => securityValidator.getCurrentUser();
   window.logout = () => securityValidator.logout();
   window.securityLogin = (username, password, errorCallback) =>

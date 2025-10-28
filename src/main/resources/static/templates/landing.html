@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tavern Portal</title>
-  <!-- TODO aggiungere una favicon per la scheda del browser -->
+  <link rel="icon" type="image/x-icon" href="../images/dice.png" /> <!-- TODO modificare icona con qualcosa di meglio? -->
   <link rel="stylesheet" href="../css/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
@@ -14,77 +14,18 @@
 
   <!-- Intestazione -->
   <header>
-    <div class="logo">Tavern Portal</div>
+    <div class="logo-flex">
+      <i><img src="../images/dice.png" style="width: auto; height: 36px;" alt="Tavern Portal Logo" /></i>
+      <div class="logo">Tavern Portal</div>
+    </div>
+
     <nav>
       <!-- I link cambieranno dinamicamente in base allo stato di autenticazione -->
-      <a href="#" id="loginLink">Accedi</a>
-      <a href="#">Registrati</a>
+      <!-- usare i fragment di thymeleaf per le modifiche alla navbar -->
+      <a href="#" class="login">Accedi</a>
+      <a href="signup.html">Registrati</a>
     </nav>
   </header>
-
-  <!-- Benvenuto -->
-  <main>
-    <section class="hero">
-      <div class="hero-content">
-        <h1 sec:authorize="!isAuthenticated()">Benvenuto nella Taverna</h1>
-        <h1 sec:authorize="isAuthenticated()">Bentornato alla Taverna</h1>
-        <p sec:authorize="!isAuthenticated()">Gestisci le tue campagne di D&D, crea personaggi e vivi nuove avventure.</p>
-        <p sec:authorize="isAuthenticated()">Sei pronto a tornare alla tua avventura?</p>
-
-        <button class="btn-primary" sec:authorize="!isAuthenticated()">Inizia Ora</button>
-        <button class="btn-primary" sec:authorize="isAuthenticated()">Visuale Player</button>
-        <button class="btn-primary" sec:authorize="hasRole('ADMIN')">Visuale Master</button>
-      </div>
-    </section>
-
-    <!-- Sezione di test per lo stato di autenticazione -->
-    <section class="test-section" style="background-color: #f8f9fa; padding: 20px; margin: 20px; border-radius: 8px;">
-      <h3>Stato di Autenticazione (Sezione di Test)</h3>
-      <div id="test-area">
-        <!-- Il contenuto verrà aggiornato dinamicamente -->
-      </div>
-
-      <!-- Sezioni condizionali per test -->
-      <div sec:authorize="!isAuthenticated()" style="border: 2px solid #dc3545; padding: 10px; margin: 10px 0; background-color: #f8d7da;">
-        <strong>Visibile solo agli utenti NON autenticati</strong>
-        <p>Questo contenuto è visibile solo quando non sei loggato.</p>
-      </div>
-
-      <div sec:authorize="isAuthenticated()" style="border: 2px solid #28a745; padding: 10px; margin: 10px 0; background-color: #d4edda;">
-        <strong>Visibile solo agli utenti autenticati</strong>
-        <p>Questo contenuto è visibile solo quando sei loggato.</p>
-      </div>
-
-      <div sec:authorize="hasRole('ADMIN')" style="border: 2px solid #007bff; padding: 10px; margin: 10px 0; background-color: #cce7ff;">
-        <strong>Visibile solo agli ADMIN</strong>
-        <p>Questo contenuto è visibile solo agli utenti con ruolo ADMIN.</p>
-      </div>
-
-      <div sec:authorize="hasRole('GUEST')" style="border: 2px solid #ffc107; padding: 10px; margin: 10px 0; background-color: #fff3cd;">
-        <strong>Visibile solo ai GUEST</strong>
-        <p>Questo contenuto è visibile solo agli utenti con ruolo GUEST.</p>
-      </div>
-    </section>
-
-    <!-- About -->
-    <section class="about">
-      <h2>Cos'è Tavern Portal?</h2>
-      <p>
-        La piattaforma per Dungeon Master e Giocatori per pianificare, creare e condividere
-        le tue campagne di Dungeons&Dragons in un unico portale.
-      </p>
-
-      <!-- Informazioni utenti di test -->
-      <div style="margin-top: 20px; padding: 15px; background-color: #e9ecef; border-radius: 5px;">
-        <h4>Utenti di Test Disponibili:</h4>
-        <ul>
-          <li><strong>admin</strong> / password: <em>admin</em> (Ruolo: ADMIN)</li>
-          <li><strong>guest1</strong> / password: <em>password1</em> (Ruolo: GUEST)</li>
-          <li><strong>guest2</strong> / password: <em>password2</em> (Ruolo: GUEST)</li>
-        </ul>
-      </div>
-    </section>
-  </main>
 
   <!-- Modal di Login -->
   <div id="loginModal" class="custom-modal">
@@ -98,21 +39,56 @@
         <form id="loginForm">
           <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" required>
+            <input type="text" id="username" name="username" required placeholder="Inserisci username">
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" required placeholder="Inserisci password">
           </div>
           <div id="loginError" class="error-message"></div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="modalCancel">Chiudi</button>
-        <button type="button" class="btn btn-primary" id="loginButton">Accedi</button>
+        <a href="signup.html">Non hai un account? Registrati</a>
+        <div class="btn-group">
+          <button type="button" class="btn btn-secondary" id="modalCancel">Chiudi</button>
+          <button type="button" class="btn btn-primary" id="loginButton">Accedi</button>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- Benvenuto -->
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1 sec:authorize="!isAuthenticated()">Benvenuto nella Taverna</h1>
+        <h1 sec:authorize="isAuthenticated()">Bentornato alla Taverna</h1>
+        <p sec:authorize="!isAuthenticated()">Gestisci le tue campagne di D&D, crea personaggi e vivi nuove avventure.</p>
+        <p sec:authorize="isAuthenticated()">Sei pronto a tornare alla tua avventura?</p>
+
+        <div class="btn-group">
+          <button class="btn-primary login" sec:authorize="!isAuthenticated()">Inizia Ora</button>
+          <button class="btn-primary" sec:authorize="isPlayer()">Visuale Player</button>
+          <button class="btn-primary" sec:authorize="isMaster()">Visuale Master</button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- About -->
+    <section class="about">
+      <h2>Cos'è Tavern Portal?</h2>
+      <p>
+        La piattaforma per Dungeon Master e Giocatori per pianificare, creare e condividere
+        le tue campagne di Dungeons&Dragons in un unico portale.
+      </p>
+
+
+    </section>
+  </main>
+
+
 
   <!-- Footer -->
   <footer class="footer">
@@ -123,8 +99,6 @@
   <script src="../js/frontend-development-script.js"></script>
   <script src="../js/script.js"></script>
 
-  <!-- Elemento nascosto per compatibilità con Spring Security -->
-  <span sec:authentication="username" style="display: none;"></span>
 
 </body><!-- TODO (per il gestore del sito) necessaria cookie n privacy policy perché vengono gestiti dati personali -->
 

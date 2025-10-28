@@ -87,7 +87,7 @@ class CustomModal {
 
 // Event listener per il link di login
 document.addEventListener('click', function (event) {
-  if (event.target.id === 'loginLink') {
+  if (event.target.classList.contains('login')) {
     event.preventDefault(); // blocca il link
     if (loginModal) {
       loginModal.show();
