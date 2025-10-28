@@ -46,6 +46,11 @@ header {
   text-shadow: 0 0 6px #6d28d9;
 }
 
+.logo-icon {
+  width: auto;
+  height: 36px;
+}
+
 /* Navigation */
 nav {
   display: flex;
