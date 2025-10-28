@@ -2,6 +2,8 @@ package com.generation.Bugbusters.controller;
 
 import com.generation.Bugbusters.dto.CharacterSheetCreateRequest;
 import com.generation.Bugbusters.dto.CharacterSheetDTO;
+import com.generation.Bugbusters.dto.JoinCampaignRequest;
+import com.generation.Bugbusters.dto.JoinedCampaignDTO;
 import com.generation.Bugbusters.service.PlayerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +42,23 @@ public class PlayerController {
         List<CharacterSheetDTO> mySheets = playerService.getAllMyCharacterSheets();
         
         return ResponseEntity.ok(mySheets);
+    }
+
+    // endpoint per UNIRSI a una campagna
+    // POST /api/player/campaigns/join
+    @PostMapping("/campaigns/join")
+    public ResponseEntity<?> joinCampaign(
+            @Valid @RequestBody JoinCampaignRequest joinRequest) {
+        
+        // il controller delega tutto al service e restituisce la ResponseEntity che il service ha preparato
+        return playerService.joinCampaign(joinRequest);
+    }
+
+    // endpoint per LEGGERE tutte le campagne a cui il giocatore loggato si è unito
+    // GET /api/player/campaigns/joined
+    @GetMapping("/campaigns/joined")
+    public ResponseEntity<List<JoinedCampaignDTO>> getMyJoinedCampaigns() {
+        List<JoinedCampaignDTO> campaigns = playerService.getMyJoinedCampaigns();
+        return ResponseEntity.ok(campaigns);
     }
 }
