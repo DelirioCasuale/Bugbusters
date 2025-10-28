@@ -19,4 +19,10 @@ public interface SessionProposalRepository extends JpaRepository<SessionProposal
     List<SessionProposal> findByCampaignIdAndExpiresOnAfterAndIsConfirmedFalse(
             Long campaignId, 
             LocalDateTime now);
+    
+    /**
+     * trova tutte le proposte la cui data di scadenza (expiresOn)
+     * è passata (è 'before' now) e che non sono ancora state confermate
+     */
+    List<SessionProposal> findByExpiresOnBeforeAndIsConfirmedFalse(LocalDateTime now);
 }
