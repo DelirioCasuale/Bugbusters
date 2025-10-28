@@ -2,6 +2,8 @@ package com.generation.Bugbusters.controller;
 
 import com.generation.Bugbusters.dto.CampaignCreateRequest;
 import com.generation.Bugbusters.dto.CampaignDTO;
+import com.generation.Bugbusters.dto.CampaignStartDateRequest;
+import com.generation.Bugbusters.dto.SessionProposalRequest;
 import com.generation.Bugbusters.service.MasterService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +43,34 @@ public class MasterController {
         List<CampaignDTO> myCampaigns = masterService.getMyCampaigns();
         
         return ResponseEntity.ok(myCampaigns);
+    }
+
+    // Endpoint per LEGGERE i dettagli di una campagna specifica (inclusi i giocatori)
+    // GET /api/master/campaigns/{id}
+    @GetMapping("/campaigns/{id}")
+    public ResponseEntity<?> getCampaignDetails(@PathVariable Long id) {
+        
+        // Delega tutta la logica (inclusa la validazione) al service
+        return masterService.getCampaignDetails(id);
+    }
+
+    // endpoint per impostare la data d'inizio
+    // PATCH /api/master/campaigns/{id}/start-date
+    @PatchMapping("/campaigns/{id}/start-date")
+    public ResponseEntity<?> setStartDate(
+            @PathVariable Long id,
+            @Valid @RequestBody CampaignStartDateRequest request) {
+        
+        return masterService.setCampaignStartDate(id, request);
+    }
+
+    // endpoint per proporre una nuova sessione
+    // POST /api/master/campaigns/{id}/propose-session
+    @PostMapping("/campaigns/{id}/propose-session")
+    public ResponseEntity<?> proposeSession(
+            @PathVariable Long id,
+            @Valid @RequestBody SessionProposalRequest request) {
+        
+        return masterService.proposeSession(id, request);
     }
 }

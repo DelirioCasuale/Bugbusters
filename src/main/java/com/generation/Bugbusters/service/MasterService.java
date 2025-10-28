@@ -2,17 +2,28 @@ package com.generation.Bugbusters.service;
 
 import com.generation.Bugbusters.dto.CampaignCreateRequest;
 import com.generation.Bugbusters.dto.CampaignDTO;
+import com.generation.Bugbusters.dto.CampaignStartDateRequest;
+import com.generation.Bugbusters.dto.MasterCampaignViewDTO;
+import com.generation.Bugbusters.dto.MessageResponse;
+import com.generation.Bugbusters.dto.SessionProposalRequest;
 import com.generation.Bugbusters.entity.Campaign;
 import com.generation.Bugbusters.entity.Master;
+import com.generation.Bugbusters.entity.SessionProposal;
+import com.generation.Bugbusters.exception.ResourceNotFoundException;
+import com.generation.Bugbusters.exception.UnauthorizedException;
 import com.generation.Bugbusters.mapper.CampaignMapper;
 import com.generation.Bugbusters.repository.CampaignRepository;
 import com.generation.Bugbusters.repository.MasterRepository;
+import com.generation.Bugbusters.repository.SessionProposalRepository;
 import com.generation.Bugbusters.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +38,9 @@ public class MasterService {
 
     @Autowired
     private CampaignMapper campaignMapper;
+
+    @Autowired
+    private SessionProposalRepository sessionProposalRepository;
 
     // crea una nuova campagna per il master attualmente loggato
     @Transactional
@@ -71,5 +85,94 @@ public class MasterService {
         return masterRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException(
                         "Profilo Master non trovato per l'utente loggato."));
+    }
+
+    // usa l'helper di validazione per ottenere i dettagli di una campagna specifica
+    @Transactional(readOnly = true)
+    public ResponseEntity<?> getCampaignDetails(Long campaignId) {
+        try {
+            // ottiene il Master loggato
+            Master currentMaster = getCurrentMaster();
+            
+            // ottiene e valida la campagna con l'helper
+            Campaign campaign = getCampaignAndValidateOwnership(campaignId, currentMaster.getId());
+
+            // mappa e restituisce
+            MasterCampaignViewDTO dto = campaignMapper.toMasterViewDTO(campaign);
+            return ResponseEntity.ok(dto);
+
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.NOT_FOUND);
+        } catch (UnauthorizedException e) {
+            return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.FORBIDDEN);
+        }
+    }
+
+    // Imposta la data di inizio di una campagna.
+
+    @Transactional
+    public ResponseEntity<?> setCampaignStartDate(Long campaignId, CampaignStartDateRequest dto) {
+        try {
+            Master currentMaster = getCurrentMaster();
+            Campaign campaign = getCampaignAndValidateOwnership(campaignId, currentMaster.getId());
+
+            campaign.setStartDate(dto.getStartDate());
+            campaignRepository.save(campaign);
+            
+            return ResponseEntity.ok(new MessageResponse("Data d'inizio impostata con successo."));
+
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.NOT_FOUND);
+        } catch (UnauthorizedException e) {
+            return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.FORBIDDEN);
+        }
+    }
+
+    // Crea una nuova proposta di sessione per la votazione.
+    @Transactional
+    public ResponseEntity<?> proposeSession(Long campaignId, SessionProposalRequest dto) {
+        try {
+            Master currentMaster = getCurrentMaster();
+            Campaign campaign = getCampaignAndValidateOwnership(campaignId, currentMaster.getId());
+
+            // Crea la nuova entità Proposta
+            SessionProposal proposal = new SessionProposal();
+            proposal.setCampaign(campaign);
+            proposal.setProposedDate(dto.getProposedDate());
+            
+            // Logica delle 48h (come da requisiti)
+            proposal.setExpiresOn(LocalDateTime.now().plusHours(48)); 
+            proposal.setConfirmed(false);
+            
+            sessionProposalRepository.save(proposal);
+
+            return new ResponseEntity<>(
+                    new MessageResponse("Proposta creata. I giocatori hanno 48 ore per votare."), 
+                    HttpStatus.CREATED);
+
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.NOT_FOUND);
+        } catch (UnauthorizedException e) {
+            return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.FORBIDDEN);
+        }
+    }
+
+
+    // Recupera una campagna e valida che appartenga al master.
+    private Campaign getCampaignAndValidateOwnership(Long campaignId, Long masterId)
+            throws ResourceNotFoundException, UnauthorizedException {
+        
+        // Trova la campagna
+        Campaign campaign = campaignRepository.findById(campaignId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Campagna non trovata con ID: " + campaignId));
+
+        // Valida la proprietà
+        if (campaign.getMaster() == null || !campaign.getMaster().getId().equals(masterId)) {
+            throw new UnauthorizedException(
+                    "Non sei autorizzato a modificare questa campagna.");
+        }
+        
+        return campaign;
     }
 }
