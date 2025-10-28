@@ -30,4 +30,9 @@ public interface CampaignRepository extends JpaRepository<Campaign, Long> {
      * Trova tutte le campagne orfane la cui data di scadenza per trovare un nuovo master è passata.
      */
     List<Campaign> findByMasterBanPendingUntilBefore(LocalDateTime now);
+
+    /**
+     * Trova tutte le campagne gestite da uno specifico Master.
+     */
+    List<Campaign> findByMasterId(Long masterId);
 }

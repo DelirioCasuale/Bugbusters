@@ -88,12 +88,17 @@ public class SecurityConfig {
                 // bisogna permettere l'accesso ai file statici (index.html, .js, .css)
                 .requestMatchers("/", "/index.html", "/*.js", "/*.css").permitAll() 
                 
-                // Definiamo gli endpoint PROTETTI
+                // definiamo gli endpoint PROTETTI
+                // endpoint admin
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                .requestMatchers("/api/player/**").hasRole("USER") 
-                .requestMatchers("/api/master/**").hasRole("USER")
+                // serve a creare i profili
+                .requestMatchers("/api/profile/**").hasRole("USER")
+                // solo chi é un player può accedere alle API da player
+                .requestMatchers("/api/player/**").hasRole("PLAYER")
+                // solo chi é un master può accedere alle API da master
+                .requestMatchers("/api/master/**").hasRole("MASTER")
                 
-                // Qualsiasi altra richiesta deve essere autenticata
+                // qualsiasi altra richiesta deve essere autenticata
                 .anyRequest().authenticated()
             );
 
