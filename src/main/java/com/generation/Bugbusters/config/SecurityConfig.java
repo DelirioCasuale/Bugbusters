@@ -16,6 +16,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.http.HttpMethod;
 
 @Configuration
 @EnableWebSecurity // abilita la configurazione di sicurezza web
@@ -75,38 +76,39 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            // in caso di CORS sarebbe necessario abilitare il CORS qui
-            .csrf(csrf -> csrf.disable()) // disabilita CSRF che sta per Cross-Site Request Forgery (non serve per API stateless, in parole semplici non vogliamo che il browser invii automaticamente i cookie di sessione)
+            // --- DISABILITA CSRF ---
+            .csrf(csrf -> csrf.disable()) // Assicura che CSRF sia disabilitato
+
+            // --- GESTIONE SESSIONE STATELESS ---
             .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // NON creare sessioni
-            .authenticationProvider(authenticationProvider()) // usa il proprio provider
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Non usare sessioni
+
+            // --- PROVIDER DI AUTENTICAZIONE ---
+            .authenticationProvider(authenticationProvider()) // Usa il nostro provider custom
+
+            // --- REGOLE DI AUTORIZZAZIONE ---
             .authorizeHttpRequests(authz -> authz
-                // si definiscono gli endpoint PUBBLICI
-                .requestMatchers("/api/auth/**").permitAll() // Es. /api/auth/login, /api/auth/register
-                
-                // PER IL TEST BASE IN /static
-                // bisogna permettere l'accesso ai file statici (index.html, .js, .css)
-                .requestMatchers("/", "/landing.html", "/register.html", "/css/**", "/js/**", "/images/**").permitAll() // permetti l'accesso alle risorse statiche PORCA PUTTANA
-                
-                // definiamo gli endpoint PROTETTI
-                // endpoint admin
+                // Endpoint Pubblici API (Login/Register): Permetti solo POST
+                .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
+
+                // Pagine HTML e Risorse Statiche Pubbliche: Permetti GET (e altri metodi di default)
+                .requestMatchers("/", "/landing.html", "/register.html", "/css/**", "/js/**", "/images/**").permitAll()
+
+                // Pagine HTML "Protette" - Le rendiamo accessibili per permettere al JS di fare il controllo
+                .requestMatchers("/dashboard.html", "/admin.html").permitAll() // <-- MODIFICATO A permitAll()
+
+                // Endpoint Protetti API (basati sui ruoli specifici)
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                // serve a creare i profili
-                .requestMatchers("/api/profile/**").hasRole("USER")
-                // solo chi é un player può accedere alle API da player
+                .requestMatchers("/api/profile/**").hasRole("USER") // Per 'Diventa Player/Master'
                 .requestMatchers("/api/player/**").hasRole("PLAYER")
-                // solo chi é un master può accedere alle API da master
                 .requestMatchers("/api/master/**").hasRole("MASTER")
-                
-                .requestMatchers("/dashboard.html").hasRole("USER") // Richiede almeno il ruolo base
-                .requestMatchers("/admin.html").hasRole("ADMIN") // Richiede il ruolo admin
-                
-                // qualsiasi altra richiesta deve essere autenticata
+
+                // Qualsiasi altra richiesta non specificata richiede autenticazione
                 .anyRequest().authenticated()
             );
 
-        // aggiunta chiave di filtro JWT
-        // aggiunge il filtro JWT prima del filtro standard di username/password
+        // --- AGGIUNTA FILTRO JWT ---
+        // Inserisce il nostro filtro per validare i token prima dei filtri standard
         http.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
