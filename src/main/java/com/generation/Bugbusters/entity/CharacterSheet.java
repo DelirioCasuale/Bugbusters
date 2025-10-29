@@ -3,12 +3,14 @@ package com.generation.Bugbusters.entity;
 import com.generation.Bugbusters.enumeration.Alignment;
 import com.generation.Bugbusters.enumeration.Race;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "character_sheet")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class CharacterSheet {
 
