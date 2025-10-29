@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="it">
+
+
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tavern Portal - Registrazione</title>
+    <link rel="icon" type="image/x-icon" href="../static/images/dice.png" /> <!-- TODO modificare icona con qualcosa di meglio? -->
+    <link rel="stylesheet" href="../static/css/main.css" />
+    <link rel="stylesheet" href="../static/css/signup.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <div class="logo-flex">
+            <i><img src="../static/images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
+            <div class="logo">Tavern Portal</div>
+        </div>
+
+        <nav>
+            <a sec:authorize="!isAuthenticated()" href="#" class="login">Accedi</a>
+            <a sec:authorize="!isAuthenticated()" href="signup.html">Registrati</a>
+            <!-- lo script fa il resto per ora -->
+        </nav>
+    </header>
+
+    <!-- Modal di Login -->
+    <div id="loginModal" class="custom-modal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">Accedi</h2>
+                <button type="button" class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required placeholder="Inserisci username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required placeholder="Inserisci password">
+                    </div>
+                    <div id="loginError" class="error-message"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="signup.html">Non hai un account? Registrati</a>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary" id="modalCancel">Chiudi</button>
+                    <button type="button" class="btn btn-primary" id="loginButton">Accedi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <main>
+        <!-- Messaggio registrazione -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Crea il tuo account</h1>
+                <p>Unisciti alla taverna e inizia la tua avventura!</p>
+            </div>
+        </section>
+        <!-- Sezione di registrazione -->
+        <div class="register-container">
+            <section class="register-card">
+                <form class="register-form">
+                    <label for="username">Nome utente</label>
+                    <input type="text" id="username" name="username" placeholder="Inserisci il tuo nome utente" required>
+                    <br>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Inserisci la tua email" required>
+                    <br>
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Crea una password" required>
+                    <br>
+                    <label for="confirm-password">Conferma password</label>
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Ripeti la password" required>
+                    <br>
+                    <button type="submit" class="btn-primary">Registrati</button>
+                </form>
+                <p class="register-footer">
+                    Hai già un account? <a sec:authorize="!isAuthenticated()" href="#" class="login">Accedi</a>
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
+    </footer>
+
+    <!-- Scripts personalizzati -->
+    <script src="../static/js/frontend-development-script.js"></script>
+    <script src="../static/js/script.js"></script>
+
+</body>
+
+</html>

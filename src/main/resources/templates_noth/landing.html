@@ -5,26 +5,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tavern Portal</title>
-  <link rel="icon" type="image/x-icon" href="../images/dice.png" /> <!-- TODO modificare icona con qualcosa di meglio? -->
-  <link rel="stylesheet" href="../css/main.css" />
-  <link rel="stylesheet" href="../css/landing.css" />
+  <link rel="icon" type="image/x-icon" href="../static/images/dice.png" /> <!-- TODO modificare icona con qualcosa di meglio? -->
+  <link rel="stylesheet" href="../static/css/main.css" />
+  <link rel="stylesheet" href="../static/css/landing.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-  <!-- Intestazione -->
+  <!-- Navbar -->
   <header>
     <div class="logo-flex">
-      <i><img src="../images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
+      <i><img src="../static/images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
       <div class="logo">Tavern Portal</div>
     </div>
 
     <nav>
       <a sec:authorize="!isAuthenticated()" href="#" class="login">Accedi</a>
       <a sec:authorize="!isAuthenticated()" href="signup.html">Registrati</a>
-      <a sec:authorize="isAuthenticated()" th:href="@{/player/dashboard}">Dashboard Player</a>
-      <a sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
+
+      <!-- questa DOVREBBE essere la sintassi giusta di thymeleaf -->
+      <!-- <a sec:authorize="isAuthenticated()" th:href="@{/user/dashboard}">Dashboard</a>
+      <a sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a> -->
+
     </nav>
   </header>
 
@@ -88,16 +91,11 @@
           le tue campagne di Dungeons&Dragons in un unico portale.
         </p>
       </div>
-      <!-- presto qui verrà aggiunta una chat per gli utenti loggati -->
+      <!-- placeholder, main page troppo spoglia senza -->
       <div class="chat" sec:authorize="hasRole('GUEST')">
-        <h2>Chat della Taverna</h2>
-        <div class="chat-window" id="chatWindow">
-          <!-- I messaggi della chat verranno caricati qui dinamicamente -->
-        </div>
-        <div class="chat-input">
-          <input type="text" id="chatMessageInput" placeholder="Scrivi un messaggio..." />
-          <button id="sendChatMessageButton">Invia</button>
-        </div>
+        <h2>Futura implementazione in arrivo</h2>
+        <p>Presto sarà disponibile una chat per gli utenti loggati.</p>
+      </div>
     </section>
   </main>
 
@@ -109,8 +107,8 @@
   </footer>
 
   <!-- Scripts personalizzati -->
-  <script src="../js/frontend-development-script.js"></script>
-  <script src="../js/script.js"></script>
+  <script src="../static/js/frontend-development-script.js"></script>
+  <script src="../static/js/script.js"></script>
 
 
 </body><!-- TODO (per il gestore del sito) necessaria cookie n privacy policy perché vengono gestiti dati personali -->

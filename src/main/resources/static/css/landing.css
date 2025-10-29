@@ -86,63 +86,11 @@ main {
   justify-content: space-between;
 }
 
-/* Hero Section */
-.hero {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin: 4rem auto;
-  padding: 1rem 2rem;
-  background: var(--bg-card);
-  border-radius: 12px;
+main > *:first-child {
+  margin-top: 80px;
 }
-
-/* Hero alternativo per dashboard */
-.dashboard-hero {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: var(--bg-hero-alt);
-  padding: 3rem 1rem;
-}
-
-.hero-content h1,
-.dashboard-hero-content h1 {
-  font-family: 'Cinzel Decorative', serif;
-  font-size: 2.8rem;
-  margin-bottom: 1rem;
-  color: var(--primary-purple-light);
-  text-shadow: 0 0 10px var(--primary-purple-dark);
-}
-
-.dashboard-hero-content h1 {
-  font-size: 2.5rem;
-}
-
-.hero-content p,
-.dashboard-hero-content p {
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-  color: var(--text-secondary);
-}
-
-/* About Section */
-.about {
-  max-width: 800px;
-  margin: 3rem auto;
-  text-align: center;
-  padding: 1rem 2rem;
-  background: var(--bg-card);
-  border-radius: 12px;
-}
-
-.about h2 {
-  font-family: 'Cinzel Decorative', serif;
-  color: var(--primary-purple-lighter);
-  margin-bottom: 1rem;
+main > *:last-child {
+  margin-bottom: 40px;
 }
 
 /* ============================================================================

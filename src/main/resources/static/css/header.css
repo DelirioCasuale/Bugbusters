@@ -52,8 +52,7 @@ nav {
   padding: 0;
 }
 
-nav a,
-.navbar a {
+nav a {
   color: var(--text-secondary);
   text-decoration: none;
   transition: color 0.3s, text-shadow 0.3s;
