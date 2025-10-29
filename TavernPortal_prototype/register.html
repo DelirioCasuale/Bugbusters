@@ -6,20 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tavern Portal - Registrazione</title>
     <link rel="stylesheet" href="styles.css" th:href="@{/css/styles.css}" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap"
-        rel="stylesheet">
+     <link rel="stylesheet" href="styles_dashboard.css" th:href="@{/css/styles_dashboard.css}" />
+    <link rel="stylesheet" href="styles_register.css" th:href="@{/css/styles_register.css}" />
+    <link rel="icon" type="image/x-icon" href="images/d20.logo2_nobackground.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="register-background">
 
     <!-- Navbar -->
     <header class="navbar">
-        <div class="logo">Tavern Portal</div>
-        <nav>
+        <div class="logo">
+        <i><img src="images/d20.logo2_nobackground.png" alt="Tavern Portal Logo" width="40" height="40" /></i>
+        <p>Tavern Portal</p>
+         </div>
+          <nav>
             <a href="homepage.html" class="nav-link">Home</a>
             <a href="register.html" class="nav-link active">Registrati</a>
-        </nav>
+          </nav>
     </header>
 
     <!-- Messaggio registrazione -->
