@@ -16,12 +16,17 @@ import com.generation.Bugbusters.repository.CampaignRepository;
 import com.generation.Bugbusters.repository.MasterRepository;
 import com.generation.Bugbusters.repository.SessionProposalRepository;
 import com.generation.Bugbusters.security.UserDetailsImpl;
+import com.generation.Bugbusters.entity.CharacterSheet;
+import com.generation.Bugbusters.exception.BadRequestException;
+import com.generation.Bugbusters.repository.CharacterSheetRepository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,6 +34,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class MasterService {
+
+    private static final Logger logger = LoggerFactory.getLogger(MasterService.class);
 
     @Autowired
     private CampaignRepository campaignRepository;
@@ -41,6 +48,9 @@ public class MasterService {
 
     @Autowired
     private SessionProposalRepository sessionProposalRepository;
+
+    @Autowired
+    private CharacterSheetRepository characterSheetRepository;
 
     // crea una nuova campagna per il master attualmente loggato
     @Transactional
@@ -174,5 +184,49 @@ public class MasterService {
         }
         
         return campaign;
+    }
+
+    /**
+     * rimuove un giocatore (tramite la sua scheda) da una campagna gestita dal master
+     */
+    @Transactional // FONDAMENTALE: modifica la collezione players
+    public ResponseEntity<?> kickPlayerFromCampaign(Long campaignId, Long characterId) {
+        try {
+            // ottiene il master loggato
+            Master currentMaster = getCurrentMaster();
+            
+            // ottiene e valida la proprietà della campagna
+            Campaign campaign = getCampaignAndValidateOwnership(campaignId, currentMaster.getId());
+
+            // trova la scheda personaggio da rimuovere
+            CharacterSheet sheetToKick = characterSheetRepository.findById(characterId)
+                    .orElseThrow(() -> new ResourceNotFoundException(
+                            "Scheda personaggio non trovata con ID: " + characterId));
+
+            // verifica che la scheda sia in questa campagna
+            // (grazie a @Transactional, campaign.getPlayers() viene caricato)
+            if (!campaign.getPlayers().contains(sheetToKick)) {
+                throw new BadRequestException(
+                        "Questa scheda personaggio non fa parte di questa campagna.");
+            }
+
+            // rimuove la scheda dalla campagna
+            campaign.getPlayers().remove(sheetToKick);
+            campaignRepository.save(campaign); // JPA aggiornerà la tabella join 'campaign_players'
+            
+            String playerName = sheetToKick.getPlayer().getUser().getUsername();
+            logger.info("Master {} ha espulso {} (Scheda: {}) dalla campagna {}",
+                    currentMaster.getId(), playerName, sheetToKick.getName(), campaign.getTitle());
+
+            return ResponseEntity.ok(new MessageResponse(
+                    "Personaggio " + sheetToKick.getName() + " rimosso dalla campagna."));
+
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.NOT_FOUND);
+        } catch (UnauthorizedException e) {
+            return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.FORBIDDEN);
+        } catch (BadRequestException e) {
+            return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
     }
 }

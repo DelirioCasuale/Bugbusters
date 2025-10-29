@@ -73,4 +73,16 @@ public class MasterController {
         
         return masterService.proposeSession(id, request);
     }
+
+    /**
+     * endpoint per ESPELLERE un giocatore (la sua scheda) da una campagna
+     * DELETE /api/master/campaigns/{campaignId}/players/{characterId}
+     */
+    @DeleteMapping("/campaigns/{campaignId}/players/{characterId}")
+    public ResponseEntity<?> kickPlayer(
+            @PathVariable Long campaignId,
+            @PathVariable Long characterId) {
+        
+        return masterService.kickPlayerFromCampaign(campaignId, characterId);
+    }
 }
