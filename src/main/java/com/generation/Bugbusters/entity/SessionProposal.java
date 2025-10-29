@@ -1,8 +1,9 @@
 package com.generation.Bugbusters.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -10,7 +11,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "session_proposals")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class SessionProposal {
 

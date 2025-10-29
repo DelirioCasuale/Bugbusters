@@ -2,12 +2,14 @@ package com.generation.Bugbusters.entity;
 
 import com.generation.Bugbusters.enumeration.RoleName;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "roles") // mappa questa classe alla tabella 'roles' nel database
-@Data 
+@Getter
+@Setter
 @NoArgsConstructor
 public class Role {
 
