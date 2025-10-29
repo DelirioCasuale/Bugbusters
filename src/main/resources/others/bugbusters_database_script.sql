@@ -5,13 +5,13 @@ CREATE DATABASE tavern_portal;
 USE tavern_portal;
 
 CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-    -- colonne aggiunte per la logica di ban
+    
+    -- COLONNE AGGIUNTE PER LA LOGICA DI BAN --
     is_banned BOOLEAN DEFAULT FALSE,
     deletion_scheduled_on TIMESTAMP DEFAULT NULL 
 );
@@ -21,12 +21,12 @@ CREATE TABLE roles(
 	role_name VARCHAR(50) NOT NULL UNIQUE
 );
 
--- ho modificato ROLE_GUEST in ROLE_USER per chiarezza
+-- Ho modificato ROLE_GUEST in ROLE_USER per chiarezza --
 INSERT INTO roles (role_name) VALUES ('ROLE_ADMIN'),('ROLE_USER');
 
 
 CREATE TABLE users_roles (
-    user_id INT NOT NULL,
+    user_id BIGINT NOT NULL,
     role_id INT NOT NULL,
     PRIMARY KEY (user_id, role_id),
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
@@ -35,13 +35,13 @@ CREATE TABLE users_roles (
 
 
 CREATE TABLE players (
-    user_id INT NOT NULL PRIMARY KEY,
+    user_id BIGINT NOT NULL PRIMARY KEY,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
 CREATE TABLE character_sheet (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    player_id INT NOT NULL, 
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    player_id BIGINT NOT NULL, 
     FOREIGN KEY (player_id) REFERENCES players (user_id) ON DELETE CASCADE,
     name VARCHAR(20) NOT NULL,
     primary_class VARCHAR(20) NOT NULL,
@@ -73,19 +73,19 @@ CREATE TABLE character_sheet (
     ),
     background VARCHAR(30),
     experience_points INT DEFAULT 0,
-    strength TINYINT UNSIGNED,
-    dexterity TINYINT UNSIGNED,
-    constitution TINYINT UNSIGNED,
-    intelligence TINYINT UNSIGNED,
-    wisdom TINYINT UNSIGNED,
-    charisma TINYINT UNSIGNED,
-    proficiency_bonus TINYINT,
+    strength SMALLINT, -- MODIFICATO da TINYINT UNSIGNED
+    dexterity SMALLINT, -- MODIFICATO da TINYINT UNSIGNED
+    constitution SMALLINT, -- MODIFICATO da TINYINT UNSIGNED
+    intelligence SMALLINT, -- MODIFICATO da TINYINT UNSIGNED
+    wisdom SMALLINT, -- MODIFICATO da TINYINT UNSIGNED
+    charisma SMALLINT, -- MODIFICATO da TINYINT UNSIGNED
+    proficiency_bonus SMALLINT, -- MODIFICATO da TINYINT
     max_hit_points INT,
     current_hit_points INT,
     temporary_hit_points INT DEFAULT 0,
-    armor_class TINYINT,
-    initiative TINYINT,
-    speed TINYINT,
+    armor_class SMALLINT, -- MODIFICATO da TINYINT
+    initiative SMALLINT, -- MODIFICATO da TINYINT
+    speed SMALLINT, -- MODIFICATO da TINYINT
     inspiration BOOLEAN DEFAULT FALSE,
     acrobatics_skill_proficiency BOOLEAN DEFAULT FALSE,
     animal_handling_skill_proficiency BOOLEAN DEFAULT FALSE,
@@ -120,13 +120,13 @@ CREATE TABLE character_sheet (
 );
 
 CREATE TABLE masters (
-    user_id INT NOT NULL PRIMARY KEY,
+    user_id BIGINT NOT NULL PRIMARY KEY,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
 CREATE TABLE campaigns (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    master_id INT, -- modificato: serve per rendere il master_id NULLABILE per la logica di ban
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    master_id BIGINT, -- MODIFICATO: Rende il master_id NULLABILE per la logica di ban
     title VARCHAR(100) NOT NULL,
     description TEXT,
     start_date DATE,
@@ -135,41 +135,41 @@ CREATE TABLE campaigns (
     invite_players_code VARCHAR(10) UNIQUE, 
     invite_masters_code VARCHAR(10) UNIQUE,
 
-    -- colonna aggiunta per il ban del master
-    master_ban_pending_until TIMESTAMP DEFAULT NULL -- scadenza di 30 giorni per trovare un nuovo master
+    -- COLONNA AGGIUNTA PER IL BAN DEL MASTER --
+    master_ban_pending_until TIMESTAMP DEFAULT NULL -- Scadenza di 30 giorni per trovare un nuovo master
 );
 
 CREATE TABLE campaign_players (
-    campaign_id INT NOT NULL,
-    character_id INT NOT NULL,
+    campaign_id BIGINT NOT NULL,
+    character_id BIGINT NOT NULL,
     PRIMARY KEY (campaign_id, character_id),
     FOREIGN KEY (campaign_id) REFERENCES campaigns (id) ON DELETE CASCADE,
     FOREIGN KEY (character_id) REFERENCES character_sheet (id) ON DELETE CASCADE
 );
 
 CREATE TABLE campaign_sessions (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    campaign_id INT NOT NULL,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    campaign_id BIGINT NOT NULL,
     session_date DATE NOT NULL,
     summary TEXT,
     FOREIGN KEY (campaign_id) REFERENCES campaigns (id) ON DELETE CASCADE
 );
 
 
--- tabelle aggiunte per la logica di votazione sessioni
+-- TABELLE AGGIUNTE PER LA LOGICA DI VOTAZIONE SESSIONI --
 
 CREATE TABLE session_proposals (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    campaign_id INT NOT NULL,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    campaign_id BIGINT NOT NULL,
     proposed_date TIMESTAMP NOT NULL,
-    expires_on TIMESTAMP NOT NULL, -- per la logica della scadenza di 48h
+    expires_on TIMESTAMP NOT NULL, -- Per la logica della scadenza di 48h
     is_confirmed BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (campaign_id) REFERENCES campaigns (id) ON DELETE CASCADE
 );
 
 CREATE TABLE proposal_votes (
-    proposal_id INT NOT NULL,
-    player_id INT NOT NULL, -- id utente del giocatore che vota
+    proposal_id BIGINT NOT NULL,
+    player_id BIGINT NOT NULL, -- ID utente del giocatore che vota
     PRIMARY KEY (proposal_id, player_id),
     FOREIGN KEY (proposal_id) REFERENCES session_proposals (id) ON DELETE CASCADE,
     FOREIGN KEY (player_id) REFERENCES players (user_id) ON DELETE CASCADE
