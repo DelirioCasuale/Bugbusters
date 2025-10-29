@@ -5,6 +5,7 @@ import com.generation.Bugbusters.dto.CampaignDTO;
 import com.generation.Bugbusters.dto.CampaignStartDateRequest;
 import com.generation.Bugbusters.dto.SessionProposalRequest;
 import com.generation.Bugbusters.service.MasterService;
+import com.generation.Bugbusters.dto.ClaimCampaignRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -84,5 +85,16 @@ public class MasterController {
             @PathVariable Long characterId) {
         
         return masterService.kickPlayerFromCampaign(campaignId, characterId);
+    }
+
+    /**
+     * endpoint per reclamare una campagna orfana
+     * POST /api/master/campaigns/claim
+     */
+    @PostMapping("/campaigns/claim")
+    public ResponseEntity<?> claimCampaign(
+            @Valid @RequestBody ClaimCampaignRequest claimRequest) {
+        
+        return masterService.claimOrphanedCampaign(claimRequest);
     }
 }

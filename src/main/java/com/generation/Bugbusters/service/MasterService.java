@@ -19,6 +19,7 @@ import com.generation.Bugbusters.security.UserDetailsImpl;
 import com.generation.Bugbusters.entity.CharacterSheet;
 import com.generation.Bugbusters.exception.BadRequestException;
 import com.generation.Bugbusters.repository.CharacterSheetRepository;
+import com.generation.Bugbusters.dto.ClaimCampaignRequest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -225,6 +226,55 @@ public class MasterService {
             return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.NOT_FOUND);
         } catch (UnauthorizedException e) {
             return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.FORBIDDEN);
+        } catch (BadRequestException e) {
+            return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    /**
+     * permette al master loggato di reclamare una campagna orfana usando il codice d'invito corretto
+     */
+    @Transactional
+    public ResponseEntity<?> claimOrphanedCampaign(ClaimCampaignRequest dto) {
+        try {
+            // ottiene il master loggato
+            Master newMaster = getCurrentMaster();
+
+            // trova la campagna tramite il codice d'invito master
+            Campaign campaign = campaignRepository.findByInviteMastersCode(dto.getInviteMastersCode())
+                    .orElseThrow(() -> new ResourceNotFoundException(
+                            "Codice invito master non valido."));
+
+            // verifica che la campagna è davvero orfana
+            // controlla che il timer di 30gg sia attivo
+            if (campaign.getMasterBanPendingUntil() == null) {
+                throw new BadRequestException(
+                        "Questa campagna non è in attesa di un nuovo master.");
+            }
+
+            // verifica che il timer è scaduto
+            if (campaign.getMasterBanPendingUntil().isBefore(LocalDateTime.now())) {
+                throw new BadRequestException(
+                        "Il tempo limite per reclamare questa campagna è scaduto.");
+            }
+
+            // se ok assegna il nuovo master
+            campaign.setMaster(newMaster);
+            
+            // imposta il timer di cancellazione a null
+            campaign.setMasterBanPendingUntil(null);
+            
+            // salva le modifiche
+            campaignRepository.save(campaign);
+
+            logger.info("Campagna ID {} reclamata dal Master ID {}", 
+                    campaign.getId(), newMaster.getId());
+
+            return ResponseEntity.ok(new MessageResponse(
+                    "Hai preso con successo la gestione della campagna '" + campaign.getTitle() + "'!"));
+
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.NOT_FOUND);
         } catch (BadRequestException e) {
             return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.BAD_REQUEST);
         }

@@ -6,6 +6,7 @@ import com.generation.Bugbusters.dto.JoinCampaignRequest;
 import com.generation.Bugbusters.dto.JoinedCampaignDTO;
 import com.generation.Bugbusters.dto.PlayerSessionProposalDTO;
 import com.generation.Bugbusters.service.PlayerService;
+import com.generation.Bugbusters.dto.OrphanedCampaignDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -80,5 +81,16 @@ public class PlayerController {
     @PostMapping("/proposals/{id}/vote")
     public ResponseEntity<?> voteForProposal(@PathVariable Long id) {
         return playerService.voteForProposal(id);
+    }
+
+    /**
+     * endpoint per VEDERE le campagne orfane(con master bannato)
+     * e il codice per invitare un nuovo master
+     * GET /api/player/campaigns/orphaned
+     */
+    @GetMapping("/campaigns/orphaned")
+    public ResponseEntity<List<OrphanedCampaignDTO>> getOrphanedCampaigns() {
+        List<OrphanedCampaignDTO> campaigns = playerService.getMyOrphanedCampaigns();
+        return ResponseEntity.ok(campaigns);
     }
 }
