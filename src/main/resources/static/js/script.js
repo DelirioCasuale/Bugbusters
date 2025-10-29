@@ -20,7 +20,7 @@ class CustomModal {
   }
 
   init() {
-    // Event listeners per chiudere il modal
+    // crea gli event listeners per chiudere il modal
     if (this.overlay) {
       this.overlay.addEventListener('click', () => this.hide());
     }
@@ -135,11 +135,11 @@ document.addEventListener('click', function (event) {
       });
 
       if (success) {
-        // Login riuscito - chiudi il modal e ricarica la pagina
+        // Login riuscito - chiudi il modal e reindirizza alla landing page
         if (loginModal) {
           loginModal.hide();
         }
-        location.reload();
+        window.location.href = './landing.html';
       }
     } else {
       showLoginError('Sistema di autenticazione non disponibile');
@@ -162,7 +162,7 @@ document.addEventListener('click', function (event) {
     event.preventDefault();
     if (typeof logout !== 'undefined') {
       logout();
-      location.reload();
+      window.location.href = './landing.html';
     }
   }
 });
