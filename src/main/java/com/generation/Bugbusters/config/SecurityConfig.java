@@ -86,7 +86,7 @@ public class SecurityConfig {
                 
                 // PER IL TEST BASE IN /static
                 // bisogna permettere l'accesso ai file statici (index.html, .js, .css)
-                .requestMatchers("/", "/index.html", "/*.js", "/*.css").permitAll() 
+                .requestMatchers("/", "/landing.html", "/register.html", "/css/**", "/js/**", "/images/**").permitAll() // permetti l'accesso alle risorse statiche PORCA PUTTANA
                 
                 // definiamo gli endpoint PROTETTI
                 // endpoint admin
@@ -97,6 +97,9 @@ public class SecurityConfig {
                 .requestMatchers("/api/player/**").hasRole("PLAYER")
                 // solo chi é un master può accedere alle API da master
                 .requestMatchers("/api/master/**").hasRole("MASTER")
+                
+                .requestMatchers("/dashboard.html").hasRole("USER") // Richiede almeno il ruolo base
+                .requestMatchers("/admin.html").hasRole("ADMIN") // Richiede il ruolo admin
                 
                 // qualsiasi altra richiesta deve essere autenticata
                 .anyRequest().authenticated()
