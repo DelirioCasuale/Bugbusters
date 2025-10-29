@@ -21,6 +21,7 @@ import com.generation.Bugbusters.repository.PlayerRepository;
 import com.generation.Bugbusters.repository.ProposalVoteRepository;
 import com.generation.Bugbusters.repository.SessionProposalRepository;
 import com.generation.Bugbusters.security.UserDetailsImpl;
+import com.generation.Bugbusters.dto.OrphanedCampaignDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -294,6 +295,46 @@ public class PlayerService {
         dto.setExpiresOn(proposal.getExpiresOn());
         dto.setConfirmed(proposal.isConfirmed());
         dto.setHasVoted(hasVoted);
+        return dto;
+    }
+
+    /**
+     * recupera la lista delle campagne del giocatore che sono orfane (il master è stato bannato)
+     * e in attesa di un nuovo master
+     */
+    @Transactional(readOnly = true)
+    public List<OrphanedCampaignDTO> getMyOrphanedCampaigns() {
+        
+        // ottiene il player loggato
+        Player currentPlayer = getCurrentPlayer();
+
+        // trova tutte le campagne a cui il giocatore partecipa
+        List<Campaign> myCampaigns = 
+                campaignRepository.findCampaignsByPlayerId(currentPlayer.getId());
+
+        LocalDateTime now = LocalDateTime.now();
+
+        // filtra la lista per trovare solo quelle orfane e attive
+        return myCampaigns.stream()
+            .filter(campaign -> 
+                    // il timer di ban è impostato
+                    campaign.getMasterBanPendingUntil() != null && 
+                    // e non è ancora scaduto
+                    campaign.getMasterBanPendingUntil().isAfter(now)
+            )
+            .map(this::mapToOrphanedCampaignDTO) // usa un helper 
+            .collect(Collectors.toList());
+    }
+
+    /**
+     * metodo helper per mappare campaign in OrphanedCampaignDTO
+     */
+    private OrphanedCampaignDTO mapToOrphanedCampaignDTO(Campaign campaign) {
+        OrphanedCampaignDTO dto = new OrphanedCampaignDTO();
+        dto.setCampaignId(campaign.getId());
+        dto.setCampaignTitle(campaign.getTitle());
+        dto.setInviteMastersCode(campaign.getInviteMastersCode());
+        dto.setDeletionDeadline(campaign.getMasterBanPendingUntil());
         return dto;
     }
 }
