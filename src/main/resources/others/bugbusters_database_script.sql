@@ -60,16 +60,16 @@ CREATE TABLE character_sheet (
         'Chaotic Evil'
     ),
     race ENUM(
-        'Human',
-        'Elf',
-        'Dwarf',
-        'Halfling',
-        'Orc',
-        'Gnome',
-        'Tiefling',
-        'Dragonborn',
-        'Half-Elf',
-        'Half-Orc'
+        'HUMAN',
+		'ELF', 
+		'DWARF',
+		'HALFLING',
+		'ORC',
+		'GNOME',
+		'TIEFLING',
+		'DRAGONBORN',
+		'HALF_ELF',
+		'HALF_ORC'
     ),
     background VARCHAR(30),
     experience_points INT DEFAULT 0,
