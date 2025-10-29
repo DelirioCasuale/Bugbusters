@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tavern Portal</title>
+    <link rel="icon" type="image/x-icon" href="images/dice.png" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="logo-flex">
+            <i><img src="images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
+            <div class="logo">Tavern Portal</div>
+        </div>
+        <nav>
+            <a href="#" class="login-trigger">Accedi</a>
+            <a href="register.html">Registrati</a>
+        </nav>
+    </header>
+
+    <div id="loginModal" class="custom-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">Accedi</h2>
+                <button type="button" class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="login-username">Username</label>
+                        <input type="text" id="login-username" name="username" required placeholder="Inserisci username">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="password" required placeholder="Inserisci password">
+                    </div>
+                    <div id="loginError" class="error-message"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="register.html">Non hai un account? Registrati</a>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary modal-cancel">Chiudi</button>
+                    <button type="submit" form="loginForm" class="btn btn-primary">Accedi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Benvenuto nella Taverna</h1>
+                <p>Gestisci le tue campagne di D&D, crea personaggi e vivi nuove avventure.</p>
+                <div class="btn-group">
+                    <a href="register.html" class="btn-primary">Inizia Ora</a>
+                    <button class="btn-secondary login-trigger">Già Iscritto?</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="about">
+            <h2>Cos'è Tavern Portal?</h2>
+            <p>
+                La piattaforma per Dungeon Master e Giocatori per pianificare, creare e condividere
+                le tue campagne di Dungeons&Dragons in un unico portale.
+            </p>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

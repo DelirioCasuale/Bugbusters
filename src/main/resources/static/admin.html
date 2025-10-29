@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tavern Portal - Admin</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-body admin-body">
+
+    <header>
+         <div class="logo-flex">
+             <i><img src="images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
+            <div class="logo">Tavern Portal [ADMIN]</div>
+        </div>
+        <nav>
+            <span id="welcome-user"></span>
+            <a href="#" id="logout-button">Logout</a>
+        </nav>
+    </header>
+
+     <main class="dashboard-content">
+         <section class="dashboard-section">
+             <h2>Gestione Utenti</h2>
+             <div class="filters">
+                 <button class="btn-filter active" data-filter="all">Tutti</button>
+                 <button class="btn-filter" data-filter="players">Solo Player</button>
+                 <button class="btn-filter" data-filter="masters">Solo Master</button>
+             </div>
+             <div class="admin-table-container">
+                 <table id="users-table">
+                     <thead>
+                         <tr>
+                             <th>ID</th>
+                             <th>Username</th>
+                             <th>Email</th>
+                             <th>Ruoli</th>
+                             <th>Stato</th>
+                             <th>Azioni</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         </tbody>
+                 </table>
+             </div>
+         </section>
+          </main>
+
+    <footer class="footer">
+        <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
+    </footer>
+
+     <script src="js/script.js"></script>
+</body>
+</html>
