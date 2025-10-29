@@ -1,0 +1,19 @@
+/* ============================================================================
+   MAIN CSS - Importa tutti i file CSS modulari
+   ============================================================================ */
+
+/* Importa i file CSS nell'ordine corretto */
+@import url('variables.css'); /* PRIMO: Variabili CSS globali */
+@import url('header.css'); /* Header e navbar styles */
+@import url('footer.css'); /* Footer styles */
+@import url('modal.css'); /* Modal e animazioni */
+@import url('landing.css'); /* Stili specifici per landing page */
+@import url('responsive.css'); /* ULTIMO: Media queries per responsive design */
+
+/* 
+   NOTA: L'ordine di importazione è importante!
+   - variables.css deve essere SEMPRE primo per rendere disponibili le CSS custom properties
+   - Gli altri possono essere in qualsiasi ordine, ma è buona pratica mantenerli logici
+   - responsive.css deve essere ULTIMO per sovrascrivere gli stili quando necessario
+   - landing.css prima di responsive perché contiene stili specifici della pagina
+*/

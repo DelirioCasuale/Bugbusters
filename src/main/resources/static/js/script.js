@@ -39,6 +39,18 @@ class CustomModal {
         this.hide();
       }
     });
+
+    //bottone accedi con invio
+    const loginButton = this.modal?.querySelector('#loginButton');
+    const form = this.modal?.querySelector('form');
+    if (form && loginButton) {
+      form.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          loginButton.click();
+        }
+      });
+    }
   }
 
   show() {

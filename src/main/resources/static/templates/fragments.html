@@ -1,35 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <!-- fragments/header.html -->
 <header th:fragment="siteHeader">
-    <!-- TODO aggiungere un'icona logo -->
-    <div class="logo">
-        <i class="fas fa-gavel"></i>
-        Tavern Portal
-    </div>
-    <!-- TODO la navbar deve mostrare username e logout in caso di accesso effettuato -->
-    <nav>
-        <!-- TODO stile dei link di accesso (font style) // normalizzare fontstyle a tutto il sito? -->
-        <ul>
-            <!-- Visibile solo agli utenti non autenticati -->
-            <li sec:authorize="isAnonymous()">
-                <a th:href="@{/login}" id="loginLink">Accedi</a>
-            </li>
-            <li sec:authorize="isAnonymous()">
-                <a th:href="@{/register}" id="registerLink">Registrati</a>
-            </li>
 
-            <!-- Visibile a tutti gli utenti autenticati -->
-            <li sec:authorize="isAuthenticated()">
-                Benvenuto, <span sec:authentication="name"></span>
-            </li>
-            <li sec:authorize="isAuthenticated()">
-                <a th:href="@{/logout}">Logout</a>
-            </li>
-
-            <!-- Link solo per admin -->
-            <li sec:authorize="hasRole('ADMIN')">
-                <a th:href="@{/admin/dashboard}">Admin Dashboard</a>
-            </li>
-        </ul>
-    </nav>
 </header>

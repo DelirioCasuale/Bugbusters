@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tavern Portal</title>
   <link rel="icon" type="image/x-icon" href="../images/dice.png" /> <!-- TODO modificare icona con qualcosa di meglio? -->
-  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/landing.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 
@@ -20,10 +21,10 @@
     </div>
 
     <nav>
-      <!-- I link cambieranno dinamicamente in base allo stato di autenticazione -->
-      <!-- usare i fragment di thymeleaf per le modifiche alla navbar -->
-      <a href="#" class="login">Accedi</a>
-      <a href="signup.html">Registrati</a>
+      <a sec:authorize="!isAuthenticated()" href="#" class="login">Accedi</a>
+      <a sec:authorize="!isAuthenticated()" href="signup.html">Registrati</a>
+      <a sec:authorize="isAuthenticated()" th:href="@{/player/dashboard}">Dashboard Player</a>
+      <a sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
     </nav>
   </header>
 
@@ -63,28 +64,40 @@
     <section class="hero">
       <div class="hero-content">
         <h1 sec:authorize="!isAuthenticated()">Benvenuto nella Taverna</h1>
-        <h1 sec:authorize="isAuthenticated()">Bentornato alla Taverna</h1>
+        <h1 sec:authorize="hasRole('ADMIN')">Benvenuto Admin</h1>
+        <h1 sec:authorize="hasRole('GUEST')">Bentornato alla Taverna</h1>
         <p sec:authorize="!isAuthenticated()">Gestisci le tue campagne di D&D, crea personaggi e vivi nuove avventure.</p>
-        <p sec:authorize="isAuthenticated()">Sei pronto a tornare alla tua avventura?</p>
+        <p sec:authorize="hasRole('GUEST')">Sei pronto a tornare alla tua avventura?</p>
 
         <div class="btn-group">
           <button class="btn-primary login" sec:authorize="!isAuthenticated()">Inizia Ora</button>
           <button class="btn-primary" sec:authorize="isPlayer()">Visuale Player</button>
           <button class="btn-primary" sec:authorize="isMaster()">Visuale Master</button>
+          <button class="btn-primary" sec:authorize="hasRole('ADMIN')">Dashboard Admin</button>
         </div>
       </div>
     </section>
 
 
     <!-- About -->
-    <section class="about">
-      <h2>Cos'è Tavern Portal?</h2>
-      <p>
-        La piattaforma per Dungeon Master e Giocatori per pianificare, creare e condividere
-        le tue campagne di Dungeons&Dragons in un unico portale.
-      </p>
-
-
+    <section class="about" sec:authorize="!hasRole('ADMIN')">
+      <div class="info" sec:authorize="!isAuthenticated()">
+        <h2>Cos'è Tavern Portal?</h2>
+        <p>
+          La piattaforma per Dungeon Master e Giocatori per pianificare, creare e condividere
+          le tue campagne di Dungeons&Dragons in un unico portale.
+        </p>
+      </div>
+      <!-- presto qui verrà aggiunta una chat per gli utenti loggati -->
+      <div class="chat" sec:authorize="hasRole('GUEST')">
+        <h2>Chat della Taverna</h2>
+        <div class="chat-window" id="chatWindow">
+          <!-- I messaggi della chat verranno caricati qui dinamicamente -->
+        </div>
+        <div class="chat-input">
+          <input type="text" id="chatMessageInput" placeholder="Scrivi un messaggio..." />
+          <button id="sendChatMessageButton">Invia</button>
+        </div>
     </section>
   </main>
 

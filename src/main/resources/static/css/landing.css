@@ -1,0 +1,260 @@
+/* ============================================================================
+   LANDING PAGE - Stili specifici per la pagina di landing
+   ============================================================================ */
+
+/* ============================================================================
+   FORM REGISTRAZIONE
+   ============================================================================ */
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 120px);
+  background: var(--bg-register-bg);
+  background-image: url('/images/dungeon-bg.png');
+  background-size: cover;
+  background-blend-mode: multiply;
+}
+
+.register-card {
+  background: var(--bg-register-card);
+  border: 2px solid var(--border-register);
+  border-radius: 20px;
+  padding: 40px 50px;
+  width: 400px;
+  color: var(--text-register);
+  text-align: center;
+}
+
+.register-card h1 {
+  font-family: 'Cinzel Decorative', serif;
+  color: #c4a7ff;
+  margin-bottom: 10px;
+}
+
+.register-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-register-subtitle);
+  margin-bottom: 25px;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.register-form label {
+  text-align: left;
+  font-size: 0.9rem;
+  color: var(--text-register-label);
+}
+
+.register-form input {
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: var(--bg-individual-card);
+  color: #fff;
+  font-size: 1rem;
+}
+
+.register-footer {
+  margin-top: 25px;
+  font-size: 0.9rem;
+}
+
+.register-footer a {
+  color: var(--text-register-link);
+  text-decoration: none;
+}
+
+.register-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ============================================================================
+   MAIN - Contenuto principale
+   ============================================================================ */
+main {
+  background: url('../images/tavern_background.gif') no-repeat center
+    center/cover;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 4rem auto;
+  padding: 1rem 2rem;
+  background: var(--bg-card);
+  border-radius: 12px;
+}
+
+/* Hero alternativo per dashboard */
+.dashboard-hero {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: var(--bg-hero-alt);
+  padding: 3rem 1rem;
+}
+
+.hero-content h1,
+.dashboard-hero-content h1 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  color: var(--primary-purple-light);
+  text-shadow: 0 0 10px var(--primary-purple-dark);
+}
+
+.dashboard-hero-content h1 {
+  font-size: 2.5rem;
+}
+
+.hero-content p,
+.dashboard-hero-content p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: var(--text-secondary);
+}
+
+/* About Section */
+.about {
+  max-width: 800px;
+  margin: 3rem auto;
+  text-align: center;
+  padding: 1rem 2rem;
+  background: var(--bg-card);
+  border-radius: 12px;
+}
+
+.about h2 {
+  font-family: 'Cinzel Decorative', serif;
+  color: var(--primary-purple-lighter);
+  margin-bottom: 1rem;
+}
+
+/* ============================================================================
+   DASHBOARD SECTIONS - Schede personaggio e campagne
+   ============================================================================ */
+.dashboard-section {
+  margin: 50px auto;
+  max-width: 1000px;
+  background: var(--bg-dashboard-card);
+  border: 2px solid var(--border-primary);
+  border-radius: 12px;
+  padding: 30px;
+  justify-content: center;
+}
+
+.dashboard-section h2 {
+  font-family: 'Cinzel Decorative', serif;
+  text-align: center;
+  color: var(--primary-purple-light);
+  margin-bottom: 20px;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  background: var(--bg-individual-card);
+  border: 1px solid var(--border-secondary);
+  border-radius: 10px;
+  padding: 20px;
+  width: 250px;
+  text-align: center;
+}
+
+.card h3 {
+  font-family: 'Cinzel Decorative', serif;
+  color: var(--primary-purple-light);
+}
+
+.card p {
+  color: var(--text-card);
+}
+
+.add-card {
+  background: var(--bg-add-card);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ============================================================================
+   CALENDARIO
+   ============================================================================ */
+.calendar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.calendar-input {
+  width: 300px;
+  height: 50px;
+  padding: 10px 15px;
+  font-size: 1.1rem;
+  background-color: var(--bg-individual-card);
+  color: var(--text-secondary);
+  border: 2px solid var(--border-secondary);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.calendar-input:hover {
+  border-color: var(--primary-purple-light);
+  box-shadow: 0 0 12px var(--shadow-hover-intense);
+}
+
+/* ============================================================================
+   UTILITY CLASSES - Stili di supporto specifici per landing
+   ============================================================================ */
+
+/* Authentication Info */
+.user-info {
+  background: rgba(45, 45, 80, 0.6);
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid var(--border-primary);
+  margin: 10px 0;
+}
+
+.user-info p {
+  margin: 5px 0;
+  color: var(--text-secondary);
+}
+
+.user-info strong {
+  color: var(--primary-purple-light);
+}
+
+/* Test Section */
+.test-section {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.test-section h3 {
+  color: var(--primary-purple-light);
+  font-family: 'Cinzel Decorative', serif;
+  margin-bottom: 15px;
+}
