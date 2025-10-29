@@ -240,6 +240,16 @@ main {
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+}
+
+main > *:first-child {
+  margin-top: 60px;
+  margin-bottom: 10px;
+}
+main > *:last-child {
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 
 /* Hero Section */
