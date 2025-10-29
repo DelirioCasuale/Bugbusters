@@ -23,7 +23,7 @@
   color: #d1c4ff;
 }
 
-/* ===== GESTIONE SCHEDE PERSONAGGIO - CAMPAGNE ===== */
+/* ===== GESTIONE SCHEDE PERSONAGGIO - CAMPAGNE - UTENTI ===== */
 .dashboard-section {
   margin: 50px auto;
   max-width: 1000px;
@@ -58,6 +58,14 @@
   width: 250px;
   text-align: center;
   box-shadow: 0 0 8px rgba(90, 60, 140, 0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 5px 20px rgba(167, 139, 250, 0.5), 0 0 15px rgba(167, 139, 250, 0.4); 
+    border-color: #a78bfa; 
+    cursor: pointer; 
 }
 
 .card h3 {
@@ -74,6 +82,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.card-actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-around; 
+    gap: 5px;
+}
+
+.card-actions .btn-small {
+    flex-grow: 1; 
 }
 
 /* ===== CALENDARIO ===== */
@@ -104,5 +123,38 @@
 .calendar-input:hover {
     border-color: #a78bfa;
     box-shadow: 0 0 12px rgba(167, 139, 250, 0.8);
+}
+
+/* ===== MODALE CREAZIONE NUOVO UTENTE ===== */
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 10px;
+}
+
+.modal-form label {
+    text-align: left;
+    color: #c4b5fd;
+    font-size: 0.95rem;
+    margin-top: 5px;
+}
+
+.modal-form input, 
+.modal-form select {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #4f46e5;
+    background: rgba(40, 30, 70, 0.9);
+    color: #fff;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.modal-form input:focus, 
+.modal-form select:focus {
+    outline: none;
+    border-color: #a78bfa;
+    box-shadow: 0 0 5px rgba(167, 139, 250, 0.5);
 }
 

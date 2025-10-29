@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="styles_dashboard.css" th:href="@{/css/styles_dashboard.css}">
     <link rel="stylesheet" href="styles_admin.css" th:href="@{/css/styles_admin.css}" />
     <link rel="icon" type="image/x-icon" href="images/d20.logo2_nobackground.png" />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
@@ -23,9 +25,6 @@
         </div>
         <nav>
             <a href="homepage.html" class="nav-link">Home</a>
-            <a href="#" class="nav-link">Gestione Utenti</a>
-            <a href="#" class="nav-link">Gestione Campagne</a>
-            <a href="#" class="nav-link">Inviti</a>
             <a href="#" class="nav-link logout">Logout</a>
         </nav>
     </header>
@@ -43,77 +42,128 @@
         <!-- Gestione Utenti -->
         <section class="dashboard-section">
             <h2>Gestione Utenti</h2>
-            <div class="card-container">
-                <div class="card">
-                    <h3>user:</h3>
-                    <h3>mario_rossi99</h3>
-                    <p>Livello 9 · ladro</p>
-                    <p>La Fortezza Maledetta</p>
-                </div>
-                <div class="card">
-                    <h3>user:</h3>
-                    <h3>mario_rossi02</h3>
-                    <p>Livello 3 · bardo</p>
-                    <p>La Fortezza Maledetta</p>
-                </div>
-                <div class="card">
-                    <h3>user:</h3>
-                    <h3>luigi_verdi93</h3>
-                    <p>Livello 12 · druido</p>
-                    <p>La Cittadella Perduta</p>
-                </div>
-                <button class="btn-secondary">Modifica Utente</button>
-                <button class="btn-secondary">Elimina Utente</button>
-            </div>
-        </section>
 
-        <!-- Gestione Campagne -->
-        <section class="dashboard-section">
-            <h2>Gestione Campagne</h2>
-            <div class="card-container">
-                <div class="card">
-                    <h3>La Fortezza Maledetta</h3>
-                    <p>2 sessioni· 3 giocatori</p>
-                    <button class="btn-primary">Vedi dettagli</button>
+            <div class="user-scroll-wrapper">
+                <div class="card-container">
+                    <div class="card">
+                        <h3>nome utente:</h3>
+                        <h3>mario_rossi99</h3>
+                        <p>Attivazione account: 20/19/2025</p>
+                        <div class="card-actions">
+                            <button class="btn-small btn-block">Blocca</button>
+                            <button class="btn-small btn-delete">Elimina</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>nome utente:</h3>
+                        <h3>Sirius_Blackwood</h3>
+                        <p>Attivazione account: 03/03/2025</p>
+                        <div class="card-actions">
+                            <button class="btn-small btn-block">Blocca</button>
+                            <button class="btn-small btn-delete" >Elimina</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>nome utente:</h3>
+                        <h3>Shadow_Runner</h3>
+                        <p>Attivazione account: 12/05/2025</p>
+                        <div class="card-actions">
+                            <button class="btn-small btn-block">Blocca</button>
+                            <button class="btn-small btn-delete" >Elimina</button>
+                        </div>
+                    </div>
+
+                    <div class="card" style="border-color: #dc2626;">
+                        <h3>nome utente:</h3>
+                        <h3>Gabibbo</h3>
+                        <p>Attivazione account: 01/08/2025</p>
+                        <p style="color: #dc2626;">BLOCCATO</p>
+                        <div class="card-actions">
+                            <button class="btn-small" style="background-color: #4f46e5; border-color: #6d28d9;">Sblocca</button>
+                            <button class="btn-small btn-delete" >Elimina</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>nome utente:</h3>
+                        <h3>The_Narrator</h3>
+                        <p>Attivazione account: 10/11/2024</p>
+                        <div class="card-actions">
+                            <button class="btn-small btn-block">Blocca</button>
+                            <button class="btn-small btn-delete" >Elimina</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>nome utente:</h3>
+                        <h3>Elara_Bard</h3>
+                        <p>Attivazione account: 22/07/2025</p>
+                        <div class="card-actions">
+                            <button class="btn-small btn-block">Blocca</button>
+                            <button class="btn-small btn-delete" >Elimina</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>nome utente:</h3>
+                        <h3>Gimli_Axe</h3>
+                        <p>Attivazione account: 05/06/2025</p>
+                        <div class="card-actions">
+                            <button class="btn-small btn-block">Blocca</button>
+                            <button class="btn-small btn-delete" >Elimina</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>nome utente:</h3>
+                        <h3>Wizard_Kal</h3>
+                        <p>Attivazione account: 17/04/2025</p>
+                        <div class="card-actions">
+                            <button class="btn-small btn-block">Blocca</button>
+                            <button class="btn-small btn-delete" >Elimina</button>
+                        </div>
+                    </div>
+
+                    <div class="card" style="border-color: #dc2626;">
+                        <h3>nome utente:</h3>
+                        <h3>Kanye_West</h3>
+                        <p>Attivazione account: 28/02/2025</p>
+                        <p style="color: #dc2626;">BLOCCATO</p>
+                        <div class="card-actions">
+                            <button class="btn-small" style="background-color: #4f46e5; border-color: #6d28d9;">Sblocca</button>
+                            <button class="btn-small btn-delete" >Elimina</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="card">
-                    <h3>La Cittadella<br>Perduta</h3>
-                    <p>8 sessioni · 4 giocatori</p>
-                    <button class="btn-primary">Vedi dettagli</button>
-                </div>
-                <div class="card">
-                    <h2>-</h2>
-                    <button class="btn-primary">Aggiungi campagna</button>
-                </div>
-                <button class="btn-secondary">Modifica Campagna</button>
-                <button class="btn-secondary">Elimina Campagna</button>
+            </div>
             </div>
         </section>
 
         <!-- Calendario -->
         <!-- Ho aggiunto al calendario dell'admin un modale per la gestione delle campagne orfane -->
         <section class="dashboard-section">
-        <h2>Gestione campagne senza Master</h2>
+            <h2>Gestione campagne senza Master</h2>
             <div class="calendar-container">
                 <button class="btn-primary">Seleziona campagna</button>
                 <input type="date" id="session-date" class="calendar-input">
             </div>
         </section>
-        </main>
+    </main>
 
-        <!-- Per come l'ho pensata al momento, prima si dovrebbe selezionare la campagna orfana con il bottone, 
-        poi si sceglie la data di cancellazione della campagna dal calendario, 
-        e alla fine compare il modale con il messaggio di invito a selezionare il nuovo master entro la suddetta data  -->
-       <div id="dateModal" class="modal">
-            <div class="modal-content">
-                <span class="close-button">&times;</span>
-                <h2>Questa campagna è rimasta<br>senza Master</h2>
-                <p>Eleggere un nuovo Master entro la data selezionata: <strong id="selectedDate"></strong></p> <!-- Idealmenete qua sono 30 gg -->
-                <h3>Attenzione!</h3>
-                <p>Se non verrà eletto un nuovo Master entro 30 giorni la campagna sarà eliminata automaticamente.</p>
-                <button class="btn-primary modal-action-btn">Invia</button>
-            </div>
+    <!-- Per come l'ho pensata al momento, prima si dovrebbe selezionare la campagna orfana con il bottone, 
+         poi si sceglie la data di cancellazione della campagna dal calendario, 
+         e alla fine compare il modale con il messaggio di invito a selezionare il nuovo master entro la suddetta data  -->
+    <div id="dateModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Questa campagna è rimasta<br>senza Master</h2>
+            <p>Eleggere un nuovo Master entro la data selezionata: <strong id="selectedDate"></strong></p>
+            <!-- Idealmenete qua sono 30 gg -->
+            <h3>Attenzione!</h3>
+            <p>Se non verrà eletto un nuovo Master entro 30 giorni la campagna sarà eliminata automaticamente.</p>
+            <button class="btn-primary modal-action-btn">Invia</button>
         </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
