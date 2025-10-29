@@ -15,9 +15,12 @@ async function apiCall(endpoint, method = 'GET', body = null) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
+    // Recupera il token da sessionStorage per ogni chiamata
+    const currentToken = sessionStorage.getItem('jwtToken');
+
     // Aggiunge il token JWT se disponibile e se l'endpoint non è pubblico (/api/auth)
-    if (jwtToken && !endpoint.startsWith('/api/auth/')) {
-        headers.append('Authorization', 'Bearer ' + jwtToken);
+    if (currentToken && !endpoint.startsWith('/api/auth/')) {
+        headers.append('Authorization', 'Bearer ' + currentToken);
     }
 
     const options = {
@@ -44,11 +47,11 @@ async function apiCall(endpoint, method = 'GET', body = null) {
         if (!contentType || !contentType.includes("application/json")) {
             // Se non è JSON, leggi come testo per debug (potrebbe essere HTML di errore)
             const textResponse = await response.text();
-             console.error(`--- API Error ${response.status} (Not JSON) ---`, textResponse);
-             alert(`Errore ${response.status}: Risposta non valida dal server. Controlla la console.`);
-             // Se lo status è 403, potrebbe essere un problema di sicurezza
-             if (response.status === 403) {
-                 clearLoginData(); // Forza il logout se c'è un 403
+             console.error(`--- API Error ${response.status} (Not JSON) ---`, textResponse || '<empty response>');
+             alert(`Errore ${response.status}: Risposta non valida dal server (${response.statusText || 'No status text'}). Controlla la console.`);
+             // Se lo status è 403 o 401, potrebbe essere un problema di sicurezza/autorizzazione
+             if (response.status === 403 || response.status === 401) {
+                 clearLoginData(); // Forza il logout se c'è un 401/403
                  window.location.href = 'landing.html';
              }
             return null;
@@ -84,6 +87,7 @@ async function apiCall(endpoint, method = 'GET', body = null) {
  * Gestione dello stato di autenticazione
  */
 function saveLoginData(token, userDetails) {
+    // Aggiorna le variabili globali (anche se leggiamo principalmente da storage)
     jwtToken = token;
     currentUser = {
         id: userDetails.id,
@@ -91,9 +95,10 @@ function saveLoginData(token, userDetails) {
         email: userDetails.email,
         roles: userDetails.roles || [] // Assicura che roles sia sempre un array
     };
+    // Salva in sessionStorage per persistenza tra pagine
     sessionStorage.setItem('jwtToken', jwtToken);
     sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
-    // Non chiamare updateUI qui, lo facciamo dopo il redirect
+    // Non chiamare updateUI qui, lo facciamo dopo il redirect o nel DOMContentLoaded
 }
 
 function clearLoginData() {
@@ -101,26 +106,30 @@ function clearLoginData() {
     currentUser = null;
     sessionStorage.removeItem('jwtToken');
     sessionStorage.removeItem('currentUser');
-    // Non chiamare updateUI qui, viene chiamato dalla pagina di destinazione
+    // Non chiamare updateUI qui, la pagina verrà ricaricata o reindirizzata
 }
 
 function isAuthenticated() {
-    // Controlla anche che il token non sia solo presente ma valido (potrebbe essere scaduto)
-    // Per un controllo reale, dovremmo decodificare il token e verificare la scadenza `exp`
-    // Per ora, ci fidiamo del sessionStorage
+    // La fonte di verità è sessionStorage
     return sessionStorage.getItem('jwtToken') !== null && sessionStorage.getItem('currentUser') !== null;
 }
 
 function getCurrentUserFromStorage() {
     // Legge sempre da sessionStorage per coerenza tra pagine
     const user = sessionStorage.getItem('currentUser');
-    return user ? JSON.parse(user) : null;
+    try {
+        return user ? JSON.parse(user) : null;
+    } catch (e) {
+        console.error("Errore nel parsing currentUser da sessionStorage", e);
+        clearLoginData(); // Pulisce i dati corrotti
+        return null;
+    }
 }
 
 
 function hasRole(role) {
     const user = getCurrentUserFromStorage();
-    if (!user) return false;
+    if (!user || !user.roles) return false;
     // Aggiunge 'ROLE_' se non presente per coerenza
     const roleName = role.startsWith('ROLE_') ? role : `ROLE_${role}`;
     return user.roles.includes(roleName);
@@ -138,7 +147,8 @@ class Modal {
     constructor(modalId) {
         this.modal = document.getElementById(modalId);
         if (!this.modal) {
-            console.error(`Modal with id ${modalId} not found.`);
+            // Non è un errore critico se un modal non esiste su una pagina
+            // console.warn(`Modal with id ${modalId} not found.`);
             return;
         }
         this.overlay = this.modal.querySelector('.modal-overlay');
@@ -192,8 +202,8 @@ async function handleLogin(event) {
     if (data && data.token) {
         saveLoginData(data.token, data); // Salva token e user in sessionStorage
         loginModal.hide();
-        // Reindirizza alla pagina corretta
-        if (isAdmin()) {
+        // Reindirizza alla pagina corretta DOPO aver salvato i dati
+        if (isAdmin()) { // isAdmin() ora legge da sessionStorage
             window.location.href = 'admin.html';
         } else {
             window.location.href = 'dashboard.html';
@@ -249,7 +259,7 @@ async function handleRegister(event) {
 
 function handleLogout(event) {
     event.preventDefault();
-    clearLoginData();
+    clearLoginData(); // Pulisce sessionStorage
     window.location.href = 'landing.html'; // Reindirizza sempre alla home dopo il logout
 }
 
@@ -266,7 +276,7 @@ async function handleBecomeRole(role) {
      if (data && data.message) {
          if (profileMessage) {
              profileMessage.textContent = data.message + " Fai logout e login per vedere i cambiamenti.";
-             // Mantiene lo stile info se successo, altrimenti apiCall mostrerà alert
+             // Mantiene lo stile info se successo
          }
          // Aggiorna UI per nascondere il pulsante (anche se serve re-login per il ruolo)
          if (role === 'player') document.getElementById('btn-become-player').style.display = 'none';
@@ -305,8 +315,9 @@ async function handleJoinCampaign(event) {
     event.preventDefault();
     if (!joinCampaignModal) return;
      joinCampaignModal.hideError();
-     const codeInput = document.getElementById('join-code'); // Assicurati che l'ID sia corretto nell'HTML
-     const sheetSelect = document.getElementById('join-sheet-id'); // Assicurati che l'ID sia corretto
+     // Assicurati che gli ID nell'HTML del modal siano questi
+     const codeInput = document.getElementById('join-campaign-code');
+     const sheetSelect = document.getElementById('join-campaign-sheet-id');
      const inviteCode = codeInput?.value;
      const characterSheetId = sheetSelect?.value;
 
@@ -335,8 +346,9 @@ async function handleCreateCampaign(event) {
     event.preventDefault();
     if (!createCampaignModal) return;
     createCampaignModal.hideError();
-    const titleInput = document.getElementById('camp-title'); // Assicurati ID corretto
-    const descriptionInput = document.getElementById('camp-desc'); // Assicurati ID corretto
+    // Assicurati che gli ID nell'HTML del modal siano questi
+    const titleInput = document.getElementById('create-campaign-title');
+    const descriptionInput = document.getElementById('create-campaign-description');
     const title = titleInput?.value;
     const description = descriptionInput?.value;
 
@@ -356,7 +368,8 @@ async function handleClaimCampaign(event) {
     event.preventDefault();
     if (!claimCampaignModal) return;
     claimCampaignModal.hideError();
-    const codeInput = document.getElementById('claim-code'); // Assicurati ID corretto
+     // Assicurati che l'ID nell'HTML del modal sia questo
+    const codeInput = document.getElementById('claim-campaign-code');
     const inviteMastersCode = codeInput?.value;
 
       if (!inviteMastersCode) {
@@ -388,8 +401,7 @@ async function handleBanUser(userId, username) {
  */
 async function loadPlayerData() {
     console.log("Caricamento dati Player...");
-    const user = getCurrentUserFromStorage();
-    if (!user || !isPlayer()) return; // Non caricare se non è player
+    if (!isPlayer()) return; // Sicurezza extra
 
     // Carica Schede
     const sheets = await apiCall('/api/player/sheets');
@@ -406,8 +418,8 @@ async function loadPlayerData() {
         } else {
             sheetsList.innerHTML = '<p>Non hai ancora creato nessuna scheda.</p>';
         }
-         // Popola la select nel modal join campaign
-        const joinSheetSelect = document.getElementById('join-sheet-id');
+         // Popola la select nel modal join campaign (se esiste)
+        const joinSheetSelect = document.getElementById('join-campaign-sheet-id'); // ID Corretto
         if (joinSheetSelect) {
             joinSheetSelect.innerHTML = '<option value="" disabled selected>Seleziona una scheda...</option>'; // Opzione default
             sheets.forEach(sheet => {
@@ -477,7 +489,7 @@ async function loadPlayerData() {
                     <p>Data Proposta: ${new Date(p.proposedDate).toLocaleString()}</p>
                     <p>Scadenza Voto: ${new Date(p.expiresOn).toLocaleString()}</p>
                     ${p.hasVoted
-                        ? '<span class="voted">Votato</span>'
+                        ? '<span class="voted">Votato ✔️</span>' // Aggiunta icona
                         : `<button class="btn-primary" onclick="handleVoteProposal(${p.proposalId})">Vota Sì</button>`
                      }
                 </div>
@@ -485,8 +497,7 @@ async function loadPlayerData() {
             proposalsSection.style.display = 'block';
         } else {
              proposalsList.innerHTML = '<p>Nessuna proposta di sessione attiva al momento.</p>';
-             // Lasciamo la sezione visibile ma con il messaggio
-             proposalsSection.style.display = 'block';
+             proposalsSection.style.display = 'block'; // Mostra comunque il messaggio
         }
     } else if (proposalsSection) {
          proposalsSection.style.display = 'none'; // Nasconde se errore
@@ -495,8 +506,7 @@ async function loadPlayerData() {
 
 async function loadMasterData() {
     console.log("Caricamento dati Master...");
-    const user = getCurrentUserFromStorage();
-    if (!user || !isMaster()) return; // Non caricare se non è master
+    if (!isMaster()) return; // Sicurezza extra
 
     // Carica Campagne del Master
     const campaigns = await apiCall('/api/master/campaigns');
@@ -522,8 +532,7 @@ async function loadMasterData() {
 
 async function loadAdminData(filter = 'all') {
      console.log("Caricamento dati Admin, filtro:", filter);
-     const user = getCurrentUserFromStorage();
-     if (!user || !isAdmin()) return; // Sicurezza extra
+     if (!isAdmin()) return; // Sicurezza extra
 
      let endpoint = '/api/admin/users';
      if(filter === 'players') endpoint = '/api/admin/users/players';
@@ -584,45 +593,53 @@ function viewCampaignDetails(campaignId) {
  * Inizializzazione all'avvio (DOM Ready)
  */
 document.addEventListener('DOMContentLoaded', () => {
-    const currentPage = window.location.pathname.split('/').pop(); // Prende solo il nome del file
+    const currentPage = window.location.pathname.split('/').pop() || 'landing.html'; // Default a landing se path è /
 
     console.log("Pagina corrente:", currentPage);
     console.log("Autenticato?", isAuthenticated());
 
     // --- GUARDIA DI AUTENTICAZIONE ---
     if (currentPage === 'dashboard.html' || currentPage === 'admin.html') {
-        if (!isAuthenticated()) {
-            console.warn("Utente non autenticato in sessionStorage. Reindirizzamento a landing.html");
-            window.location.href = 'landing.html';
-            return;
+        if (!isAuthenticated()) { // Controlla sessionStorage
+            console.warn("Utente non autenticato. Reindirizzamento a landing.html");
+            window.location.replace('landing.html'); // Usa replace per non salvare nella history
+            return; // Ferma l'esecuzione
         }
+        // Controllo Admin
         if (currentPage === 'admin.html' && !isAdmin()) {
-             console.warn("Utente non ADMIN sta provando ad accedere a admin.html. Reindirizzamento...");
+             console.warn("Accesso non autorizzato a admin.html. Reindirizzamento...");
              alert("Accesso non autorizzato all'area admin.");
-             window.location.href = 'landing.html';
+             window.location.replace('landing.html');
              return;
         }
-        // Se arriviamo qui, l'utente è autenticato (e autorizzato per admin.html se necessario)
-        initializeProtectedPage(); // Inizializza le pagine protette
+        // Se arriviamo qui, siamo autenticati (e autorizzati per admin)
+        initializeProtectedPage();
     } else {
-        // Setup per pagine pubbliche (landing, register)
+        // Pagine pubbliche
         initializePublicPage();
     }
 
-    // Aggiorna l'UI generale (principalmente la navbar) su TUTTE le pagine
+    // Aggiorna l'UI generale (navbar) su TUTTE le pagine, DOPO aver inizializzato
     updateGeneralUI();
+
+    // Listener globale per il logout (usa event delegation)
+    document.addEventListener('click', function(event) {
+        if (event.target && event.target.id === 'logout-button') {
+            handleLogout(event);
+        }
+    });
 });
 
 /** Funzione per inizializzare le pagine pubbliche */
 function initializePublicPage() {
     console.log("Inizializzazione pagina pubblica...");
     // Istanzia il modal di login se presente
-    if(document.getElementById('loginModal')) loginModal = new Modal('loginModal');
+    loginModal = new Modal('loginModal'); // Prova sempre a istanziarlo
 
     // Listener per triggerare il modal di login
     document.querySelectorAll('.login-trigger').forEach(el => el.onclick = (e) => {
         e.preventDefault();
-        loginModal?.show();
+        loginModal?.show(); // Usa ?. per sicurezza se il modal non esiste
     });
 
     // Listener per i form di login e registrazione (se presenti)
@@ -634,25 +651,22 @@ function initializePublicPage() {
 function initializeProtectedPage() {
      console.log("Inizializzazione pagina protetta...");
      // Istanzia i modali specifici
-    if(document.getElementById('createSheetModal')) createSheetModal = new Modal('createSheetModal');
-    // TODO: Aggiungere HTML e istanziare gli altri modal
-    // if(document.getElementById('joinCampaignModal')) joinCampaignModal = new Modal('joinCampaignModal');
-    // if(document.getElementById('createCampaignModal')) createCampaignModal = new Modal('createCampaignModal');
-    // if(document.getElementById('claimCampaignModal')) claimCampaignModal = new Modal('claimCampaignModal');
+    createSheetModal = new Modal('createSheetModal');
+    joinCampaignModal = new Modal('joinCampaignModal'); // Assumendo che esista l'HTML
+    createCampaignModal = new Modal('createCampaignModal'); // Assumendo che esista l'HTML
+    claimCampaignModal = new Modal('claimCampaignModal'); // Assumendo che esista l'HTML
 
     // Listener per aprire i modali
     document.getElementById('btn-show-create-sheet-modal')?.addEventListener('click', () => createSheetModal?.show());
-    // TODO: Aggiungere listener per aprire gli altri modal
-    // document.getElementById('btn-show-join-campaign-modal')?.addEventListener('click', () => joinCampaignModal?.show());
-    // document.getElementById('btn-show-create-campaign-modal')?.addEventListener('click', () => createCampaignModal?.show());
-    // document.getElementById('btn-show-claim-campaign-modal')?.addEventListener('click', () => claimCampaignModal?.show());
+    document.getElementById('btn-show-join-campaign-modal')?.addEventListener('click', () => joinCampaignModal?.show());
+    document.getElementById('btn-show-create-campaign-modal')?.addEventListener('click', () => createCampaignModal?.show());
+    document.getElementById('btn-show-claim-campaign-modal')?.addEventListener('click', () => claimCampaignModal?.show());
 
     // Listener per i submit dei form nei modali
     document.getElementById('createSheetForm')?.addEventListener('submit', handleCreateSheet);
-    // TODO: Aggiungere listener submit per gli altri form modali
-    // document.getElementById('joinCampaignForm')?.addEventListener('submit', handleJoinCampaign);
-    // document.getElementById('createCampaignForm')?.addEventListener('submit', handleCreateCampaign);
-    // document.getElementById('claimCampaignForm')?.addEventListener('submit', handleClaimCampaign);
+    document.getElementById('joinCampaignForm')?.addEventListener('submit', handleJoinCampaign); // Assumendo ID form corretto
+    document.getElementById('createCampaignForm')?.addEventListener('submit', handleCreateCampaign); // Assumendo ID form corretto
+    document.getElementById('claimCampaignForm')?.addEventListener('submit', handleClaimCampaign); // Assumendo ID form corretto
 
 
     // Listener per i pulsanti "Diventa..." (solo in dashboard.html)
@@ -664,7 +678,7 @@ function initializeProtectedPage() {
          btn.addEventListener('click', (e) => loadAdminData(e.target.dataset.filter));
      });
 
-    // Aggiorna l'UI specifica e carica i dati
+    // Aggiorna l'UI specifica e carica i dati INIZIALI
     updateDashboardAdminUI();
 }
 
@@ -674,7 +688,10 @@ function updateDashboardAdminUI() {
     const user = getCurrentUserFromStorage(); // Legge sempre da storage
     if (!user) return; // Sicurezza extra
 
-    if (document.body.classList.contains('dashboard-body') && !isAdmin()) {
+    const isDashboardPage = document.body.classList.contains('dashboard-body') && !isAdmin();
+    const isAdminPage = document.body.classList.contains('admin-body') && isAdmin();
+
+    if (isDashboardPage) {
         const playerSection = document.getElementById('player-section');
         const masterSection = document.getElementById('master-section');
         const profileActions = document.getElementById('profile-actions');
@@ -707,30 +724,31 @@ function updateDashboardAdminUI() {
         if (isPlayer()) loadPlayerData();
         if (isMaster()) loadMasterData();
 
-    } else if (document.body.classList.contains('admin-body') && isAdmin()) {
+    } else if (isAdminPage) {
         loadAdminData(); // Carica i dati admin (filtro 'all' di default)
     }
 }
 
 /** Funzione per aggiornare UI generale (navbar) */
 function updateGeneralUI() {
-    const isAuth = isAuthenticated();
-    const user = getCurrentUserFromStorage();
-    const nav = document.querySelector('header nav');
+     const isAuth = isAuthenticated();
+     const user = getCurrentUserFromStorage();
+     const nav = document.querySelector('header nav'); // Selettore più generico
 
-    if (!nav) return; // Esce se non c'è la navbar
+     if (!nav) return; // Esce se non c'è la navbar
 
-    if (isAuth && user) {
+     if (isAuth && user) {
         // Navbar utente loggato
         let navHTML = `<span id="welcome-user">Benvenuto, ${user.username}</span>`;
-        const currentPage = window.location.pathname.split('/').pop();
+        const currentPage = window.location.pathname.split('/').pop() || 'landing.html';
 
         if (currentPage === 'dashboard.html') {
              if (isPlayer()) navHTML += `<a href="#player-section">Vista Player</a>`;
              if (isMaster()) navHTML += `<a href="#master-section">Vista Master</a>`;
         } else if (currentPage === 'admin.html' && isAdmin()) {
              navHTML = `<span id="welcome-user">Admin: ${user.username}</span>`;
-             // Aggiungere link specifici admin se necessario
+             // Link per tornare alla home o dashboard utente?
+             navHTML += `<a href="landing.html">Home Pubblica</a>`;
         } else if (currentPage !== 'dashboard.html' && currentPage !== 'admin.html') {
              // Navbar su pagine pubbliche ma loggato
               if (isAdmin()) navHTML += `<a href="admin.html">Admin Dashboard</a>`;
@@ -739,18 +757,18 @@ function updateGeneralUI() {
          navHTML += `<a href="#" id="logout-button">Logout</a>`;
          nav.innerHTML = navHTML;
 
-    } else {
+     } else {
         // Navbar utente NON loggato
         nav.innerHTML = `
             <a href="#" class="login-trigger">Accedi</a>
             <a href="register.html">Registrati</a>
         `;
-         // Riattacca listener per trigger login
-         document.querySelectorAll('.login-trigger').forEach(el => el.onclick = (e) => {
-             e.preventDefault();
-             // Assicurati che il modal sia istanziato SE siamo su una pagina pubblica
-             if(loginModal) loginModal.show();
-             else console.error("Login modal non trovato su questa pagina.");
-         });
-    }
+         // Riattacca listener per trigger login (solo se il modal esiste su questa pagina)
+         if (document.getElementById('loginModal')) {
+             document.querySelectorAll('.login-trigger').forEach(el => el.onclick = (e) => {
+                 e.preventDefault();
+                 loginModal?.show(); // Usa ?. per sicurezza
+             });
+         }
+     }
 }
