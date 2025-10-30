@@ -4,6 +4,7 @@ import { isAuthenticated, getCurrentUserFromStorage, isPlayer, isMaster, isAdmin
  * Gestione Modali (Classe unica per tutti)
  */
 export class Modal {
+    // ... (Il codice della classe Modal è invariato, copialo da prima) ...
     constructor(modalId) {
         this.modal = document.getElementById(modalId);
         if (!this.modal) return;
@@ -30,9 +31,10 @@ export class Modal {
     clearForm() { if(this.form) this.form.reset(); this.hideError(); }
 }
 
+
 /**
  * Aggiorna la Navbar (Globale)
- * RISOLVE IL BUG DELLO SWITCH PLAYER/MASTER
+ * --- CORRETTA LA LOGICA DI SWITCH ---
  */
 export function updateGeneralUI() {
      const isAuth = isAuthenticated();
@@ -41,22 +43,25 @@ export function updateGeneralUI() {
      if (!nav) return;
 
      if (isAuth && user) {
-        // Navbar utente loggato
         const currentPage = window.location.pathname.split('/').pop() || 'landing.html';
         let navHTML = `<span id="welcome-user">Benvenuto, ${user.username}</span>`;
 
         if (isAdmin()) {
             if (currentPage !== 'admin.html') navHTML += `<a href="admin.html">Dashboard Admin</a>`;
         } else {
-            // --- LOGICA DI SWITCH CORRETTA ---
+            // Se non sei né Player né Master, E non sei su profile.html -> vai a profile.html
+            if (!isPlayer() && !isMaster() && currentPage !== 'profile.html') {
+                navHTML += `<a href="profile.html">Scegli Ruolo</a>`;
+            }
+
+            // Se sei Player, mostra il link (se non sei già lì)
             if (isPlayer() && currentPage !== 'player.html') {
                 navHTML += `<a href="player.html">Vista Player</a>`;
             }
+
+            // Se sei Master, mostra il link (se non sei già lì)
             if (isMaster() && currentPage !== 'master.html') {
                 navHTML += `<a href="master.html">Vista Master</a>`;
-            }
-            if (!isPlayer() && !isMaster() && currentPage !== 'profile.html') {
-                navHTML += `<a href="profile.html">Scegli Ruolo</a>`;
             }
         }
          navHTML += `<a href="#" id="logout-button">Logout</a>`;
@@ -69,5 +74,10 @@ export function updateGeneralUI() {
             <a href="#" class="login-trigger">Accedi</a>
             <a href="register.html">Registrati</a>
         `;
+         // Riattacca i listener (gestiti da page.landing.js e page.register.js)
+         document.querySelectorAll('.login-trigger').forEach(el => el.onclick = (e) => {
+             e.preventDefault();
+             if (window.loginModal) window.loginModal.show();
+         });
      }
 }

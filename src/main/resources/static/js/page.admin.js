@@ -3,32 +3,35 @@ import { isAuthenticated, isAdmin, handleLogout } from './modules/auth.js';
 import { updateGeneralUI } from './modules/ui.js';
 
 // --- GUARDIA DI AUTENTICAZIONE ---
-if (!isAuthenticated()) {
-    console.warn("Utente non autenticato. Reindirizzamento a landing.html");
-    window.location.replace('landing.html');
-} else if (!isAdmin()) {
-     console.warn("Accesso non admin a admin.html. Reindirizzamento...");
-     alert("Accesso non autorizzato all'area admin.");
-     window.location.replace('landing.html');
-}
-// ---------------------------------
-
 document.addEventListener('DOMContentLoaded', () => {
+    if (!isAuthenticated()) {
+        console.warn("Utente non autenticato. Reindirizzamento a landing.html");
+        window.location.replace('landing.html');
+        return;
+    }
+    if (!isAdmin()) {
+         console.warn("Accesso non admin a admin.html. Reindirizzamento...");
+         alert("Accesso non autorizzato all'area admin.");
+         window.location.replace('landing.html');
+         return;
+    }
+    // ---------------------------------
+
+    // Se la guardia passa, inizializza
     updateGeneralUI();
     
-    // Listener filtri
      document.querySelectorAll('.btn-filter')?.forEach(btn => {
          btn.addEventListener('click', (e) => loadAdminData(e.target.dataset.filter));
      });
      
-    // Listener Logout
     document.addEventListener('click', (e) => {
         if (e.target && e.target.id === 'logout-button') handleLogout(e);
     });
 
-    // Carica dati iniziali
     loadAdminData();
 });
+
+// ... (funzioni handleBanUser e loadAdminData rimangono invariate) ...
 
 async function handleBanUser(userId, username) {
      if (confirm(`Sei sicuro di voler bannare l'utente ${username} (ID: ${userId})? L'utente sarà sospeso per 1 anno.`)) {
@@ -39,18 +42,16 @@ async function handleBanUser(userId, username) {
          }
      }
 }
-// Rende handleBanUser accessibile globalmente per l'onclick
 window.handleBanUser = handleBanUser;
 
 async function loadAdminData(filter = 'all') {
      console.log("Caricamento dati Admin, filtro:", filter);
+     if (!isAdmin()) return; 
      let endpoint = '/api/admin/users';
      if(filter === 'players') endpoint = '/api/admin/users/players';
      else if (filter === 'masters') endpoint = '/api/admin/users/masters';
-
      const users = await apiCall(endpoint);
      const tableBody = document.querySelector('#users-table tbody');
-
      if (users && tableBody) {
           if (users.length > 0) {
              tableBody.innerHTML = users.map(user => `
@@ -84,7 +85,6 @@ async function loadAdminData(filter = 'all') {
      } else if (tableBody) {
          tableBody.innerHTML = '<tr><td colspan="6">Errore nel caricamento degli utenti.</td></tr>';
      }
-
      document.querySelectorAll('.btn-filter').forEach(btn => {
          btn.classList.toggle('active', btn.dataset.filter === filter);
      });

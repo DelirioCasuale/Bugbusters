@@ -5,18 +5,17 @@ import { Modal, updateGeneralUI } from './modules/ui.js';
 let loginModal;
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Inizializza UI
+    // 1. Inizializza UI (Navbar e Modal)
     updateGeneralUI();
     loginModal = new Modal('loginModal');
 
-    // Listener
+    // 2. Aggiungi Listener
     document.querySelectorAll('.login-trigger').forEach(el => el.onclick = (e) => {
         e.preventDefault();
         loginModal?.show();
     });
     document.getElementById('loginForm')?.addEventListener('submit', handleLogin);
     
-    // Listener globale per logout (necessario se l'utente è loggato su questa pagina)
     document.addEventListener('click', (e) => {
         if (e.target && e.target.id === 'logout-button') handleLogout(e);
     });

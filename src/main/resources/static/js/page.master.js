@@ -3,43 +3,41 @@ import { isAuthenticated, isMaster, handleLogout } from './modules/auth.js';
 import { Modal, updateGeneralUI } from './modules/ui.js';
 
 // --- GUARDIA DI AUTENTICAZIONE ---
-if (!isAuthenticated()) {
-    console.warn("Utente non autenticato. Reindirizzamento a landing.html");
-    window.location.replace('landing.html');
-} else if (!isMaster()) {
-    // Se è loggato ma non è master, manda a scegliere il ruolo
-    console.warn("Utente non master su master.html. Reindirizzamento a profile.html");
-    window.location.replace('profile.html');
-}
-// ---------------------------------
-
-let createCampaignModal, claimCampaignModal;
-
 document.addEventListener('DOMContentLoaded', () => {
+    if (!isAuthenticated()) {
+        console.warn("Utente non autenticato. Reindirizzamento a landing.html");
+        window.location.replace('landing.html');
+        return;
+    }
+    if (!isMaster()) {
+        console.warn("Utente non master su master.html. Reindirizzamento a profile.html");
+        window.location.replace('profile.html');
+        return;
+    }
+    // ---------------------------------
+
+    // Se la guardia passa, inizializza
     updateGeneralUI();
     
-    // Istanzia Modali
     createCampaignModal = new Modal('createCampaignModal');
     claimCampaignModal = new Modal('claimCampaignModal');
 
-    // Listener per aprire modali
     document.getElementById('btn-show-create-campaign-modal')?.addEventListener('click', () => createCampaignModal?.show());
     document.getElementById('btn-show-claim-campaign-modal')?.addEventListener('click', () => claimCampaignModal?.show());
 
-    // Listener per submit form
     document.getElementById('createCampaignForm')?.addEventListener('submit', handleCreateCampaign);
     document.getElementById('claimCampaignForm')?.addEventListener('submit', handleClaimCampaign);
 
-    // Listener Logout
     document.addEventListener('click', (e) => {
         if (e.target && e.target.id === 'logout-button') handleLogout(e);
     });
 
-    // Carica dati iniziali
     loadMasterData();
 });
 
-// Handlers specifici
+// ... (tutte le funzioni handleCreateCampaign, handleClaimCampaign, 
+//      viewCampaignDetails, e loadMasterData rimangono invariate) ...
+
 async function handleCreateCampaign(event) {
     event.preventDefault();
     if (!createCampaignModal) return;
@@ -71,14 +69,12 @@ async function handleClaimCampaign(event) {
           loadMasterData();
       }
 }
-// Rende viewCampaignDetails accessibile globalmente per l'onclick
 window.viewCampaignDetails = (campaignId) => {
      alert(`Funzionalità "Gestisci Campagna ${campaignId}" non ancora implementata.`);
 }
-
-// Funzione di caricamento dati
 async function loadMasterData() {
     console.log("Caricamento dati Master...");
+    if (!isMaster()) return;
     const campaigns = await apiCall('/api/master/campaigns');
     const campaignsList = document.getElementById('master-campaigns-list');
     if (campaigns && campaignsList) {
