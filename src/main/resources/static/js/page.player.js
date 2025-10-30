@@ -2,42 +2,44 @@ import { apiCall } from './modules/api.js';
 import { isAuthenticated, isPlayer, handleLogout } from './modules/auth.js';
 import { Modal, updateGeneralUI } from './modules/ui.js';
 
-// --- GUARDIA DI AUTENTICAZIONE ---
-if (!isAuthenticated()) {
-    console.warn("Utente non autenticato. Reindirizzamento a landing.html");
-    window.location.replace('landing.html');
-} else if (!isPlayer()) {
-    // Se è loggato ma non è player, manda a scegliere il ruolo
-    console.warn("Utente non player su player.html. Reindirizzamento a profile.html");
-    window.location.replace('profile.html');
-}
-// ---------------------------------
-
 let createSheetModal, joinCampaignModal;
 
 document.addEventListener('DOMContentLoaded', () => {
+    
+    // --- GUARDIA DI AUTENTICAZIONE ---
+    if (!isAuthenticated()) {
+        console.warn("Utente non autenticato. Reindirizzamento a landing.html");
+        window.location.replace('landing.html');
+        return;
+    }
+    if (!isPlayer()) { // Se è loggato ma non è player
+        console.warn("Utente non player su player.html. Reindirizzamento...");
+        window.location.replace('profile.html'); // Manda a scegliere il ruolo
+        return;
+    }
+    // ---------------------------------
+
+    // Se la guardia passa, inizializza la pagina
     updateGeneralUI();
     
-    // Istanzia Modali
     createSheetModal = new Modal('createSheetModal');
     joinCampaignModal = new Modal('joinCampaignModal');
 
-    // Listener per aprire modali
     document.getElementById('btn-show-create-sheet-modal')?.addEventListener('click', () => createSheetModal?.show());
     document.getElementById('btn-show-join-campaign-modal')?.addEventListener('click', () => joinCampaignModal?.show());
 
-    // Listener per submit form
     document.getElementById('createSheetForm')?.addEventListener('submit', handleCreateSheet);
     document.getElementById('joinCampaignForm')?.addEventListener('submit', handleJoinCampaign);
 
-    // Listener Logout
     document.addEventListener('click', (e) => {
         if (e.target && e.target.id === 'logout-button') handleLogout(e);
     });
 
-    // Carica dati iniziali
     loadPlayerData();
 });
+
+// ... (tutte le funzioni handleCreateSheet, handleJoinCampaign, handleVoteProposal, 
+//      e loadPlayerData rimangono invariate, come nel file JS monolitico) ...
 
 // Handlers specifici
 async function handleCreateSheet(event) {
@@ -80,14 +82,13 @@ async function handleVoteProposal(proposalId) {
          loadPlayerData(); 
      }
 }
-// Rende handleVoteProposal accessibile globalmente per l'onclick
 window.handleVoteProposal = handleVoteProposal;
 
 // Funzione di caricamento dati
 async function loadPlayerData() {
     console.log("Caricamento dati Player...");
+    if (!isPlayer()) return;
     
-    // Carica Schede
     const sheets = await apiCall('/api/player/sheets');
     const sheetsList = document.getElementById('player-sheets-list');
     if (sheets && sheetsList) {
@@ -112,8 +113,6 @@ async function loadPlayerData() {
     } else if (sheetsList) {
          sheetsList.innerHTML = '<p>Errore nel caricamento delle schede.</p>';
     }
-
-    // Carica Campagne Unite
     const joinedCampaigns = await apiCall('/api/player/campaigns/joined');
     const campaignsList = document.getElementById('player-campaigns-list');
     if (joinedCampaigns && campaignsList) {
@@ -132,8 +131,6 @@ async function loadPlayerData() {
     } else if (campaignsList) {
          campaignsList.innerHTML = '<p>Errore nel caricamento delle campagne.</p>';
     }
-
-    // Carica Campagne Orfane
      const orphanedCampaigns = await apiCall('/api/player/campaigns/orphaned');
      const orphanedList = document.getElementById('player-orphaned-campaigns-list');
      const orphanedSection = orphanedList?.closest('.dashboard-section');
@@ -156,8 +153,6 @@ async function loadPlayerData() {
      } else if (orphanedSection) {
           orphanedSection.style.display = 'none';
      }
-
-    // Carica Proposte Attive
     const proposals = await apiCall('/api/player/proposals');
     const proposalsList = document.getElementById('player-proposals-list');
     const proposalsSection = proposalsList?.closest('.dashboard-section');

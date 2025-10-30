@@ -10,6 +10,8 @@ import com.generation.Bugbusters.repository.PlayerRepository;
 import com.generation.Bugbusters.repository.UserRepository;
 import com.generation.Bugbusters.security.JwtUtils;
 import com.generation.Bugbusters.security.UserDetailsImpl;
+
+import jakarta.persistence.EntityManager; // <-- IMPORTA QUESTO
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,16 +34,18 @@ public class ProfileService {
     private PlayerRepository playerRepository;
     @Autowired
     private MasterRepository masterRepository;
-    
-    // --- AGGIUNTO ---
     @Autowired
     private JwtUtils jwtUtils;
+    
+    // --- AGGIUNGI QUESTO ---
+    @Autowired
+    private EntityManager entityManager;
 
     /**
      * Rende l'utente loggato un "Player" e restituisce un nuovo token.
      */
     @Transactional
-    public ResponseEntity<?> becomePlayer() { // Modificato da MessageResponse
+    public ResponseEntity<?> becomePlayer() {
         User currentUser = getCurrentUser();
 
         if (playerRepository.existsById(currentUser.getId())) {
@@ -54,13 +58,16 @@ public class ProfileService {
         newPlayer.setUser(currentUser);
         playerRepository.save(newPlayer);
         
-        // --- LOGICA DI REFRESH TOKEN ---
-        // Ricarica l'utente (o aggiorna l'istanza) per includere il nuovo profilo
-        // (In un contesto transazionale, currentUser.setPlayer(newPlayer) potrebbe funzionare, 
-        // ma ricaricare è più sicuro per ottenere lo stato aggiornato per UserDetailsImpl)
+        // --- LOGICA DI REFRESH CORRETTA ---
+        // Forza il "flush" delle modifiche al DB (l'insert del player)
+        entityManager.flush(); 
+        // "Pulisce" la cache di primo livello di Hibernate
+        entityManager.clear(); 
+        
+        // Ora, ricaricando l'utente, siamo sicuri di prenderlo
+        // dal DB e non dalla cache, e vedrà le nuove relazioni.
         User updatedUser = userRepository.findById(currentUser.getId()).get();
 
-        // Genera un nuovo token con i ruoli aggiornati
         return generateUpdatedTokenResponse(updatedUser);
     }
 
@@ -68,7 +75,7 @@ public class ProfileService {
      * Rende l'utente loggato un "Master" e restituisce un nuovo token.
      */
     @Transactional
-    public ResponseEntity<?> becomeMaster() { // Modificato da MessageResponse
+    public ResponseEntity<?> becomeMaster() {
         User currentUser = getCurrentUser();
 
         if (masterRepository.existsById(currentUser.getId())) {
@@ -81,8 +88,11 @@ public class ProfileService {
         newMaster.setUser(currentUser);
         masterRepository.save(newMaster);
 
-        // --- LOGICA DI REFRESH TOKEN ---
+        // --- LOGICA DI REFRESH CORRETTA ---
+        entityManager.flush();
+        entityManager.clear();
         User updatedUser = userRepository.findById(currentUser.getId()).get();
+
         return generateUpdatedTokenResponse(updatedUser);
     }
 

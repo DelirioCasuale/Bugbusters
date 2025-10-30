@@ -5,11 +5,11 @@ import { Modal, updateGeneralUI } from './modules/ui.js';
 let loginModal;
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Inizializza UI
+    // 1. Inizializza UI
     updateGeneralUI();
     loginModal = new Modal('loginModal');
 
-    // Listener
+    // 2. Aggiungi Listener
     document.querySelectorAll('.login-trigger').forEach(el => el.onclick = (e) => {
         e.preventDefault();
         loginModal?.show();
@@ -17,16 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('loginForm')?.addEventListener('submit', handleLogin);
     document.getElementById('registerForm')?.addEventListener('submit', handleRegister);
     
-    // Listener globale per logout (se l'utente è loggato)
     document.addEventListener('click', (e) => {
         if (e.target && e.target.id === 'logout-button') handleLogout(e);
     });
 });
 
-// handleLogin è duplicato qui perché il modal è su questa pagina
+// handleLogin (necessario per il modal in questa pagina)
 async function handleLogin(event) {
     event.preventDefault();
-    // ... (Codice identico a page.landing.js) ...
     if (!loginModal) return;
     loginModal.hideError();
     const username = document.getElementById('login-username')?.value;
@@ -50,6 +48,7 @@ async function handleLogin(event) {
     }
 }
 
+// handleRegister
 async function handleRegister(event) {
     event.preventDefault();
     const errorDiv = document.getElementById('registerError');
