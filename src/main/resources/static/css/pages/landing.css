@@ -1,0 +1,49 @@
+/* ============================================================================
+   LAYOUT PAGINA (Hero, About)
+   ============================================================================ */
+.hero {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: url('../images/tavern_background.gif') no-repeat center center/cover;
+  padding: 3rem 1rem;
+}
+
+.hero-content {
+  background: rgba(30, 25, 60, 0.7); /* Sfondo più scuro per leggibilità */
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(79, 70, 229, 0.3);
+  max-width: 700px;
+}
+
+.hero-content h1 {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  color: var(--primary-purple-light);
+  text-shadow: 0 0 10px var(--primary-purple-dark);
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: var(--text-secondary);
+}
+
+.about {
+  max-width: 800px;
+  margin: 0 auto 3rem auto;
+  text-align: center;
+  padding: 1.5rem 2rem;
+  background: var(--bg-card);
+  border-radius: 12px;
+}
+
+.about h2 {
+  font-family: var(--font-display);
+  color: var(--text-highlight);
+  margin-bottom: 1rem;
+}

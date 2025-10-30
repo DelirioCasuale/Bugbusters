@@ -1,0 +1,23 @@
+/* ============================================================================
+   MAIN CSS - Importa tutti i file CSS modulari
+   ============================================================================ */
+
+/* 1. Variabili e stili globali (FONDAMENTALE PER PRIMO) */
+@import url('global.css');
+
+/* 2. Stili per componenti riutilizzabili */
+@import url('components/header.css');
+@import url('components/footer.css');
+@import url('components/modal.css');
+@import url('components/buttons.css');
+@import url('components/forms.css');
+@import url('components/cards.css');
+
+/* 3. Stili specifici per pagine (sovrascrivono/aggiungono) */
+@import url('pages/landing.css');
+@import url('pages/register.css');
+@import url('pages/dashboard.css');
+@import url('pages/admin.css');
+
+/* 4. Responsive (FONDAMENTALE PER ULTIMO) */
+@import url('responsive.css');
