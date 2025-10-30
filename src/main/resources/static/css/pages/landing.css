@@ -1,23 +1,28 @@
 /* ============================================================================
    LAYOUT PAGINA (Hero, About)
    ============================================================================ */
+
+/* --- NUOVA REGOLA --- */
+/* Applica lo sfondo all'intero <main> SOLO nella pagina landing */
+body.body-landing main {
+  background: url('../../images/tavern_signup.gif') no-repeat center center/cover;
+  background-attachment: fixed; /* Fissa lo sfondo durante lo scroll */
+  flex: 1;
+}
+
+/* --- MODIFICATO --- */
 .hero {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  
-  /* --- MODIFICA QUI --- */
-  /* Sostituito 'tavern_background.gif' con 'tavern_signup.gif' */
-  background: url('../../images/tavern_signup.gif') no-repeat center center/cover;
-  /* --- FINE MODIFICA --- */
-
+  /* Immagine di sfondo RIMOSSA da qui */
   padding: 3rem 1rem;
 }
 
 .hero-content {
-  background: rgba(30, 25, 60, 0.7); /* Sfondo più scuro per leggibilità */
+  background: rgba(30, 25, 60, 0.7); /* Manteniamo lo sfondo scuro per leggibilità */
   padding: 2rem 3rem;
   border-radius: 12px;
   box-shadow: 0 0 25px rgba(79, 70, 229, 0.3);
