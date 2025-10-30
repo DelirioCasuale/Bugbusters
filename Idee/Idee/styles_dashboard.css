@@ -1,0 +1,160 @@
+/* ===== MESSAGGIO INIZIALE ===== */
+.dashboard-hero {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: radial-gradient(circle at center, #232347, #0f0f1a 70%);
+  padding: 3rem 1rem;   
+}
+
+.dashboard-hero-content h1 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #a78bfa;
+  text-shadow: 0 0 10px #6d28d9;
+}
+
+.dashboard-hero-content p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: #d1c4ff;
+}
+
+/* ===== GESTIONE SCHEDE PERSONAGGIO - CAMPAGNE - UTENTI ===== */
+.dashboard-section {
+  margin: 50px auto;
+  max-width: 1000px;
+  background: rgba(30, 25, 60, 0.8);
+  border: 2px solid #4f46e5;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 0 20px rgba(100, 70, 200, 0.5);
+  justify-content: center;
+  
+}
+
+.dashboard-section h2 {
+  font-family: 'Cinzel Decorative', serif;
+  text-align: center;
+  color: #a78bfa;
+  margin-bottom: 20px;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  background: rgba(40, 30, 70, 0.9);
+  border: 1px solid #57419d;
+  border-radius: 10px;
+  padding: 20px;
+  width: 250px;
+  text-align: center;
+  box-shadow: 0 0 8px rgba(90, 60, 140, 0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 5px 20px rgba(167, 139, 250, 0.5), 0 0 15px rgba(167, 139, 250, 0.4); 
+    border-color: #a78bfa; 
+    cursor: pointer; 
+}
+
+.card h3 {
+  font-family: 'Cinzel Decorative', serif;
+  color: #a78bfa;
+}
+
+.card p {
+  color: #d9c7ff;
+}
+
+.add-card {
+  background: rgba(30, 20, 60, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-around; 
+    gap: 5px;
+}
+
+.card-actions .btn-small {
+    flex-grow: 1; 
+}
+
+/* ===== CALENDARIO ===== */
+.calendar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    gap: 15px;
+    padding: 20px;
+}
+
+.calendar-input {
+    width: 300px;
+    height: 50px;
+    padding: 10px 15px;
+    font-size: 1.1rem;
+    background-color: rgba(40, 30, 70, 0.9);
+    color: #d1c4ff; 
+    border: 2px solid #57419d;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(90, 60, 140, 0.6);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.calendar-input:hover {
+    border-color: #a78bfa;
+    box-shadow: 0 0 12px rgba(167, 139, 250, 0.8);
+}
+
+/* ===== MODALE CREAZIONE NUOVO UTENTE ===== */
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 10px;
+}
+
+.modal-form label {
+    text-align: left;
+    color: #c4b5fd;
+    font-size: 0.95rem;
+    margin-top: 5px;
+}
+
+.modal-form input, 
+.modal-form select {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #4f46e5;
+    background: rgba(40, 30, 70, 0.9);
+    color: #fff;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.modal-form input:focus, 
+.modal-form select:focus {
+    outline: none;
+    border-color: #a78bfa;
+    box-shadow: 0 0 5px rgba(167, 139, 250, 0.5);
+}
+

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments :: commonHead}">
+  <title>Tavern Portal</title>
+</head>
+
+<body>
+
+  <!-- Header Fragment -->
+  <div th:replace="~{fragments :: siteHeader}"></div>
+
+  <!-- Modal di Login Fragment -->
+  <div th:replace="~{fragments :: loginModal}"></div>
+
+  <!-- Main -->
+  <main>
+
+    <!-- Benvenuto -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1 sec:authorize="!isAuthenticated()">Benvenuto nella Taverna</h1>
+        <h1 sec:authorize="hasRole('ADMIN')">Benvenuto Admin</h1>
+        <h1 sec:authorize="hasRole('GUEST')">Bentornato alla Taverna</h1>
+        <p sec:authorize="!isAuthenticated()">Gestisci le tue campagne di D&D, crea personaggi e vivi nuove avventure.</p>
+        <p sec:authorize="hasRole('GUEST')">Sei pronto a tornare alla tua avventura?</p>
+
+        <div class="btn-group">
+          <button class="btn-primary login" sec:authorize="!isAuthenticated()">Inizia Ora</button>
+          <button class="btn-primary" sec:authorize="isPlayer()">Visuale Player</button>
+          <button class="btn-primary" sec:authorize="isMaster()">Visuale Master</button>
+          <button class="btn-primary" sec:authorize="hasRole('ADMIN')">Dashboard Admin</button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- About -->
+    <section class="about" sec:authorize="!hasRole('ADMIN')">
+      <div class="info" sec:authorize="!isAuthenticated()">
+        <h2>Cos'è Tavern Portal?</h2>
+        <p>
+          La piattaforma per Dungeon Master e Giocatori per pianificare, creare e condividere
+          le tue campagne di Dungeons&Dragons in un unico portale.
+        </p>
+      </div>
+      <!-- placeholder, main page troppo spoglia senza -->
+      <div class="chat" sec:authorize="hasRole('GUEST')">
+        <h2>Futura implementazione in arrivo</h2>
+        <p>Presto sarà disponibile una chat per gli utenti loggati.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer Fragment -->
+  <div th:replace="~{fragments :: siteFooter}"></div>
+
+  <!-- Scripts Fragment -->
+  <div th:replace="~{fragments :: commonScripts}"></div>
+
+</body><!-- TODO (per il gestore del sito) necessaria cookie n privacy policy perché vengono gestiti dati personali -->
+
+</html>

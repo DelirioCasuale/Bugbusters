@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tavern Portal - Dashboard Master</title>
+  <link rel="stylesheet" href="styles.css" th:href="@{/css/styles.css}">
+  <link rel="stylesheet" href="styles_dashboard.css" th:href="@{/css/styles_dashboard.css}">
+  <link rel="icon" type="image/x-icon" href="images/d20.logo2_nobackground.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+
+<body class="dashboard-body">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">
+    <i><img src="images/d20.logo2_nobackground.png" alt="Tavern Portal Logo" width="40" height="40" /></i>
+    <p>Tavern Portal</p>
+    </div>
+      <nav>
+        <a href="homepage.html" class="nav-link">Home</a>
+        <a href="#" class="nav-link">Gestione Giocatori</a>
+        <a href="#" class="nav-link">Gestione Campagne</a>
+        <a href="#" class="nav-link">Calendario</a>
+        <a href="#" class="nav-link logout">Logout</a>
+      </nav>
+  </header>
+
+  <!-- Benvenuto Master -->
+  <section class="dashboard-hero">
+     <div class="dashboard-hero-content">
+        <h1>Bentornato, Dungeon Master!</h1>
+        <p>Qui puoi gestire direttamente le campagne e i personaggi che stai guidando.</p>
+    </div>
+  </section>
+
+  <main class="dashboard-content">
+    
+    <!-- Gestione Giocatori -->
+    <section class="dashboard-section">
+      <h2>Gestione Giocatori</h2>
+      <div class="card-container">
+        <div class="card">
+          <h3>user:</h3>
+          <h3>mario_rossi99</h3>
+          <p>Livello 9 · ladro</p>
+          <p>La Fortezza Maledetta</p>
+        </div>
+        <div class="card">
+          <h3>user:</h3>
+          <h3>mario_rossi02</h3>
+          <p>Livello 3 · bardo</p>
+          <p>La Fortezza Maledetta</p>
+        </div>
+        <div class="card">
+          <h3>user:</h3>
+          <h3>luigi_verdi93</h3>
+          <p>Livello 12 · druido</p>
+          <p>La Cittadella Perduta</p>
+        </div>
+        <button class="btn-secondary">Modifica Giocatore</button>
+        <button class="btn-secondary">Elimina Giocatore</button>
+      </div>
+    </section>
+
+    <!-- Gestione Campagne -->
+    <section class="dashboard-section">
+      <h2>Gestione Campagne</h2>
+      <div class="card-container">
+        <div class="card">
+          <h3>La Fortezza Maledetta</h3>
+          <p>2 sessioni· 3 giocatori</p>
+          <button class="btn-primary">Avvia</button>
+        </div>
+        <div class="card">
+          <h3>La Cittadella<br>Perduta</h3>
+          <p>8 sessioni · 4 giocatori</p>
+          <button class="btn-primary">Avvia</button>
+        </div>
+        <div class="card add-card">
+          <button class="btn-secondary">Crea nuova Campagna</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Calendario --> 
+    <section class="dashboard-section">
+      <h2>Prossime Sessioni</h2>
+      <div class="calendar-container">
+        <input type="date" id="session-date" class="calendar-input">
+        
+        <button class="btn-primary" style="margin-top: 20px;">Pianifica Sessione</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
+  </footer>
+
+</body>
+</html>
