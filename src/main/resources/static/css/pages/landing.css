@@ -7,7 +7,12 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  background: url('../images/tavern_background.gif') no-repeat center center/cover;
+  
+  /* --- MODIFICA QUI --- */
+  /* Sostituito 'tavern_background.gif' con 'tavern_signup.gif' */
+  background: url('../../images/tavern_signup.gif') no-repeat center center/cover;
+  /* --- FINE MODIFICA --- */
+
   padding: 3rem 1rem;
 }
 
