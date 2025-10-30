@@ -76,39 +76,34 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            // --- DISABILITA CSRF ---
-            .csrf(csrf -> csrf.disable()) // Assicura che CSRF sia disabilitato
-
-            // --- GESTIONE SESSIONE STATELESS ---
+            // ... (csrf, sessionManagement, authenticationProvider)
+            .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Non usare sessioni
-
-            // --- PROVIDER DI AUTENTICAZIONE ---
-            .authenticationProvider(authenticationProvider()) // Usa il nostro provider custom
-
-            // --- REGOLE DI AUTORIZZAZIONE ---
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authenticationProvider(authenticationProvider())
+            
             .authorizeHttpRequests(authz -> authz
-                // Endpoint Pubblici API (Login/Register): Permetti solo POST
+                // Endpoint Pubblici API
                 .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
 
-                // Pagine HTML e Risorse Statiche Pubbliche: Permetti GET (e altri metodi di default)
-                .requestMatchers("/", "/landing.html", "/register.html", "/css/**", "/js/**", "/images/**").permitAll()
+                // --- MODIFICATO ---
+                // Pagine HTML Pubbliche e Risorse Statiche
+                // Aggiungiamo le nuove pagine a permitAll()
+                .requestMatchers("/", "/landing.html", "/register.html", 
+                                 "/player.html", "/master.html", "/profile.html", // PAGINE NUOVE/MODIFICATE
+                                 "/css/**", "/js/**", "/images/**").permitAll()
 
-                // Pagine HTML "Protette" - Le rendiamo accessibili per permettere al JS di fare il controllo
-                .requestMatchers("/dashboard.html", "/admin.html").permitAll() // <-- MODIFICATO A permitAll()
-
-                // Endpoint Protetti API (basati sui ruoli specifici)
+                // Endpoint Protetti API (Qui resta la protezione DEI DATI)
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                .requestMatchers("/api/profile/**").hasRole("USER") // Per 'Diventa Player/Master'
+                .requestMatchers("/api/profile/**").hasRole("USER") 
                 .requestMatchers("/api/player/**").hasRole("PLAYER")
                 .requestMatchers("/api/master/**").hasRole("MASTER")
+                .requestMatchers("/admin.html").hasRole("ADMIN") // La pagina admin la proteggiamo ancora lato server
 
-                // Qualsiasi altra richiesta non specificata richiede autenticazione
+                // Altre richieste
                 .anyRequest().authenticated()
             );
 
-        // --- AGGIUNTA FILTRO JWT ---
-        // Inserisce il nostro filtro per validare i token prima dei filtri standard
         http.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

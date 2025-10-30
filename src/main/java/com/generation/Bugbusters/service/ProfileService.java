@@ -1,5 +1,6 @@
 package com.generation.Bugbusters.service;
 
+import com.generation.Bugbusters.dto.JwtResponse;
 import com.generation.Bugbusters.dto.MessageResponse;
 import com.generation.Bugbusters.entity.Master;
 import com.generation.Bugbusters.entity.Player;
@@ -7,73 +8,122 @@ import com.generation.Bugbusters.entity.User;
 import com.generation.Bugbusters.repository.MasterRepository;
 import com.generation.Bugbusters.repository.PlayerRepository;
 import com.generation.Bugbusters.repository.UserRepository;
+import com.generation.Bugbusters.security.JwtUtils;
 import com.generation.Bugbusters.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProfileService {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private PlayerRepository playerRepository;
-
     @Autowired
     private MasterRepository masterRepository;
-
     
-    // rende l'utente attualmente loggato un "player"
-    @Transactional // assicura che tutte le operazioni db in questo metodo siano atomiche, cioè si completano tutte o nessuna
-    public MessageResponse becomePlayer() {
-        // ottiene l'utente loggato dal contesto di sicurezza
+    // --- AGGIUNTO ---
+    @Autowired
+    private JwtUtils jwtUtils;
+
+    /**
+     * Rende l'utente loggato un "Player" e restituisce un nuovo token.
+     */
+    @Transactional
+    public ResponseEntity<?> becomePlayer() { // Modificato da MessageResponse
         User currentUser = getCurrentUser();
 
-        // controlla se è già un player
-        // (usiamo existsById perché l'id del player è lo stesso dell'user)
         if (playerRepository.existsById(currentUser.getId())) {
-            return new MessageResponse("Errore: Sei già un Player!");
+            return new ResponseEntity<>(
+                new MessageResponse("Errore: Sei già un Player!"), 
+                HttpStatus.BAD_REQUEST);
         }
 
-        // crea e salva il nuovo profilo player
         Player newPlayer = new Player();
-        newPlayer.setUser(currentUser); // imposta la relazione @MapsId
+        newPlayer.setUser(currentUser);
         playerRepository.save(newPlayer);
+        
+        // --- LOGICA DI REFRESH TOKEN ---
+        // Ricarica l'utente (o aggiorna l'istanza) per includere il nuovo profilo
+        // (In un contesto transazionale, currentUser.setPlayer(newPlayer) potrebbe funzionare, 
+        // ma ricaricare è più sicuro per ottenere lo stato aggiornato per UserDetailsImpl)
+        User updatedUser = userRepository.findById(currentUser.getId()).get();
 
-        return new MessageResponse("Sei diventato un Player! Fai di nuovo il login per aggiornare i tuoi ruoli.");
+        // Genera un nuovo token con i ruoli aggiornati
+        return generateUpdatedTokenResponse(updatedUser);
     }
 
-    
-    // rende l'utente attualmente loggato un master
+    /**
+     * Rende l'utente loggato un "Master" e restituisce un nuovo token.
+     */
     @Transactional
-    public MessageResponse becomeMaster() {
-        // ottiene l'utente loggato
+    public ResponseEntity<?> becomeMaster() { // Modificato da MessageResponse
         User currentUser = getCurrentUser();
 
-        // controlla se è già un master
         if (masterRepository.existsById(currentUser.getId())) {
-            return new MessageResponse("Errore: Sei già un Master!");
+             return new ResponseEntity<>(
+                new MessageResponse("Errore: Sei già un Master!"), 
+                HttpStatus.BAD_REQUEST);
         }
 
-        // crea e salva il nuovo profilo master
         Master newMaster = new Master();
-        newMaster.setUser(currentUser); // imposta la relazione @MapsId
+        newMaster.setUser(currentUser);
         masterRepository.save(newMaster);
 
-        return new MessageResponse("Sei diventato un Master! Fai di nuovo il login per aggiornare i tuoi ruoli.");
+        // --- LOGICA DI REFRESH TOKEN ---
+        User updatedUser = userRepository.findById(currentUser.getId()).get();
+        return generateUpdatedTokenResponse(updatedUser);
     }
 
-    // metodo helper per ottenere l'utente dalla sessione
+    /**
+     * Metodo helper (DRY) per ottenere l'utente dalla sessione
+     */
     private User getCurrentUser() {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder
                 .getContext().getAuthentication().getPrincipal();
         
-        // va ricaricato l'utente dal repository per assicurasi
-        // che sia un'entità gestita da JPA nel contesto di questa richiesta
         return userRepository.findById(userDetails.getId())
                 .orElseThrow(() -> new RuntimeException("Utente non trovato"));
+    }
+    
+    /**
+     * NUOVO METODO HELPER (DRY)
+     * Genera un nuovo JwtResponse per un utente aggiornato.
+     */
+    private ResponseEntity<JwtResponse> generateUpdatedTokenResponse(User user) {
+        // 1. Costruisci il nuovo UserDetails con i ruoli aggiornati (es. ROLE_PLAYER)
+        UserDetailsImpl userDetails = UserDetailsImpl.build(user);
+
+        // 2. Crea un nuovo oggetto Authentication per il generatore di token
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                userDetails, 
+                null, // Non servono credenziali, è già autenticato
+                userDetails.getAuthorities());
+        
+        // 3. Genera un nuovo token JWT
+        String jwt = jwtUtils.generateJwtToken(authentication);
+
+        // 4. Estrai i ruoli come stringhe
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+
+        // 5. Restituisci il nuovo JwtResponse
+        return ResponseEntity.ok(new JwtResponse(jwt,
+                userDetails.getId(),
+                userDetails.getUsername(),
+                userDetails.getEmail(),
+                roles));
     }
 }

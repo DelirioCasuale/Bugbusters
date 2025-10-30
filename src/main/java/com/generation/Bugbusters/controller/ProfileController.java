@@ -1,6 +1,5 @@
 package com.generation.Bugbusters.controller;
 
-import com.generation.Bugbusters.dto.MessageResponse;
 import com.generation.Bugbusters.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,10 +22,9 @@ public class ProfileController {
      * così da assegnargli il ruolo di Player
      */
     @PostMapping("/become-player")
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<MessageResponse> becomePlayer() {
-        MessageResponse response = profileService.becomePlayer();
-        return ResponseEntity.ok(response);
+    @PreAuthorize("hasRole('USER')") 
+    public ResponseEntity<?> becomePlayer() {
+        return profileService.becomePlayer(); // Restituisce direttamente la risposta del service
     }
 
     /*
@@ -37,8 +35,7 @@ public class ProfileController {
      */
     @PostMapping("/become-master")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<MessageResponse> becomeMaster() {
-        MessageResponse response = profileService.becomeMaster();
-        return ResponseEntity.ok(response);
+    public ResponseEntity<?> becomeMaster() {
+        return profileService.becomeMaster(); // Restituisce direttamente la risposta del service
     }
 }
