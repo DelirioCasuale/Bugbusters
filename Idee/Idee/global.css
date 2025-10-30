@@ -1,0 +1,327 @@
+/* ============================================================================
+   CSS VARIABLES - Colori ricorrenti (unificati)
+   ============================================================================ */
+:root {
+  /* Colori principali */
+  --primary-purple: #4f46e5;
+  --primary-purple-dark: #6d28d9;
+  --primary-purple-light: #a78bfa;
+  --primary-purple-lighter: #c4b5fd;
+
+  /* Colori secondari */
+  --secondary-gray: #6b7280;
+  --secondary-gray-light: #9ca3af;
+
+  /* Background colors */
+  --bg-dark-primary: #1a1a2e;
+  --bg-dark-secondary: #0f0f1a;
+  --bg-header-start: #1b1b3a;
+  --bg-header-end: #2b2b5a;
+  --bg-card: rgba(45, 45, 80, 0.4);
+  --bg-dashboard-card: rgba(30, 25, 60, 0.8);
+  --bg-individual-card: rgba(40, 30, 70, 0.9);
+  --bg-add-card: rgba(30, 20, 60, 0.7);
+  --bg-register-card: rgba(20, 20, 40, 0.9);
+  --bg-register-bg: radial-gradient(circle at center, #1b1b2f, #0a0a1a);
+  --bg-hero-alt: radial-gradient(circle at center, #232347, #0f0f1a 70%);
+  --bg-input: #2b2b5a;
+  --bg-input-focus: #353566;
+
+  /* Text colors (unificati) */
+  --text-primary: #dcdcff;
+  --text-secondary: #d1c4ff; /* Usato per text-calendar, nav a, etc. */
+  --text-muted: #9ca3af;
+  --text-register: #e0d9ff;
+  --text-register-label: #d0c7f7;
+  --text-register-subtitle: #a79ac9;
+  --text-register-link: #b79cff;
+  --text-card: #d9c7ff;
+
+  /* Border colors (unificati) */
+  --border-primary: #4f46e5;
+  --border-secondary: #57419d; /* Usato per border-card, calendar, etc. */
+  --border-register: #6a5acd;
+
+  /* Shadow colors (unificati) */
+  --shadow-primary: rgba(0, 0, 0, 0.5);
+  --shadow-header: rgba(100, 100, 255, 0.2);
+  --shadow-button: rgba(109, 40, 217, 0.3);
+  --shadow-button-hover: rgba(167, 139, 250, 0.6);
+  --shadow-medium: rgba(90, 60, 140, 0.6); /* Usato per card, calendar, etc. */
+  --shadow-dashboard: rgba(100, 70, 200, 0.5);
+  --shadow-register: rgba(106, 90, 205, 0.4);
+  --shadow-hover-intense: rgba(167, 139, 250, 0.8); /* Per hover effects */
+  --shadow-footer: rgba(80, 70, 150, 0.3);
+
+  /* Error colors */
+  --error-color: #ff6b6b;
+  --error-bg: rgba(255, 107, 107, 0.1);
+  --error-border: rgba(255, 107, 107, 0.3);
+
+  /* Focus colors */
+  --focus-outline: rgba(167, 139, 250, 0.2);
+}
+
+/* ============================================================================
+   RESET AND BASE STYLES - Applicati a tutte le pagine
+   ============================================================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(
+    circle at top,
+    var(--bg-dark-primary),
+    var(--bg-dark-secondary)
+  );
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ============================================================================
+   BUTTONS - Componenti riutilizzabili per tutte le pagine
+   ============================================================================ */
+.btn-primary {
+  background-color: var(--primary-purple);
+  color: #fff;
+  border: 2px solid var(--primary-purple-dark);
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-purple-dark);
+  transform: scale(1.05);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-gray);
+  color: #fff;
+  border: 2px solid var(--secondary-gray-light);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-gray-light);
+  transform: scale(1.05);
+}
+
+.btn-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* ============================================================================
+   FORM STYLES - Form base riutilizzabili
+   ============================================================================ */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid var(--border-primary);
+  border-radius: 8px;
+  background-color: var(--bg-input);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-purple-light);
+  box-shadow: 0 0 0 3px var(--focus-outline);
+  background-color: var(--bg-input-focus);
+}
+
+.form-group input::placeholder {
+  color: var(--text-muted);
+}
+
+.error-message {
+  color: var(--error-color);
+  font-size: 0.9rem;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: var(--error-bg);
+  border: 1px solid var(--error-border);
+  border-radius: 6px;
+  display: none;
+}
+
+.error-message.show {
+  display: block;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================================
+   UTILITY CLASSES - Stili di supporto globali
+   ============================================================================ */
+/* Animation Base */
+button,
+a,
+.logo {
+  transition: all 0.3s ease;
+}
+
+/* Authentication Info */
+.user-info {
+  background: rgba(45, 45, 80, 0.6);
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid var(--border-primary);
+  margin: 10px 0;
+}
+
+.user-info p {
+  margin: 5px 0;
+  color: var(--text-secondary);
+}
+
+.user-info strong {
+  color: var(--primary-purple-light);
+}
+
+/* Test Section */
+.test-section {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.test-section h3 {
+  color: var(--primary-purple-light);
+  font-family: 'Cinzel Decorative', serif;
+  margin-bottom: 15px;
+}
+
+/* ============================================================================
+   LAYOUT BASE - Layout riutilizzabile
+   ============================================================================ */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+main > *:first-child {
+  margin-top: 60px;
+  margin-bottom: 10px;
+}
+main > *:last-child {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  background: var(--bg-card);
+  border-radius: 12px;
+}
+
+/* Hero alternativo per dashboard */
+.dashboard-hero {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: var(--bg-hero-alt);
+  padding: 3rem 1rem;
+}
+
+.hero-content h1,
+.dashboard-hero-content h1 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  color: var(--primary-purple-light);
+  text-shadow: 0 0 10px var(--primary-purple-dark);
+}
+
+.dashboard-hero-content h1 {
+  font-size: 2.5rem;
+}
+
+.hero-content p,
+.dashboard-hero-content p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: var(--text-secondary);
+}
+
+/* About Section */
+.about {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 1rem 2rem;
+  background: var(--bg-card);
+  border-radius: 12px;
+}
+
+.about h2 {
+  font-family: 'Cinzel Decorative', serif;
+  color: var(--primary-purple-lighter);
+  margin-bottom: 1rem;
+}
+
+/* Container generico per sezioni */
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Card base riutilizzabile */
+.card-base {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+}

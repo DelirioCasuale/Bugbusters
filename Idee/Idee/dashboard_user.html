@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tavern Portal - Dashboard Giocatore</title>
+  <link rel="stylesheet" href="styles.css" th:href="@{/css/styles.css}">
+  <link rel="stylesheet" href="styles_dashboard.css" th:href="@{/css/styles_dashboard.css}">
+  <link rel="icon" type="image/x-icon" href="images/d20.logo2_nobackground.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+
+<body class="dashboard-body">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">
+    <i><img src="images/d20.logo2_nobackground.png" alt="Tavern Portal Logo" width="40" height="40" /></i>
+    <p>Tavern Portal</p>
+    </div>
+      <nav>
+        <a href="homepage.html" class="nav-link">Home</a>
+        <a href="#" class="nav-link">Le mie Schede</a>
+        <a href="#" class="nav-link">Le mie Campagne</a>
+        <a href="#" class="nav-link">Calendario</a>
+        <a href="#" class="nav-link logout">Logout</a>
+      </nav>
+  </header>
+
+  <!-- Benvenuto Giocatore -->
+  <section class="dashboard-hero">
+     <div class="dashboard-hero-content">
+        <h1>Bentornato, Avventuriero!</h1>
+        <p>Qui puoi gestire i tuoi personaggi e le tue campagne di Dungeons&Dragons.</p>
+    </div>
+  </section>
+
+  <main class="dashboard-content">
+    
+    <!-- Schede personaggio -->
+    <section class="dashboard-section">
+      <h2>Le mie Schede</h2>
+      <div class="card-container">
+        <div class="card">
+          <h3>Giovanni Muciaccia</h3>
+          <p>Livello 8 · paladino</p>
+          <button class="btn-primary">Modifica</button>
+        </div>
+        <div class="card">
+          <h3>Strega Varana</h3>
+          <p>Livello 5 · strega</p>
+          <button class="btn-primary">Modifica</button>
+        </div>
+        <div class="card add-card">
+          <button class="btn-secondary">+ Crea nuova Scheda</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Campagne giocatore -->
+    <section class="dashboard-section">
+      <h2>Le mie Campagne</h2>
+      <div class="card-container">
+        <div class="card">
+          <h3>La Cittadella Perduta</h3>
+          <p>DM: Gabibbo · 4 giocatori</p>
+          <button class="btn-primary">Entra</button>
+        </div>
+        <div class="card">
+          <h3>Il Fantabosco</h3>
+          <p>DM: Lupo Lucio · 7 giocatori</p>
+          <button class="btn-primary">Entra</button>
+        </div>
+        <div class="card add-card">
+          <button class="btn-secondary">+ Unisciti a una Campagna</button>
+        </div>
+      </div>
+    </section>
+
+   <!-- Calendario --> 
+    <section class="dashboard-section">
+      <h2>Prossime Sessioni</h2>
+      <div class="calendar-container">
+        <input type="date" id="session-date" class="calendar-input">
+        
+        <button class="btn-primary" style="margin-top: 20px;">Partecipa</button>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
+  </footer>
+
+</body>
+</html>
