@@ -1,0 +1,38 @@
+/* ============================================================================
+   PAGINA REGISTRAZIONE
+   ============================================================================ */
+body.body-register {
+   background: url('../images/tavern_signup.gif') no-repeat center center/cover;
+}
+
+/* Wrapper per centrare il form */
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.form-card {
+  background: var(--bg-register-card);
+  border: 2px solid var(--border-register);
+  border-radius: 20px;
+  padding: 40px 50px;
+  width: 90%;
+  max-width: 450px;
+  color: var(--text-primary);
+  box-shadow: 0 0 25px rgba(106, 90, 205, 0.4);
+  text-align: center;
+}
+
+.form-card h1 { 
+  font-family: var(--font-display); 
+  color: var(--text-highlight); 
+  margin-bottom: 10px; 
+}
+.form-card .subtitle { 
+  font-size: 0.9rem; 
+  color: var(--text-secondary); 
+  margin-bottom: 25px; 
+}

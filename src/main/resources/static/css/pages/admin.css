@@ -1,0 +1,81 @@
+/* ============================================================================
+   ADMIN DASHBOARD (admin.html)
+   ============================================================================ */
+body.admin-body {
+    /* (Puoi aggiungere stili specifici per lo sfondo admin qui) */
+}
+
+.filters {
+    text-align: center;
+    margin-bottom: 25px;
+}
+.btn-filter {
+    background: transparent;
+    border: 1px solid var(--border-primary);
+    color: var(--text-secondary);
+    padding: 8px 15px;
+    margin: 0 5px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.btn-filter.active, .btn-filter:hover {
+    background: var(--primary-purple);
+    color: white;
+}
+
+.admin-table-container {
+    overflow-x: auto;
+}
+
+#users-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: var(--bg-card-hover);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#users-table th, #users-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#users-table th {
+    background: var(--bg-dark-primary);
+    color: var(--primary-purple-light);
+    font-weight: 500;
+}
+
+#users-table tbody tr:hover {
+    background-color: rgba(79, 70, 229, 0.1);
+}
+
+#users-table .status-banned { color: var(--error-color); font-weight: bold; }
+#users-table .status-active { color: var(--success-color); }
+
+#users-table .role-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 0.8em;
+    margin-right: 5px;
+    background: var(--primary-purple);
+    color: white;
+}
+#users-table .role-badge.admin { background: #dc3545; }
+#users-table .role-badge.player { background: #28a745; }
+#users-table .role-badge.master { background: #ffc107; color: #333; }
+
+#users-table .action-button {
+    background: var(--secondary-gray);
+    color: white;
+    padding: 5px 10px;
+    font-size: 0.9em;
+    margin-right: 5px;
+}
+#users-table .action-button:hover { background: var(--secondary-gray-light); }
+#users-table .action-button.ban { background: #c82333; }
+#users-table .action-button.ban:hover { background: #a71d2a; }
+#users-table .action-button:disabled { background: #333; color: #777; cursor: not-allowed; }
