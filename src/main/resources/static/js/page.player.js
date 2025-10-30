@@ -87,8 +87,8 @@ window.handleVoteProposal = handleVoteProposal;
 // Funzione di caricamento dati
 async function loadPlayerData() {
     console.log("Caricamento dati Player...");
-    if (!isPlayer()) return;
-    
+    if (!isPlayer()) return; 
+
     const sheets = await apiCall('/api/player/sheets');
     const sheetsList = document.getElementById('player-sheets-list');
     if (sheets && sheetsList) {
@@ -97,12 +97,14 @@ async function loadPlayerData() {
                 <div class="card">
                     <h3>${sheet.name || 'Senza nome'}</h3>
                     <p>ID: ${sheet.id} · ${sheet.primaryClass || '?'} Lvl ${sheet.primaryLevel || '?'} · ${sheet.race || '?'}</p>
-                    <button class="btn-secondary" disabled>Modifica (WIP)</button>
+                    
+                    <a href="edit-sheet.html?id=${sheet.id}" class="btn-secondary">Modifica</a>
                 </div>
             `).join('');
         } else {
             sheetsList.innerHTML = '<p>Non hai ancora creato nessuna scheda.</p>';
         }
+        // Popola la select nel modal join campaign 
         const joinSheetSelect = document.getElementById('join-campaign-sheet-id');
         if (joinSheetSelect) {
             joinSheetSelect.innerHTML = '<option value="" disabled selected>Seleziona una scheda...</option>';

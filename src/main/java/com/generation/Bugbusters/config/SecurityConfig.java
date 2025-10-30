@@ -76,7 +76,6 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            // ... (csrf, sessionManagement, authenticationProvider)
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -86,11 +85,10 @@ public class SecurityConfig {
                 // Endpoint Pubblici API
                 .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
 
-                // --- MODIFICATO ---
                 // Pagine HTML Pubbliche e Risorse Statiche
-                // Aggiungiamo le nuove pagine a permitAll()
                 .requestMatchers("/", "/landing.html", "/register.html", 
-                                 "/player.html", "/master.html", "/profile.html", // PAGINE NUOVE/MODIFICATE
+                                 "/player.html", "/master.html", "/profile.html", 
+                                 "/edit-sheet.html", // <-- AGGIUNTO QUI
                                  "/css/**", "/js/**", "/images/**").permitAll()
 
                 // Endpoint Protetti API (Qui resta la protezione DEI DATI)
@@ -98,7 +96,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/profile/**").hasRole("USER") 
                 .requestMatchers("/api/player/**").hasRole("PLAYER")
                 .requestMatchers("/api/master/**").hasRole("MASTER")
-                .requestMatchers("/admin.html").hasRole("ADMIN") // La pagina admin la proteggiamo ancora lato server
+                .requestMatchers("/admin.html").hasRole("ADMIN")
 
                 // Altre richieste
                 .anyRequest().authenticated()

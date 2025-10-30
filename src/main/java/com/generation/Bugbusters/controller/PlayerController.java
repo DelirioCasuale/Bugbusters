@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable; 
 
 import java.util.List;
 
@@ -92,5 +93,26 @@ public class PlayerController {
     public ResponseEntity<List<OrphanedCampaignDTO>> getOrphanedCampaigns() {
         List<OrphanedCampaignDTO> campaigns = playerService.getMyOrphanedCampaigns();
         return ResponseEntity.ok(campaigns);
+    }
+
+    /**
+     * Endpoint per OTTENERE i dati completi di UNA singola scheda.
+     * GET /api/player/sheets/{id}
+     */
+    @GetMapping("/sheets/{id}")
+    public ResponseEntity<?> getCharacterSheetById(@PathVariable Long id) {
+        return playerService.getCharacterSheetDetails(id);
+    }
+    
+    /**
+     * Endpoint per AGGIORNARE una scheda personaggio esistente.
+     * PUT /api/player/sheets/{id}
+     */
+    @PutMapping("/sheets/{id}")
+    public ResponseEntity<?> updateCharacterSheet(
+            @PathVariable Long id,
+            @Valid @RequestBody CharacterSheetDTO sheetDTO) {
+        
+        return playerService.updateCharacterSheet(id, sheetDTO);
     }
 }
