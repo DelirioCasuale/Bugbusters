@@ -33,7 +33,7 @@ export class Modal {
 
 /**
  * Aggiorna la Navbar (Globale)
- * --- LOGICA DI SWITCH CORRETTA ---
+ * --- MODIFICATA PER LINK AL PROFILO ---
  */
 export function updateGeneralUI() {
      const isAuth = isAuthenticated();
@@ -45,12 +45,16 @@ export function updateGeneralUI() {
         // --- Navbar Utente Loggato (MODIFICATA) ---
         const currentPage = window.location.pathname.split('/').pop() || 'landing.html';
         
-        // Crea l'avatar
-        const avatarUrl = user.profileImageUrl ? user.profileImageUrl : 'images/dice.png'; // Fallback sull'icona del dado
+        // 1. Crea l'avatar
+        const avatarUrl = user.profileImageUrl ? user.profileImageUrl : 'images/dice.png'; // Fallback
         const avatarImg = `<img src="${avatarUrl}" alt="Avatar" class="navbar-avatar">`;
 
-        let navHTML = `<span id="welcome-user">${avatarImg} ${user.username}</span>`;
+        // 2. MODIFICA: Avvolge il benvenuto in un link a profile.html
+        let navHTML = `<a href="profile.html" id="welcome-user-link" title="Vai al tuo profilo">
+                           <span id="welcome-user">${avatarImg} ${user.username}</span>
+                       </a>`;
 
+        // 3. Aggiunge gli altri link (logica invariata)
         if (isAdmin()) {
             if (currentPage !== 'admin.html') navHTML += `<a href="admin.html">Dashboard Admin</a>`;
         } else {

@@ -4,14 +4,11 @@ import { updateGeneralUI } from './modules/ui.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- GUARDIA DI AUTENTICAZIONE ---
+    // --- GUARDIA ---
     if (!isAuthenticated()) {
         window.location.replace('landing.html');
         return; 
     }
-    // (Rimuoviamo la guardia che reindirizza SE sei player/master,
-    // perché ora questa è la pagina di modifica profilo per TUTTI)
-    // ---------------------------------
 
     updateGeneralUI(); // Aggiorna la navbar
 
@@ -20,12 +17,38 @@ document.addEventListener('DOMContentLoaded', () => {
     if (user) {
         document.getElementById('profile-username').value = user.username;
         document.getElementById('profile-email').value = user.email;
+        // Correzione: assicurati di usare 'profileImageUrl'
         document.getElementById('profile-image-url').value = user.profileImageUrl || '';
     }
 
-    // Listener "Diventa Ruolo"
-    document.getElementById('btn-become-player')?.addEventListener('click', () => handleBecomeRole('player'));
-    document.getElementById('btn-become-master')?.addEventListener('click', () => handleBecomeRole('master'));
+    // --- GESTIONE DINAMICA BOTTONI RUOLO (MODIFICATA) ---
+    const btnPlayer = document.getElementById('btn-become-player');
+    const btnMaster = document.getElementById('btn-become-master');
+
+    if (isPlayer()) {
+        btnPlayer.textContent = "Già Player (Vai alla Dashboard)";
+        btnPlayer.classList.remove('btn-secondary'); // Rimuove stile "diventa"
+        btnPlayer.classList.add('btn-primary');     // Aggiunge stile "vai a"
+        btnPlayer.addEventListener('click', () => { // Cambia azione
+            window.location.href = 'player.html';
+        });
+    } else {
+        // Aggiunge listener solo se non è già player
+        btnPlayer.addEventListener('click', () => handleBecomeRole('player'));
+    }
+
+    if (isMaster()) {
+        btnMaster.textContent = "Già Master (Vai alla Dashboard)";
+        btnMaster.classList.remove('btn-secondary');
+        btnMaster.classList.add('btn-primary');
+        btnMaster.addEventListener('click', () => { // Cambia azione
+            window.location.href = 'master.html';
+        });
+    } else {
+        // Aggiunge listener solo se non è già master
+        btnMaster.addEventListener('click', () => handleBecomeRole('master'));
+    }
+    // --- FINE MODIFICA ---
     
     // Listener Form Modifica Profilo
     document.getElementById('profileEditForm')?.addEventListener('submit', handleProfileUpdate);
@@ -37,17 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', (e) => {
         if (e.target && e.target.id === 'logout-button') handleLogout(e);
     });
-
-    // Nascondi i pulsanti "Diventa" se il ruolo è già stato acquisito
-    if (isPlayer()) {
-         document.getElementById('btn-become-player').style.display = 'none';
-    }
-     if (isMaster()) {
-         document.getElementById('btn-become-master').style.display = 'none';
-    }
 });
 
-// Handler "Diventa Ruolo" (invariato, restituisce token e reindirizza)
+// Handler "Diventa Ruolo" (invariato)
 async function handleBecomeRole(role) {
      const endpoint = role === 'player' ? '/api/profile/become-player' : '/api/profile/become-master';
      const profileMessage = document.getElementById('profile-message');
@@ -63,14 +78,14 @@ async function handleBecomeRole(role) {
             profileMessage.className = 'success-message show';
         }
         const targetPage = role === 'player' ? 'player.html' : 'master.html';
-        window.location.replace(targetPage);
+        window.location.replace(targetPage); // Ricarica la pagina
      } else if (profileMessage) {
           profileMessage.textContent = 'Operazione fallita. L\'errore è stato mostrato in un popup.';
           profileMessage.className = 'error-message show';
      }
 }
 
-// --- NUOVO HANDLER: Modifica Profilo ---
+// Handler Modifica Profilo (invariato)
 async function handleProfileUpdate(event) {
     event.preventDefault();
     const errorDiv = document.getElementById('profileEditError');
@@ -85,19 +100,17 @@ async function handleProfileUpdate(event) {
     const data = await apiCall('/api/user/profile', 'PUT', { newUsername, newEmail, newImageUrl });
 
     if (data && data.token) {
-        // SUCCESSO! Il backend ha restituito un nuovo token
-        saveLoginData(data.token, data); // Salva i nuovi dati (username, email, img)
+        saveLoginData(data.token, data); 
         updateGeneralUI(); // Aggiorna la navbar con i nuovi dati
         successDiv.textContent = "Profilo aggiornato con successo!";
         successDiv.style.display = 'block';
     } else {
-        // apiCall gestirà l'alert, ma mostriamo anche l'errore nel div
         errorDiv.textContent = data?.message || "Errore sconosciuto";
         errorDiv.style.display = 'block';
     }
 }
 
-// --- NUOVO HANDLER: Modifica Password ---
+// Handler Modifica Password (invariato)
 async function handlePasswordChange(event) {
     event.preventDefault();
     const errorDiv = document.getElementById('passwordChangeError');
@@ -113,7 +126,7 @@ async function handlePasswordChange(event) {
     if (data && data.message.includes('successo')) {
         successDiv.textContent = data.message;
         successDiv.style.display = 'block';
-        event.target.reset(); // Svuota il form della password
+        event.target.reset(); 
     } else {
         errorDiv.textContent = data?.message || "Errore sconosciuto";
         errorDiv.style.display = 'block';
