@@ -1,16 +1,22 @@
 import { apiCall } from './modules/api.js';
-import { isAuthenticated, isPlayer, handleLogout } from './modules/auth.js';
+import { isAuthenticated, isPlayer, handleLogout, getCurrentUserFromStorage } from './modules/auth.js';
 import { updateGeneralUI } from './modules/ui.js';
 
 let campaignId = null;
+let currentUserId = null; // Salviamo l'ID dell'utente loggato
 
 // --- GUARDIA DI AUTENTICAZIONE ---
 document.addEventListener('DOMContentLoaded', () => {
-    if (!isAuthenticated()) {
+    const user = getCurrentUserFromStorage();
+    if (!user) {
+        console.warn("Utente non autenticato. Reindirizzamento a landing.html");
         window.location.replace('landing.html');
         return;
     }
+    currentUserId = user.id; // Salva l'ID utente per evidenziarlo
+
     if (!isPlayer()) {
+        console.warn("Utente non player su pagina dettaglio. Reindirizzamento...");
         window.location.replace('profile.html');
         return;
     }
@@ -44,7 +50,6 @@ async function loadCampaignData() {
         document.getElementById('master-username').textContent = data.masterUsername || "N/D";
         document.getElementById('campaign-description').textContent = data.description || "Nessuna descrizione.";
         
-        // Popola Date Confermate
         if(data.startDate) {
             document.getElementById('start-date-text').textContent = new Date(data.startDate).toLocaleDateString();
         }
@@ -52,11 +57,13 @@ async function loadCampaignData() {
             document.getElementById('next-session-text').textContent = new Date(data.scheduledNextSession).toLocaleDateString();
         }
 
-        // Popola Lista Giocatori
-        populatePlayerList(data.fellowPlayers || []);
+        // --- CORREZIONE BUG GIOCATORI ---
+        // Il DTO ora invia 'players', non 'fellowPlayers'
+        populatePlayerList(data.players || []);
         
-        // Popola Proposte di Voto
+        // --- LOGICA PROPOSTE DIVISA ---
         populateProposalList(data.activeProposals || []);
+        populatePastProposalList(data.pastProposals || []);
     }
     // else: apiCall ha già gestito l'errore e reindirizzato
 }
@@ -74,16 +81,15 @@ function populatePlayerList(players) {
     }
     
     tbody.innerHTML = players.map(p => `
-        <tr>
-            <td>${p.username}</td>
+        <tr class="${p.playerId === currentUserId ? 'highlight-row' : ''}"> <td>${p.username} ${p.playerId === currentUserId ? '(Tu)' : ''}</td>
             <td>${p.characterName} (ID: ${p.characterId})</td>
             <td>${p.characterClass} / Lvl ${p.characterLevel}</td>
-            </tr>
+        </tr>
     `).join('');
 }
 
 /**
- * Popola la lista delle proposte di sessione per votare
+ * Popola la lista delle proposte di sessione ATTIVE (da votare)
  */
 function populateProposalList(proposals) {
     const container = document.getElementById('proposal-list-container');
@@ -94,19 +100,45 @@ function populateProposalList(proposals) {
         return;
     }
 
-    // Usiamo lo stesso layout di card di player.html
+    // Il backend ha già filtrato, mostriamo solo il pulsante di voto
     container.innerHTML = proposals.map(p => `
-        <div class="card proposal-card" style="max-width: 100%;">
-            <h3>${p.campaignTitle || 'Votazione'}</h3>
+        <div class="card proposal-card">
+            <h3>Votazione Aperta</h3>
             <p>Data Proposta: ${new Date(p.proposedDate).toLocaleString()}</p>
             <p>Scadenza Voto: ${new Date(p.expiresOn).toLocaleString()}</p>
-            ${p.hasVoted
-                ? '<span class="voted">Votato ✔️</span>'
-                : `<button class="btn-primary" onclick="handleVoteProposal(${p.proposalId})">Vota Sì</button>`
-             }
+            <button class="btn-primary" onclick="handleVoteProposal(${p.proposalId})">Vota Sì</button>
         </div>
     `).join('');
 }
+
+/**
+ * NUOVA FUNZIONE: Popola la lista delle proposte PASSATE (scadute, votate, confermate)
+ */
+function populatePastProposalList(proposals) {
+    const container = document.getElementById('past-proposal-list-container');
+    if (!container) return;
+
+    if (proposals.length === 0) {
+        container.innerHTML = '<p>Nessuna proposta passata.</p>';
+        return;
+    }
+
+    container.innerHTML = proposals.map(p => {
+        let statusText = "Scaduta"; // Default se non confermata e non votata
+        if (p.isConfirmed) statusText = "Confermata ✔️";
+        else if (p.hasVoted) statusText = "Votato";
+        
+        return `
+        <div class="proposal-item ${p.isConfirmed ? 'confirmed' : ''}">
+            <p><strong>${new Date(p.proposedDate).toLocaleString()}</strong>
+               (${statusText})
+            </p>
+            <small>ID Proposta: ${p.proposalId}</small>
+        </div>
+    `;
+    }).join('');
+}
+
 
 // Handler per il voto (uguale a page.player.js)
 async function handleVoteProposal(proposalId) {

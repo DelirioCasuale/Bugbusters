@@ -36,6 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -423,23 +424,34 @@ public class PlayerService {
             dto.setMasterUsername("Nessun Master Assegnato");
         }
 
-        // 3. Popola gli altri giocatori
-        List<CampaignPlayerDTO> fellowPlayers = campaign.getPlayers().stream()
-                .map(campaignMapper::mapSheetToCampaignPlayerDTO)
+        // 3. Popola i giocatori (Usando il nome DTO corretto 'setPlayers')
+        List<CampaignPlayerDTO> playersList = campaign.getPlayers().stream()
+                .map(campaignMapper::mapSheetToCampaignPlayerDTO) 
                 .collect(Collectors.toList());
-        
-        dto.setPlayers(fellowPlayers); 
+        dto.setPlayers(playersList); // <-- Corretto (se avevi 'setFellowPlayers', questo lo corregge)
 
-        // 4. Popola le proposte attive
-        List<PlayerSessionProposalDTO> activeProposals = campaign.getProposals().stream()
-                .filter(p -> p.getExpiresOn().isAfter(LocalDateTime.now()) && !p.isConfirmed())
+        // 4. Popola le proposte (LOGICA MODIFICATA)
+        LocalDateTime now = LocalDateTime.now();
+        
+        List<PlayerSessionProposalDTO> allProposals = campaign.getProposals().stream()
                 .map(p -> {
                     boolean hasVoted = p.getVotes().stream()
                             .anyMatch(v -> v.getPlayer().getId().equals(currentPlayer.getId()));
-                    return mapProposalToPlayerDTO(p, campaign, hasVoted);
+                    return mapProposalToPlayerDTO(p, campaign, hasVoted); // Riutilizza l'helper
                 })
                 .collect(Collectors.toList());
-        dto.setActiveProposals(activeProposals);
+
+        // Partiziona la lista in "attive" e "passate"
+        // Attiva = NON confermata E NON scaduta E NON votata
+        Map<Boolean, List<PlayerSessionProposalDTO>> partitionedProposals = allProposals.stream()
+            .collect(Collectors.partitioningBy(p -> 
+                !p.isConfirmed() &&                 
+                p.getExpiresOn().isAfter(now) &&   
+                !p.isHasVoted()                    
+            ));
+
+        dto.setActiveProposals(partitionedProposals.get(true)); // Chiave 'true' = attive e da votare
+        dto.setPastProposals(partitionedProposals.get(false));  // Chiave 'false' = passate (scadute, votate, o confermate)
         
         return ResponseEntity.ok(dto);
     }

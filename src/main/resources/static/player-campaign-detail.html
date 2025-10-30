@@ -65,7 +65,7 @@
                         <label>Data Inizio Campagna</label>
                         <p id="start-date-text">Nessuna data impostata.</p>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="margin-top: 10px;">
                         <label>Prossima Sessione Confermata</label>
                         <p id="next-session-text">Nessuna sessione confermata.</p>
                     </div>
@@ -73,7 +73,13 @@
                     <hr style="border-color: var(--border-secondary); margin: 20px 0;">
                     
                     <h3>Proposte in attesa di Voto</h3>
-                    <div id="proposal-list-container">
+                    <div id="proposal-list-container" class="proposal-card-container">
+                        </div>
+
+                    <hr style="border-color: var(--border-secondary); margin: 20px 0;">
+
+                    <h3>Proposte Scadute/Votate</h3>
+                    <div id="past-proposal-list-container" class="proposal-card-container past-proposals">
                         </div>
                 </section>
             </div>
