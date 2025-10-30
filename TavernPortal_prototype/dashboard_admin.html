@@ -33,15 +33,15 @@
     <section class="dashboard-hero">
         <div class="dashboard-hero-content">
             <h1>Bentornato, Admin!</h1>
-            <p>Qui puoi gestire direttamente il controllo degli utenti e delle campagne.</p>
+            <p>Qui puoi gestire direttamente il controllo degli utenti che violano le policy di Tavern Portal.</p>
         </div>
     </section>
 
     <main class="dashboard-content">
 
-        <!-- Gestione Utenti -->
+        <!-- Gestione Utenti Attivi -->
         <section class="dashboard-section">
-            <h2>Gestione Utenti</h2>
+            <h2>Gestione Utenti Attivi</h2>
 
             <div class="user-scroll-wrapper">
                 <div class="card-container">
@@ -51,7 +51,6 @@
                         <p>Attivazione account: 20/19/2025</p>
                         <div class="card-actions">
                             <button class="btn-small btn-block">Blocca</button>
-                            <button class="btn-small btn-delete">Elimina</button>
                         </div>
                     </div>
                     <div class="card">
@@ -60,7 +59,6 @@
                         <p>Attivazione account: 03/03/2025</p>
                         <div class="card-actions">
                             <button class="btn-small btn-block">Blocca</button>
-                            <button class="btn-small btn-delete" >Elimina</button>
                         </div>
                     </div>
                     <div class="card">
@@ -69,18 +67,6 @@
                         <p>Attivazione account: 12/05/2025</p>
                         <div class="card-actions">
                             <button class="btn-small btn-block">Blocca</button>
-                            <button class="btn-small btn-delete" >Elimina</button>
-                        </div>
-                    </div>
-
-                    <div class="card" style="border-color: #dc2626;">
-                        <h3>nome utente:</h3>
-                        <h3>Gabibbo</h3>
-                        <p>Attivazione account: 01/08/2025</p>
-                        <p style="color: #dc2626;">BLOCCATO</p>
-                        <div class="card-actions">
-                            <button class="btn-small" style="background-color: #4f46e5; border-color: #6d28d9;">Sblocca</button>
-                            <button class="btn-small btn-delete" >Elimina</button>
                         </div>
                     </div>
 
@@ -90,7 +76,6 @@
                         <p>Attivazione account: 10/11/2024</p>
                         <div class="card-actions">
                             <button class="btn-small btn-block">Blocca</button>
-                            <button class="btn-small btn-delete" >Elimina</button>
                         </div>
                     </div>
 
@@ -100,7 +85,6 @@
                         <p>Attivazione account: 22/07/2025</p>
                         <div class="card-actions">
                             <button class="btn-small btn-block">Blocca</button>
-                            <button class="btn-small btn-delete" >Elimina</button>
                         </div>
                     </div>
 
@@ -110,7 +94,6 @@
                         <p>Attivazione account: 05/06/2025</p>
                         <div class="card-actions">
                             <button class="btn-small btn-block">Blocca</button>
-                            <button class="btn-small btn-delete" >Elimina</button>
                         </div>
                     </div>
 
@@ -120,18 +103,24 @@
                         <p>Attivazione account: 17/04/2025</p>
                         <div class="card-actions">
                             <button class="btn-small btn-block">Blocca</button>
-                            <button class="btn-small btn-delete" >Elimina</button>
                         </div>
                     </div>
 
-                    <div class="card" style="border-color: #dc2626;">
+                    <div class="card">
                         <h3>nome utente:</h3>
-                        <h3>Kanye_West</h3>
-                        <p>Attivazione account: 28/02/2025</p>
-                        <p style="color: #dc2626;">BLOCCATO</p>
+                        <h3>Peter_Griffin</h3>
+                        <p>Attivazione account: 01/10/2025</p>
                         <div class="card-actions">
-                            <button class="btn-small" style="background-color: #4f46e5; border-color: #6d28d9;">Sblocca</button>
-                            <button class="btn-small btn-delete" >Elimina</button>
+                            <button class="btn-small btn-block">Blocca</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>nome utente:</h3>
+                        <h3>Brometeus</h3>
+                        <p>Attivazione account: 16/09/2025</p>
+                        <div class="card-actions">
+                            <button class="btn-small btn-block">Blocca</button>
                         </div>
                     </div>
                 </div>
@@ -139,37 +128,79 @@
             </div>
         </section>
 
-        <!-- Calendario -->
-        <!-- Ho aggiunto al calendario dell'admin un modale per la gestione delle campagne orfane -->
+        <!-- Gestione Utenti Bloccati -->
         <section class="dashboard-section">
-            <h2>Gestione campagne senza Master</h2>
-            <div class="calendar-container">
-                <button class="btn-primary">Seleziona campagna</button>
-                <input type="date" id="session-date" class="calendar-input">
+            <h2>Gestione Utenti Bloccati</h2>
+
+            <div class="user-scroll-wrapper">
+                <div class="card-container">
+                <div class="card blocked-user-card">
+                    <h3>nome utente:</h3>
+                    <h3>Gabibbo</h3>
+                    <p>Attivazione account: 01/08/2025</p>
+                    <p class="blocked-status">BLOCCATO</p>
+                    <div class="card-actions">
+                        <button class="btn-small btn-unlock">Sblocca</button>
+                    </div>
+                </div>
+                
+                <div class="card blocked-user-card">
+                    <h3>nome utente:</h3>
+                    <h3>Kanye_West</h3>
+                    <p>Attivazione account: 28/02/2025</p>
+                    <p class="blocked-status">BLOCCATO</p>
+                    <div class="card-actions">
+                        <button class="btn-small btn-unlock">Sblocca</button>
+                    </div>
+                </div>
+
+                <div class="card blocked-user-card">
+                    <h3>nome utente:</h3>
+                    <h3>Super_troll</h3>
+                    <p>Attivazione account: 28/02/2025</p>
+                    <p class="blocked-status">BLOCCATO</p>
+                    <div class="card-actions">
+                        <button class="btn-small btn-unlock">Sblocca</button>
+                    </div>
+                </div>
+
+                <div class="card blocked-user-card">
+                    <h3>nome utente:</h3>
+                    <h3>Bob</h3>
+                    <p>Attivazione account: 10/10/2025</p>
+                    <p class="blocked-status">BLOCCATO</p>
+                    <div class="card-actions">
+                        <button class="btn-small btn-unlock">Sblocca</button>
+                    </div>
+                </div>
+
+                <div class="card blocked-user-card">
+                    <h3>nome utente:</h3>
+                    <h3>Pinco_Pallino</h3>
+                    <p>Attivazione account: 05/09/2024</p>
+                    <p class="blocked-status">BLOCCATO</p>
+                    <div class="card-actions">
+                        <button class="btn-small btn-unlock">Sblocca</button>
+                    </div>
+                </div>
+
+                <div class="card blocked-user-card">
+                    <h3>nome utente:</h3>
+                    <h3>Giallo_DM</h3>
+                    <p>Attivazione account: 17/01/2025</p>
+                    <p class="blocked-status">BLOCCATO</p>
+                    <div class="card-actions">
+                        <button class="btn-small btn-unlock">Sblocca</button>
+                    </div>
+                </div>
             </div>
         </section>
-    </main>
 
-    <!-- Per come l'ho pensata al momento, prima si dovrebbe selezionare la campagna orfana con il bottone, 
-         poi si sceglie la data di cancellazione della campagna dal calendario, 
-         e alla fine compare il modale con il messaggio di invito a selezionare il nuovo master entro la suddetta data  -->
-    <div id="dateModal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>Questa campagna è rimasta<br>senza Master</h2>
-            <p>Eleggere un nuovo Master entro la data selezionata: <strong id="selectedDate"></strong></p>
-            <!-- Idealmenete qua sono 30 gg -->
-            <h3>Attenzione!</h3>
-            <p>Se non verrà eletto un nuovo Master entro 30 giorni la campagna sarà eliminata automaticamente.</p>
-            <button class="btn-primary modal-action-btn">Invia</button>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
-    </footer>
-    <script src="campagne_orfane.js"></script>
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
+        </footer>
+        <script src="activity.js"></script>
 
 </body>
 

@@ -21,9 +21,6 @@
     </div>
       <nav>
         <a href="homepage.html" class="nav-link">Home</a>
-        <a href="#" class="nav-link">Le mie Schede</a>
-        <a href="#" class="nav-link">Le mie Campagne</a>
-        <a href="#" class="nav-link">Calendario</a>
         <a href="#" class="nav-link logout">Logout</a>
       </nav>
   </header>
@@ -44,18 +41,22 @@
       <div class="card-container">
         <div class="card">
           <h3>Giovanni Muciaccia</h3>
-          <p>Livello 8 · paladino</p>
-          <button class="btn-primary">Modifica</button>
+          <p>Livello 8</p>
+          <p>Umano · Paladino</p>
+          <button class="btn-primary open-modify-scheda-btn">Modifica</button>
         </div>
+
         <div class="card">
           <h3>Strega Varana</h3>
-          <p>Livello 5 · strega</p>
-          <button class="btn-primary">Modifica</button>
+          <p>Livello 5</p>
+          <p>Umano · Stregone</p>
+          <button class="btn-primary open-modify-scheda-btn">Modifica</button>
         </div>
+
         <div class="card add-card">
-          <button class="btn-secondary">+ Crea nuova Scheda</button>
+            <a href="character_card.html" class="btn-secondary" style="text-decoration: none;">
+            + Crea nuova Scheda</a>
         </div>
-      </div>
     </section>
 
     <!-- Campagne giocatore -->
@@ -65,15 +66,18 @@
         <div class="card">
           <h3>La Cittadella Perduta</h3>
           <p>DM: Gabibbo · 4 giocatori</p>
-          <button class="btn-primary">Entra</button>
+          <button class="btn-primary open-campaign-details-btn" data-campaign-id="1">Dettagli</button>
         </div>
+
         <div class="card">
           <h3>Il Fantabosco</h3>
           <p>DM: Lupo Lucio · 7 giocatori</p>
-          <button class="btn-primary">Entra</button>
+          <button class="btn-primary open-campaign-details-btn" data-campaign-id="2">Dettagli</button>
         </div>
+
         <div class="card add-card">
-          <button class="btn-secondary">+ Unisciti a una Campagna</button>
+            <a href="#" class="btn-secondary" style="text-decoration: none;">
+            + Unisciti a una Campagna</a>
         </div>
       </div>
     </section>
@@ -90,11 +94,105 @@
 
   </main>
 
+  <!-- Modale modifica scheda -->
+   <div id="modifyScheda" class="modal">
+    <div class="modal-content">
+        <span class="close-button close-character-modal">&times;</span>
+        <h3>Modifica la tua Scheda</h3>
+
+        <form class="modal-form">
+            <label for="characterName">Nome del Personaggio</label>
+            <input type="text" id="characterName" placeholder="Es. Kaelen">
+
+            <label for="characterLevel">Livello del Personaggio</label>
+            <input type="number" id="characterLevel" placeholder="Livello 1">
+
+            <label for="background">Background</label>
+            <input type="text" id="background" placeholder="Aggiungi Background">
+
+            <label for="characterRace">Seleziona la Razza</label>
+            <select id="characterRace">
+                <option value="dragonide">Dragonide</option>
+                <option value="elfo">Elfo</option>
+                <option value="gnomo">Gnomo</option>
+                <option value="halfling">Halfling</option>
+                <option value="mezzelfo">Mezzelfo</option>
+                <option value="mezzorco">Mezzorco</option>
+                <option value="nano">Nano</option>
+                <option value="tiefling">Tiefling</option>
+                <option value="umano">Umano</option>
+            </select>
+
+            <label for="charClass">Seleziona la Classe</label>
+            <select id="charClass">
+                <option value="barbaro">Barbaro</option>
+                <option value="bardo">Bardo</option>
+                <option value="chierico">Chierico</option>
+                <option value="druido">Druido</option>
+                <option value="guerriero">Guerriero</option>
+                <option value="ladro">Ladro</option>
+                <option value="mago">Mago</option>
+                <option value="monaco">Monaco</option>
+                <option value="paladino">Paladino</option>
+                <option value="ranger">Ranger</option>
+                <option value="stregone">Stregone</option>
+                <option value="warlock">Warlock</option>
+            </select>
+
+            <label for="expPoints">Esperienza</label>
+            <input type="number" id="expPoints" placeholder="Exp. 1">
+
+            <label for="strenght">Forza</label>
+            <input type="number" id="strenght" placeholder="0 pt.">
+
+            <label for="dexterity">Destrezza</label>
+            <input type="number" id="dexterity" placeholder="0 pt.">
+
+            <label for="constitution">Costituzione</label>
+            <input type="number" id="constitution" placeholder="0 pt.">
+
+            <label for="intelligence">Intelligenza</label>
+            <input type="number" id="intelligence" placeholder="0 pt.">
+
+            <label for="wisdom">Saggezza</label>
+            <input type="number" id="wisdom" placeholder="0 pt.">
+
+            <label for="charisma">Carisma</label>
+            <input type="number" id="charisma" placeholder="0 pt.">
+            
+            <button type="submit" class="btn-primary modal-action-btn" style="margin-top: 20px;">
+                Modifica Scheda
+            </button>
+        </form>
+    </div>
+</div>
+
+  <!-- Modale dettagli campagna -->
+  <div id="campaignDetailsModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button close-campaign-details">&times;</span>
+        
+        <h3 id="campaignTitle">Dettagli Campagna</h3>
+        
+        <p><strong>Dungeon Master:</strong> <span id="campaignDM"></span></p>
+        <p><strong>Giocatori Attivi:</strong> <span id="campaignPlayers"></span></p>
+        <p><strong>Ultima Sessione:</strong> <span id="campaignLastSession"></span></p>
+        
+        <hr style="border-top: 1px solid #4f46e5; margin: 20px 0;">
+        
+        <h4>Obiettivi della Campagna:</h4>
+        <p id="campaignObjectives"></p>
+        
+        <button class="btn-primary modal-action-btn">Accedi</button>
+    </div>
+</div>
+
 
   <!-- Footer -->
   <footer class="footer">
     <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
   </footer>
+  <script src="activity.js"></script>
 
 </body>
 </html>
