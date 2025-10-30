@@ -65,11 +65,17 @@ public class AuthService {
                 .collect(Collectors.toList());
 
         // ritorna il DTO di risposta con il token e i dati utente
+
+        // Prendiamo l'URL dell'immagine dall'entità User
+        // Dobbiamo caricare l'utente completo, non solo da userDetails se non c'è l'URL
+        User user = userRepository.findById(userDetails.getId()).get();
+
         return new JwtResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),
-                roles);
+                roles,
+                user.getProfileImageUrl());
     }
 
     // Logica per registrare un nuovo utente.

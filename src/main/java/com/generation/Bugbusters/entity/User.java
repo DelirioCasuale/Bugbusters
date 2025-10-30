@@ -39,6 +39,9 @@ public class User {
     @Column(name = "deletion_scheduled_on")
     private LocalDateTime deletionScheduledOn;
 
+    @Column(name = "profile_image_url")
+    private String profileImageUrl;
+
     // relazioni
 
     // relazione molti-a-molti con role

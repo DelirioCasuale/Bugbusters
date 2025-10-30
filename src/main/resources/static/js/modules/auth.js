@@ -8,7 +8,8 @@ export function saveLoginData(token, userDetails) {
         id: userDetails.id,
         username: userDetails.username,
         email: userDetails.email,
-        roles: userDetails.roles || []
+        roles: userDetails.roles || [],
+        profileImageUrl: userDetails.profileImageUrl
     }));
 }
 

@@ -134,6 +134,7 @@ public class ProfileService {
                 userDetails.getId(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),
-                roles));
+                roles,
+                user.getProfileImageUrl()));
     }
 }
