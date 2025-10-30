@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tavern Portal</title>
     <link rel="icon" type="image/x-icon" href="images/dice.png" />
     <link rel="stylesheet" href="css/main.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body class="body-landing"> <header>
+
+<body class="body-landing">
+    <header>
         <div class="logo-flex">
             <i><img src="images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
             <div class="logo">Tavern Portal</div>
         </div>
         <nav>
-            </nav>
+        </nav>
     </header>
 
     <div id="loginModal" class="custom-modal">
@@ -29,11 +34,13 @@
                 <form id="loginForm">
                     <div class="form-group">
                         <label for="login-username">Username</label>
-                        <input type="text" id="login-username" name="username" required placeholder="Inserisci username">
+                        <input type="text" id="login-username" name="username" required
+                            placeholder="Inserisci username">
                     </div>
                     <div class="form-group">
                         <label for="login-password">Password</label>
-                        <input type="password" id="login-password" name="password" required placeholder="Inserisci password">
+                        <input type="password" id="login-password" name="password" required
+                            placeholder="Inserisci password">
                     </div>
                     <div id="loginError" class="error-message"></div>
                 </form>
@@ -66,19 +73,22 @@
                 <article class="tile">
                     <div class="content">
                         <h3>Cos'è Tavern Portal?</h3>
-                        <p>Una piattaforma per DM e Giocatori per pianificare, creare e condividere le tue campagne in un unico portale.</p>
+                        <p>Una piattaforma per DM e Giocatori per pianificare, creare e condividere le tue campagne in
+                            un unico portale.</p>
                     </div>
                 </article>
                 <article class="tile">
                     <div class="content">
                         <h3>La Nostra Mission</h3>
-                        <p>Fornire lo strumento più intuitivo per dare vita alle tue storie, eliminando la complessità della gestione.</p>
+                        <p>Fornire lo strumento più intuitivo per dare vita alle tue storie, eliminando la complessità
+                            della gestione.</p>
                     </div>
                 </article>
                 <article class="tile">
                     <div class="content">
                         <h3>La Nostra Vision</h3>
-                        <p>Diventare il punto di riferimento digitale che connette giocatori e master per avventure memorabili ovunque nel mondo.</p>
+                        <p>Diventare il punto di riferimento digitale che connette giocatori e master per avventure
+                            memorabili ovunque nel mondo.</p>
                     </div>
                 </article>
                 <article class="tile">
@@ -96,34 +106,57 @@
             </section>
 
             <section id="contact" class="dashboard-section">
-                <h2>Supporto</h2>
                 <div class="contact-wrapper">
                     <div class="contact-form-container">
                         <form id="contactForm" class="styled-form">
-                            <div class="form-group">
-                                <label for="contact-name">Nome</label>
-                                <input type="text" id="contact-name" name="name" required>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="contact-name">Name</label>
+                                    <input type="text" id="contact-name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-email">Email</label>
+                                    <input type="email" id="contact-email" name="email" required>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="contact-email">Email</label>
-                                <input type="email" id="contact-email" name="email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="contact-message">Messaggio</label>
+                                <label for="contact-message">Message</label>
                                 <textarea id="contact-message" name="message" rows="6" required></textarea>
                             </div>
-                            <button type="submit" class="btn-primary">Invia Messaggio</button>
+
+                            <div class="btn-group">
+                                <button type="submit" class="btn-primary">Send Message</button>
+                                <button type="reset" class="btn-secondary">Clear</button>
+                            </div>
                         </form>
                     </div>
+
                     <div class="contact-details">
-                        <h3>Contattaci</h3>
-                        <p><i class="fas fa-envelope"></i> <a href="mailto:support@tavernportal.example">support@tavernportal.example</a></p>
-                        <p><i class="fas fa-phone"></i> (WIP) +39 123 456 7890</p>
-                        <p><i class="fas fa-map-marker-alt"></i> (WIP) Via della Taverna, 1<br>Neverwinter, 12345</p>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h3>Email</h3>
+                                <a href="mailto:information@untitled.tld">information@untitled.tld</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h3>Phone</h3>
+                                <p>(000) 000-0000 x12387</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h3>Address</h3>
+                                <p>1234 Somewhere Road #5432<br>Nashville, TN 00000<br>United States of America</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
-
         </div>
     </main>
 
@@ -133,4 +166,5 @@
 
     <script type="module" src="js/page.landing.js"></script>
 </body>
+
 </html>
