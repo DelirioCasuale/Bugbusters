@@ -1,5 +1,7 @@
 package com.generation.Bugbusters.service;
 
+import com.generation.Bugbusters.dto.CampaignDetailViewDTO;
+import com.generation.Bugbusters.dto.CampaignPlayerDTO;
 import com.generation.Bugbusters.dto.CharacterSheetCreateRequest;
 import com.generation.Bugbusters.dto.CharacterSheetDTO;
 import com.generation.Bugbusters.dto.CharacterSheetSimpleDTO;
@@ -14,6 +16,7 @@ import com.generation.Bugbusters.entity.ProposalVote;
 import com.generation.Bugbusters.entity.ProposalVoteId;
 import com.generation.Bugbusters.entity.SessionProposal;
 import com.generation.Bugbusters.exception.ResourceNotFoundException;
+import com.generation.Bugbusters.mapper.CampaignMapper;
 import com.generation.Bugbusters.mapper.CharacterSheetMapper;
 import com.generation.Bugbusters.repository.CampaignRepository;
 import com.generation.Bugbusters.repository.CharacterSheetRepository;
@@ -56,6 +59,9 @@ public class PlayerService {
 
     @Autowired
     private ProposalVoteRepository proposalVoteRepository; // iniettiamo il repository dei voti delle proposte
+
+    @Autowired
+    private CampaignMapper campaignMapper; // iniettiamo il mapper delle campagne
 
     // crea una nuova scheda personaggio per l'utente loggato
     @Transactional
@@ -383,5 +389,58 @@ public class PlayerService {
         
         // 4. Restituisci la scheda aggiornata
         return ResponseEntity.ok(characterSheetMapper.toDTO(updatedSheet));
+    }
+
+    /**
+     * Recupera i dati di una singola campagna per la vista del giocatore.
+     * Include info, master, altri giocatori e proposte di voto.
+     */
+    @Transactional(readOnly = true)
+    public ResponseEntity<?> getCampaignDetailsForPlayer(Long campaignId) {
+        Player currentPlayer = getCurrentPlayer();
+        Campaign campaign = campaignRepository.findById(campaignId)
+                .orElseThrow(() -> new ResourceNotFoundException("Campagna non trovata"));
+
+        // 1. VALIDAZIONE SICUREZZA
+        boolean isMember = campaign.getPlayers().stream()
+                .anyMatch(s -> s.getPlayer().getId().equals(currentPlayer.getId()));
+        
+        if (!isMember) {
+            throw new UnauthorizedException("Non sei membro di questa campagna.");
+        }
+        
+        // 2. Costruisci il DTO
+        CampaignDetailViewDTO dto = new CampaignDetailViewDTO();
+        dto.setId(campaign.getId());
+        dto.setTitle(campaign.getTitle());
+        dto.setDescription(campaign.getDescription());
+        dto.setStartDate(campaign.getStartDate());
+        dto.setScheduledNextSession(campaign.getScheduledNextSession());
+        
+        if (campaign.getMaster() != null) {
+            dto.setMasterUsername(campaign.getMaster().getUser().getUsername());
+        } else {
+            dto.setMasterUsername("Nessun Master Assegnato");
+        }
+
+        // 3. Popola gli altri giocatori
+        List<CampaignPlayerDTO> fellowPlayers = campaign.getPlayers().stream()
+                .map(campaignMapper::mapSheetToCampaignPlayerDTO)
+                .collect(Collectors.toList());
+        
+        dto.setPlayers(fellowPlayers); 
+
+        // 4. Popola le proposte attive
+        List<PlayerSessionProposalDTO> activeProposals = campaign.getProposals().stream()
+                .filter(p -> p.getExpiresOn().isAfter(LocalDateTime.now()) && !p.isConfirmed())
+                .map(p -> {
+                    boolean hasVoted = p.getVotes().stream()
+                            .anyMatch(v -> v.getPlayer().getId().equals(currentPlayer.getId()));
+                    return mapProposalToPlayerDTO(p, campaign, hasVoted);
+                })
+                .collect(Collectors.toList());
+        dto.setActiveProposals(activeProposals);
+        
+        return ResponseEntity.ok(dto);
     }
 }

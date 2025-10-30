@@ -20,6 +20,9 @@ public class MasterCampaignViewDTO {
     private String invitePlayersCode;
     private String inviteMastersCode;
     
+    private LocalDate scheduledNextSession;
+    private List<CampaignProposalDTO> proposals; // Lista delle proposte
+    
     // Dati arricchiti
     private List<CampaignPlayerDTO> players;
 }

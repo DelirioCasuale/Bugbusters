@@ -3,10 +3,13 @@ package com.generation.Bugbusters.mapper;
 import com.generation.Bugbusters.dto.CampaignCreateRequest;
 import com.generation.Bugbusters.dto.CampaignDTO;
 import com.generation.Bugbusters.dto.CampaignPlayerDTO;
+import com.generation.Bugbusters.dto.CampaignProposalDTO;
 import com.generation.Bugbusters.dto.MasterCampaignViewDTO;
 import com.generation.Bugbusters.entity.Campaign;
 import com.generation.Bugbusters.entity.CharacterSheet;
 import com.generation.Bugbusters.entity.Master;
+import com.generation.Bugbusters.entity.SessionProposal;
+
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -79,20 +82,30 @@ public class CampaignMapper {
     /*
      * Metodo helper (DRY) per mappare una CharacterSheet nel DTO che serve alla vista del Master
      * N.B: Questo metodo richiede che le entità 'player' e 'user' siano state caricate (il service lo farà con @Transactional)
+     * --- MODIFICA: 'public' per usarlo in PlayerService ---
      */
-    private CampaignPlayerDTO mapSheetToCampaignPlayerDTO(CharacterSheet sheet) {
+    public CampaignPlayerDTO mapSheetToCampaignPlayerDTO(CharacterSheet sheet) {
         CampaignPlayerDTO dto = new CampaignPlayerDTO();
-        
-        // Dati del Giocatore (proprietario della scheda)
         dto.setPlayerId(sheet.getPlayer().getId());
         dto.setUsername(sheet.getPlayer().getUser().getUsername());
-        
-        // Dati della Scheda
         dto.setCharacterId(sheet.getId());
         dto.setCharacterName(sheet.getName());
         dto.setCharacterClass(sheet.getPrimaryClass());
         dto.setCharacterLevel(sheet.getPrimaryLevel());
-        
+        return dto;
+    }
+
+    /**
+     * Converte un'entità SessionProposal in un DTO per la vista Master.
+     * (Richiede @Transactional per accedere a .getVotes())
+     */
+    public CampaignProposalDTO toProposalDTO(SessionProposal proposal) {
+        CampaignProposalDTO dto = new CampaignProposalDTO();
+        dto.setId(proposal.getId());
+        dto.setProposedDate(proposal.getProposedDate());
+        dto.setExpiresOn(proposal.getExpiresOn());
+        dto.setConfirmed(proposal.isConfirmed());
+        dto.setVoteCount(proposal.getVotes().size()); // Mostra al master quanti hanno votato
         return dto;
     }
 }

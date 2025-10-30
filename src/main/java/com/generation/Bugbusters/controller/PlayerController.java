@@ -7,13 +7,13 @@ import com.generation.Bugbusters.dto.JoinedCampaignDTO;
 import com.generation.Bugbusters.dto.PlayerSessionProposalDTO;
 import com.generation.Bugbusters.service.PlayerService;
 import com.generation.Bugbusters.dto.OrphanedCampaignDTO;
+import com.generation.Bugbusters.dto.CampaignDetailViewDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.PathVariable; 
 
 import java.util.List;
 
@@ -114,5 +114,15 @@ public class PlayerController {
             @Valid @RequestBody CharacterSheetDTO sheetDTO) {
         
         return playerService.updateCharacterSheet(id, sheetDTO);
+    }
+
+    /**
+     * Endpoint per OTTENERE i dati completi di UNA singola campagna
+     * (vista del giocatore).
+     * GET /api/player/campaigns/{id}
+     */
+    @GetMapping("/campaigns/{id}")
+    public ResponseEntity<?> getCampaignDetailsForPlayer(@PathVariable Long id) {
+        return playerService.getCampaignDetailsForPlayer(id);
     }
 }

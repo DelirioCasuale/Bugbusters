@@ -2,10 +2,12 @@ package com.generation.Bugbusters.service;
 
 import com.generation.Bugbusters.dto.CampaignCreateRequest;
 import com.generation.Bugbusters.dto.CampaignDTO;
+import com.generation.Bugbusters.dto.CampaignProposalDTO;
 import com.generation.Bugbusters.dto.CampaignStartDateRequest;
 import com.generation.Bugbusters.dto.MasterCampaignViewDTO;
 import com.generation.Bugbusters.dto.MessageResponse;
 import com.generation.Bugbusters.dto.SessionProposalRequest;
+import com.generation.Bugbusters.dto.UpdateCampaignRequest;
 import com.generation.Bugbusters.entity.Campaign;
 import com.generation.Bugbusters.entity.Master;
 import com.generation.Bugbusters.entity.SessionProposal;
@@ -102,14 +104,21 @@ public class MasterService {
     @Transactional(readOnly = true)
     public ResponseEntity<?> getCampaignDetails(Long campaignId) {
         try {
-            // ottiene il Master loggato
             Master currentMaster = getCurrentMaster();
-            
-            // ottiene e valida la campagna con l'helper
             Campaign campaign = getCampaignAndValidateOwnership(campaignId, currentMaster.getId());
 
-            // mappa e restituisce
+            // Mappa i dettagli base e i player
             MasterCampaignViewDTO dto = campaignMapper.toMasterViewDTO(campaign);
+            
+            // --- AGGIUNTA LOGICA CALENDARIO ---
+            List<CampaignProposalDTO> proposals = campaign.getProposals().stream()
+                    .map(campaignMapper::toProposalDTO)
+                    .collect(Collectors.toList());
+            
+            dto.setScheduledNextSession(campaign.getScheduledNextSession());
+            dto.setProposals(proposals);
+            // --- FINE AGGIUNTA ---
+
             return ResponseEntity.ok(dto);
 
         } catch (ResourceNotFoundException e) {
@@ -279,4 +288,53 @@ public class MasterService {
             return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
+
+    /**
+     * Aggiorna i dettagli (titolo, descrizione) di una campagna.
+     */
+    @Transactional
+    public ResponseEntity<?> updateCampaignDetails(Long campaignId, UpdateCampaignRequest dto) {
+        try {
+            Master currentMaster = getCurrentMaster();
+            Campaign campaign = getCampaignAndValidateOwnership(campaignId, currentMaster.getId());
+
+            // Aggiorna i campi
+            campaign.setTitle(dto.getTitle());
+            campaign.setDescription(dto.getDescription());
+            
+            Campaign savedCampaign = campaignRepository.save(campaign);
+
+            // Restituisci la campagna aggiornata (usando il DTO base)
+            return ResponseEntity.ok(campaignMapper.toDTO(savedCampaign));
+
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.NOT_FOUND);
+        } catch (UnauthorizedException e) {
+            return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.FORBIDDEN);
+        }
+    }
+
+    /**
+     * Recupera tutte le proposte di sessione per una singola campagna.
+     */
+    @Transactional(readOnly = true)
+    public ResponseEntity<List<CampaignProposalDTO>> getCampaignProposals(Long campaignId) {
+        try {
+            Master currentMaster = getCurrentMaster();
+            Campaign campaign = getCampaignAndValidateOwnership(campaignId, currentMaster.getId());
+
+            // Usa @Transactional per caricare .getVotes() nel mapper
+            List<CampaignProposalDTO> proposals = campaign.getProposals().stream()
+                    .map(campaignMapper::toProposalDTO)
+                    .collect(Collectors.toList());
+
+            return ResponseEntity.ok(proposals);
+
+        } catch (ResourceNotFoundException | UnauthorizedException e) {
+            // Se non trova la campagna o non è il proprietario, restituisce lista vuota
+            return ResponseEntity.ok(List.of()); 
+        }
+    }
+
+    
 }

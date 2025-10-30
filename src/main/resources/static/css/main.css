@@ -18,6 +18,7 @@
 @import url('pages/register.css');
 @import url('pages/dashboard.css');
 @import url('pages/admin.css');
+@import url('pages/campaign-detail.css');
 
 /* 4. Responsive (FONDAMENTALE PER ULTIMO) */
 @import url('responsive.css');
