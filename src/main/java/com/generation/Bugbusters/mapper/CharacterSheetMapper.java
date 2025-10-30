@@ -165,4 +165,76 @@ public class CharacterSheetMapper {
         
         return dto;
     }
+
+    /**
+     * Aggiorna un'entità CharacterSheet esistente con i dati di un DTO.
+     * Non aggiorna l'ID o il player.
+     */
+    public void updateEntityFromDTO(CharacterSheet entity, CharacterSheetDTO dto) {
+        
+        // Info Base
+        entity.setName(dto.getName());
+        entity.setPrimaryClass(dto.getPrimaryClass());
+        entity.setPrimaryLevel(dto.getPrimaryLevel());
+        entity.setSecondaryClass(dto.getSecondaryClass());
+        entity.setSecondaryLevel(dto.getSecondaryLevel());
+        entity.setAlignment(dto.getAlignment());
+        entity.setRace(dto.getRace());
+        entity.setBackground(dto.getBackground());
+        entity.setExperiencePoints(dto.getExperiencePoints());
+
+        // Statistiche
+        entity.setStrength(dto.getStrength());
+        entity.setDexterity(dto.getDexterity());
+        entity.setConstitution(dto.getConstitution());
+        entity.setIntelligence(dto.getIntelligence());
+        entity.setWisdom(dto.getWisdom());
+        entity.setCharisma(dto.getCharisma());
+
+        // Combat Stats
+        entity.setProficiencyBonus(dto.getProficiencyBonus());
+        entity.setMaxHitPoints(dto.getMaxHitPoints());
+        entity.setCurrentHitPoints(dto.getCurrentHitPoints());
+        entity.setTemporaryHitPoints(dto.getTemporaryHitPoints());
+        entity.setArmorClass(dto.getArmorClass());
+        entity.setInitiative(dto.getInitiative());
+        entity.setSpeed(dto.getSpeed());
+        entity.setInspiration(dto.isInspiration());
+
+        // Skills (Proficiency)
+        entity.setAcrobaticsSkillProficiency(dto.isAcrobaticsSkillProficiency());
+        entity.setAnimalHandlingSkillProficiency(dto.isAnimalHandlingSkillProficiency());
+        entity.setArcanaSkillProficiency(dto.isArcanaSkillProficiency());
+        entity.setAthleticsSkillProficiency(dto.isAthleticsSkillProficiency());
+        entity.setDeceptionSkillProficiency(dto.isDeceptionSkillProficiency());
+        entity.setHistorySkillProficiency(dto.isHistorySkillProficiency());
+        entity.setInsightSkillProficiency(dto.isInsightSkillProficiency());
+        entity.setIntimidationSkillProficiency(dto.isIntimidationSkillProficiency());
+        entity.setInvestigationSkillProficiency(dto.isInvestigationSkillProficiency());
+        entity.setMedicineSkillProficiency(dto.isMedicineSkillProficiency());
+        entity.setNatureSkillProficiency(dto.isNatureSkillProficiency());
+        entity.setPerceptionSkillProficiency(dto.isPerceptionSkillProficiency());
+        entity.setPerformanceSkillProficiency(dto.isPerformanceSkillProficiency());
+        entity.setPersuasionSkillProficiency(dto.isPersuasionSkillProficiency());
+        entity.setReligionSkillProficiency(dto.isReligionSkillProficiency());
+        entity.setSleightOfHandSkillProficiency(dto.isSleightOfHandSkillProficiency());
+        entity.setStealthSkillProficiency(dto.isStealthSkillProficiency());
+        entity.setSurvivalSkillProficiency(dto.isSurvivalSkillProficiency());
+
+        // Inventario e Valuta
+        entity.setCopperPieces(dto.getCopperPieces());
+        entity.setSilverPieces(dto.getSilverPieces());
+        entity.setElectrumPieces(dto.getElectrumPieces());
+        entity.setGoldPieces(dto.getGoldPieces());
+        entity.setPlatinumPieces(dto.getPlatinumPieces());
+        entity.setEquipment(dto.getEquipment());
+
+        // Background e Roleplay (TEXT)
+        entity.setPersonalityTraits(dto.getPersonalityTraits());
+        entity.setIdeals(dto.getIdeals());
+        entity.setBonds(dto.getBonds());
+        entity.setFlaws(dto.getFlaws());
+        entity.setFeaturesAndTraits(dto.getFeaturesAndTraits());
+        entity.setProficienciesAndLanguages(dto.getProficienciesAndLanguages());
+    }
 }

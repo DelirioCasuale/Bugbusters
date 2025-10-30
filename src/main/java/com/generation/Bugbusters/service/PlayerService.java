@@ -22,6 +22,7 @@ import com.generation.Bugbusters.repository.ProposalVoteRepository;
 import com.generation.Bugbusters.repository.SessionProposalRepository;
 import com.generation.Bugbusters.security.UserDetailsImpl;
 import com.generation.Bugbusters.dto.OrphanedCampaignDTO;
+import com.generation.Bugbusters.exception.UnauthorizedException; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -336,5 +337,51 @@ public class PlayerService {
         dto.setInviteMastersCode(campaign.getInviteMastersCode());
         dto.setDeletionDeadline(campaign.getMasterBanPendingUntil());
         return dto;
+    }
+
+    /**
+     * Recupera i dati completi di una singola scheda, 
+     * validando che appartenga al giocatore loggato.
+     */
+    @Transactional(readOnly = true)
+    public ResponseEntity<?> getCharacterSheetDetails(Long sheetId) {
+        Player currentPlayer = getCurrentPlayer();
+        
+        // 1. Trova la scheda
+        CharacterSheet sheet = characterSheetRepository.findById(sheetId)
+                .orElseThrow(() -> new ResourceNotFoundException("Scheda non trovata con ID: " + sheetId));
+        
+        // 2. VALIDAZIONE DI SICUREZZA
+        if (!sheet.getPlayer().getId().equals(currentPlayer.getId())) {
+            throw new UnauthorizedException("Non sei autorizzato a visualizzare questa scheda.");
+        }
+        
+        // 3. Mappa e restituisci
+        return ResponseEntity.ok(characterSheetMapper.toDTO(sheet));
+    }
+
+    /**
+     * Aggiorna i dati di una singola scheda, 
+     * validando che appartenga al giocatore loggato.
+     */
+    @Transactional
+    public ResponseEntity<?> updateCharacterSheet(Long sheetId, CharacterSheetDTO dto) {
+        Player currentPlayer = getCurrentPlayer();
+        
+        // 1. Trova la scheda
+        CharacterSheet sheet = characterSheetRepository.findById(sheetId)
+                .orElseThrow(() -> new ResourceNotFoundException("Scheda non trovata con ID: " + sheetId));
+        
+        // 2. VALIDAZIONE DI SICUREZZA
+        if (!sheet.getPlayer().getId().equals(currentPlayer.getId())) {
+            throw new UnauthorizedException("Non sei autorizzato a modificare questa scheda.");
+        }
+        
+        // 3. Aggiorna l'entità usando il mapper e salva
+        characterSheetMapper.updateEntityFromDTO(sheet, dto); // Dobbiamo creare questo metodo
+        CharacterSheet updatedSheet = characterSheetRepository.save(sheet);
+        
+        // 4. Restituisci la scheda aggiornata
+        return ResponseEntity.ok(characterSheetMapper.toDTO(updatedSheet));
     }
 }

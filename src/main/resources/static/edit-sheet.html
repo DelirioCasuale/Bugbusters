@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifica Scheda - Tavern Portal</title>
+    <link rel="icon" type="image/x-icon" href="images/dice.png" />
+    <link rel="stylesheet" href="css/main.css" /> <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="dashboard-body">
+
+    <header>
+        <div class="logo-flex">
+            <i><img src="images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
+            <div class="logo">Tavern Portal</div>
+        </div>
+        <nav id="dashboard-nav">
+            </nav>
+    </header>
+
+    <section class="dashboard-hero">
+        <div class="dashboard-hero-content">
+            <h1 id="sheet-name-title">Caricamento Scheda...</h1>
+            <p>Modifica i dettagli del tuo personaggio.</p>
+        </div>
+    </section>
+
+    <main class="dashboard-content">
+        <form id="editSheetForm">
+            <div class="dashboard-section">
+                <h2>Informazioni Principali</h2>
+                <div class="compact-grid">
+                    <div class="form-group"><label for="name">Nome Personaggio</label><input type="text" id="name" name="name"></div>
+                    <div class="form-group"><label for="primaryClass">Classe e Livello</label><input type="text" id="primaryClass" name="primaryClass" placeholder="Es. Guerriero 5"></div>
+                    <div class="form-group"><label for="background">Background</label><input type="text" id="background" name="background"></div>
+                    <div class="form-group"><label for="race">Razza</label><input type="text" id="race" name="race"></div>
+                    <div class="form-group"><label for="alignment">Allineamento</label><input type="text" id="alignment" name="alignment"></div>
+                    <div class="form-group"><label for="experiencePoints">Punti Esperienza</label><input type="number" id="experiencePoints" name="experiencePoints"></div>
+                </div>
+            </div>
+
+            <div class="sheet-editor-grid">
+                <div class="sheet-col-1">
+                    <div class="stat-box">
+                        <label for="strength">Forza</label>
+                        <input type="number" id="strength" name="strength" min="1" max="30">
+                    </div>
+                    <div class="stat-box">
+                        <label for="dexterity">Destrezza</label>
+                        <input type="number" id="dexterity" name="dexterity" min="1" max="30">
+                    </div>
+                    <div class="stat-box">
+                        <label for="constitution">Costituzione</label>
+                        <input type="number" id="constitution" name="constitution" min="1" max="30">
+                    </div>
+                    <div class="stat-box">
+                        <label for="intelligence">Intelligenza</label>
+                        <input type="number" id="intelligence" name="intelligence" min="1" max="30">
+                    </div>
+                    <div class="stat-box">
+                        <label for="wisdom">Saggezza</label>
+                        <input type="number" id="wisdom" name="wisdom" min="1" max="30">
+                    </div>
+                    <div class="stat-box">
+                        <label for="charisma">Carisma</label>
+                        <input type="number" id="charisma" name="charisma" min="1" max="30">
+                    </div>
+                </div>
+
+                <div class="sheet-col-2">
+                    <div class="compact-grid">
+                        <div class="form-group"><label for="armorClass">Classe Armatura</label><input type="number" id="armorClass" name="armorClass"></div>
+                        <div class="form-group"><label for="initiative">Iniziativa</label><input type="number" id="initiative" name="initiative"></div>
+                        <div class="form-group"><label for="speed">Velocità</label><input type="number" id="speed" name="speed"></div>
+                    </div>
+                    <div class="form-group"><label for="currentHitPoints">Punti Ferita Attuali</label><input type="number" id="currentHitPoints" name="currentHitPoints"></div>
+                    <div class="form-group"><label for="maxHitPoints">Punti Ferita Massimi</label><input type="number" id="maxHitPoints" name="maxHitPoints"></div>
+                    
+                    <div class="dashboard-section" style="padding: 15px; margin: 0;">
+                        <h2 style="font-size: 1.2rem; margin-bottom: 15px;">Competenze (Tiro Salvezza)</h2>
+                        <ul class="skills-list">
+                            <li><label>Abilità e Tiri Salvezza (WIP)</label></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="sheet-col-3">
+                    <div class="text-box"><label for="personalityTraits">Tratti Personalità</label><textarea id="personalityTraits" name="personalityTraits"></textarea></div>
+                    <div class="text-box"><label for="ideals">Ideali</label><textarea id="ideals" name="ideals"></textarea></div>
+                    <div class="text-box"><label for="bonds">Legami</label><textarea id="bonds" name="bonds"></textarea></div>
+                    <div class="text-box"><label for="flaws">Difetti</label><textarea id="flaws" name="flaws"></textarea></div>
+                    <div class="text-box"><label for="equipment">Equipaggiamento</label><textarea id="equipment" name="equipment"></textarea></div>
+                    <div class="text-box"><label for="featuresAndTraits">Privilegi e Tratti</label><textarea id="featuresAndTraits" name="featuresAndTraits"></textarea></div>
+                </div>
+
+                <div class="sheet-actions">
+                    <div id="editSheetSuccess" class="success-message"></div>
+                    <div id="editSheetError" class="error-message"></div>
+                    <div class="btn-group" style="margin-top: 15px;">
+                        <a href="player.html" class="btn-secondary">Annulla</a>
+                        <button type="button" class="btn-secondary btn-download" disabled>Scarica PDF (WIP)</button>
+                        <button type="submit" class="btn-primary">Salva Modifiche</button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </main>
+
+    <footer class="footer">
+        <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script type="module" src="js/page.edit-sheet.js"></script>
+</body>
+</html>
