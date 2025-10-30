@@ -1,299 +1,384 @@
 /* ============================================================================
-   VARIABILI E RESET GLOBALI
+   CSS VARIABLES E RESET GLOBALE
+   (Basato sui tuoi file variables.css / global.css)
    ============================================================================ */
 :root {
-    --primary-bg: #0f0f1a;
-    --secondary-bg: #1a1a2e;
-    --card-bg: rgba(30, 25, 60, 0.8);
-    --card-bg-hover: rgba(40, 30, 70, 0.9);
-    --primary-accent: #4f46e5;
-    --secondary-accent: #6d28d9;
-    --highlight-accent: #a78bfa;
-    --text-primary: #dcdcff;
-    --text-secondary: #d1c4ff;
-    --text-highlight: #c4b5fd;
-    --text-logo: #bfacf6;
-    --error-color: #ff6b6b;
-    --success-color: #6bffb8;
-    --border-color: #2b2b5a;
-    --font-main: 'Roboto', sans-serif;
-    --font-display: 'Cinzel Decorative', serif;
+  /* Colori principali */
+  --primary-purple: #4f46e5;
+  --primary-purple-dark: #6d28d9;
+  --primary-purple-light: #a78bfa;
+  --primary-purple-lighter: #c4b5fd;
+  --secondary-gray: #6b7280;
+  --secondary-gray-light: #9ca3af;
+
+  /* Backgrounds */
+  --bg-dark-primary: #1a1a2e;
+  --bg-dark-secondary: #0f0f1a;
+  --bg-header-start: #1b1b3a;
+  --bg-header-end: #2b2b5a;
+  --bg-card: rgba(30, 25, 60, 0.8);
+  --bg-card-hover: rgba(40, 30, 70, 0.9);
+  --bg-input: #2b2b5a;
+  --bg-input-focus: #353566;
+  --bg-register-card: rgba(20, 20, 40, 0.9);
+
+  /* Testi */
+  --text-primary: #dcdcff;
+  --text-secondary: #d1c4ff;
+  --text-highlight: #c4b5fd;
+  --text-logo: #bfacf6;
+  --text-muted: #9ca3af;
+
+  /* Bordi */
+  --border-primary: #4f46e5;
+  --border-secondary: #57419d;
+  --border-register: #6a5acd;
+
+  /* Messaggi */
+  --error-color: #ff6b6b;
+  --error-bg: rgba(255, 107, 107, 0.1);
+  --error-border: rgba(255, 107, 107, 0.3);
+  --success-color: #6bffb8;
+  --success-bg: rgba(107, 255, 184, 0.1);
+  --success-border: rgba(107, 255, 184, 0.3);
+  --info-bg: rgba(167, 216, 250, 0.1);
+  --info-border: rgba(167, 216, 250, 0.3);
+  --info-text: #a7d8fa;
+
+  /* Font */
+  --font-main: 'Roboto', sans-serif;
+  --font-display: 'Cinzel Decorative', serif;
 }
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    font-family: var(--font-main);
-    margin: 0;
-    padding: 0;
-    background: radial-gradient(circle at top, var(--secondary-bg), var(--primary-bg));
-    color: var(--text-primary);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  font-family: var(--font-main);
+  background: radial-gradient(circle at top, var(--bg-dark-primary), var(--bg-dark-secondary));
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
-
-a {
-    color: var(--highlight-accent);
-    text-decoration: none;
-    transition: color 0.3s ease;
+/* Sfondi specifici per pagina */
+body.body-register {
+   background: url('../images/tavern_signup.gif') no-repeat center center/cover;
 }
-
-a:hover {
-    color: var(--text-secondary);
-    text-decoration: underline;
+main {
+    flex: 1;
 }
 
 /* ============================================================================
-   HEADER / NAVBAR
+   HEADER / NAVBAR (Da header.css)
    ============================================================================ */
 header {
-    background: linear-gradient(90deg, #1b1b3a, #2b2b5a);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.8rem 2rem; /* Ridotto leggermente */
-    border-bottom: 2px solid var(--primary-accent);
-    box-shadow: 0 2px 10px rgba(79, 70, 229, 0.2);
+  background: linear-gradient(90deg, var(--bg-header-start), var(--bg-header-end));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 2rem;
+  border-bottom: 2px solid var(--border-primary);
+  box-shadow: 0 2px 10px rgba(100, 100, 255, 0.2);
 }
 
 .logo-flex {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* Leggermente ridotto */
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .logo {
-    font-family: var(--font-display);
-    font-size: 1.6rem; /* Leggermente ridotto */
-    color: var(--text-logo);
-    text-shadow: 0 0 6px var(--secondary-accent);
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--text-logo);
+  text-shadow: 0 0 6px var(--primary-purple-dark);
 }
 
 .logo-icon {
-    width: auto;
-    height: 32px; /* Leggermente ridotto */
+  width: auto;
+  height: 32px;
 }
 
 nav {
-    display: flex;
-    align-items: center; /* Allinea verticalmente gli elementi */
-    gap: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
 }
 
 nav a {
-    color: var(--text-secondary);
-    transition: color 0.3s, text-shadow 0.3s;
-    font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.3s, text-shadow 0.3s;
+  font-weight: 500;
 }
 
 nav a:hover {
-    color: #fff;
-    text-shadow: 0 0 8px var(--highlight-accent);
-    text-decoration: none;
+  color: #fff;
+  text-shadow: 0 0 8px var(--primary-purple-light);
 }
 
-nav span#welcome-user { /* Per il messaggio di benvenuto */
-    color: var(--text-highlight);
-    font-weight: 500;
-    margin-right: 10px;
+nav span#welcome-user {
+  color: var(--text-highlight);
+  font-weight: 500;
+  margin-right: 10px;
 }
 
 /* ============================================================================
-   MODAL DI LOGIN (E ALTRI MODAL)
+   BOTTONI (Da global.css)
+   ============================================================================ */
+.btn-primary, .btn-secondary, .btn-filter, .action-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary {
+  background-color: var(--primary-purple);
+  color: #fff;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-purple-dark);
+  box-shadow: 0 6px 20px rgba(109, 40, 217, 0.5);
+  transform: translateY(-2px);
+  color: white; /* Assicura che il testo resti bianco */
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: 2px solid var(--primary-accent);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(79, 70, 229, 0.1);
+  border-color: var(--primary-purple-light);
+  color: var(--text-highlight);
+}
+
+.btn-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+
+/* ============================================================================
+   MODALI (Da modal.css)
    ============================================================================ */
 .custom-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1000;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
 }
 
 .custom-modal.show {
-    display: flex; /* Usiamo flex per centrare */
-    align-items: center;
-    justify-content: center;
+  display: flex; 
 }
 
 .modal-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(3px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(3px);
 }
 
 .modal-container {
-    position: relative; /* Non serve più top/left/transform */
-    background: linear-gradient(135deg, var(--secondary-bg), #2b2b5a);
-    border: 2px solid var(--primary-accent);
-    border-radius: 12px;
-    width: 90%;
-    max-width: 450px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    animation: modalSlideIn 0.3s ease-out;
-    z-index: 1001;
-    overflow: hidden; /* Per bordi arrotondati footer */
+  position: relative;
+  background: linear-gradient(135deg, var(--bg-dark-primary), var(--bg-header-end));
+  border: 2px solid var(--border-primary);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: modalSlideIn 0.3s ease-out;
+  z-index: 1001;
+  overflow: hidden;
 }
 
 @keyframes modalSlideIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 25px;
-    border-bottom: 1px solid var(--primary-accent);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  border-bottom: 1px solid var(--border-primary);
 }
 
 .modal-title {
-    font-family: var(--font-display);
-    color: var(--highlight-accent);
-    margin: 0;
-    font-size: 1.4rem;
-    text-shadow: 0 0 8px var(--secondary-accent);
+  font-family: var(--font-display);
+  color: var(--primary-purple-light);
+  margin: 0;
+  font-size: 1.4rem;
+  text-shadow: 0 0 8px var(--primary-purple-dark);
 }
 
 .modal-close {
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    font-size: 1.8rem;
-    cursor: pointer;
-    padding: 0;
-    width: 30px; height: 30px;
-    line-height: 30px; /* Centra la X */
-    text-align: center;
-    transition: all 0.3s ease;
-    border-radius: 50%;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.8rem;
+  cursor: pointer;
+  width: 30px; height: 30px;
+  line-height: 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border-radius: 50%;
 }
 
 .modal-close:hover {
-    background-color: rgba(255, 107, 107, 0.2);
-    color: var(--error-color);
-    transform: scale(1.1);
+  background-color: var(--error-bg);
+  color: var(--error-color);
+  transform: scale(1.1);
 }
 
 .modal-body {
-    padding: 25px;
+  padding: 25px;
 }
 
 .modal-footer {
-    display: flex;
-    justify-content: space-between; /* Spazio tra link e bottoni */
-    align-items: center;
-    gap: 15px;
-    padding: 15px 25px;
-    border-top: 1px solid var(--primary-accent);
-    background: rgba(26, 26, 46, 0.5);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 25px;
+  border-top: 1px solid var(--border-primary);
+  background: rgba(26, 26, 46, 0.5);
 }
 
 .modal-footer a {
-    color: var(--text-highlight);
-    font-size: 0.9em;
+  color: var(--text-highlight);
+  font-size: 0.9em;
 }
+
+.modal-footer .btn-group { gap: 10px; }
+.modal-footer .btn { min-width: 80px; }
+
 
 /* ============================================================================
-   FORMS (Login, Registrazione, Modali)
+   FORM e MESSAGGI (Da global.css e signup.css)
    ============================================================================ */
-.form-card { /* Usato in register.html */
-    background: var(--card-bg);
-    border: 2px solid var(--primary-accent);
-    border-radius: 20px;
-    padding: 40px 50px;
-    width: 90%;
-    max-width: 450px;
-    color: var(--text-secondary);
-    box-shadow: 0 0 25px rgba(79, 70, 229, 0.4);
-    text-align: center;
+.content-wrapper { /* Per centrare form come registrazione */
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
 }
 
-.form-card h1, .form-card .subtitle {
-    margin-bottom: 20px;
+.form-card {
+  background: var(--bg-register-card);
+  border: 2px solid var(--border-register);
+  border-radius: 20px;
+  padding: 40px 50px;
+  width: 90%;
+  max-width: 450px;
+  color: var(--text-primary);
+  box-shadow: 0 0 25px rgba(106, 90, 205, 0.4);
+  text-align: center;
 }
-.form-card h1 { font-family: var(--font-display); color: var(--text-highlight); }
-.form-card .subtitle { color: var(--text-secondary); }
 
+.form-card h1 { font-family: var(--font-display); color: var(--text-highlight); margin-bottom: 10px; }
+.form-card .subtitle { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 25px; }
 
-.styled-form { /* Usato in register.html e nei modali */
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.styled-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .form-group {
-    margin-bottom: 10px; /* Ridotto leggermente */
-    text-align: left; /* Allinea label a sinistra */
+  margin-bottom: 10px;
+  text-align: left;
 }
 
 .form-group label {
-    display: block;
-    margin-bottom: 8px;
-    color: var(--text-secondary);
-    font-weight: 500;
-    font-size: 0.95rem;
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.95rem;
 }
 
 .form-group input,
-.form-group select { /* Aggiunto select */
-    width: 100%;
-    padding: 12px 15px;
-    border: 2px solid var(--primary-accent);
-    border-radius: 8px;
-    background-color: #2b2b5a; /* Sfondo input */
-    color: var(--text-primary);
-    font-size: 1rem;
-    transition: all 0.3s ease;
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid var(--border-primary);
+  border-radius: 8px;
+  background-color: var(--bg-input);
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-family: var(--font-main);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
 }
-/* Stili specifici per select */
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-purple-light);
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
+  background-color: var(--bg-input-focus);
+}
+
 .form-group select {
-    appearance: none; /* Rimuove stile default */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23d1c4ff' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E"); /* Freccia SVG */
-    background-repeat: no-repeat;
-    background-position: right 15px center;
-    background-size: 1em;
-    padding-right: 40px; /* Spazio per la freccia */
-}
-.form-group select:focus { /* Stile focus per select */
-     outline: none;
-    border-color: var(--highlight-accent);
-    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
-    background-color: #353566;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23d1c4ff' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 1em;
+  padding-right: 40px;
 }
 
-.form-group input:focus {
-    outline: none;
-    border-color: var(--highlight-accent);
-    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
-    background-color: #353566; /* Sfondo input focus */
-}
+.form-group input::placeholder { color: var(--text-muted); }
+.form-footer { margin-top: 25px; font-size: 0.9rem; }
+.form-footer a { color: var(--text-highlight); }
 
-.form-group input::placeholder {
-    color: #9ca3af;
-}
-
+/* Messaggi di Errore / Successo / Info */
 .error-message, .success-message, .info-message {
     font-size: 0.9rem;
     margin-top: 10px;
     padding: 10px 15px;
     border-radius: 6px;
-    display: none; /* Nascosti di default */
+    display: none;
+    text-align: center;
 }
-.error-message { color: var(--error-color); background-color: rgba(255, 107, 107, 0.1); border: 1px solid rgba(255, 107, 107, 0.3); }
-.success-message { color: var(--success-color); background-color: rgba(107, 255, 184, 0.1); border: 1px solid rgba(107, 255, 184, 0.3); }
-.info-message { color: #a7d8fa; background-color: rgba(167, 216, 250, 0.1); border: 1px solid rgba(167, 216, 250, 0.3); }
+.error-message { color: var(--error-color); background-color: var(--error-bg); border: 1px solid var(--error-border); }
+.success-message { color: var(--success-color); background-color: var(--success-bg); border: 1px solid var(--success-border); }
+.info-message { color: var(--info-text); background-color: var(--info-bg); border: 1px solid var(--info-border); }
 
 .error-message.show, .success-message.show, .info-message.show {
     display: block;
@@ -305,104 +390,84 @@ nav span#welcome-user { /* Per il messaggio di benvenuto */
     to { opacity: 1; transform: translateY(0); }
 }
 
-.form-footer { /* Usato in register.html */
-    margin-top: 25px;
-    font-size: 0.9rem;
-}
-
 /* ============================================================================
-   MAIN CONTENT WRAPPER (Per pagine come register.html)
-   ============================================================================ */
-.content-wrapper {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem 1rem;
-}
-
-/* ============================================================================
-   HERO SECTION (landing.html)
+   LAYOUT PAGINA (Hero, About)
    ============================================================================ */
 .hero {
-    flex: 1; /* Occupa lo spazio rimanente */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    /* background: url('../images/tavern_background.gif') no-repeat center center/cover; */ /* Rimuoviamo il background da main e lo mettiamo qui se serve */
-    padding: 3rem 1rem;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: url('../images/tavern_background.gif') no-repeat center center/cover;
+  padding: 3rem 1rem;
 }
 
 .hero-content {
-    background: rgba(30, 25, 60, 0.6); /* Sfondo semi-trasparente */
-    padding: 2rem 3rem;
-    border-radius: 12px;
-    box-shadow: 0 0 25px rgba(79, 70, 229, 0.3);
-    max-width: 700px;
+  background: rgba(30, 25, 60, 0.7); /* Sfondo più scuro per leggibilità */
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(79, 70, 229, 0.3);
+  max-width: 700px;
 }
 
 .hero-content h1 {
-    font-family: var(--font-display);
-    font-size: 2.8rem;
-    margin-bottom: 1rem;
-    color: var(--highlight-accent);
-    text-shadow: 0 0 10px var(--secondary-accent);
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  color: var(--primary-purple-light);
+  text-shadow: 0 0 10px var(--primary-purple-dark);
 }
 
 .hero-content p {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-    color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: var(--text-secondary);
 }
 
-/* ============================================================================
-   ABOUT SECTION (landing.html)
-   ============================================================================ */
 .about {
-    max-width: 800px;
-    margin: 0 auto 3rem auto; /* Margine 0 sopra */
-    text-align: center;
-    padding: 1.5rem 2rem;
-    background: rgba(45, 45, 80, 0.4);
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(90, 70, 200, 0.2);
+  max-width: 800px;
+  margin: 0 auto 3rem auto;
+  text-align: center;
+  padding: 1.5rem 2rem;
+  background: var(--bg-card);
+  border-radius: 12px;
 }
 
 .about h2 {
-    font-family: var(--font-display);
-    color: var(--text-highlight);
-    margin-bottom: 1rem;
+  font-family: var(--font-display);
+  color: var(--text-highlight);
+  margin-bottom: 1rem;
 }
 
 /* ============================================================================
-   DASHBOARD STYLES (dashboard.html, admin.html)
+   DASHBOARD (Player, Master)
    ============================================================================ */
-.dashboard-body {
-    background: var(--primary-bg); /* Sfondo più scuro per dashboard */
+body.dashboard-body {
+    background: var(--bg-dark-secondary);
 }
 
 .dashboard-hero {
     text-align: center;
     padding: 2rem 1rem;
-    background: linear-gradient(180deg, var(--secondary-bg) 0%, rgba(26, 26, 46, 0.8) 100%);
+    background: linear-gradient(180deg, var(--bg-dark-primary) 0%, rgba(26, 26, 46, 0.8) 100%);
 }
 
-.dashboard-hero h1 { font-family: var(--font-display); font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--highlight-accent); }
+.dashboard-hero h1 { font-family: var(--font-display); font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--primary-purple-light); }
 .dashboard-hero p { font-size: 1.1rem; color: var(--text-secondary); }
 
 .dashboard-content {
     flex: 1;
-    padding: 2rem 1rem;
-    max-width: 1200px; /* Larghezza massima contenuto */
+    padding: 1rem;
+    max-width: 1200px;
     width: 100%;
     margin: 0 auto;
 }
 
 .dashboard-section {
-    margin-bottom: 40px;
-    background: var(--card-bg);
-    border: 2px solid var(--primary-accent);
+    margin: 30px auto;
+    background: var(--bg-card);
+    border: 2px solid var(--border-primary);
     border-radius: 12px;
     padding: 25px;
     box-shadow: 0 0 20px rgba(79, 70, 229, 0.3);
@@ -411,39 +476,37 @@ nav span#welcome-user { /* Per il messaggio di benvenuto */
 .dashboard-section h2 {
     font-family: var(--font-display);
     text-align: center;
-    color: var(--highlight-accent);
+    color: var(--primary-purple-light);
     margin-bottom: 25px;
     padding-bottom: 10px;
-    border-bottom: 1px solid var(--primary-accent);
+    border-bottom: 1px solid var(--border-primary);
 }
-.dashboard-section h2 i { /* Icone nei titoli */
-    margin-right: 10px;
+.dashboard-section h2 i {
+    margin-right: 12px;
     color: var(--text-highlight);
 }
 
-
-/* CARD CONTAINER & CARDS (Dashboard) */
+/* CARD (Player, Master) */
 .card-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center; /* Centra le card se non riempiono la riga */
-    margin-top: 20px; /* Spazio dopo il titolo della sezione */
+    justify-content: center;
 }
 
 .card {
-    background: var(--card-bg-hover);
-    border: 1px solid var(--primary-accent);
+    background: var(--bg-card-hover);
+    border: 1px solid var(--border-secondary);
     border-radius: 10px;
     padding: 20px;
-    width: 280px; /* Leggermente più grandi */
+    width: 280px;
     text-align: center;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Spazia titolo, p e bottone */
-    min-height: 150px; /* Altezza minima */
+    justify-content: space-between;
+    min-height: 170px;
 }
 
 .card:hover {
@@ -453,7 +516,7 @@ nav span#welcome-user { /* Per il messaggio di benvenuto */
 
 .card h3 {
     font-family: var(--font-display);
-    color: var(--highlight-accent);
+    color: var(--primary-purple-light);
     font-size: 1.2rem;
     margin-bottom: 10px;
 }
@@ -462,70 +525,81 @@ nav span#welcome-user { /* Per il messaggio di benvenuto */
     color: var(--text-secondary);
     font-size: 0.95rem;
     margin-bottom: 15px;
-    flex-grow: 1; /* Fa espandere il paragrafo */
+    flex-grow: 1;
 }
-.card span.code { /* Per i codici invito */
+.card span.code {
     display: block;
-    background: var(--secondary-bg);
+    background: var(--bg-dark-primary);
     padding: 5px;
     border-radius: 4px;
     font-family: monospace;
     font-size: 0.9em;
     margin-top: 8px;
     word-break: break-all;
+    color: var(--text-highlight);
 }
-.card small { /* Per le scadenze */
+.card small {
     display: block;
     font-size: 0.8em;
-    color: var(--text-secondary);
+    color: var(--text-muted);
     margin-top: 5px;
 }
 
-
-.add-card { /* Card speciale per pulsanti Aggiungi */
+.add-card {
     background: transparent;
-    border: 2px dashed var(--primary-accent);
+    border: 2px dashed var(--border-primary);
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     box-shadow: none;
+    min-height: 170px;
 }
 .add-card:hover {
     background: rgba(79, 70, 229, 0.1);
-    border-color: var(--highlight-accent);
-    transform: none; /* Sovrascrive hover normale */
+    border-color: var(--primary-purple-light);
+    transform: none;
 }
-.add-card button { width: 100%; height: 100%; }
+.add-card button { width: 100%; height: 100%; border: none; }
+.add-card button i { margin-right: 8px; }
 
-/* Proposal Cards */
-.proposal-card-container { gap: 15px; } /* Meno spazio tra le card proposte */
 
-.proposal-card { /* Stile specifico per card proposte */
-    width: 100%; /* Larghezza piena */
-    max-width: 400px; /* Ma con max-width */
+/* Card Proposte Voto */
+.proposal-card-container { gap: 15px; }
+
+.proposal-card {
+    width: 100%;
+    max-width: 500px;
     text-align: left;
-    display: grid; /* Layout a griglia */
+    display: grid;
     grid-template-columns: auto 1fr auto;
     gap: 10px 15px;
     align-items: center;
+    min-height: 0;
 }
-.proposal-card h3 { grid-column: 1 / 4; margin-bottom: 5px; } /* Titolo su tutta la riga */
-.proposal-card p { margin-bottom: 5px; grid-column: 1 / 3; }
-.proposal-card .btn-primary { grid-column: 3 / 4; grid-row: 2 / 4; justify-self: end;} /* Bottone a destra */
-.proposal-card span.voted { grid-column: 3 / 4; grid-row: 2 / 4; justify-self: end; color: var(--success-color); font-weight: bold;}
+.proposal-card h3 { grid-column: 1 / 4; margin-bottom: 5px; }
+.proposal-card p { margin-bottom: 5px; grid-column: 1 / 3; flex-grow: 0; }
+.proposal-card .btn-primary { grid-column: 3 / 4; grid-row: 2 / 4; justify-self: end; }
+.proposal-card span.voted {
+    grid-column: 3 / 4;
+    grid-row: 2 / 4;
+    justify-self: end;
+    color: var(--success-color);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
 
 
 /* ============================================================================
-   ADMIN TABLE (admin.html)
+   ADMIN DASHBOARD (admin.html)
    ============================================================================ */
 .filters {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 .btn-filter {
     background: transparent;
-    border: 1px solid var(--primary-accent);
+    border: 1px solid var(--border-primary);
     color: var(--text-secondary);
     padding: 8px 15px;
     margin: 0 5px;
@@ -534,21 +608,21 @@ nav span#welcome-user { /* Per il messaggio di benvenuto */
     transition: all 0.3s ease;
 }
 .btn-filter.active, .btn-filter:hover {
-    background: var(--primary-accent);
+    background: var(--primary-purple);
     color: white;
 }
 
 .admin-table-container {
-    overflow-x: auto; /* Per tabelle su schermi piccoli */
+    overflow-x: auto;
 }
 
 #users-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    background: var(--card-bg-hover);
+    background: var(--bg-card-hover);
     border-radius: 8px;
-    overflow: hidden; /* Per bordi arrotondati */
+    overflow: hidden;
 }
 
 #users-table th, #users-table td {
@@ -558,8 +632,8 @@ nav span#welcome-user { /* Per il messaggio di benvenuto */
 }
 
 #users-table th {
-    background: var(--secondary-bg);
-    color: var(--highlight-accent);
+    background: var(--bg-dark-primary);
+    color: var(--primary-purple-light);
     font-weight: 500;
 }
 
@@ -569,13 +643,14 @@ nav span#welcome-user { /* Per il messaggio di benvenuto */
 
 #users-table .status-banned { color: var(--error-color); font-weight: bold; }
 #users-table .status-active { color: var(--success-color); }
+
 #users-table .role-badge {
     display: inline-block;
     padding: 3px 8px;
     border-radius: 10px;
     font-size: 0.8em;
     margin-right: 5px;
-    background: var(--primary-accent);
+    background: var(--primary-purple);
     color: white;
 }
 #users-table .role-badge.admin { background: #dc3545; }
@@ -583,107 +658,74 @@ nav span#welcome-user { /* Per il messaggio di benvenuto */
 #users-table .role-badge.master { background: #ffc107; color: #333; }
 
 #users-table .action-button {
-    background: var(--secondary-accent);
+    background: var(--secondary-gray);
     color: white;
-    border: none;
     padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
     font-size: 0.9em;
-    transition: background-color 0.3s ease;
+    margin-right: 5px;
 }
-#users-table .action-button:hover { background: var(--highlight-accent); }
-#users-table .action-button.ban { background: #dc3545; }
-#users-table .action-button.ban:hover { background: #c82333; }
+#users-table .action-button:hover { background: var(--secondary-gray-light); }
+#users-table .action-button.ban { background: #c82333; }
+#users-table .action-button.ban:hover { background: #a71d2a; }
+#users-table .action-button:disabled { background: #333; color: #777; cursor: not-allowed; }
 
 
 /* ============================================================================
-   BOTTONI (Generali)
-   ============================================================================ */
-.btn-primary, .btn-secondary {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-    text-align: center;
-    text-decoration: none; /* Per link stilizzati come bottoni */
-    display: inline-block; /* Per link stilizzati come bottoni */
-}
-
-.btn-primary {
-    background-color: var(--primary-accent);
-    color: #fff;
-    border: 2px solid transparent; /* Aggiunto per coerenza */
-    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
-}
-
-.btn-primary:hover {
-    background-color: var(--secondary-accent);
-    box-shadow: 0 6px 20px rgba(109, 40, 217, 0.5);
-    transform: translateY(-2px);
-    text-decoration: none;
-    color: white;
-}
-
-.btn-secondary {
-    background-color: transparent;
-    color: var(--text-secondary);
-    border: 2px solid var(--primary-accent);
-}
-
-.btn-secondary:hover {
-    background-color: rgba(79, 70, 229, 0.1);
-    border-color: var(--highlight-accent);
-    color: var(--text-highlight);
-    text-decoration: none;
-}
-
-.modal-footer .btn { /* Stili specifici per bottoni nel footer modal */
-    min-width: 80px;
-}
-.modal-footer .btn-group { display: flex; gap: 10px; }
-
-/* ============================================================================
-   FOOTER
+   FOOTER (Da footer.css)
    ============================================================================ */
 .footer {
-    background: var(--secondary-bg);
-    text-align: center;
-    padding: 1rem;
-    color: var(--highlight-accent);
-    font-size: 0.9rem;
-    border-top: 1px solid var(--border-color);
-    margin-top: auto; /* Spinge il footer in fondo */
+  background: var(--bg-dark-primary);
+  text-align: center;
+  padding: 1.5rem 1rem;
+  color: var(--primary-purple-light);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border-color);
+  margin-top: auto; /* Spinge il footer in fondo */
+}
+.footer-content {
+    margin-bottom: 1rem;
+}
+.footer-content h3 {
+    font-family: var(--font-display);
+    margin-bottom: 0.5rem;
 }
 
 /* ============================================================================
-   RESPONSIVE DESIGN (Base)
+   RESPONSIVE (Da responsive.css)
    ============================================================================ */
 @media (max-width: 768px) {
-    header { padding: 0.8rem 1rem; }
-    nav { gap: 1rem; }
-    .logo { font-size: 1.4rem; }
-    .hero-content h1 { font-size: 2.2rem; }
-    .dashboard-hero h1 { font-size: 2rem; }
-    .card { width: calc(50% - 10px); } /* 2 card per riga */
-    .dashboard-section { padding: 20px; }
-    .modal-container { max-width: 90%; }
+  .hero-content h1,
+  .dashboard-hero h1 {
+    font-size: 2.2rem;
+  }
+  .dashboard-hero h1 { font-size: 2rem; }
+  header { padding: 0.8rem 1.5rem; }
+  nav { gap: 1rem; }
+  .card { width: calc(50% - 10px); }
+  .dashboard-section { padding: 20px; }
+  .form-card { padding: 30px 25px; }
 }
 
 @media (max-width: 480px) {
-    header { flex-direction: column; gap: 10px; padding: 1rem; }
-    nav { justify-content: center; width: 100%; }
-    .hero-content { padding: 1.5rem; }
-    .hero-content h1 { font-size: 1.8rem; }
-    .dashboard-hero h1 { font-size: 1.6rem; }
-    .about { padding: 1rem; margin: 1.5rem auto; }
-    .card { width: 100%; } /* 1 card per riga */
-    .form-card { padding: 30px 20px; width: 95%; }
-    .modal-footer { flex-direction: column; align-items: stretch; }
-    .modal-footer a { text-align: center; margin-bottom: 10px; }
-    .modal-footer .btn-group { width: 100%; flex-direction: column; }
-    .filters button { margin: 5px; }
+  header { flex-direction: column; gap: 10px; padding: 1rem; }
+  nav { justify-content: center; width: 100%; flex-wrap: wrap;}
+  .logo { font-size: 1.4rem; }
+  .logo-icon { height: 30px; }
+  .footer { padding: 1rem; font-size: 0.8rem; }
+
+  .modal-container { width: 95%; }
+  .modal-header, .modal-body, .modal-footer { padding: 15px 20px; }
+  .modal-footer { flex-direction: column; align-items: stretch; }
+  .modal-footer a { text-align: center; margin-bottom: 10px; }
+  .modal-footer .btn-group { width: 100%; flex-direction: column; }
+
+  .card-container { flex-direction: column; align-items: center; }
+  .card { width: 100%; max-width: 350px; }
+  .dashboard-section { margin: 20px 10px; padding: 15px; }
+  .form-card { width: 95%; padding: 25px 20px; }
+
+  .hero-content, .about { padding: 1.5rem; margin: 1.5rem auto; }
+  .hero-content h1, .dashboard-hero h1 { font-size: 1.8rem; }
+  .hero-content p, .dashboard-hero p { font-size: 1rem; }
+  .btn-group { flex-direction: column; }
 }
