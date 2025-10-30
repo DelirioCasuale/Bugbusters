@@ -11,7 +11,9 @@ CREATE TABLE users (
     password_hash VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     
-    -- COLONNE AGGIUNTE PER LA LOGICA DI BAN --
+    -- NUOVA COLONNA --
+    profile_image_url VARCHAR(255) DEFAULT NULL,
+    
     is_banned BOOLEAN DEFAULT FALSE,
     deletion_scheduled_on TIMESTAMP DEFAULT NULL 
 );
@@ -49,15 +51,15 @@ CREATE TABLE character_sheet (
     secondary_class VARCHAR(20),
     secondary_level INT DEFAULT NULL,
     alignment ENUM(
-        'Lawful Good',
-        'Neutral Good',
-        'Chaotic Good',
-        'Lawful Neutral',
-        'True Neutral',
-        'Chaotic Neutral',
-        'Lawful Evil',
-        'Neutral Evil',
-        'Chaotic Evil'
+        'LAWFUL_GOOD',
+        'NEUTRAL_GOOD',
+        'CHAOTIC_GOOD',
+        'LAWFUL_NEUTRAL',
+        'TRUE_NEUTRAL',
+        'CHAOTIC_NEUTRAL',
+        'LAWFUL_EVIL',
+        'NEUTRAL_EVIL',
+        'CHAOTIC_EVIL'
     ),
     race ENUM(
         'HUMAN',
