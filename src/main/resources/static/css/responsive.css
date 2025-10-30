@@ -37,3 +37,38 @@
   .hero-content p, .dashboard-hero p { font-size: 1rem; }
   .btn-group { flex-direction: column; }
 }
+
+/* ============================================================================
+   TABLET - 768px e sotto
+   ============================================================================ */
+@media (max-width: 768px) {
+  /* ... (regole esistenti per header, card, ecc.) ... */
+
+  /* Aggiungi per layout "Forty" */
+  #banner { padding: 4rem 1rem; }
+  #banner .inner { padding: 1.5rem; }
+  #banner h1 { font-size: 2.2rem; }
+
+  #main-landing { padding: 2rem 1rem; }
+  
+  #contact { padding: 2rem; }
+  .tile { flex-basis: calc(50% - 2rem); } /* 2 colonne (2rem è il margin L+R) */
+}
+
+/* ============================================================================
+   MOBILE - 480px e sotto
+   ============================================================================ */
+@media (max-width: 480px) {
+  /* ... (regole esistenti per header, modal, card, ecc.) ... */
+
+  /* Aggiungi per layout "Forty" */
+  #banner .inner { padding: 1.5rem 1rem; }
+  #banner h1 { font-size: 1.8rem; }
+  
+  #main-landing { padding: 1rem; }
+  .tile { flex-basis: 100%; margin: 1rem 0; } /* 1 colonna */
+  
+  .contact-wrapper {
+    flex-direction: column-reverse; /* Form sopra, dettagli sotto */
+  }
+}

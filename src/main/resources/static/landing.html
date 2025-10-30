@@ -7,10 +7,9 @@
     <link rel="icon" type="image/x-icon" href="images/dice.png" />
     <link rel="stylesheet" href="css/main.css" />
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body class="body-landing">
-
-    <header>
+<body class="body-landing"> <header>
         <div class="logo-flex">
             <i><img src="images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
             <div class="logo">Tavern Portal</div>
@@ -50,8 +49,8 @@
     </div>
 
     <main>
-        <section class="hero">
-            <div class="hero-content">
+        <section id="banner" class="major">
+            <div class="inner">
                 <h1>Benvenuto nella Taverna</h1>
                 <p>Gestisci le tue campagne di D&D, crea personaggi e vivi nuove avventure.</p>
                 <div class="btn-group">
@@ -61,20 +60,74 @@
             </div>
         </section>
 
-        <section class="about">
-            <h2>Cos'è Tavern Portal?</h2>
-            <p>
-                La piattaforma per Dungeon Master e Giocatori per pianificare, creare e condividere
-                le tue campagne di Dungeons&Dragons in un unico portale.
-            </p>
-        </section>
+        <div id="main-landing">
+
+            <section id="tiles" class="tiles-container">
+                <article class="tile">
+                    <div class="content">
+                        <h3>Cos'è Tavern Portal?</h3>
+                        <p>Una piattaforma per DM e Giocatori per pianificare, creare e condividere le tue campagne in un unico portale.</p>
+                    </div>
+                </article>
+                <article class="tile">
+                    <div class="content">
+                        <h3>La Nostra Mission</h3>
+                        <p>Fornire lo strumento più intuitivo per dare vita alle tue storie, eliminando la complessità della gestione.</p>
+                    </div>
+                </article>
+                <article class="tile">
+                    <div class="content">
+                        <h3>La Nostra Vision</h3>
+                        <p>Diventare il punto di riferimento digitale che connette giocatori e master per avventure memorabili ovunque nel mondo.</p>
+                    </div>
+                </article>
+                <article class="tile">
+                    <div class="content">
+                        <h3>Seguici sui Social</h3>
+                        <p>Rimani aggiornato sulle nuove feature e condividi le tue storie con la community!</p>
+                        <div class="social-icons">
+                            <a href="#" class="icon-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="icon-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="icon-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="icon-link"><i class="fab fa-discord"></i></a>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <section id="contact" class="dashboard-section">
+                <h2>Supporto</h2>
+                <div class="contact-wrapper">
+                    <div class="contact-form-container">
+                        <form id="contactForm" class="styled-form">
+                            <div class="form-group">
+                                <label for="contact-name">Nome</label>
+                                <input type="text" id="contact-name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-email">Email</label>
+                                <input type="email" id="contact-email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-message">Messaggio</label>
+                                <textarea id="contact-message" name="message" rows="6" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary">Invia Messaggio</button>
+                        </form>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Contattaci</h3>
+                        <p><i class="fas fa-envelope"></i> <a href="mailto:support@tavernportal.example">support@tavernportal.example</a></p>
+                        <p><i class="fas fa-phone"></i> (WIP) +39 123 456 7890</p>
+                        <p><i class="fas fa-map-marker-alt"></i> (WIP) Via della Taverna, 1<br>Neverwinter, 12345</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
     </main>
 
     <footer class="footer">
-        <div class="footer-content">
-            <h3>Supporto</h3>
-            <p>Hai bisogno di aiuto? Contatta il nostro team di supporto a <a href="mailto:support@tavernportal.example">support@tavernportal.example</a></p>
-        </div>
         <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
     </footer>
 

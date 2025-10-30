@@ -16,6 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     document.getElementById('loginForm')?.addEventListener('submit', handleLogin);
     
+    // --- NUOVO LISTENER ---
+    document.getElementById('contactForm')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Supporto (WIP): Messaggio inviato! (non ancora implementato)');
+        document.getElementById('contactForm').reset();
+    });
+    // --- FINE NUOVO LISTENER ---
+    
     document.addEventListener('click', (e) => {
         if (e.target && e.target.id === 'logout-button') handleLogout(e);
     });
