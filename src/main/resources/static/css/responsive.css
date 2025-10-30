@@ -49,10 +49,13 @@
   #banner .inner { padding: 1.5rem; }
   #banner h1 { font-size: 2.2rem; }
 
-  #main-landing { padding: 2rem 1rem; }
+  #main-landing { padding: 0; } /* Conferma padding 0 */
   
   #contact { padding: 2rem; }
-  .tile { flex-basis: calc(50% - 2rem); } /* 2 colonne (2rem è il margin L+R) */
+  .tile { 
+    flex-basis: 100% !important; 
+    margin: 1px 0; /* (Puoi tenere un margine verticale minimo se vuoi) */
+  }
 }
 
 /* ============================================================================
@@ -66,8 +69,10 @@
   #banner h1 { font-size: 1.8rem; }
   
   #main-landing { padding: 1rem; }
-  .tile { flex-basis: 100%; margin: 1rem 0; } /* 1 colonna */
-  
+  .tile { 
+    flex-basis: 100% !important; 
+    margin: 1px 0;
+  }  
   .contact-wrapper {
     flex-direction: column-reverse; /* Form sopra, dettagli sotto */
   }
