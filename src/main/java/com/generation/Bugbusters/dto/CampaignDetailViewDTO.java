@@ -15,12 +15,12 @@ public class CampaignDetailViewDTO {
     
     // Info Master
     private String masterUsername;
-    // private Long masterId; // Possiamo aggiungerlo se serve un link al profilo master
     
     // Info Giocatori
-    private List<CampaignPlayerDTO> players; // Riutilizziamo il DTO esistente
+    private List<CampaignPlayerDTO> players; // (Questo nome è corretto)
     
-    // Info Calendario (solo per il player)
-    // Usiamo il DTO esistente, ma lo carichiamo solo per questa campagna
-    private List<PlayerSessionProposalDTO> activeProposals; 
+    // --- MODIFICATO ---
+    // Info Calendario
+    private List<PlayerSessionProposalDTO> activeProposals; // Solo quelle attive/votabili
+    private List<PlayerSessionProposalDTO> pastProposals;   // Quelle scadute, confermate, o già votate
 }

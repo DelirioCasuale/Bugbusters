@@ -30,3 +30,23 @@
 #players-table .action-button.kick { background: #c82333; }
 #players-table .action-button.kick:hover { background: #a71d2a; }
 @media (max-width: 992px) { .detail-grid { grid-template-columns: 1fr; } }
+
+/* Stile per proposte passate (opacità ridotta) */
+.past-proposals .proposal-item {
+    opacity: 0.7;
+    background: var(--bg-dark-secondary); /* Sfondo più scuro */
+    border-left-color: var(--secondary-gray);
+}
+.past-proposals .proposal-item.confirmed {
+    opacity: 1;
+    border-left-color: var(--success-color);
+}
+.past-proposals .proposal-item span.voted {
+    color: var(--text-muted); /* Colore più spento per "Votato" */
+}
+
+/* Stile per evidenziare la riga del giocatore */
+.highlight-row {
+    background-color: var(--bg-input-focus);
+    font-weight: bold;
+}
