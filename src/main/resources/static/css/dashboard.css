@@ -1,0 +1,151 @@
+/* ============================================================================
+   DASHBOARD SECTIONS - Schede personaggio e campagne
+   ============================================================================ */
+
+.master-main {
+  background: url('../images/master.gif') no-repeat center center/cover;
+}
+.user-main {
+  background: url('../images/player.gif') no-repeat center center/cover;
+}
+
+main {
+  gap: 10px;
+}
+
+.dashboard-section {
+  margin: 50px auto;
+  max-width: 1000px;
+  background: var(--bg-dashboard-card);
+  border: 2px solid var(--border-primary);
+  border-radius: 12px;
+  padding: 30px;
+  justify-content: center;
+}
+
+.dashboard-section h2 {
+  font-family: 'Cinzel Decorative', serif;
+  text-align: center;
+  color: var(--primary-purple-light);
+  margin-bottom: 20px;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--bg-container);
+  margin: 0 5vw;
+  border-radius: 12px;
+  gap: 1rem;
+  overflow: hidden;
+  width: calc(100% - 10vw);
+  box-sizing: border-box;
+}
+
+/* .page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+} */
+
+.page-header h2 {
+  font-family: 'Cinzel Decorative', serif;
+  color: var(--primary-purple-light);
+}
+
+.page-content {
+  overflow: hidden;
+  width: 100%;
+  min-width: 0;
+  flex: 1;
+}
+
+.card-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 10px 0;
+  /* Stili per lo scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-purple-light) var(--bg-individual-card);
+}
+
+/* Webkit scrollbar styling per Chrome/Safari */
+.card-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.card-container::-webkit-scrollbar-track {
+  background: var(--bg-individual-card);
+  border-radius: 4px;
+}
+
+.card-container::-webkit-scrollbar-thumb {
+  background: var(--primary-purple-light);
+  border-radius: 4px;
+}
+
+.card-container::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-purple);
+}
+
+.card {
+  background: var(--bg-individual-card);
+  border: 1px solid var(--border-secondary);
+  border-radius: 10px;
+  padding: 20px;
+  width: 250px;
+  min-width: 250px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.card h3 {
+  font-family: 'Cinzel Decorative', serif;
+  color: var(--primary-purple-light);
+}
+
+.card p {
+  color: var(--text-card);
+}
+
+.add-card {
+  background: var(--bg-add-card);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ============================================================================
+   CALENDARIO
+   ============================================================================ */
+.calendar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.calendar-input {
+  width: 300px;
+  height: 50px;
+  padding: 10px 15px;
+  font-size: 1.1rem;
+  background-color: var(--bg-individual-card);
+  color: var(--text-secondary);
+  border: 2px solid var(--border-secondary);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.calendar-input:hover {
+  border-color: var(--primary-purple-light);
+  box-shadow: 0 0 12px var(--shadow-hover-intense);
+}

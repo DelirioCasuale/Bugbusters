@@ -73,7 +73,7 @@
         <p sec:authorize="hasRole('GUEST')">Sei pronto a tornare alla tua avventura?</p>
 
         <div class="btn-group">
-          <button class="btn-primary login" sec:authorize="!isAuthenticated()">Inizia Ora</button>
+          <button class="btn-primary" sec:authorize="!isAuthenticated()">Inizia Ora</button>
           <button class="btn-primary" sec:authorize="isPlayer()">Visuale Player</button>
           <button class="btn-primary" sec:authorize="isMaster()">Visuale Master</button>
           <button class="btn-primary" sec:authorize="hasRole('ADMIN')">Dashboard Admin</button>
