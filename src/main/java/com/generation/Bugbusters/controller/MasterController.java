@@ -2,8 +2,10 @@ package com.generation.Bugbusters.controller;
 
 import com.generation.Bugbusters.dto.CampaignCreateRequest;
 import com.generation.Bugbusters.dto.CampaignDTO;
+import com.generation.Bugbusters.dto.CampaignProposalDTO;
 import com.generation.Bugbusters.dto.CampaignStartDateRequest;
 import com.generation.Bugbusters.dto.SessionProposalRequest;
+import com.generation.Bugbusters.dto.UpdateCampaignRequest;
 import com.generation.Bugbusters.service.MasterService;
 import com.generation.Bugbusters.dto.ClaimCampaignRequest;
 import jakarta.validation.Valid;
@@ -96,5 +98,26 @@ public class MasterController {
             @Valid @RequestBody ClaimCampaignRequest claimRequest) {
         
         return masterService.claimOrphanedCampaign(claimRequest);
+    }
+
+    /**
+     * Endpoint per AGGIORNARE i dettagli base di una campagna (nome/descrizione).
+     * PUT /api/master/campaigns/{id}
+     */
+    @PutMapping("/campaigns/{id}")
+    public ResponseEntity<?> updateCampaignDetails(
+            @PathVariable Long id,
+            @Valid @RequestBody UpdateCampaignRequest request) {
+        
+        return masterService.updateCampaignDetails(id, request);
+    }
+
+    /**
+     * Endpoint per OTTENERE le proposte di sessione per una campagna specifica.
+     * GET /api/master/campaigns/{id}/proposals
+     */
+    @GetMapping("/campaigns/{id}/proposals")
+    public ResponseEntity<List<CampaignProposalDTO>> getCampaignProposals(@PathVariable Long id) {
+        return masterService.getCampaignProposals(id);
     }
 }

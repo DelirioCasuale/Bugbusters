@@ -124,7 +124,7 @@ async function loadPlayerData() {
                     <h3>${jc.campaignTitle || 'Campagna sconosciuta'}</h3>
                     <p>ID Camp: ${jc.campaignId}</p>
                     <p>Usando: ${jc.characterUsed?.name || '?'} (ID: ${jc.characterUsed?.id || '?'})</p>
-                    <button class="btn-primary" disabled>Entra (WIP)</button>
+                    <a href="player-campaign-detail.html?id=${jc.campaignId}" class="btn-primary">Entra</a>
                 </div>
             `).join('');
         } else {

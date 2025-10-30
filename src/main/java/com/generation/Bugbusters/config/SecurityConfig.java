@@ -87,8 +87,10 @@ public class SecurityConfig {
 
                 // Pagine HTML Pubbliche e Risorse Statiche
                 .requestMatchers("/", "/landing.html", "/register.html", 
-                                 "/player.html", "/master.html", "/profile.html", 
-                                 "/edit-sheet.html", // <-- AGGIUNTO QUI
+                                 "/player.html", "/master.html", "/profile.html",
+                                 "/edit-sheet.html",
+                                 "/master-campaign-detail.html",
+                                 "/player-campaign-detail.html", 
                                  "/css/**", "/js/**", "/images/**").permitAll()
 
                 // Endpoint Protetti API (Qui resta la protezione DEI DATI)

@@ -70,7 +70,8 @@ async function handleClaimCampaign(event) {
       }
 }
 window.viewCampaignDetails = (campaignId) => {
-     alert(`Funzionalità "Gestisci Campagna ${campaignId}" non ancora implementata.`);
+     // Reindirizza alla nuova pagina di dettaglio, passando l'ID come parametro URL
+     window.location.href = `master-campaign-detail.html?id=${campaignId}`;
 }
 async function loadMasterData() {
     console.log("Caricamento dati Master...");
