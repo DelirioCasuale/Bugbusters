@@ -729,3 +729,20 @@ body.dashboard-body {
   .hero-content p, .dashboard-hero p { font-size: 1rem; }
   .btn-group { flex-direction: column; }
 }
+
+/* Stile per l'avatar nella Navbar */
+nav #welcome-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-highlight);
+    font-weight: 500;
+}
+
+.navbar-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover; /* Assicura che l'immagine copra lo spazio */
+    border: 1px solid var(--primary-purple-light);
+}
