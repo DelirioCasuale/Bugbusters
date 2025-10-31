@@ -19,6 +19,7 @@
 @import url('pages/dashboard.css');
 @import url('pages/admin.css');
 @import url('pages/campaign-detail.css');
+@import url('pages/character-sheet.css');
 
 /* 4. Responsive (FONDAMENTALE PER ULTIMO) */
 @import url('responsive.css');

@@ -7,33 +7,29 @@ let currentSheetId = null;
 // --- GUARDIA DI AUTENTICAZIONE ---
 document.addEventListener('DOMContentLoaded', () => {
     if (!isAuthenticated()) {
-        console.warn("Utente non autenticato. Reindirizzamento a landing.html");
         window.location.replace('landing.html');
         return;
     }
     if (!isPlayer()) {
-        console.warn("Utente non player su pagina modifica. Reindirizzamento...");
         window.location.replace('profile.html');
         return;
     }
-    // ---------------------------------
-
+    
     updateGeneralUI(); // Aggiorna navbar
 
-    // Listener Logout
     document.addEventListener('click', (e) => {
         if (e.target && e.target.id === 'logout-button') handleLogout(e);
     });
-
-    // Listener Form
+    
     document.getElementById('editSheetForm')?.addEventListener('submit', handleUpdateSheet);
+    
+    // NUOVO LISTENER PER DOWNLOAD PDF
+    document.getElementById('btn-download-pdf')?.addEventListener('click', handleDownloadPdf);
 
-    // 1. Ottieni l'ID della scheda dall'URL
     const params = new URLSearchParams(window.location.search);
     currentSheetId = params.get('id');
 
     if (currentSheetId) {
-        // 2. Carica i dati della scheda
         loadSheetData(currentSheetId);
     } else {
         alert("Errore: ID scheda non trovato nell'URL.");
@@ -49,55 +45,72 @@ async function loadSheetData(sheetId) {
     if (data) {
         populateForm(data);
     } else {
-        // Errore (es. 403 non autorizzato, 404 non trovato)
-        // L'alert di apiCall ha già avvisato, reindirizziamo
         window.location.href = 'player.html';
     }
 }
 
 /**
  * Popola tutti i campi del form con i dati dal DTO
+ * (Mappa ai nuovi ID "cs-...")
  */
 function populateForm(dto) {
-    // Titolo pagina
-    document.getElementById('sheet-name-title').textContent = `Modifica: ${dto.name}`;
-    
-    // Assegna valore a ogni input. Usiamo nomi corrispondenti
-    // Questo è un elenco parziale (KISS). Aggiungi gli altri campi se necessario.
-    
-    // Info Base
-    document.getElementById('name').value = dto.name || '';
-    document.getElementById('primaryClass').value = `${dto.primaryClass || ''} ${dto.primaryLevel || ''}`; // Combiniamo
-    document.getElementById('background').value = dto.background || '';
-    document.getElementById('race').value = dto.race || '';
-    document.getElementById('alignment').value = dto.alignment || '';
-    document.getElementById('experiencePoints').value = dto.experiencePoints || 0;
+    // Header
+    document.getElementById('cs-name').value = dto.name || '';
+    document.getElementById('cs-class-level').value = `${dto.primaryClass || ''} ${dto.primaryLevel || ''}`;
+    document.getElementById('cs-background').value = dto.background || '';
+    document.getElementById('cs-race').value = dto.race || '';
+    document.getElementById('cs-alignment').value = dto.alignment || '';
+    document.getElementById('cs-xp').value = dto.experiencePoints || 0;
 
-    // Statistiche
-    document.getElementById('strength').value = dto.strength || 10;
-    document.getElementById('dexterity').value = dto.dexterity || 10;
-    document.getElementById('constitution').value = dto.constitution || 10;
-    document.getElementById('intelligence').value = dto.intelligence || 10;
-    document.getElementById('wisdom').value = dto.wisdom || 10;
-    document.getElementById('charisma').value = dto.charisma || 10;
+    // Col 1 - Stats
+    document.getElementById('cs-strength').value = dto.strength || 10;
+    document.getElementById('cs-dexterity').value = dto.dexterity || 10;
+    document.getElementById('cs-constitution').value = dto.constitution || 10;
+    document.getElementById('cs-intelligence').value = dto.intelligence || 10;
+    document.getElementById('cs-wisdom').value = dto.wisdom || 10;
+    document.getElementById('cs-charisma').value = dto.charisma || 10;
 
-    // Combat
-    document.getElementById('armorClass').value = dto.armorClass || 10;
-    document.getElementById('initiative').value = dto.initiative || 0;
-    document.getElementById('speed').value = dto.speed || 30;
-    document.getElementById('currentHitPoints').value = dto.currentHitPoints || 10;
-    document.getElementById('maxHitPoints').value = dto.maxHitPoints || 10;
+    // Col 1 - Skills (Checkboxes)
+    // (Usa "name" dal DTO per trovare l'ID nel form)
+    document.getElementById('cs-skill-acrobatics').checked = dto.acrobaticsSkillProficiency;
+    document.getElementById('cs-skill-animal').checked = dto.animalHandlingSkillProficiency;
+    document.getElementById('cs-skill-arcana').checked = dto.arcanaSkillProficiency;
+    document.getElementById('cs-skill-athletics').checked = dto.athleticsSkillProficiency;
+    document.getElementById('cs-skill-deception').checked = dto.deceptionSkillProficiency;
+    document.getElementById('cs-skill-history').checked = dto.historySkillProficiency;
+    document.getElementById('cs-skill-insight').checked = dto.insightSkillProficiency;
+    document.getElementById('cs-skill-intimidation').checked = dto.intimidationSkillProficiency;
+    document.getElementById('cs-skill-investigation').checked = dto.investigationSkillProficiency;
+    document.getElementById('cs-skill-medicine').checked = dto.medicineSkillProficiency;
+    document.getElementById('cs-skill-nature').checked = dto.natureSkillProficiency;
+    document.getElementById('cs-skill-perception').checked = dto.perceptionSkillProficiency;
+    document.getElementById('cs-skill-performance').checked = dto.performanceSkillProficiency;
+    document.getElementById('cs-skill-persuasion').checked = dto.persuasionSkillProficiency;
+    document.getElementById('cs-skill-religion').checked = dto.religionSkillProficiency;
+    document.getElementById('cs-skill-sleight').checked = dto.sleightOfHandSkillProficiency;
+    document.getElementById('cs-skill-stealth').checked = dto.stealthSkillProficiency;
+    document.getElementById('cs-skill-survival').checked = dto.survivalSkillProficiency;
     
-    // Testo
-    document.getElementById('personalityTraits').value = dto.personalityTraits || '';
-    document.getElementById('ideals').value = dto.ideals || '';
-    document.getElementById('bonds').value = dto.bonds || '';
-    document.getElementById('flaws').value = dto.flaws || '';
-    document.getElementById('equipment').value = dto.equipment || '';
-    document.getElementById('featuresAndTraits').value = dto.featuresAndTraits || '';
+    // Col 2 - Combat
+    document.getElementById('cs-ac').value = dto.armorClass || 10;
+    document.getElementById('cs-initiative').value = dto.initiative || 0;
+    document.getElementById('cs-speed').value = dto.speed || 30;
+    document.getElementById('cs-max-hp').value = dto.maxHitPoints || 10;
+    document.getElementById('cs-current-hp').value = dto.currentHitPoints || 10;
+    document.getElementById('cs-temp-hp').value = dto.temporaryHitPoints || 0;
 
-    // TODO: Mappare le checkbox delle competenze (più complesso)
-    // Per ora, omettiamo la mappatura delle 18 checkbox di competenza per semplicità
+    // Col 2 - Traits
+    document.getElementById('cs-personality').value = dto.personalityTraits || '';
+    document.getElementById('cs-ideals').value = dto.ideals || '';
+    document.getElementById('cs-bonds').value = dto.bonds || '';
+    document.getElementById('cs-flaws').value = dto.flaws || '';
+    
+    // Col 3
+    // (Nota: hai mappato "equipment" due volte nel DTO,
+    //  ma qui li colleghiamo a campi diversi come da PDF)
+    document.getElementById('cs-attacks').value = dto.equipment || ''; // Temporaneo
+    document.getElementById('cs-equipment').value = dto.equipment || '';
+    document.getElementById('cs-features').value = dto.featuresAndTraits || '';
 }
 
 /**
@@ -113,41 +126,68 @@ async function handleUpdateSheet(event) {
     successDiv.style.display = 'none';
     
     // Costruisci il DTO leggendo dal form
-    // N.B.: Dobbiamo separare di nuovo Classe e Livello
-    const classAndLevel = document.getElementById('primaryClass').value.split(' ');
+    const classAndLevel = document.getElementById('cs-class-level').value.split(' ');
     
     const dto = {
         id: currentSheetId,
-        name: document.getElementById('name').value,
-        primaryClass: classAndLevel[0] || 'Sconosciuto', // Prende la prima parola
-        primaryLevel: parseInt(classAndLevel[1] || '1', 10), // Prende il numero
-        background: document.getElementById('background').value,
-        race: document.getElementById('race').value,
-        alignment: document.getElementById('alignment').value,
-        experiencePoints: parseInt(document.getElementById('experiencePoints').value, 10),
         
-        strength: parseInt(document.getElementById('strength').value, 10),
-        dexterity: parseInt(document.getElementById('dexterity').value, 10),
-        constitution: parseInt(document.getElementById('constitution').value, 10),
-        intelligence: parseInt(document.getElementById('intelligence').value, 10),
-        wisdom: parseInt(document.getElementById('wisdom').value, 10),
-        charisma: parseInt(document.getElementById('charisma').value, 10),
+        // Header
+        name: document.getElementById('cs-name').value,
+        primaryClass: classAndLevel[0] || 'Sconosciuto',
+        primaryLevel: parseInt(classAndLevel[1] || '1', 10),
+        background: document.getElementById('cs-background').value,
+        race: document.getElementById('cs-race').value,
+        alignment: document.getElementById('cs-alignment').value,
+        experiencePoints: parseInt(document.getElementById('cs-xp').value, 10),
+
+        // Col 1 - Stats
+        strength: parseInt(document.getElementById('cs-strength').value, 10),
+        dexterity: parseInt(document.getElementById('cs-dexterity').value, 10),
+        constitution: parseInt(document.getElementById('cs-constitution').value, 10),
+        intelligence: parseInt(document.getElementById('cs-intelligence').value, 10),
+        wisdom: parseInt(document.getElementById('cs-wisdom').value, 10),
+        charisma: parseInt(document.getElementById('cs-charisma').value, 10),
         
-        armorClass: parseInt(document.getElementById('armorClass').value, 10),
-        initiative: parseInt(document.getElementById('initiative').value, 10),
-        speed: parseInt(document.getElementById('speed').value, 10),
-        currentHitPoints: parseInt(document.getElementById('currentHitPoints').value, 10),
-        maxHitPoints: parseInt(document.getElementById('maxHitPoints').value, 10),
+        // Col 1 - Skills (Checkboxes)
+        acrobaticsSkillProficiency: document.getElementById('cs-skill-acrobatics').checked,
+        animalHandlingSkillProficiency: document.getElementById('cs-skill-animal').checked,
+        arcanaSkillProficiency: document.getElementById('cs-skill-arcana').checked,
+        athleticsSkillProficiency: document.getElementById('cs-skill-athletics').checked,
+        deceptionSkillProficiency: document.getElementById('cs-skill-deception').checked,
+        historySkillProficiency: document.getElementById('cs-skill-history').checked,
+        insightSkillProficiency: document.getElementById('cs-skill-insight').checked,
+        intimidationSkillProficiency: document.getElementById('cs-skill-intimidation').checked,
+        investigationSkillProficiency: document.getElementById('cs-skill-investigation').checked,
+        medicineSkillProficiency: document.getElementById('cs-skill-medicine').checked,
+        natureSkillProficiency: document.getElementById('cs-skill-nature').checked,
+        perceptionSkillProficiency: document.getElementById('cs-skill-perception').checked,
+        performanceSkillProficiency: document.getElementById('cs-skill-performance').checked,
+        persuasionSkillProficiency: document.getElementById('cs-skill-persuasion').checked,
+        religionSkillProficiency: document.getElementById('cs-skill-religion').checked,
+        sleightOfHandSkillProficiency: document.getElementById('cs-skill-sleight').checked,
+        stealthSkillProficiency: document.getElementById('cs-skill-stealth').checked,
+        survivalSkillProficiency: document.getElementById('cs-skill-survival').checked,
+
+        // Col 2 - Combat
+        armorClass: parseInt(document.getElementById('cs-ac').value, 10),
+        initiative: parseInt(document.getElementById('cs-initiative').value, 10),
+        speed: parseInt(document.getElementById('cs-speed').value, 10),
+        maxHitPoints: parseInt(document.getElementById('cs-max-hp').value, 10),
+        currentHitPoints: parseInt(document.getElementById('cs-current-hp').value, 10),
+        temporaryHitPoints: parseInt(document.getElementById('cs-temp-hp').value, 10),
+
+        // Col 2 - Traits
+        personalityTraits: document.getElementById('cs-personality').value,
+        ideals: document.getElementById('cs-ideals').value,
+        bonds: document.getElementById('cs-bonds').value,
+        flaws: document.getElementById('cs-flaws').value,
         
-        personalityTraits: document.getElementById('personalityTraits').value,
-        ideals: document.getElementById('ideals').value,
-        bonds: document.getElementById('bonds').value,
-        flaws: document.getElementById('flaws').value,
-        equipment: document.getElementById('equipment').value,
-        featuresAndTraits: document.getElementById('featuresAndTraits').value,
+        // Col 3
+        equipment: document.getElementById('cs-equipment').value,
+        featuresAndTraits: document.getElementById('cs-features').value,
         
-        // TODO: Mappare le checkbox (omesse per ora)
-        // ... (tutti i campi booleani delle 18 skill) ...
+        // (La logica per "Attacks" andrebbe gestita separatamente,
+        // per ora non viene salvata in un campo separato)
     };
 
     const data = await apiCall(`/api/player/sheets/${currentSheetId}`, 'PUT', dto);
@@ -155,10 +195,35 @@ async function handleUpdateSheet(event) {
     if (data) {
         successDiv.textContent = "Scheda salvata con successo!";
         successDiv.style.display = 'block';
-        // Aggiorna il titolo della pagina
-        document.getElementById('sheet-name-title').textContent = `Modifica: ${data.name}`;
     } else {
         errorDiv.textContent = "Errore nel salvataggio.";
         errorDiv.style.display = 'block';
     }
+}
+
+/**
+ * NUOVA FUNZIONE: Gestisce il download PDF
+ */
+function handleDownloadPdf() {
+    console.log("Avvio generazione PDF...");
+    const sheetElement = document.getElementById('editSheetForm');
+    const sheetName = document.getElementById('cs-name').value || 'scheda';
+
+    // Opzioni per html2pdf
+    const options = {
+        margin: [5, 5, 5, 5], // margini (top, left, bottom, right) in mm
+        filename: `${sheetName.replace(' ', '_')}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, logging: false },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    // Nascondi i bottoni dalla stampa
+    const actions = document.querySelector('.sheet-actions');
+    if(actions) actions.style.display = 'none';
+
+    html2pdf().from(sheetElement).set(options).save().then(() => {
+        // Rimostra i bottoni dopo aver generato il PDF
+        if(actions) actions.style.display = 'block';
+    });
 }
