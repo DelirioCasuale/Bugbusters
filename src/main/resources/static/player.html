@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tavern Portal - Dashboard Giocatore</title>
     <link rel="icon" type="image/x-icon" href="images/dice.png" />
     <link rel="stylesheet" href="css/main.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body class="dashboard-body">
 
     <header>
-         <div class="logo-flex">
-             <i><img src="images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
+        <div class="logo-flex">
+            <i><img src="images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
             <div class="logo">Tavern Portal</div>
         </div>
         <nav id="dashboard-nav">
-            </nav>
+        </nav>
     </header>
 
     <section class="dashboard-hero">
@@ -28,26 +32,28 @@
     </section>
 
     <main class="dashboard-content">
-        
+
         <div id="player-section">
-             <section class="dashboard-section">
+            <section class="dashboard-section">
                 <h2><i class="fas fa-scroll"></i> Le mie Schede</h2>
                 <div id="player-sheets-list" class="card-container"></div>
-                 <div class="card add-card">
-                    <button class="btn-secondary" id="btn-show-create-sheet-modal"><i class="fas fa-plus"></i> Crea nuova Scheda</button>
+                <div class="card add-card">
+                    <button class="btn-secondary" id="btn-show-create-sheet-modal"><i class="fas fa-plus"></i> Crea
+                        nuova Scheda</button>
                 </div>
             </section>
-             <section class="dashboard-section">
-                 <h2><i class="fas fa-map-signs"></i> Le mie Campagne (Giocatore)</h2>
-                 <div id="player-campaigns-list" class="card-container"></div>
-                 <div class="card add-card">
-                     <button class="btn-secondary" id="btn-show-join-campaign-modal"><i class="fas fa-door-open"></i> Unisciti a una Campagna</button>
-                 </div>
+            <section class="dashboard-section">
+                <h2><i class="fas fa-map-signs"></i> Le mie Campagne (Giocatore)</h2>
+                <div id="player-campaigns-list" class="card-container"></div>
+                <div class="card add-card">
+                    <button class="btn-secondary" id="btn-show-join-campaign-modal"><i class="fas fa-door-open"></i>
+                        Unisciti a una Campagna</button>
+                </div>
             </section>
-             <section class="dashboard-section" style="display: none;">
-                 <h2><i class="fas fa-exclamation-triangle"></i> Campagne Orfane</h2>
-                 <div id="player-orphaned-campaigns-list" class="card-container"></div>
-             </section>
+            <section class="dashboard-section" style="display: none;">
+                <h2><i class="fas fa-exclamation-triangle"></i> Campagne Orfane</h2>
+                <div id="player-orphaned-campaigns-list" class="card-container"></div>
+            </section>
             <section class="dashboard-section" style="display: none;">
                 <h2><i class="fas fa-calendar-alt"></i> Proposte di Sessione Attive</h2>
                 <div id="player-proposals-list" class="card-container proposal-card-container"></div>
@@ -56,74 +62,104 @@
     </main>
 
     <div id="createSheetModal" class="custom-modal">
-         <div class="modal-overlay"></div>
-         <div class="modal-container">
-             <div class="modal-header"><h2 class="modal-title">Crea Nuova Scheda</h2><button type="button" class="modal-close">&times;</button></div>
-             <div class="modal-body">
-                 <form id="createSheetForm">
-                     <div class="form-group"><label for="sheet-name">Nome Personaggio</label><input type="text" id="sheet-name" name="name" required></div>
-                     <div class="form-group"><label for="sheet-class">Classe</label><input type="text" id="sheet-class" name="primaryClass" required></div>
-                      <div class="form-group">
-                         <label for="sheet-race">Razza</label>
-                         <select id="sheet-race" name="race" required>
-                             <option value="" disabled selected>Seleziona Razza</Goption>
-                             <option value="HUMAN">Umano</option>
-                             <option value="ELF">Elfo</option>
-                             <option value="DWARF">Nano</option>
-                             <option value="HALFLING">Halfling</option>
-                             <option value="ORC">Orco</option>
-                             <option value="GNOME">Gnomo</option>
-                             <option value="TIEFLING">Tiefling</option>
-                             <option value="DRAGONBORN">Dragonide</option>
-                             <option value="HALF_ELF">Mezzelfo</option>
-                             <option value="HALF_ORC">Mezzorco</option>
-                         </select>
-                     </div>
-                     <div id="createSheetError" class="error-message"></div>
-                 </form>
+        <div class="modal-overlay"></div>
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">Crea Nuova Scheda</h2><button type="button" class="modal-close">&times;</button>
             </div>
-             <div class="modal-footer">
-                <a href="#"></a> <div class="btn-group">
+            <div class="modal-body">
+                <form id="createSheetForm">
+                    <div class="form-group"><label for="sheet-name">Nome Personaggio</label><input type="text"
+                            id="sheet-name" name="name" required></div>
+                    <div class="form-group">
+                        <label for="sheet-class">Classe</label>
+                        <select id="sheet-class" name="primaryClass" required>
+                            <option value="" disabled selected>Scegli una classe...</option>
+                            <option value="Artefice">Artefice</option>
+                            <option value="Barbaro">Barbaro</option>
+                            <option value="Guerriero">Guerriero</option>
+                            <option value="Ladro">Ladro</option>
+                            <option value="Monaco">Monaco</option>
+                            <option value="Paladino">Paladino</option>
+                            <option value="Ranger">Ranger</option>
+                            <option value="Bardo">Bardo</option>
+                            <option value="Chierico">Chierico</option>
+                            <option value="Druido">Druido</option>
+                            <option value="Mago">Mago</option>
+                            <option value="Stregone">Stregone</option>
+                            <option value="Warlock">Warlock</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sheet-race">Razza</label>
+                        <select id="sheet-race" name="race" required>
+                            <option value="" disabled selected>Seleziona Razza</Goption>
+                            <option value="HUMAN">Umano</option>
+                            <option value="ELF">Elfo</option>
+                            <option value="DWARF">Nano</option>
+                            <option value="HALFLING">Halfling</option>
+                            <option value="ORC">Orco</option>
+                            <option value="GNOME">Gnomo</option>
+                            <option value="TIEFLING">Tiefling</option>
+                            <option value="DRAGONBORN">Dragonide</option>
+                            <option value="HALF_ELF">Mezzelfo</option>
+                            <option value="HALF_ORC">Mezzorco</option>
+                        </select>
+                    </div>
+                    <div id="createSheetError" class="error-message"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="#"></a>
+                <div class="btn-group">
                     <button type="button" class="btn btn-secondary modal-cancel">Annulla</button>
                     <button type="submit" form="createSheetForm" class="btn btn-primary">Crea</button>
                 </div>
-             </div>
-         </div>
+            </div>
+        </div>
     </div>
 
     <div id="joinCampaignModal" class="custom-modal">
-         <div class="modal-overlay"></div>
-         <div class="modal-container">
-             <div class="modal-header"><h2 class="modal-title">Unisciti a una Campagna</h2><button type="button" class="modal-close">&times;</button></div>
-             <div class="modal-body">
-                 <form id="joinCampaignForm">
-                     <div class="form-group"><label for="join-campaign-code">Codice Invito Player</label><input type="text" id="join-campaign-code" required></div>
-                     <div class="form-group">
-                         <label for="join-campaign-sheet-id">Scegli la tua Scheda</label>
-                         <select id="join-campaign-sheet-id" required>
-                             <option value="" disabled selected>Caricamento schede...</option>
-                             </select>
-                     </div>
-                     <div id="joinCampaignError" class="error-message"></div>
-                 </form>
+        <div class="modal-overlay"></div>
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">Unisciti a una Campagna</h2><button type="button"
+                    class="modal-close">&times;</button>
             </div>
-             <div class="modal-footer">
-                 <a href="#"></a> <div class="btn-group">
+            <div class="modal-body">
+                <form id="joinCampaignForm">
+                    <div class="form-group"><label for="join-campaign-code">Codice Invito Player</label><input
+                            type="text" id="join-campaign-code" required></div>
+                    <div class="form-group">
+                        <label for="join-campaign-sheet-id">Scegli la tua Scheda</label>
+                        <select id="join-campaign-sheet-id" required>
+                            <option value="" disabled selected>Caricamento schede...</option>
+                        </select>
+                    </div>
+                    <div id="joinCampaignError" class="error-message"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="#"></a>
+                <div class="btn-group">
                     <button type="button" class="btn btn-secondary modal-cancel">Annulla</button>
                     <button type="submit" form="joinCampaignForm" class="btn btn-primary">Unisciti</button>
-                 </div>
-             </div>
-         </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer class="footer">
-         <div class="footer-content">
+        <div class="footer-content">
             <h3>Supporto Giocatore</h3>
-            <p>Hai bisogno di aiuto? Contatta il supporto <a href="mailto:support@tavernportal.example">support@tavernportal.example</a></p>
+            <p>Hai bisogno di aiuto? Contatta il supporto <a
+                    href="mailto:support@tavernportal.example">support@tavernportal.example</a></p>
         </div>
         <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
     </footer>
 
-<script type="module" src="js/page.player.js"></script>
+    <script type="module" src="js/page.player.js"></script>
 </body>
+
 </html>
