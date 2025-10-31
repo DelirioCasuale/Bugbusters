@@ -51,3 +51,8 @@ body.dashboard-body {
     margin-right: 12px;
     color: var(--text-highlight);
 }
+
+body.body-profile {
+    background: url('../../images/tavern_profile.gif') no-repeat center center/cover;
+    background-attachment: fixed; /* Questo lo rende fisso durante lo scorrimento */
+}

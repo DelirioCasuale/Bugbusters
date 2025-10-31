@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (user) {
         document.getElementById('profile-username').value = user.username;
         document.getElementById('profile-email').value = user.email;
-        // Correzione: assicurati di usare 'profileImageUrl'
         document.getElementById('profile-image-url').value = user.profileImageUrl || '';
     }
 
@@ -25,28 +24,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnPlayer = document.getElementById('btn-become-player');
     const btnMaster = document.getElementById('btn-become-master');
 
-    if (isPlayer()) {
-        btnPlayer.textContent = "Già Player (Vai alla Dashboard)";
-        btnPlayer.classList.remove('btn-secondary'); // Rimuove stile "diventa"
-        btnPlayer.classList.add('btn-primary');     // Aggiunge stile "vai a"
-        btnPlayer.addEventListener('click', () => { // Cambia azione
-            window.location.href = 'player.html';
-        });
-    } else {
-        // Aggiunge listener solo se non è già player
-        btnPlayer.addEventListener('click', () => handleBecomeRole('player'));
-    }
+    // --- NUOVA LOGICA: Se hai entrambi i ruoli, nascondi tutto ---
+    if (isPlayer() && isMaster()) {
+        const subtitle = document.getElementById('dashboard-subtitle');
+        if (subtitle) subtitle.style.display = 'none';
 
-    if (isMaster()) {
-        btnMaster.textContent = "Già Master (Vai alla Dashboard)";
-        btnMaster.classList.remove('btn-secondary');
-        btnMaster.classList.add('btn-primary');
-        btnMaster.addEventListener('click', () => { // Cambia azione
-            window.location.href = 'master.html';
-        });
+        const profileActions = document.getElementById('profile-actions');
+        if (profileActions) profileActions.style.display = 'none';
+        
     } else {
-        // Aggiunge listener solo se non è già master
-        btnMaster.addEventListener('click', () => handleBecomeRole('master'));
+        // --- VECCHIA LOGICA (semplificata) ---
+        // (Se non hai entrambi i ruoli, mostra i bottoni normalmente)
+
+        if (isPlayer()) {
+            btnPlayer.textContent = "Già Player (Vai alla Dashboard)";
+            // (Rimosse le righe classList.remove/add)
+            btnPlayer.addEventListener('click', () => { // Cambia azione
+                window.location.href = 'player.html';
+            });
+        } else {
+            // Aggiunge listener solo se non è già player
+            btnPlayer.addEventListener('click', () => handleBecomeRole('player'));
+        }
+
+        if (isMaster()) {
+            btnMaster.textContent = "Già Master (Vai alla Dashboard)";
+            // (Rimosse le righe classList.remove/add)
+            btnMaster.addEventListener('click', () => { // Cambia azione
+                window.location.href = 'master.html';
+            });
+        } else {
+            // Aggiunge listener solo se non è già master
+            btnMaster.addEventListener('click', () => handleBecomeRole('master'));
+        }
     }
     // --- FINE MODIFICA ---
     
