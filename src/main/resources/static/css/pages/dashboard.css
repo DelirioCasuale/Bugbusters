@@ -54,5 +54,11 @@ body.dashboard-body {
 
 body.body-profile {
     background: url('../../images/tavern_profile.gif') no-repeat center center/cover;
-    background-attachment: fixed; /* Questo lo rende fisso durante lo scorrimento */
+    background-attachment: fixed; 
+}
+
+/* AGGIUNGI QUESTA NUOVA REGOLA IN FONDO */
+body.body-player {
+    background: url('../../images/tavern_giocatore.gif') no-repeat center center/cover;
+    background-attachment: fixed; /* Mantiene lo sfondo fisso */
 }
