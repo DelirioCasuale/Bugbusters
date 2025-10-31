@@ -1,42 +1,5 @@
 main {
-  gap: 10px;
-  position: relative;
-  height: 100vh;
-  overflow-y: auto;
-  padding-top: 80px; /* Spazio per l'header fisso */
-  padding-bottom: 60px; /* Spazio per il footer fisso */
-  box-sizing: border-box; /* Assicura che il padding sia contenuto nell'altezza */
-  /* Stili per lo scrollbar verticale */
-  scrollbar-width: thin;
-  scrollbar-color: var(--primary-purple-light) var(--bg-individual-card);
-}
-
-/* Webkit scrollbar styling per Chrome/Safari - scrollbar verticale del main */
-main::-webkit-scrollbar {
-  width: 8px;
-}
-
-main::-webkit-scrollbar-track {
-  background: var(--bg-individual-card);
-  border-radius: 4px;
-}
-
-main::-webkit-scrollbar-thumb {
-  background: var(--primary-purple-light);
-  border-radius: 4px;
-}
-
-main::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-purple);
-}
-
-body.signup-main-bg {
   background: url('../images/tavern_signup.gif') no-repeat center center/cover;
-  width: 100%;
-  min-height: 100vh;
-  background-attachment: fixed;
-  margin: 0;
-  padding: 0;
 }
 
 /* FORM REGISTRAZIONE */
@@ -108,10 +71,4 @@ body.signup-main-bg {
 
 .register-footer a:hover {
   text-decoration: underline;
-}
-
-/* OVERRIDE */
-.register-card,
-.hero {
-  border: 2px solid rgb(156, 103, 5) !important;
 }

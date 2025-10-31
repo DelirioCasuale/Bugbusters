@@ -211,7 +211,7 @@ class SpringSecurityValidator {
       '[sec\\:authorize="isAuthenticated()"]'
     );
     authElements.forEach((el) => {
-      el.style.display = this.isAuthenticated() ? 'block' : 'none';
+      el.style.display = this.isAuthenticated() ? 'inline-block' : 'none';
     });
 
     // Elementi per utenti non autenticati
@@ -219,7 +219,7 @@ class SpringSecurityValidator {
       '[sec\\:authorize="!isAuthenticated()"]'
     );
     anonElements.forEach((el) => {
-      el.style.display = !this.isAuthenticated() ? 'block' : 'none';
+      el.style.display = !this.isAuthenticated() ? 'inline-block' : 'none';
     });
 
     // Elementi per ruolo ADMIN

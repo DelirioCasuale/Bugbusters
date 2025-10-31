@@ -10,18 +10,27 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgb(43, 43, 90);
-  box-shadow: inset 0px -1px 4px var(--shadow-footer);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
+  border-bottom: 2px solid var(--border-primary);
+  box-shadow: 0 2px 10px var(--shadow-header);
 }
 
 /* Header standard per landing */
 header {
   padding: 0.8rem 2rem;
+}
+
+/* Header sticky per layout sticky */
+.sticky-layout header {
+  position: sticky;
+  top: 0;
+  z-index: var(--sticky-z-index);
+  height: var(--header-height);
+  backdrop-filter: blur(10px);
+  background: linear-gradient(
+    90deg,
+    rgba(27, 27, 58, 0.95),
+    rgba(43, 43, 90, 0.95)
+  );
 }
 
 /* Logo */
@@ -66,3 +75,5 @@ nav span {
   color: var(--primary-purple-light);
   font-weight: 500;
 }
+
+/* Supporto per navbar con ul */

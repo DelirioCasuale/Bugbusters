@@ -128,10 +128,3 @@
     font-size: 1.6rem;
   }
 }
-
-/* more than fullhd devices
-@media (min-width: 1920px) {
-  * {
-    font-size: 1.5rem;
-  }
-} */

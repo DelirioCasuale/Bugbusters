@@ -175,7 +175,7 @@ function updateNavbar() {
 
     if (nav && user) {
       nav.innerHTML = `
-        <span style="color: white; margin-right: 15px;">Benvenuto, ${user.username}</span>
+        <span style="color: white; margin-right: 15px;">${user.username}</span>
         <a href="#" id="logoutLink">Logout</a>
       `;
     }

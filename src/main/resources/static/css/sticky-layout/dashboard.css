@@ -1,56 +1,22 @@
 /* ============================================================================
-   DASHBOARD SECTIONS - Schede personaggio e campagne
+   DASHBOARD SECTIONS - Schede personaggio e campagne (Sticky Layout)
    ============================================================================ */
 
-body.master-main-bg {
+/* Background per dashboard sticky - fissato a 100vh */
+.sticky-layout .master-main {
   background: url('../images/master.gif') no-repeat center center/cover;
-  width: 100%;
-  min-height: 100vh;
+  background-size: 100% 100vh;
   background-attachment: fixed;
-  margin: 0;
-  padding: 0;
 }
 
-body.player-main-bg {
+.sticky-layout .user-main {
   background: url('../images/player.gif') no-repeat center center/cover;
-  width: 100%;
-  min-height: 100vh;
+  background-size: 100% 100vh;
   background-attachment: fixed;
-  margin: 0;
-  padding: 0;
 }
 
 main {
-  gap: 3rem;
-  position: relative;
-  height: 100vh;
-  overflow-y: auto;
-  padding-top: 80px; /* Spazio per l'header fisso */
-  padding-bottom: 60px; /* Spazio per il footer fisso */
-  box-sizing: border-box; /* Assicura che il padding sia contenuto nell'altezza */
-  /* z-index: 1; */
-  /* Stili per lo scrollbar verticale */
-  scrollbar-width: thin;
-  scrollbar-color: var(--primary-purple-light) var(--bg-individual-card);
-}
-
-/* Webkit scrollbar styling per Chrome/Safari - scrollbar verticale del main */
-main::-webkit-scrollbar {
-  width: 8px;
-}
-
-main::-webkit-scrollbar-track {
-  background: var(--bg-individual-card);
-  border-radius: 4px;
-}
-
-main::-webkit-scrollbar-thumb {
-  background: var(--primary-purple-light);
-  border-radius: 4px;
-}
-
-main::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-purple);
+  gap: 10px;
 }
 
 .dashboard-section {
@@ -79,8 +45,14 @@ main::-webkit-scrollbar-thumb:hover {
   margin: 0 5vw;
   border-radius: 12px;
   gap: 1rem;
+  overflow: hidden;
   width: calc(100% - 10vw);
   box-sizing: border-box;
+}
+
+/* Aggiustamenti per il layout sticky */
+.sticky-layout .page {
+  margin: 2rem 5vw;
 }
 
 .page-header {
@@ -89,10 +61,6 @@ main::-webkit-scrollbar-thumb:hover {
   align-items: center;
   width: 100%;
   flex-wrap: wrap;
-}
-
-.page-header > :first-child {
-  margin-bottom: 10px;
 }
 
 .page-label {
@@ -168,16 +136,6 @@ main::-webkit-scrollbar-thumb:hover {
   border-color: var(--primary-purple-light);
 }
 
-.add-campaign-card {
-  cursor: default !important;
-}
-
-.add-campaign-card:hover {
-  background: var(--bg-individual-card) !important;
-  transform: scale(1) !important;
-  border-color: var(--border-secondary) !important;
-}
-
 .card h3 {
   font-family: 'Cinzel Decorative', serif;
   color: var(--primary-purple-light);
@@ -236,18 +194,6 @@ main::-webkit-scrollbar-thumb:hover {
 
 .btn-primary.add-card:active {
   transform: scale(0.95);
-}
-
-.add-campaign-card {
-  position: relative;
-  display: flex;
-  align-items: center;
-  background: var(--bg-individual-card);
-  border: 2px solid var(--border-secondary);
-  border-radius: 12px;
-  padding: 8px 12px;
-  min-width: 250px;
-  transition: all 0.3s ease;
 }
 
 /* ============================================================================
@@ -337,29 +283,7 @@ mark {
   border-radius: 3px;
 }
 
-.campaign-invite-form form > * {
-  background: var(--bg-individual-card);
-  border: 2px solid var(--border-secondary);
-}
-
-.campaign-invite-form form > *:focus {
-  color: var(--text-primary);
-  font-size: 14px;
-  padding: 4px 0;
-}
-
 .search-container.focused {
   border-color: var(--primary-purple);
   box-shadow: 0 0 15px var(--shadow-button-hover);
-}
-
-/* OVERRIDE */
-body.player-main-bg .hero,
-body.player-main-bg .page {
-  border: 2px solid rgb(211, 129, 211) !important;
-}
-
-body.master-main-bg .hero,
-body.master-main-bg .page {
-  border: 2px solid rgb(34, 151, 63) !important;
 }

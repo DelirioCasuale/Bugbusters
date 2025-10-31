@@ -29,6 +29,10 @@
   --bg-input: #2b2b5a;
   --bg-input-focus: #353566;
 
+  /* Sticky Layout Variables */
+  --header-height: 80px;
+  --sticky-z-index: 1000;
+
   /* Text colors (unificati) */
   --text-primary: #dcdcff;
   --text-secondary: #d1c4ff; /* Usato per text-calendar, nav a, etc. */
@@ -86,6 +90,36 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+/* Sticky Layout Implementation */
+body.sticky-layout {
+  height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(
+    circle at top,
+    var(--bg-dark-primary),
+    var(--bg-dark-secondary)
+  );
+  background-size: 100% 100vh;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+/* Contenitore per content scrollabile */
+.scrollable-content {
+  height: calc(100vh - var(--header-height));
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  position: relative;
+}
+
+/* Main content nel layout sticky */
+.sticky-layout main {
+  position: relative;
+  z-index: 1;
+  padding-top: 0;
 }
 
 /* ============================================================================
@@ -359,6 +393,53 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 /* About Section */
+.about {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.info h2,
+.chat h2 {
+  color: var(--primary-purple-light);
+  font-family: 'Cinzel Decorative', serif;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.info p,
+.chat p {
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* Sticky Layout Scrollbar */
+.scrollable-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollable-content::-webkit-scrollbar-track {
+  background: var(--bg-dark-secondary);
+}
+
+.scrollable-content::-webkit-scrollbar-thumb {
+  background: var(--primary-purple);
+  border-radius: 4px;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-purple-dark);
+}
+
+/* Hero Section nel layout sticky */
+.sticky-layout .hero {
+  min-height: calc(100vh - var(--header-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
 .about {
   max-width: 800px;
   margin: 0 auto;
