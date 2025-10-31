@@ -1,0 +1,58 @@
+/* ============================================================================
+   DASHBOARD (Player, Master, Profile)
+   ============================================================================ */
+body.dashboard-body {
+    background: var(--bg-dark-secondary);
+}
+
+.dashboard-hero {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(180deg, var(--bg-dark-primary) 0%, rgba(26, 26, 46, 0.8) 100%);
+}
+
+.dashboard-hero h1 { 
+  font-family: var(--font-display); 
+  font-size: 2.5rem; 
+  margin-bottom: 0.5rem; 
+  color: var(--primary-purple-light); 
+}
+.dashboard-hero p { 
+  font-size: 1.1rem; 
+  color: var(--text-secondary); 
+}
+
+.dashboard-content {
+    flex: 1;
+    padding: 1rem;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.dashboard-section {
+    margin: 30px auto;
+    background: var(--bg-card);
+    border: 2px solid var(--border-primary);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 0 20px rgba(79, 70, 229, 0.3);
+}
+
+.dashboard-section h2 {
+    font-family: var(--font-display);
+    text-align: center;
+    color: var(--primary-purple-light);
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-primary);
+}
+.dashboard-section h2 i {
+    margin-right: 12px;
+    color: var(--text-highlight);
+}
+
+body.body-profile {
+    background: url('../../images/tavern_profile.gif') no-repeat center center/cover;
+    background-attachment: fixed; /* Questo lo rende fisso durante lo scorrimento */
+}

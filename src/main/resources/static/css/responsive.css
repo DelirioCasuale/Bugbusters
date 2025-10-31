@@ -1,0 +1,79 @@
+/* ============================================================================
+   RESPONSIVE (Tutte le pagine)
+   ============================================================================ */
+@media (max-width: 768px) {
+  .hero-content h1,
+  .dashboard-hero h1 {
+    font-size: 2.2rem;
+  }
+  .dashboard-hero h1 { font-size: 2rem; }
+  header { padding: 0.8rem 1.5rem; }
+  nav { gap: 1rem; }
+  .card { width: calc(50% - 10px); }
+  .dashboard-section { padding: 20px; }
+  .form-card { padding: 30px 25px; }
+}
+
+@media (max-width: 480px) {
+  header { flex-direction: column; gap: 10px; padding: 1rem; }
+  nav { justify-content: center; width: 100%; flex-wrap: wrap;}
+  .logo { font-size: 1.4rem; }
+  .logo-icon { height: 30px; }
+  .footer { padding: 1rem; font-size: 0.8rem; }
+
+  .modal-container { width: 95%; }
+  .modal-header, .modal-body, .modal-footer { padding: 15px 20px; }
+  .modal-footer { flex-direction: column; align-items: stretch; }
+  .modal-footer a { text-align: center; margin-bottom: 10px; }
+  .modal-footer .btn-group { width: 100%; flex-direction: column; }
+
+  .card-container { flex-direction: column; align-items: center; }
+  .card { width: 100%; max-width: 350px; }
+  .dashboard-section { margin: 20px 10px; padding: 15px; }
+  .form-card { width: 95%; padding: 25px 20px; }
+
+  .hero-content, .about { padding: 1.5rem; margin: 1.5rem auto; }
+  .hero-content h1, .dashboard-hero h1 { font-size: 1.8rem; }
+  .hero-content p, .dashboard-hero p { font-size: 1rem; }
+  .btn-group { flex-direction: column; }
+}
+
+/* ============================================================================
+   TABLET - 768px e sotto
+   ============================================================================ */
+@media (max-width: 768px) {
+  /* ... (regole esistenti per header, card, ecc.) ... */
+
+  /* Aggiungi per layout "Forty" */
+  #banner { padding: 4rem 1rem; }
+  #banner .inner { padding: 1.5rem; }
+  #banner h1 { font-size: 2.2rem; }
+
+  #main-landing { padding: 0; } /* Conferma padding 0 */
+  
+  #contact { padding: 2rem; }
+  .tile { 
+    flex-basis: 100% !important; 
+    margin: 1px 0; /* (Puoi tenere un margine verticale minimo se vuoi) */
+  }
+}
+
+/* ============================================================================
+   MOBILE - 480px e sotto
+   ============================================================================ */
+@media (max-width: 480px) {
+  /* ... (regole esistenti per header, modal, card, ecc.) ... */
+
+  /* Aggiungi per layout "Forty" */
+  #banner .inner { padding: 1.5rem 1rem; }
+  #banner h1 { font-size: 1.8rem; }
+  
+  #main-landing { padding: 1rem; }
+  .tile { 
+    flex-basis: 100% !important; 
+    margin: 1px 0;
+  }  
+  .contact-wrapper {
+    flex-direction: column-reverse; /* Form sopra, dettagli sotto */
+  }
+}

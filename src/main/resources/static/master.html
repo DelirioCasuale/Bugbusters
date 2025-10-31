@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tavern Portal - Dashboard Master</title>
+    <link rel="icon" type="image/x-icon" href="images/dice.png" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="dashboard-body">
+
+    <header>
+         <div class="logo-flex">
+             <i><img src="images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
+            <div class="logo">Tavern Portal</div>
+        </div>
+        <nav id="dashboard-nav">
+            </nav>
+    </header>
+
+    <section class="dashboard-hero">
+        <div class="dashboard-hero-content">
+            <h1 id="dashboard-title">Dashboard Master</h1>
+            <p id="dashboard-subtitle">Gestisci le tue campagne, giocatori e sessioni.</p>
+        </div>
+    </section>
+
+    <main class="dashboard-content">
+        
+        <div id="master-section">
+            <section class="dashboard-section">
+                <h2><i class="fas fa-dungeon"></i> Le mie Campagne (Master)</h2>
+                <div id="master-campaigns-list" class="card-container">
+                   </div>
+                <div class="card add-card">
+                    <button class="btn-secondary" id="btn-show-create-campaign-modal"><i class="fas fa-plus"></i> Crea nuova Campagna</button>
+                </div>
+                <div class="card add-card">
+                    <button class="btn-secondary" id="btn-show-claim-campaign-modal"><i class="fas fa-shield-alt"></i> Reclama Campagna Orfana</button>
+                </div>
+            </section>
+             </div>
+    </main>
+
+    <div id="createCampaignModal" class="custom-modal">
+         <div class="modal-overlay"></div>
+         <div class="modal-container">
+             <div class="modal-header"><h2 class="modal-title">Crea Nuova Campagna</h2><button type="button" class="modal-close">&times;</button></div>
+             <div class="modal-body">
+                 <form id="createCampaignForm">
+                     <div class="form-group"><label for="create-campaign-title">Titolo Campagna</label><input type="text" id="create-campaign-title" required></div>
+                     <div class="form-group">
+                         <label for="create-campaign-description">Descrizione</label>
+                         <textarea id="create-campaign-description" rows="4" required style="font-family: var(--font-main); font-size: 1rem;"></textarea> </div>
+                     <div id="createCampaignError" class="error-message"></div>
+                 </form>
+            </div>
+             <div class="modal-footer">
+                 <a href="#"></a> <div class="btn-group">
+                    <button type="button" class="btn btn-secondary modal-cancel">Annulla</button>
+                    <button type="submit" form="createCampaignForm" class="btn btn-primary">Crea</button>
+                 </div>
+             </div>
+         </div>
+    </div>
+
+     <div id="claimCampaignModal" class="custom-modal">
+         <div class="modal-overlay"></div>
+         <div class="modal-container">
+             <div class="modal-header"><h2 class="modal-title">Reclama Campagna Orfana</h2><button type="button" class="modal-close">&times;</button></div>
+             <div class="modal-body">
+                 <form id="claimCampaignForm">
+                     <div class="form-group"><label for="claim-campaign-code">Codice Invito Master</label><input type="text" id="claim-campaign-code" required></div>
+                     <div id="claimCampaignError" class="error-message"></div>
+                 </form>
+            </div>
+             <div class="modal-footer">
+                 <a href="#"></a> <div class="btn-group">
+                    <button type="button" class="btn btn-secondary modal-cancel">Annulla</button>
+                    <button type="submit" form="claimCampaignForm" class="btn btn-primary">Reclama</button>
+                 </div>
+             </div>
+         </div>
+     </div>
+
+    <footer class="footer">
+         <div class="footer-content">
+            <h3>Supporto Master</h3>
+            <p>Hai bisogno di aiuto? Contatta il supporto <a href="mailto:support@tavernportal.example">support@tavernportal.example</a></p>
+        </div>
+        <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
+    </footer>
+
+<script type="module" src="js/page.master.js"></script>
+</body>
+</html>

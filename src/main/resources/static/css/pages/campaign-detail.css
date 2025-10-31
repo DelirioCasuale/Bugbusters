@@ -1,0 +1,52 @@
+/* ============================================================================
+   PAGINA DETTAGLIO CAMPAGNA (master-campaign-detail.html)
+   ============================================================================ */
+.detail-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Colonna sinistra più larga */
+    gap: 25px;
+}
+.detail-col-main { display: flex; flex-direction: column; gap: 25px; }
+.calendar-input {
+    width: 100%; padding: 10px 15px; font-size: 1rem;
+    background-color: var(--bg-input); color: var(--text-secondary);
+    border: 2px solid var(--border-secondary); border-radius: 8px;
+    cursor: pointer; transition: all 0.3s ease; font-family: var(--font-main);
+}
+.calendar-input:hover { border-color: var(--primary-purple-light); }
+#proposal-list-container {
+    display: flex; flex-direction: column; gap: 10px;
+    margin-top: 15px; max-height: 300px; overflow-y: auto;
+}
+.proposal-item { background: var(--bg-input); padding: 10px; border-radius: 5px; border-left: 4px solid var(--primary-purple); }
+.proposal-item.confirmed { border-left-color: var(--success-color); }
+.proposal-item p { margin: 0; font-size: 0.9rem; }
+.proposal-item small { font-size: 0.8rem; color: var(--text-muted); }
+#players-table { width: 100%; border-collapse: collapse; }
+#players-table th, #players-table td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border-color); }
+#players-table th { background: var(--bg-dark-primary); color: var(--primary-purple-light); }
+#players-table tbody tr:hover { background-color: rgba(79, 70, 229, 0.1); }
+#players-table .action-button { font-size: 0.85em; padding: 4px 8px; }
+#players-table .action-button.kick { background: #c82333; }
+#players-table .action-button.kick:hover { background: #a71d2a; }
+@media (max-width: 992px) { .detail-grid { grid-template-columns: 1fr; } }
+
+/* Stile per proposte passate (opacità ridotta) */
+.past-proposals .proposal-item {
+    opacity: 0.7;
+    background: var(--bg-dark-secondary); /* Sfondo più scuro */
+    border-left-color: var(--secondary-gray);
+}
+.past-proposals .proposal-item.confirmed {
+    opacity: 1;
+    border-left-color: var(--success-color);
+}
+.past-proposals .proposal-item span.voted {
+    color: var(--text-muted); /* Colore più spento per "Votato" */
+}
+
+/* Stile per evidenziare la riga del giocatore */
+.highlight-row {
+    background-color: var(--bg-input-focus);
+    font-weight: bold;
+}
