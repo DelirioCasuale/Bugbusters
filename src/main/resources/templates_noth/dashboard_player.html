@@ -27,6 +27,10 @@
   </header>
 
   <main>
+    <div class="switch-btn-group">
+      <button class="btn-primary" id="become-master" sec:authorize="!isMaster()">Diventa Master</button>
+      <button class="btn-primary" id="view-master" sec:authorize="isMaster()">Visuale Master</button>
+    </div>
     <!-- Benvenuto Giocatore -->
     <section class="hero">
       <div class="hero-content">
@@ -78,7 +82,7 @@
         <div class="page-label">
           <h2>Le mie Campagne</h2>
           <!-- TODO implementare un comportamento javascript al bottone add-card che scrolla alla fine e highlita l'ultima card che permette l'unione a campagna tramite codice invito -->
-          <abbr title="Unisciti a una Campagna"><button class="btn-primary add-card">&plus;</button></abbr>
+          <abbr title="Unisciti a una Campagna"><button class="btn-primary add-card" id="join-campaign">&plus;</button></abbr>
         </div>
         <!-- Page Searchbar -->
         <div class="page-searchbar">
@@ -104,21 +108,41 @@
             <h3>Il Fantabosco</h3>
             <p>DM: Lupo Lucio · 7 giocatori</p>
           </div>
+          <div class="card">
+            <h3>Il Fantabosco</h3>
+            <p>DM: Lupo Lucio · 7 giocatori</p>
+          </div>
+          <div class="card">
+            <h3>Il Fantabosco</h3>
+            <p>DM: Lupo Lucio · 7 giocatori</p>
+          </div>
+          <div class="card">
+            <h3>Il Fantabosco</h3>
+            <p>DM: Lupo Lucio · 7 giocatori</p>
+          </div>
+          <div class="card">
+            <h3>Il Fantabosco</h3>
+            <p>DM: Lupo Lucio · 7 giocatori</p>
+          </div>
+          <div class="card">
+            <h3>Il Fantabosco</h3>
+            <p>DM: Lupo Lucio · 7 giocatori</p>
+          </div>
 
           <!-- this card is always shown even if there are no campaigns -->
           <div class="card add-campaign-card">
-            <p>Hai un codice invito? <br> Assegna un personaggio alla tua nuova avventura</p>
+            <p>Hai un codice invito? <br> Scegli il tuo personaggio</p>
             <!-- form per entrare in una campagna con codice invito -->
             <div class="campaign-invite-form">
               <form action="">
-                <input type="text" class="invite-input" placeholder="Inserisci codice invito" />
-                <select class="character-select">
+                <input type="text" name="invite-code" class="invite-input" placeholder="Inserisci codice invito" />
+                <select name="character" class="character-select">
                   <!-- le opzioni saranno dinamiche in base alle schede senza una campagna già associata -->
                   <option>Personaggio 1</option>
                   <option>Personaggio 2</option>
                   <option>Personaggio 3</option>
                 </select>
-                <button>Entra</button>
+                <button class="btn-primary">Entra</button>
               </form>
             </div>
           </div>
@@ -203,7 +227,8 @@
   <!-- Scripts personalizzati -->
   <script src="../static/js/frontend-development-script.js"></script>
   <script src="../static/js/script.js"></script>
-  <script src="../static/js/script-dashboard.js"></script>
+  <!-- <script src="../static/js/script-dashboard.js"></script> -->
+  <script src="../static/js/join-campaign.js"></script>
 
 </body>
 

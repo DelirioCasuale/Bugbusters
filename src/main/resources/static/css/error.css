@@ -1,0 +1,17 @@
+.error403-main-bg {
+  background: url('../images/403.gif') no-repeat center center/cover;
+  width: 100%;
+  min-height: 100vh;
+  background-attachment: fixed;
+  margin: 0;
+  padding: 0;
+}
+
+.error404-main-bg {
+  background: url('../images/404.gif') no-repeat center bottom/cover;
+  width: 100%;
+  min-height: 100vh;
+  background-attachment: fixed;
+  margin: 0;
+  padding: 0;
+}

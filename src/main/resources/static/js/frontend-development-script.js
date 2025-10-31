@@ -247,6 +247,14 @@ class SpringSecurityValidator {
         this.isAuthenticated() && this.isPlayer() ? 'block' : 'none';
     });
 
+    const notPlayerElements = document.querySelectorAll(
+      '[sec\\:authorize="!isPlayer()"]'
+    );
+    notPlayerElements.forEach((el) => {
+      el.style.display =
+        this.isAuthenticated() && !this.isPlayer() ? 'block' : 'none';
+    });
+
     // Elementi per utenti che SONO master
     const masterElements = document.querySelectorAll(
       '[sec\\:authorize="isMaster()"]'
@@ -254,6 +262,14 @@ class SpringSecurityValidator {
     masterElements.forEach((el) => {
       el.style.display =
         this.isAuthenticated() && this.isMaster() ? 'block' : 'none';
+    });
+
+    const notMasterElements = document.querySelectorAll(
+      '[sec\\:authorize="!isMaster()"]'
+    );
+    notMasterElements.forEach((el) => {
+      el.style.display =
+        this.isAuthenticated() && !this.isMaster() ? 'block' : 'none';
     });
   }
 

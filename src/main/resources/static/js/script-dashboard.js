@@ -177,11 +177,6 @@ function handleCardClick(card) {
   console.log(`Card clicked: "${cardTitle}" in section: "${section}"`);
 
   // Qui puoi aggiungere la logica per aprire modal, navigare, etc.
-  // Per ora mostriamo solo un feedback visivo
-  card.style.transform = 'scale(0.98)';
-  setTimeout(() => {
-    card.style.transform = 'scale(1)';
-  }, 150);
 }
 
 // ============================================================================
@@ -207,12 +202,6 @@ function handleAddButtonClick(button) {
   console.log(
     `Add button clicked in section: "${sectionTitle}" - Action: "${tooltip}"`
   );
-
-  // Feedback visivo per il bottone
-  button.style.transform = 'scale(0.9)';
-  setTimeout(() => {
-    button.style.transform = 'scale(1)';
-  }, 150);
 
   // Qui puoi aggiungere la logica per aprire modal di creazione, etc.
 }
