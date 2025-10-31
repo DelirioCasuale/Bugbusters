@@ -338,6 +338,12 @@ body::-webkit-scrollbar-thumb:hover {
   padding: 3rem 1rem;
 }
 
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .hero-content h1,
 .dashboard-hero-content h1 {
   font-family: 'Cinzel Decorative', serif;
