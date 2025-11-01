@@ -27,17 +27,30 @@
   </header>
 
   <main>
-    <div class="switch-btn-group">
-      <button class="btn-primary" id="become-master" sec:authorize="!isMaster()">Diventa Master</button>
-      <button class="btn-primary" id="view-master" sec:authorize="isMaster()">Visuale Master</button>
-    </div>
+
     <!-- Benvenuto Giocatore -->
-    <section class="hero">
-      <div class="hero-content">
-        <h1>Bentornato, Avventuriero!</h1>
-        <p>Qui puoi gestire i tuoi personaggi e le tue campagne di Dungeons&Dragons.</p>
+    <section class="hero-section">
+      <div class="hero">
+        <div class="hero-content">
+          <h1>Bentornato, Avventuriero!</h1>
+          <p>Qui puoi gestire i tuoi personaggi e le tue campagne di Dungeons&Dragons.</p>
+        </div>
+      </div>
+      <div class="switch-visual" sec:authorize="isMaster()">
+        <div class="hero">
+          <p>le tue campagne ti aspettano</p>
+          <button class="btn-primary">Visuale Master</button>
+        </div>
+      </div>
+      <div class="switch-visual" sec:authorize="!isMaster()">
+        <div class="hero">
+          <p>guida il tuo party in epiche avventure</p>
+          <button class="btn-primary">Diventa Master</button>
+        </div>
       </div>
     </section>
+
+
     <!-- Schede personaggio -->
     <section class="page">
       <!-- Page Header -->

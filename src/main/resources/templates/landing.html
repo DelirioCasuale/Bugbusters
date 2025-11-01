@@ -17,21 +17,22 @@
   <main>
 
     <!-- Benvenuto -->
-    <section class="hero">
-      <div class="hero-content">
-        <h1 sec:authorize="!isAuthenticated()">Benvenuto nella Taverna</h1>
-        <h1 sec:authorize="hasRole('ADMIN')">Benvenuto Admin</h1>
-        <h1 sec:authorize="hasRole('GUEST')">Bentornato alla Taverna</h1>
-        <p sec:authorize="!isAuthenticated()">Gestisci le tue campagne di D&D, crea personaggi e vivi nuove avventure.</p>
-        <p sec:authorize="hasRole('GUEST')">Sei pronto a tornare alla tua avventura?</p>
+    <section class="hero-section">
+      <div class="hero">
+        <div class="hero-content">
+          <h1 sec:authorize="!isAuthenticated()">Benvenuto nella Taverna</h1>
+          <h1 sec:authorize="hasRole('ADMIN')">Benvenuto Admin</h1>
+          <h1 sec:authorize="hasRole('GUEST')">Bentornato alla Taverna</h1>
+          <p sec:authorize="!isAuthenticated()">Gestisci le tue campagne di D&D, crea personaggi e vivi nuove avventure.</p>
+          <p sec:authorize="hasRole('GUEST')">Sei pronto a tornare alla tua avventura?</p>
 
-        <div class="btn-group">
-          <button class="btn-primary login" sec:authorize="!isAuthenticated()">Inizia Ora</button>
-          <button class="btn-primary" sec:authorize="isPlayer()">Visuale Player</button>
-          <button class="btn-primary" sec:authorize="isMaster()">Visuale Master</button>
-          <button class="btn-primary" sec:authorize="hasRole('ADMIN')">Dashboard Admin</button>
+          <div class="btn-group">
+            <button class="btn-primary login" sec:authorize="!isAuthenticated()">Inizia Ora</button>
+            <button class="btn-primary" sec:authorize="isPlayer()">Visuale Player</button>
+            <button class="btn-primary" sec:authorize="isMaster()">Visuale Master</button>
+            <button class="btn-primary" sec:authorize="hasRole('ADMIN')">Dashboard Admin</button>
+          </div>
         </div>
-      </div>
     </section>
 
 

@@ -239,11 +239,10 @@ a,
    LAYOUT BASE - Layout riutilizzabile
    ============================================================================ */
 main {
-  flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-between;
-  box-sizing: border-box; /* Assicura che padding non faccia overflow */
 }
 
 main > *:first-child {
@@ -315,27 +314,29 @@ body::-webkit-scrollbar-thumb:hover {
   background: var(--primary-purple);
 }
 
+.hero-section {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  /* margin-left: 40px; */
+  /* margin-right: 40px; */
+  gap: 20px;
+  /* padding: 20px; */
+  flex-wrap: wrap;
+  /* flex-direction: row; */
+}
+
 /* Hero Section */
 .hero {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin: 0 auto;
   padding: 1rem 2rem;
   background: var(--bg-card);
   border-radius: 12px;
-}
-
-/* Hero alternativo per dashboard */
-.dashboard-hero {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: var(--bg-hero-alt);
-  padding: 3rem 1rem;
 }
 
 .hero-content {
@@ -344,8 +345,7 @@ body::-webkit-scrollbar-thumb:hover {
   align-items: center;
 }
 
-.hero-content h1,
-.dashboard-hero-content h1 {
+.hero-content h1 {
   font-family: 'Cinzel Decorative', serif;
   font-size: 2.8rem;
   margin-bottom: 1rem;
@@ -353,12 +353,7 @@ body::-webkit-scrollbar-thumb:hover {
   text-shadow: 0 0 10px var(--primary-purple-dark);
 }
 
-.dashboard-hero-content h1 {
-  font-size: 2.5rem;
-}
-
-.hero-content p,
-.dashboard-hero-content p {
+.hero-content p {
   font-size: 1.1rem;
   margin-bottom: 2rem;
   color: var(--text-secondary);
@@ -378,19 +373,4 @@ body::-webkit-scrollbar-thumb:hover {
   font-family: 'Cinzel Decorative', serif;
   color: var(--primary-purple-lighter);
   margin-bottom: 1rem;
-}
-
-/* Container generico per sezioni */
-.section-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-/* Card base riutilizzabile */
-.card-base {
-  background: var(--bg-card);
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin: 1rem 0;
 }

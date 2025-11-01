@@ -27,11 +27,26 @@
   </header>
 
   <main class="master-main-bg">
+
     <!-- Benvenuto Master -->
-    <section class="hero">
-      <div class="hero-content">
-        <h1>Bentornato, Dungeon Master!</h1>
-        <p>Qui puoi gestire direttamente le campagne e i personaggi che stai guidando.</p>
+    <section class="hero-section">
+      <div class="hero">
+        <div class="hero-content">
+          <h1>Bentornato, Dungeon Master!</h1>
+          <p>Qui puoi gestire direttamente le campagne e i personaggi che stai guidando.</p>
+        </div>
+      </div>
+      <div class="switch-visual" sec:authorize="isPlayer()">
+        <div class="hero">
+          <p>il tuo party ha bisogno di te?</p>
+          <button class="btn-primary">Visuale Player</button>
+        </div>
+      </div>
+      <div class="switch-visual" sec:authorize="!isPlayer()">
+        <div class="hero">
+          <p>scendi in campo e vivi avventure</p>
+          <button class="btn-primary">Diventa Player</button>
+        </div>
       </div>
     </section>
     <!-- Gestione Campagne -->
@@ -126,6 +141,7 @@
         </div>
       </div>
     </section>
+
   </main>
 
 
