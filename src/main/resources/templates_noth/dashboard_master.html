@@ -1,32 +1,21 @@
 <!DOCTYPE html>
+<html lang="it">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tavern Portal - Dashboard Master</title>
-  <link rel="icon" type="image/x-icon" href="../static/images/dice.png" /> <!-- TODO modificare icona con qualcosa di meglio? -->
+  <link rel="icon" type="image/x-icon" href="../static/images/dice.png" />
   <link rel="stylesheet" href="../static/css/main.css" />
   <link rel="stylesheet" href="../static/css/dashboard.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 
-<body class="master-main-bg">
+<body class="main-bg-base master-main-bg">
+  <!-- Header Component -->
+  <div data-component="header"></div>
 
-  <!-- Navbar -->
-  <header>
-    <div class="logo-flex">
-      <i><img src="../static/images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
-      <div class="logo">Tavern Portal</div>
-    </div>
-
-    <nav>
-      <a sec:authorize="!isAuthenticated()" href="#" class="login">Accedi</a>
-      <a sec:authorize="!isAuthenticated()" href="signup.html">Registrati</a>
-      <!-- lo script fa il resto per ora -->
-    </nav>
-  </header>
-
-  <main class="master-main-bg">
+  <main>
 
     <!-- Benvenuto Master -->
     <section class="hero-section">
@@ -38,14 +27,18 @@
       </div>
       <div class="switch-visual" sec:authorize="isPlayer()">
         <div class="hero">
-          <p>il tuo party ha bisogno di te?</p>
-          <button class="btn-primary">Visuale Player</button>
+          <div class="hero-content">
+            <h3>il tuo party ha bisogno di te?</h3>
+            <button class="btn-primary">Visuale Player</button>
+          </div>
         </div>
       </div>
       <div class="switch-visual" sec:authorize="!isPlayer()">
         <div class="hero">
-          <p>scendi in campo e vivi avventure</p>
-          <button class="btn-primary">Diventa Player</button>
+          <div class="hero-content">
+            <h3>vuoi scendere in campo e vivere avventure epiche?</h3>
+            <button class="btn-primary">Diventa Player</button>
+          </div>
         </div>
       </div>
     </section>
@@ -61,49 +54,62 @@
 
         <!-- Page Searchbar -->
         <div class="page-searchbar">
-          <form class="search-form" onsubmit="return false;">
-            <div class="search-container">
-              <div class="search-icon">
-                <img src="../static/images/search-icon.svg" alt="Search" width="20" height="20" />
-              </div>
-              <input name="search-campaign" type="text" class="search-input" placeholder="Cerca campagne..." />
+          <div class="search-container">
+            <div class="search-icon">
+              <img src="../static/images/search-icon.svg" alt="Search" width="20" height="20" />
             </div>
-          </form>
+            <input name="search-campaign" type="text" class="search-input" placeholder="Cerca campagne..." />
+          </div>
         </div>
       </div>
-      <!-- Page Content -->
-      <div class="page-content">
-        <div class="card-container">
-          <!-- cards here are only for demo purposes, real cards will be generated dynamically -->
-          <div class="card">
-            <h3>La Fortezza Maledetta</h3>
-            <p>2 sessioni· 3 giocatori</p>
-          </div>
-          <div class="card">
-            <h3>La Cittadella Perduta</h3>
-            <p>8 sessioni · 4 giocatori</p>
-          </div>
-          <div class="card">
-            <h3>La Cittadella Perduta</h3>
-            <p>8 sessioni · 4 giocatori</p>
-          </div>
-          <div class="card">
-            <h3>La Cittadella Perduta</h3>
-            <p>8 sessioni · 4 giocatori</p>
-          </div>
-          <div class="card">
-            <h3>La Cittadella Perduta</h3>
-            <p>8 sessioni · 4 giocatori</p>
-          </div>
-          <div class="card">
-            <h3>La Cittadella Perduta</h3>
-            <p>8 sessioni · 4 giocatori</p>
-          </div>
-          <div class="card">
-            <h3>La Cittadella Perduta</h3>
-            <p>8 sessioni · 4 giocatori</p>
-          </div>
+      <!-- Cards Container -->
+      <div class="card-container">
+        <!-- cards here are only for demo purposes, real cards will be generated dynamically -->
+        <div class="card">
+          <h3>La Fortezza Maledetta</h3>
+          <p>2 sessioni· 3 giocatori</p>
         </div>
+        <div class="card">
+          <h3>La Cittadella Perduta</h3>
+          <p>8 sessioni · 4 giocatori</p>
+        </div>
+        <div class="card">
+          <h3>La Cittadella Perduta</h3>
+          <p>8 sessioni · 4 giocatori</p>
+        </div>
+        <div class="card">
+          <h3>La Cittadella Perduta</h3>
+          <p>8 sessioni · 4 giocatori</p>
+        </div>
+        <div class="card">
+          <h3>La Cittadella Perduta</h3>
+          <p>8 sessioni · 4 giocatori</p>
+        </div>
+        <div class="card">
+          <h3>La Cittadella Perduta</h3>
+          <p>8 sessioni · 4 giocatori</p>
+        </div>
+        <div class="card">
+          <h3>La Cittadella Perduta</h3>
+          <p>8 sessioni · 4 giocatori</p>
+        </div>
+        <div class="card">
+          <h3>Test Card 7</h3>
+          <p>8 sessioni · 4 giocatori</p>
+        </div>
+        <div class="card">
+          <h3>Test Card 8</h3>
+          <p>8 sessioni · 4 giocatori</p>
+        </div>
+        <div class="card">
+          <h3>Test Card 9</h3>
+          <p>8 sessioni · 4 giocatori</p>
+        </div>
+        <div class="card">
+          <h3>Test Card 10</h3>
+          <p>8 sessioni · 4 giocatori</p>
+        </div>
+      </div>
       </div>
     </section>
     <!-- Calendario -->
@@ -116,79 +122,45 @@
         </div>
         <!-- Page Searchbar -->
         <div class="page-searchbar">
-          <form class="search-form" onsubmit="return false;">
-            <div class="search-container">
-              <div class="search-icon">
-                <img src="../static/images/search-icon.svg" alt="Search" width="20" height="20" />
-              </div>
-              <input name="search-sessions" type="text" class="search-input" placeholder="Cerca sessioni..." />
+          <div class="search-container">
+            <div class="search-icon">
+              <img src="../static/images/search-icon.svg" alt="Search" width="20" height="20" />
             </div>
-          </form>
+            <input name="search-sessions" type="text" class="search-input" placeholder="Cerca sessioni..." />
+          </div>
         </div>
       </div>
-      <!-- Page Content -->
-      <div class="page-content">
-        <div class="card-container">
-          <!-- cards here are only for demo purposes, real cards will be generated dynamically -->
-          <div class="card">
-            <h3>La Fortezza Maledetta</h3>
-            <p>5 settembre</p>
-          </div>
-          <div class="card">
-            <h3>La Cittadella Perduta</h3>
-            <p>8 settembre</p>
-          </div>
+      <!-- Cards Container -->
+      <div class="card-container">
+        <!-- cards here are only for demo purposes, real cards will be generated dynamically -->
+        <div class="card">
+          <h3>La Fortezza Maledetta</h3>
+          <p>5 settembre</p>
         </div>
+        <div class="card">
+          <h3>La Cittadella Perduta</h3>
+          <p>8 settembre</p>
+        </div>
+      </div>
       </div>
     </section>
 
   </main>
 
+  <!-- Modal Component -->
+  <div data-component="login-modal"></div>
 
-  <!-- DA TOGLIERE, SOLO DEV -->
-  <!-- Modal di Login -->
-  <div id="loginModal" class="custom-modal">
-    <div class="modal-overlay" id="modalOverlay"></div>
-    <div class="modal-container">
-      <div class="modal-header">
-        <h2 class="modal-title">Accedi</h2>
-        <button type="button" class="modal-close" id="modalClose">&times;</button>
-      </div>
-      <div class="modal-body">
-        <form id="loginForm">
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required placeholder="Inserisci username">
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required placeholder="Inserisci password">
-          </div>
-          <div id="loginError" class="error-message"></div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <a href="signup.html">Non hai un account? Registrati</a>
-        <div class="btn-group">
-          <button type="button" class="btn btn-secondary" id="modalCancel">Chiudi</button>
-          <button type="button" class="btn btn-primary" id="loginButton">Accedi</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Footer Component -->
+  <div data-component="footer"></div>
 
+  <!-- Components System -->
+  <script src="../static/js/components.js"></script>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
-  </footer>
-
-
-  <!-- Scripts personalizzati -->
+  <!-- Page-specific Scripts -->
   <script src="../static/js/frontend-development-script.js"></script>
   <script src="../static/js/script.js"></script>
   <script src="../static/js/script-dashboard.js"></script>
-
+  <script src="../static/js/join-campaign.js"></script>
 </body>
 
 </html>

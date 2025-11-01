@@ -1,65 +1,23 @@
 <!DOCTYPE html>
 <html lang="it">
 
-
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tavern Portal - Registrazione</title>
-    <link rel="icon" type="image/x-icon" href="../static/images/dice.png" /> <!-- TODO modificare icona con qualcosa di meglio? -->
+    <link rel="icon" type="image/x-icon" href="../static/images/dice.png" />
     <link rel="stylesheet" href="../static/css/main.css" />
     <link rel="stylesheet" href="../static/css/signup.css" />
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 
-<body class="signup-main-bg">
+<body class="main-bg-base signup-main-bg">
 
-    <!-- Navbar -->
-    <header>
-        <div class="logo-flex">
-            <i><img src="../static/images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
-            <div class="logo">Tavern Portal</div>
-        </div>
+    <!-- Header Component -->
+    <div data-component="header"></div>
 
-        <nav>
-            <a sec:authorize="!isAuthenticated()" href="#" class="login">Accedi</a>
-            <a sec:authorize="!isAuthenticated()" href="signup.html">Registrati</a>
-            <!-- lo script fa il resto per ora -->
-        </nav>
-    </header>
-
-    <!-- Modal di Login -->
-    <div id="loginModal" class="custom-modal">
-        <div class="modal-overlay" id="modalOverlay"></div>
-        <div class="modal-container">
-            <div class="modal-header">
-                <h2 class="modal-title">Accedi</h2>
-                <button type="button" class="modal-close" id="modalClose">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" required placeholder="Inserisci username">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" required placeholder="Inserisci password">
-                    </div>
-                    <div id="loginError" class="error-message"></div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <a href="signup.html">Non hai un account? Registrati</a>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-secondary" id="modalCancel">Chiudi</button>
-                    <button type="button" class="btn btn-primary" id="loginButton">Accedi</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <!-- Modal Component -->
+    <div data-component="login-modal"></div>
 
     <main>
         <!-- Messaggio registrazione -->
@@ -97,11 +55,11 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
-    </footer>
+    <!-- Footer Component -->
+    <div data-component="footer"></div>
 
     <!-- Scripts personalizzati -->
+    <script src="../static/js/components.js"></script>
     <script src="../static/js/frontend-development-script.js"></script>
     <script src="../static/js/script.js"></script>
 
