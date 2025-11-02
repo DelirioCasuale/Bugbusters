@@ -1,19 +1,17 @@
 package com.generation.Bugbusters.config;
 
 import com.generation.Bugbusters.security.AuthTokenFilter;
-import com.generation.Bugbusters.security.UserDetailsServiceImpl;
+// import com.generation.Bugbusters.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.PasswordEncoder;
+// import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.http.HttpMethod;
@@ -23,11 +21,11 @@ import org.springframework.http.HttpMethod;
 @EnableMethodSecurity // abilita la sicurezza a livello di metodo
 public class SecurityConfig {
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    // @Autowired
+    // private UserDetailsServiceImpl userDetailsService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    // @Autowired
+    // private PasswordEncoder passwordEncoder;
 
     @Autowired
     private AuthTokenFilter authTokenFilter; // inietta il filtro JWT
@@ -36,13 +34,13 @@ public class SecurityConfig {
      * Questo Bean definisce il "provider" di autenticazione.
      * Collega il servizio che carica gli utenti (UserDetailsService) con l'encoder che controlla le password (PasswordEncoder).
      */
-    @Bean
-    public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder);
-        return authProvider;
-    }
+    // @Bean
+    // public AuthenticationProvider authenticationProvider() {
+    //     DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+    //     authProvider.setUserDetailsService(userDetailsService);
+    //     authProvider.setPasswordEncoder(passwordEncoder);
+    //     return authProvider;
+    // }
 
     /**
      * Espone l'AuthenticationManager come Bean, necessario per autenticare manualmente gli utenti nel controller di login.
@@ -79,7 +77,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authenticationProvider(authenticationProvider())
+            // .authenticationProvider(authenticationProvider())
             
             .authorizeHttpRequests(authz -> authz
                 // Endpoint Pubblici API

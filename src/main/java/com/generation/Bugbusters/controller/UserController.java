@@ -1,6 +1,5 @@
 package com.generation.Bugbusters.controller;
 
-import com.generation.Bugbusters.dto.MessageResponse;
 import com.generation.Bugbusters.dto.UpdatePasswordRequest;
 import com.generation.Bugbusters.dto.UpdateProfileRequest;
 import com.generation.Bugbusters.service.UserService;
