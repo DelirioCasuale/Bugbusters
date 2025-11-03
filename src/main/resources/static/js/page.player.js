@@ -62,17 +62,41 @@ async function handleCreateSheet(event) {
 async function handleJoinCampaign(event) {
     event.preventDefault();
     if (!joinCampaignModal) return;
+     
+    // 1. Pulisce eventuali errori precedenti
     joinCampaignModal.hideError();
+     
     const inviteCode = document.getElementById('join-campaign-code')?.value;
     const characterSheetId = document.getElementById('join-campaign-sheet-id')?.value;
+     
+    // 2. Validazione lato client (campi vuoti)
     if (!inviteCode || !characterSheetId) {
         joinCampaignModal.showError("Codice invito e scheda sono obbligatori.");
         return;
     }
-    const data = await apiCall('/api/player/campaigns/join', 'POST', { inviteCode, characterSheetId: Number(characterSheetId) });
-    if (data) {
+     
+    // 3. Chiamata API (api.js restituirà {status, message} se 4xx)
+    const data = await apiCall('/api/player/campaigns/join', 'POST', { 
+        inviteCode, 
+        characterSheetId: Number(characterSheetId) 
+    });
+
+    // 4. GESTIONE ERRORE PERSONALIZZATO
+    // Se 'data' esiste e ha uno 'status', è un oggetto errore da api.js
+    if (data && data.status) {
+        // Mostra il messaggio specifico del backend (es. "Codice invito non valido", 
+        // "Fai già parte di questa campagna.", "Scheda non trovata.", ecc.)
+        joinCampaignModal.showError(data.message || 'Si è verificato un errore.');
+        return; 
+    }
+     
+    // 5. GESTIONE SUCCESSO
+    if(data && data.message) {
         joinCampaignModal.hide();
-        loadPlayerData();
+        loadPlayerData(); 
+        
+        // (Opzionale) Mostra un alert di successo (o usa il modal 'infoModal' se lo hai)
+        alert(data.message); // Es. "Ti sei unito alla campagna '...'!"
     }
 }
 async function handleVoteProposal(proposalId) {
