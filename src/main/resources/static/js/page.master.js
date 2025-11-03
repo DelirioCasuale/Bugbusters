@@ -108,7 +108,7 @@ async function loadMasterData() {
           (c) => `
                 <div class="card">
                     <h3>${c.title || 'Senza Titolo'}</h3>
-                    <p>ID: ${c.id}</p>
+                    
                     <p>Codice Player: <span class="code">${
                       c.invitePlayersCode
                     }</span></p>
@@ -117,7 +117,7 @@ async function loadMasterData() {
                     }</span></p>
                      <button class="btn-primary" onclick="viewCampaignDetails(${
                        c.id
-                     })">Gestisci (WIP)</button>
+                     })">Gestisci</button>
                 </div>
             `
         )
