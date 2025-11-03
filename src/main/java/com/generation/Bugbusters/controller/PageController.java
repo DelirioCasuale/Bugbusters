@@ -45,7 +45,7 @@ public class PageController {
     /**
      * Dashboard Player (protetta da Spring Security)
      */
-    @GetMapping("/dashboard/player")  
+    @GetMapping("/dashboard/player")
     public String dashboardPlayer() {
         return "redirect:/player.html";
     }
