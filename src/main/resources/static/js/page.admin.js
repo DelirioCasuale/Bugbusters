@@ -3,6 +3,8 @@ import { isAuthenticated, isAdmin, handleLogout } from './modules/auth.js';
 import { updateGeneralUI } from './modules/ui.js';
 
 let loadedUsers = [];
+const PAGE_SIZE = 50; // Dimensione fissa di 50
+let currentPage = 0; // Pagina iniziale (indice 0)
 
 // --- GUARDIA DI AUTENTICAZIONE ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -47,27 +49,34 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target && e.target.id === 'logout-button') handleLogout(e);
     });
 
-    loadAdminData(); // Primo caricamento
+    document.getElementById('btn-prev-page')?.addEventListener('click', () => changePage(-1));
+    document.getElementById('btn-next-page')?.addEventListener('click', () => changePage(1));
+    
+    loadAdminData();// Primo caricamento
 });
 
 // ... (funzioni handleBanUser e loadAdminData rimangono invariate) ...
 
 function filterUsersAndRender(filter) {
-    const tableBody = document.querySelector('#users-table tbody');
+    // ... (omissis) ...
+    // Se stai usando la paginazione, la logica di 'filter' qui è ridondante,
+    // perché i filtri 'players'/'masters' sono già gestiti dall'endpoint nel loadAdminData.
+    // Qui devi solo applicare la barra di ricerca.
+    
     const searchInput = document.getElementById('user-search-input')?.value.toLowerCase().trim();
-
-    // 1. Filtra l'array completo degli utenti caricati
-    let filteredUsers = loadedUsers;
-
+    
+    // Applica solo la ricerca testuale, la paginazione e i filtri di ruolo vengono dal backend
+    let usersToRender = loadedUsers;
+    
     if (searchInput) {
-        filteredUsers = loadedUsers.filter(user =>
-            user.username.toLowerCase().includes(searchInput) ||
+        usersToRender = loadedUsers.filter(user => 
+            user.username.toLowerCase().includes(searchInput) || 
             user.email.toLowerCase().includes(searchInput)
         );
     }
-
-    // 2. Renderizza il set filtrato
-    renderUsersTable(filteredUsers, tableBody, filter);
+    
+    const tableBody = document.querySelector('#users-table tbody');
+    renderUsersTable(usersToRender, tableBody, filter);
 }
 
 async function handleBanUser(userId, username) {
@@ -83,27 +92,60 @@ async function handleBanUser(userId, username) {
 }
 window.handleBanUser = handleBanUser;
 
-async function loadAdminData(filter = 'all') {
-    console.log("Caricamento dati Admin, filtro:", filter);
-    if (!isAdmin()) return;
-    let endpoint = '/api/admin/users';
-    if (filter === 'players') endpoint = '/api/admin/users/players';
-    else if (filter === 'masters') endpoint = '/api/admin/users/masters';
+function changePage(delta) {
+    // Incrementa o decrementa la pagina
+    const newPage = currentPage + delta;
+    
+    // Non carichiamo se l'indice è negativo
+    if (newPage < 0) return;
+    
+    // Aggiorniamo la pagina corrente
+    currentPage = newPage;
+    
+    // Ricarica i dati dal backend con il nuovo indice di pagina
+    loadAdminData(document.querySelector('.btn-filter.active')?.dataset.filter || 'all', currentPage);
+}
 
-    const users = await apiCall(endpoint);
+async function loadAdminData(filter = 'all', pageIndex = 0) {
+     console.log(`Caricamento dati Admin, filtro: ${filter}, pagina: ${pageIndex}`);
+     if (!isAdmin()) return; 
+     let endpoint = '/api/admin/users';
+     
+     if(filter === 'players') endpoint = '/api/admin/users/players';
+     else if (filter === 'masters') endpoint = '/api/admin/users/masters';
+     
+     // Aggiunge i parametri di paginazione all'URL (il backend DEVE supportarli)
+     const urlWithPagination = `${endpoint}?page=${pageIndex}&size=${PAGE_SIZE}`;
+     
+     const responseData = await apiCall(urlWithPagination); // responseData è ora l'oggetto di paginazione Spring (es. Page<AdminUserViewDTO>)
+     
+     // Assumendo che il backend restituisca un oggetto 'Page' di Spring Data
+     const users = responseData.content || []; 
+     const totalPages = responseData.totalPages || 1;
+     
+     // Salva l'elenco completo degli utenti per la ricerca lato client (solo la pagina corrente)
+     loadedUsers = users; 
+     
+     const tableBody = document.querySelector('#users-table tbody');
+     
+     // 1. Applica filtro di ricerca lato client sulla pagina corrente
+     filterUsersAndRender(filter); 
+     
+     // 2. Aggiorna i controlli di paginazione
+     updatePaginationControls(totalPages);
+}
 
-    loadedUsers = users || [];
+function updatePaginationControls(totalPages) {
+    const prevBtn = document.getElementById('btn-prev-page');
+    const nextBtn = document.getElementById('btn-next-page');
+    const pageInfo = document.getElementById('page-info');
 
-    const tableBody = document.querySelector('#users-table tbody');
-
-    if (users && tableBody) {
-        renderUsersTable(users, tableBody, filter);
-    } else if (tableBody) {
-        tableBody.innerHTML = '<tr><td colspan="6">Errore nel caricamento degli utenti.</td></tr>';
-    }
-    document.querySelectorAll('.btn-filter').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.filter === filter);
-    });
+    // Aggiorna il testo informativo
+    pageInfo.textContent = `Pagina ${currentPage + 1} di ${totalPages}`;
+    
+    // Abilita/Disabilita bottoni
+    if (prevBtn) prevBtn.disabled = currentPage === 0;
+    if (nextBtn) nextBtn.disabled = currentPage >= (totalPages - 1);
 }
 
 function renderUsersTable(usersToRender, tableBody, filter) {

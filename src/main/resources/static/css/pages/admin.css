@@ -135,3 +135,32 @@ body.admin-body {
         width: 100%; /* Occupa tutta la larghezza disponibile */
     }
 }
+
+/* DENTRO admin.css */
+
+/* Stile per il contenitore della tabella e la paginazione */
+.admin-table-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra orizzontalmente la tabella */
+}
+
+.admin-table-container {
+    /* L'overflow-x era già qui, lo manteniamo */
+    overflow-x: auto;
+    width: 100%;
+}
+
+/* Stile per i controlli di paginazione */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.pagination-info {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
