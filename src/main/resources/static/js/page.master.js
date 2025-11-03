@@ -91,9 +91,21 @@ async function handleClaimCampaign(event) {
     claimCampaignModal.showError('Il codice invito master è obbligatorio.');
     return;
   }
+  
+  // Chiama apiCall (che ora restituisce l'oggetto errore in caso di 4xx)
   const data = await apiCall('/api/master/campaigns/claim', 'POST', {
     inviteMastersCode,
   });
+  
+  // VERIFICA SE DATA È UN OGGETTO DI ERRORE (contiene 'message' ma NON 'token')
+  if (data && data.status) {
+      // Se è un errore 4xx (gestito dal service, es. Codice non valido, già master, ecc.)
+      // Mostra il messaggio nella modale e termina.
+      claimCampaignModal.showError(data.message || 'Errore nella richiesta.');
+      return; 
+  }
+  
+  // Se 'data' esiste, e non era un oggetto errore, allora è successo
   if (data) {
     claimCampaignModal.hide();
     loadMasterData();

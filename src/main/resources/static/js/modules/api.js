@@ -7,7 +7,7 @@ import { clearLoginData } from './auth.js';
 export async function apiCall(endpoint, method = 'GET', body = null) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    
+
     const currentToken = sessionStorage.getItem('jwtToken');
     if (currentToken && !endpoint.startsWith('/api/auth/')) {
         headers.append('Authorization', 'Bearer ' + currentToken);
@@ -30,12 +30,12 @@ export async function apiCall(endpoint, method = 'GET', body = null) {
         const contentType = response.headers.get("content-type");
         if (!contentType || !contentType.includes("application/json")) {
             const textResponse = await response.text();
-             console.error(`--- API Error ${response.status} (Not JSON) ---`, textResponse || '<empty response>');
-             alert(`Errore ${response.status}: Risposta non valida dal server. Controlla la console.`);
-             if (response.status === 403 || response.status === 401) {
-                 clearLoginData(); 
-                 window.location.href = 'landing.html';
-             }
+            console.error(`--- API Error ${response.status} (Not JSON) ---`, textResponse || '<empty response>');
+            alert(`Errore ${response.status}: Risposta non valida dal server. Controlla la console.`);
+            if (response.status === 403 || response.status === 401) {
+                clearLoginData();
+                window.location.href = 'landing.html';
+            }
             return null;
         }
 
@@ -43,16 +43,22 @@ export async function apiCall(endpoint, method = 'GET', body = null) {
 
         if (!response.ok) {
             console.error(`--- API Error ${response.status} ---`, data);
-            alert(`Errore ${response.status}: ${data.message || 'Errore sconosciuto dal server'}`);
-             if (response.status === 403 || response.status === 401) {
+            
+            // Caso 1: Errore di Autenticazione (Logout forzato)
+            if (response.status === 403 || response.status === 401) {
+                 alert(`Sessione scaduta o non autorizzata. Riprovare il login.`);
                  clearLoginData();
                  window.location.href = 'landing.html';
-             }
-            return null;
+                 return null;
+            }
+            
+            // Caso 2: Errore Client 400/404/ecc. (Passa il messaggio di errore al chiamante)
+            // NON mostriamo alert generico qui. Il chiamante (page.master.js) lo gestirà.
+            return { status: response.status, message: data.message || 'Errore sconosciuto dal server' };
         }
 
         console.log(`--- API Response ${response.status} ---`, data);
-        return data; 
+        return data;
 
     } catch (error) {
         console.error(`--- Network or Parsing Error ---`, error);
