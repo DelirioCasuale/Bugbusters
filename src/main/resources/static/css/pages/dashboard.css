@@ -244,3 +244,8 @@ body.body-campaign-detail {
     border: 3px solid var(--primary-purple-light);
     box-shadow: 0 0 10px rgba(79, 70, 229, 0.5);
 }
+
+body.admin-body {
+    background: url('../../images/tavern_admin.gif') no-repeat center center/cover;
+    background-attachment: fixed; /* Mantiene lo sfondo fisso */
+}
