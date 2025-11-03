@@ -9,6 +9,7 @@ body.dashboard-body {
     text-align: center;
     padding: 2rem 1rem;
     background: linear-gradient(180deg, var(--bg-dark-primary) 0%, rgba(26, 26, 46, 0.8) 100%);
+    transition: opacity 0.5s ease-in-out;
 }
 
 .dashboard-hero h1 { 
@@ -20,8 +21,38 @@ body.dashboard-body {
 .dashboard-hero p { 
   font-size: 1.1rem; 
   color: var(--text-secondary); 
+  
+  /* RESET CRUCIALE: 
+     Azzera il margine di default del browser (che impedisce la transizione max-height) 
+  */
+  margin: 0; 
 }
 
+.dashboard-hero #dashboard-subtitle {
+    /* 1. Nascondi visivamente */
+    opacity: 0;
+    
+    /* 2. Riduci l'altezza a zero */
+    max-height: 0;
+    
+    /* 3. Necessario per la transizione max-height */
+    overflow: hidden; 
+    
+    /* 4. Definisci la transizione (dovrebbe partire da margin: 0) */
+    transition: opacity 0.4s ease-out, max-height 0.4s ease-out, margin-top 0.4s ease-out;
+}
+
+/* MODIFICA: Stato all'Hover (STATO VISIBILE) */
+.dashboard-hero:hover #dashboard-subtitle {
+    /* 1. Rendi visibile */
+    opacity: 1;
+    
+    /* 2. Ripristina l'altezza */
+    max-height: 5em; /* (o 100px) */
+    
+    /* 3. Ripristina il margine desiderato */
+    margin-top: 0.5rem; 
+}
 .dashboard-content {
     flex: 1;
     padding: 1rem;
