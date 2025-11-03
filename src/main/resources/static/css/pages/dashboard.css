@@ -111,3 +111,120 @@ body.body-campaign-detail {
     background: url('../../images/tavern_background_sfondo-campagna.gif') no-repeat center center/cover;
     background-attachment: fixed; /* Mantiene lo sfondo fisso */
 }
+
+
+/* ============================================================================
+   STILI LAYOUT PAGINA PROFILO (profile.html)
+   ============================================================================ */
+.profile-layout-container {
+    display: grid;
+    /* Colonna nav fissa (o quasi), colonna contenuto flessibile */
+    grid-template-columns: 300px 1fr; 
+    gap: 25px;
+    align-items: start; /* Allinea l'inizio delle card */
+}
+
+/* Card Sinistra (Nav) */
+.profile-nav-card {
+    padding: 15px; /* Meno padding della card destra */
+    /* La card nav si attacca in alto */
+    position: sticky;
+    top: 20px; 
+}
+.profile-nav-card .profile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.profile-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.profile-nav-item i {
+    width: 20px;
+    text-align: center;
+    font-size: 1.1rem;
+}
+.profile-nav-item:hover {
+    background-color: var(--bg-input); /* Sfondo leggero on hover */
+    color: var(--text-highlight);
+    text-decoration: none;
+}
+.profile-nav-item.active {
+    background-color: var(--primary-purple);
+    color: white;
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+}
+.profile-nav-item.active i {
+    color: white;
+}
+
+/* Card Destra (Contenuto) */
+/* Rimuoviamo lo stile del wrapper, lo applichiamo ai pannelli interni */
+.profile-content-card-wrapper {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.profile-content-panel {
+    /* Applica lo stile standard di .dashboard-section ai pannelli */
+    background: var(--bg-card);
+    border: 2px solid var(--border-primary);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 0 20px rgba(79, 70, 229, 0.3);
+    
+    display: none; /* Nascosto di default */
+}
+.profile-content-panel.active {
+    display: block; /* Visibile se attivo */
+    animation: fadeIn 0.3s ease-in; /* (già definito in forms.css) */
+}
+.profile-content-panel h2 {
+    /* Stile per i titoli dei pannelli (allineati a sinistra) */
+    text-align: left;
+    border-bottom: 1px solid var(--border-secondary);
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+}
+.profile-content-panel h2 i {
+     margin-right: 12px;
+     color: var(--text-highlight);
+}
+
+/* ============================================================================
+   RESPONSIVE (per layout profilo)
+   ============================================================================ */
+@media (max-width: 992px) {
+    .profile-layout-container {
+        grid-template-columns: 1fr; /* Impila le card su tablet/mobile */
+        gap: 15px;
+    }
+    .profile-nav-card {
+        position: static; /* Rimuovi lo sticky */
+        padding: 10px;
+    }
+    .profile-nav {
+        /* Su mobile, la nav diventa orizzontale */
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .profile-nav-item span {
+        display: none; /* Nasconde il testo, lascia solo l'icona */
+    }
+    .profile-nav-item i {
+        font-size: 1.4rem;
+        margin: 0;
+    }
+    .profile-content-panel h2 {
+        font-size: 1.5rem;
+    }
+}
