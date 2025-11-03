@@ -83,23 +83,24 @@ body.admin-body {
 /* Nuovo contenitore per affiancare filtri e ricerca */
 .filters-container {
     display: flex;
-    justify-content: space-between; /* Spinge i filtri a sinistra, la ricerca a destra */
+    justify-content: space-between; 
     align-items: center;
     margin-bottom: 25px;
-    flex-wrap: wrap; /* Assicura che vada a capo su mobile */
+    flex-wrap: wrap; 
+    /* Aggiungiamo una larghezza massima al contenitore per allinearlo alla tabella (1200px è il max della dashboard-content) */
+    max-width: 100%; 
 }
 
 .filters {
-    /* Rimuoviamo text-align: center; che era presente qui prima */
     text-align: left; 
-    margin-bottom: 0; /* Rimuoviamo il margine per evitare spazio extra */
+    margin-bottom: 0; 
 }
 
-/* Stile per la barra di ricerca */
 .search-bar {
     display: flex;
     gap: 5px;
-    margin-left: 20px; /* Spazio dal gruppo filtri */
+    margin-left: 20px; 
+    margin-right: 0; 
 }
 
 #user-search-input {
@@ -108,5 +109,29 @@ body.admin-body {
     border-radius: 8px;
     background-color: var(--bg-input);
     color: var(--text-primary);
-    width: 200px;
+    
+    /* MODIFICATO: Aumentiamo la larghezza massima per essere utile, 
+       ma la larghezza totale sarà limitata dal .filters-container */
+    width: 250px; 
+    max-width: 100%;
+}
+
+/* Regola per l'allineamento responsivo su schermi piccoli */
+@media (max-width: 768px) {
+    .filters-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .filters {
+        margin-bottom: 15px;
+        width: 100%;
+    }
+    .search-bar {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    #user-search-input {
+        width: 100%; /* Occupa tutta la larghezza disponibile */
+    }
 }

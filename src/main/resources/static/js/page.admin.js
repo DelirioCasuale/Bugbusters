@@ -12,34 +12,37 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
     if (!isAdmin()) {
-         console.warn("Accesso non admin a admin.html. Reindirizzamento...");
-         alert("Accesso non autorizzato all'area admin.");
-         window.location.replace('landing.html');
-         return;
+        console.warn("Accesso non admin a admin.html. Reindirizzamento...");
+        alert("Accesso non autorizzato all'area admin.");
+        window.location.replace('landing.html');
+        return;
     }
     // ---------------------------------
 
     // Se la guardia passa, inizializza
     updateGeneralUI();
-    
-     // Aggiungi listener per la ricerca
-     document.getElementById('user-search-button')?.addEventListener('click', () => {
-         const activeFilter = document.querySelector('.btn-filter.active')?.dataset.filter || 'all';
-         filterUsersAndRender(activeFilter); 
-     });
 
-     // Aggiungi listener per la pressione di 'Invio' nel campo di input
-     document.getElementById('user-search-input')?.addEventListener('keyup', (e) => {
-         if (e.key === 'Enter' || e.key === 'Backspace' || e.key === 'Delete') {
-             const activeFilter = document.querySelector('.btn-filter.active')?.dataset.filter || 'all';
-             filterUsersAndRender(activeFilter); 
-         }
-     });
-     
-     document.querySelectorAll('.btn-filter')?.forEach(btn => {
-         btn.addEventListener('click', (e) => loadAdminData(e.target.dataset.filter));
-     });
-     
+    const searchInput = document.getElementById('user-search-input');
+    const searchButton = document.getElementById('user-search-button');
+
+    if (searchInput) {
+        searchInput.addEventListener('keyup', () => {
+            const activeFilter = document.querySelector('.btn-filter.active')?.dataset.filter || 'all';
+            filterUsersAndRender(activeFilter);
+        });
+    }
+
+    if (searchButton) {
+        searchButton.disabled = true;
+        searchButton.style.opacity = 0.7; // Opzionale: per mostrare che non è cliccabile
+    }
+
+    
+
+    document.querySelectorAll('.btn-filter')?.forEach(btn => {
+        btn.addEventListener('click', (e) => loadAdminData(e.target.dataset.filter));
+    });
+
     document.addEventListener('click', (e) => {
         if (e.target && e.target.id === 'logout-button') handleLogout(e);
     });
@@ -52,60 +55,60 @@ document.addEventListener('DOMContentLoaded', () => {
 function filterUsersAndRender(filter) {
     const tableBody = document.querySelector('#users-table tbody');
     const searchInput = document.getElementById('user-search-input')?.value.toLowerCase().trim();
-    
+
     // 1. Filtra l'array completo degli utenti caricati
     let filteredUsers = loadedUsers;
-    
+
     if (searchInput) {
-        filteredUsers = loadedUsers.filter(user => 
-            user.username.toLowerCase().includes(searchInput) || 
+        filteredUsers = loadedUsers.filter(user =>
+            user.username.toLowerCase().includes(searchInput) ||
             user.email.toLowerCase().includes(searchInput)
         );
     }
-    
+
     // 2. Renderizza il set filtrato
     renderUsersTable(filteredUsers, tableBody, filter);
 }
 
 async function handleBanUser(userId, username) {
-     if (confirm(`Sei sicuro di voler bannare l'utente ${username} (ID: ${userId})? L'utente sarà sospeso per 1 anno.`)) {
-         const data = await apiCall(`/api/admin/users/${userId}/ban`, 'POST');
-         if (data) {
-             alert(data.message);
-             const activeFilter = document.querySelector('.btn-filter.active')?.dataset.filter || 'all';
-             // Dopo il ban, ricarichiamo i dati originali e poi filtriamo
-             loadAdminData(activeFilter); 
-         }
-     }
+    if (confirm(`Sei sicuro di voler bannare l'utente ${username} (ID: ${userId})? L'utente sarà sospeso per 1 anno.`)) {
+        const data = await apiCall(`/api/admin/users/${userId}/ban`, 'POST');
+        if (data) {
+            alert(data.message);
+            const activeFilter = document.querySelector('.btn-filter.active')?.dataset.filter || 'all';
+            // Dopo il ban, ricarichiamo i dati originali e poi filtriamo
+            loadAdminData(activeFilter);
+        }
+    }
 }
 window.handleBanUser = handleBanUser;
 
 async function loadAdminData(filter = 'all') {
-     console.log("Caricamento dati Admin, filtro:", filter);
-     if (!isAdmin()) return; 
-     let endpoint = '/api/admin/users';
-     if(filter === 'players') endpoint = '/api/admin/users/players';
-     else if (filter === 'masters') endpoint = '/api/admin/users/masters';
-     
-     const users = await apiCall(endpoint);
+    console.log("Caricamento dati Admin, filtro:", filter);
+    if (!isAdmin()) return;
+    let endpoint = '/api/admin/users';
+    if (filter === 'players') endpoint = '/api/admin/users/players';
+    else if (filter === 'masters') endpoint = '/api/admin/users/masters';
 
-     loadedUsers = users || []; 
-     
-     const tableBody = document.querySelector('#users-table tbody');
+    const users = await apiCall(endpoint);
 
-     if (users && tableBody) {
-         renderUsersTable(users, tableBody, filter);
-     } else if (tableBody) {
-         tableBody.innerHTML = '<tr><td colspan="6">Errore nel caricamento degli utenti.</td></tr>';
-     }
-     document.querySelectorAll('.btn-filter').forEach(btn => {
-         btn.classList.toggle('active', btn.dataset.filter === filter);
-     });
+    loadedUsers = users || [];
+
+    const tableBody = document.querySelector('#users-table tbody');
+
+    if (users && tableBody) {
+        renderUsersTable(users, tableBody, filter);
+    } else if (tableBody) {
+        tableBody.innerHTML = '<tr><td colspan="6">Errore nel caricamento degli utenti.</td></tr>';
+    }
+    document.querySelectorAll('.btn-filter').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === filter);
+    });
 }
 
 function renderUsersTable(usersToRender, tableBody, filter) {
-     if (usersToRender.length > 0) {
-         tableBody.innerHTML = usersToRender.map(user => `
+    if (usersToRender.length > 0) {
+        tableBody.innerHTML = usersToRender.map(user => `
              <tr>
                  <td>${user.id}</td>
                  <td>${user.username}</td>
@@ -122,15 +125,15 @@ function renderUsersTable(usersToRender, tableBody, filter) {
                      </span>
                  </td>
                  <td>
-                     ${!user.banned && !user.admin 
-                         ? `<button class="action-button ban" onclick="handleBanUser(${user.id}, '${user.username}')">Banna</button>`
-                         : user.banned ? '<button class="action-button" disabled>Sblocca (WIP)</button>' : ''
-                     }
+                     ${!user.banned && !user.admin
+                ? `<button class="action-button ban" onclick="handleBanUser(${user.id}, '${user.username}')">Banna</button>`
+                : user.banned ? '<button class="action-button" disabled>Sblocca (WIP)</button>' : ''
+            }
                       <button class="action-button" disabled>Modifica (WIP)</button>
                  </td>
              </tr>
          `).join('');
-     } else {
-         tableBody.innerHTML = `<tr><td colspan="6">Nessun utente trovato con il filtro '${filter}'.</td></tr>`;
-     }
+    } else {
+        tableBody.innerHTML = `<tr><td colspan="6">Nessun utente trovato con il filtro '${filter}'.</td></tr>`;
+    }
 }
