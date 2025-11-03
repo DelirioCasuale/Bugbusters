@@ -3,11 +3,11 @@ import { isAuthenticated, isPlayer, isMaster, saveLoginData, handleLogout, getCu
 import { updateGeneralUI } from './modules/ui.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // --- GUARDIA ---
     if (!isAuthenticated()) {
         window.location.replace('landing.html');
-        return; 
+        return;
     }
 
     updateGeneralUI(); // Aggiorna la navbar
@@ -31,9 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const profileActions = document.getElementById('profile-actions');
         if (profileActions) profileActions.style.display = 'none';
-        
+
     } else {
-        // --- VECCHIA LOGICA (semplificata) ---
         // (Se non hai entrambi i ruoli, mostra i bottoni normalmente)
 
         if (isPlayer()) {
@@ -58,12 +57,45 @@ document.addEventListener('DOMContentLoaded', () => {
             btnMaster.addEventListener('click', () => handleBecomeRole('master'));
         }
     }
-    // --- FINE MODIFICA ---
-    
+
+    // --- NUOVA LOGICA: GESTIONE TAB PROFILO/SICUREZZA ---
+    const navItems = document.querySelectorAll('.profile-nav-item');
+    const contentPanels = document.querySelectorAll('.profile-content-panel');
+
+    navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = item.dataset.target; // es. "details" o "security"
+
+            // 1. Aggiorna la Nav Sinistra (attiva/disattiva)
+            navItems.forEach(nav => nav.classList.remove('active'));
+            item.classList.add('active');
+
+            // 2. Aggiorna il Contenuto Destra (mostra/nascondi)
+            contentPanels.forEach(panel => {
+                if (panel.id === `profile-content-${targetId}`) {
+                    panel.classList.add('active');
+                } else {
+                    panel.classList.remove('active');
+                }
+            });
+        });
+    });
+
     // Listener Form Modifica Profilo
     document.getElementById('profileEditForm')?.addEventListener('submit', handleProfileUpdate);
-    
+
     // Listener Form Modifica Password
+    document.getElementById('passwordChangeForm')?.addEventListener('submit', handlePasswordChange);
+
+    // Listener Logout
+    document.addEventListener('click', (e) => {
+        if (e.target && e.target.id === 'logout-button') handleLogout(e);
+    });
+    // Listener Form Modifica Profilo (invariato)
+    document.getElementById('profileEditForm')?.addEventListener('submit', handleProfileUpdate);
+
+    // Listener Form Modifica Password (MODIFICATO)
     document.getElementById('passwordChangeForm')?.addEventListener('submit', handlePasswordChange);
 
     // Listener Logout
@@ -74,25 +106,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Handler "Diventa Ruolo" (invariato)
 async function handleBecomeRole(role) {
-     const endpoint = role === 'player' ? '/api/profile/become-player' : '/api/profile/become-master';
-     const profileMessage = document.getElementById('profile-message');
-     if(profileMessage) {
-         profileMessage.textContent = 'Aggiornamento ruolo...';
-         profileMessage.className = 'info-message show';
-     }
-     const data = await apiCall(endpoint, 'POST');
-     if (data && data.token) {
-        saveLoginData(data.token, data); 
+    const endpoint = role === 'player' ? '/api/profile/become-player' : '/api/profile/become-master';
+    const profileMessage = document.getElementById('profile-message');
+    if (profileMessage) {
+        profileMessage.textContent = 'Aggiornamento ruolo...';
+        profileMessage.className = 'info-message show';
+    }
+    const data = await apiCall(endpoint, 'POST');
+    if (data && data.token) {
+        saveLoginData(data.token, data);
         if (profileMessage) {
             profileMessage.textContent = "Ruolo assegnato! Reindirizzamento...";
             profileMessage.className = 'success-message show';
         }
         const targetPage = role === 'player' ? 'player.html' : 'master.html';
         window.location.replace(targetPage); // Ricarica la pagina
-     } else if (profileMessage) {
-          profileMessage.textContent = 'Operazione fallita. L\'errore è stato mostrato in un popup.';
-          profileMessage.className = 'error-message show';
-     }
+    } else if (profileMessage) {
+        profileMessage.textContent = 'Operazione fallita. L\'errore è stato mostrato in un popup.';
+        profileMessage.className = 'error-message show';
+    }
 }
 
 // Handler Modifica Profilo (invariato)
@@ -106,11 +138,11 @@ async function handleProfileUpdate(event) {
     const newUsername = document.getElementById('profile-username').value;
     const newEmail = document.getElementById('profile-email').value;
     const newImageUrl = document.getElementById('profile-image-url').value;
-    
+
     const data = await apiCall('/api/user/profile', 'PUT', { newUsername, newEmail, newImageUrl });
 
     if (data && data.token) {
-        saveLoginData(data.token, data); 
+        saveLoginData(data.token, data);
         updateGeneralUI(); // Aggiorna la navbar con i nuovi dati
         successDiv.textContent = "Profilo aggiornato con successo!";
         successDiv.style.display = 'block';
@@ -130,7 +162,23 @@ async function handlePasswordChange(event) {
 
     const oldPassword = document.getElementById('profile-old-password').value;
     const newPassword = document.getElementById('profile-new-password').value;
+    const confirmPassword = document.getElementById('profile-confirm-password').value; // <-- NUOVO
 
+    // Controllo 1: Le nuove password coincidono? (Lato Client)
+    if (newPassword !== confirmPassword) {
+        errorDiv.textContent = "Le nuove password non coincidono.";
+        errorDiv.style.display = 'block';
+        return;
+    }
+    
+    // Controllo 2: La nuova password è abbastanza lunga? (Lato Client)
+    if (newPassword.length < 6) {
+         errorDiv.textContent = "La nuova password deve essere di almeno 6 caratteri.";
+         errorDiv.style.display = 'block';
+         return;
+    }
+
+    // Chiamata API (invariata, il backend controlla solo old e new)
     const data = await apiCall('/api/user/password', 'PUT', { oldPassword, newPassword });
 
     if (data && data.message.includes('successo')) {
