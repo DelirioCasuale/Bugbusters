@@ -116,3 +116,51 @@
 #master-campaigns-list {
     display: contents; /* Fa sì che i figli (le card) si comportino come figli diretti di .card-container */
 }
+
+/* * 1. Contenitore per le card di aggiunta impilate.
+ * Occupa lo stesso spazio (larghezza/altezza min) di una singola card.
+*/
+.add-card-stack {
+    display: flex;
+    flex-direction: column;
+    
+    /* Gap tra le due card stackate (es. 10px) */
+    gap: 10px; 
+    
+    /* Occupa lo spazio di una card (come da cards.css) */
+    width: 280px; 
+    min-height: 170px; /* Altezza minima di una card (da cards.css) */
+    
+    /* Necessario per il layout flex di .card-container */
+    flex-shrink: 0;
+}
+
+/* * 2. Stile per le singole card stackate (Crea/Reclama)
+ * Sovrascrive .add-card per dividerle a metà altezza.
+*/
+.add-card-stacked {
+    flex: 1; /* Le due card si dividono l'altezza (grazie a flex-direction: column) */
+    min-height: 0; /* SOVRASCRIVE min-height: 170px di .add-card */
+    
+    /* .add-card ha già display:flex, justify-content:center, align-items:center */
+    
+    /* Stile del testo (che era nel bottone) */
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+/* 3. Stile per l'icona interna */
+.add-card-stacked i {
+    margin-right: 8px;
+}
+
+/* 4. Nasconde il bottone (che abbiamo rimosso dall'HTML) */
+.add-card-stacked button {
+    display: none;
+}
+
+/* 5. Gestisce l'hover (già in .add-card, ma applichiamo al testo) */
+.add-card-stacked:hover {
+    color: var(--text-highlight);
+}
