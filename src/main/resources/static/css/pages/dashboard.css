@@ -68,3 +68,9 @@ body.body-master {
     background: url('../../images/tavern_master.gif') no-repeat center center/cover;
     background-attachment: fixed; /* Mantiene lo sfondo fisso */
 }
+
+/* Stile per lo sfondo di master-campaign-detail.html */
+body.body-master-detail {
+    background: url('../../images/tavern_background_sfondo-campagna.gif') no-repeat center center/cover;
+    background-attachment: fixed; 
+}
