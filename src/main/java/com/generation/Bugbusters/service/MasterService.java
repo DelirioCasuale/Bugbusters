@@ -336,5 +336,72 @@ public class MasterService {
         }
     }
 
+    /**
+     * Segna una campagna gestita dal master come finita.
+     * PUT /api/master/campaigns/{id}/finish
+     */
+    @Transactional
+    public ResponseEntity<?> finishCampaign(Long campaignId) {
+        try {
+            Master currentMaster = getCurrentMaster();
+            Campaign campaign = getCampaignAndValidateOwnership(campaignId, currentMaster.getId());
+
+            if (campaign.isFinished()) {
+                throw new BadRequestException("Questa campagna è già stata segnata come finita.");
+            }
+
+            campaign.setFinished(true);
+            campaignRepository.save(campaign);
+
+            logger.info("Campagna ID {} segnata come finita dal Master ID {}", 
+                    campaign.getId(), currentMaster.getId());
+
+            return ResponseEntity.ok(new MessageResponse("Campagna '" + campaign.getTitle() + "' segnata come finita con successo."));
+
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.NOT_FOUND);
+        } catch (UnauthorizedException e) {
+            return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.FORBIDDEN);
+        } catch (BadRequestException e) {
+            return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    /**
+     * Cancella una campagna gestita dal master SOLO SE è finita OPPURE non ha player.
+     * DELETE /api/master/campaigns/{id}
+     */
+    @Transactional
+    public ResponseEntity<?> deleteCampaign(Long campaignId) {
+        try {
+            Master currentMaster = getCurrentMaster();
+            Campaign campaign = getCampaignAndValidateOwnership(campaignId, currentMaster.getId());
+
+            boolean hasPlayers = !campaign.getPlayers().isEmpty();
+
+            // Condizione per la cancellazione: 
+            // 1. Non ha player *OPPURE* // 2. È finita
+            if (!hasPlayers || campaign.isFinished()) {
+                
+                campaignRepository.delete(campaign);
+                
+                logger.warn("Campagna ID {} eliminata dal Master ID {}. Motivo: {}", 
+                        campaign.getId(), currentMaster.getId(), hasPlayers ? "Finita" : "Nessun Player");
+
+                return ResponseEntity.ok(new MessageResponse("Campagna '" + campaign.getTitle() + "' eliminata con successo."));
+            } else {
+                // Se la campagna ha player e non è finita, non può essere cancellata
+                throw new BadRequestException(
+                        "Impossibile eliminare: La campagna ha ancora giocatori attivi e non è segnata come finita.");
+            }
+
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.NOT_FOUND);
+        } catch (UnauthorizedException e) {
+            return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.FORBIDDEN);
+        } catch (BadRequestException e) {
+            return new ResponseEntity<>(new MessageResponse(e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
     
 }

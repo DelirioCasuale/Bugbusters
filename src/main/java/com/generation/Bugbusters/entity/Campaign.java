@@ -43,6 +43,10 @@ public class Campaign {
     @Column(name = "master_ban_pending_until")
     private LocalDateTime masterBanPendingUntil;
 
+    // NUOVO CAMPO: Stato della campagna
+    @Column(name = "is_finished")
+    private boolean isFinished = false; // di default, la campagna non è finita
+
 
     // relazioni
 
