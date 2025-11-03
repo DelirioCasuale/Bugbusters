@@ -2,6 +2,15 @@ import { apiCall } from './modules/api.js';
 import { isAuthenticated, isPlayer, isMaster, saveLoginData, handleLogout, getCurrentUserFromStorage } from './modules/auth.js';
 import { updateGeneralUI } from './modules/ui.js';
 
+function updatePreview(imageUrl) {
+    const previewEl = document.getElementById('profile-image-preview');
+    // Usa l'URL fornito, o un'immagine di default (dice.png) se l'URL è vuoto/nullo
+    const src = imageUrl || 'images/dice.png'; 
+    if (previewEl && src) {
+        previewEl.src = src;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- GUARDIA ---
@@ -17,7 +26,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (user) {
         document.getElementById('profile-username').value = user.username;
         document.getElementById('profile-email').value = user.email;
-        document.getElementById('profile-image-url').value = user.profileImageUrl || '';
+        const imageUrlInput = document.getElementById('profile-image-url');
+        imageUrlInput.value = user.profileImageUrl || '';
+        
+        // 1. CHIAMATA INIZIALE: Popola l'anteprima al caricamento della pagina
+        updatePreview(user.profileImageUrl); 
+
+        // 2. AGGIUNGI LISTENER: Aggiorna l'anteprima ogni volta che l'utente scrive
+        imageUrlInput.addEventListener('input', (e) => {
+            updatePreview(e.target.value);
+        });
     }
 
     // --- GESTIONE DINAMICA BOTTONI RUOLO (MODIFICATA) ---
@@ -142,10 +160,14 @@ async function handleProfileUpdate(event) {
     const data = await apiCall('/api/user/profile', 'PUT', { newUsername, newEmail, newImageUrl });
 
     if (data && data.token) {
-        saveLoginData(data.token, data);
+        saveLoginData(data.token, data); 
         updateGeneralUI(); // Aggiorna la navbar con i nuovi dati
         successDiv.textContent = "Profilo aggiornato con successo!";
         successDiv.style.display = 'block';
+
+        // AGGIORNA L'ANTEPRIMA con il nuovo URL salvato
+        const newImageUrl = document.getElementById('profile-image-url').value;
+        updatePreview(newImageUrl);
     } else {
         errorDiv.textContent = data?.message || "Errore sconosciuto";
         errorDiv.style.display = 'block';

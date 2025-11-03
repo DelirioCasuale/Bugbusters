@@ -228,3 +228,19 @@ body.body-campaign-detail {
         font-size: 1.5rem;
     }
 }
+
+.profile-image-preview-group {
+    text-align: center;
+    padding: 15px 0;
+    border: 1px solid var(--border-secondary);
+    border-radius: 8px;
+}
+.profile-preview-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: 10px;
+    border: 3px solid var(--primary-purple-light);
+    box-shadow: 0 0 10px rgba(79, 70, 229, 0.5);
+}
