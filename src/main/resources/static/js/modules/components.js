@@ -174,16 +174,19 @@ export class ComponentLoader {
         // Update UI to reflect authentication status
         updateGeneralUI();
 
-        // Redirect based on role
-        if (data.roles && data.roles.includes('ROLE_ADMIN')) {
-          window.location.href = 'admin.html';
-        } else if (data.roles && data.roles.includes('ROLE_PLAYER')) {
-          window.location.href = 'player.html';
-        } else if (data.roles && data.roles.includes('ROLE_MASTER')) {
-          window.location.href = 'master.html';
-        } else {
-          window.location.href = 'profile.html';
+        // Update landing page content if we're on the landing page
+        if (
+          window.location.pathname.includes('landing.html') ||
+          window.location.pathname === '/'
+        ) {
+          // Check if updateLandingContent function exists (from page.landing.js)
+          if (typeof window.updateLandingContent === 'function') {
+            window.updateLandingContent();
+          }
         }
+
+        // Show success message instead of redirecting
+        console.log('Login successful! Welcome back!');
       } else {
         this.showLoginError('Credenziali non valide');
       }

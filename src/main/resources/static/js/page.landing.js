@@ -205,6 +205,9 @@ function updateLandingContent() {
   }
 }
 
+// Make updateLandingContent globally accessible for components
+window.updateLandingContent = updateLandingContent;
+
 async function handleLogin(event) {
   event.preventDefault();
   if (!loginModal) return;
