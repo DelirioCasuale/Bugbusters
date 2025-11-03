@@ -8,7 +8,8 @@ import com.generation.Bugbusters.exception.ResourceNotFoundException;
 import com.generation.Bugbusters.mapper.UserMapper;
 import com.generation.Bugbusters.repository.CampaignRepository;
 import com.generation.Bugbusters.repository.UserRepository;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,42 +38,37 @@ public class AdminService {
     private CampaignRepository campaignRepository; 
 
     /**
-     * recupera TUTTI gli utenti nel sistema
+     * recupera TUTTI gli utenti nel sistema (PAGINATI)
      */
-    @Transactional(readOnly = true) // FONDAMENTALE per il lazy loading
-    public List<AdminUserViewDTO> getAllUsers() {
+    @Transactional(readOnly = true)
+    public Page<AdminUserViewDTO> getAllUsers(Pageable pageable) {
         
-        List<User> users = userRepository.findAll();
+        Page<User> usersPage = userRepository.findAll(pageable);
         
-        return users.stream()
-                .map(userMapper::toAdminViewDTO) // usa il mapper per convertire
-                .collect(Collectors.toList());
+        // Usa la funzione .map() di Page per convertire il contenuto
+        return usersPage.map(userMapper::toAdminViewDTO);
     }
 
     /**
-     * recupera solo gli utenti che sono player
+     * recupera solo gli utenti che sono player (PAGINATI)
      */
-    @Transactional(readOnly = true) // FONDAMENTALE per il lazy loading
-    public List<AdminUserViewDTO> getPlayersOnly() {
+    @Transactional(readOnly = true)
+    public Page<AdminUserViewDTO> getPlayersOnly(Pageable pageable) {
         
-        List<User> users = userRepository.findByPlayerIsNotNull();
+        Page<User> usersPage = userRepository.findByPlayerIsNotNull(pageable);
         
-        return users.stream()
-                .map(userMapper::toAdminViewDTO)
-                .collect(Collectors.toList());
+        return usersPage.map(userMapper::toAdminViewDTO);
     }
 
     /**
-     * recupera solo gli utenti che sono master
+     * recupera solo gli utenti che sono master (PAGINATI)
      */
-    @Transactional(readOnly = true) // FONDAMENTALE per il lazy loading
-    public List<AdminUserViewDTO> getMastersOnly() {
+    @Transactional(readOnly = true)
+    public Page<AdminUserViewDTO> getMastersOnly(Pageable pageable) {
         
-        List<User> users = userRepository.findByMasterIsNotNull();
+        Page<User> usersPage = userRepository.findByMasterIsNotNull(pageable);
         
-        return users.stream()
-                .map(userMapper::toAdminViewDTO)
-                .collect(Collectors.toList());
+        return usersPage.map(userMapper::toAdminViewDTO);
     }
 
     /**
@@ -123,7 +119,6 @@ public class AdminService {
             }
         }
 
-        return ResponseEntity.ok(new MessageResponse(
-                "Utente " + user.getUsername() + " bannato con successo."));
+        return ResponseEntity.ok(new MessageResponse("Utente bannato con successo.")); // Semplificato
     }
 }

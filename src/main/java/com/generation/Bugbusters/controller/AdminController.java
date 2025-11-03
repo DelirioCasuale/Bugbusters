@@ -2,6 +2,12 @@ package com.generation.Bugbusters.controller;
 
 import com.generation.Bugbusters.dto.AdminUserViewDTO;
 import com.generation.Bugbusters.service.AdminService;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,7 +21,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin")
-// protegge l'intero controller: solo chi ha ROLE_ADMIN può entrare
 @PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
 
@@ -23,32 +28,44 @@ public class AdminController {
     private AdminService adminService;
 
     /**
-     * endpoint per VEDERE TUTTI gli utenti.
-     * GET /api/admin/users
+     * endpoint per VEDERE TUTTI gli utenti (CON PAGINAZIONE).
+     * GET /api/admin/users?page=0&size=50
      */
     @GetMapping("/users")
-    public ResponseEntity<List<AdminUserViewDTO>> getAllUsers() {
-        List<AdminUserViewDTO> users = adminService.getAllUsers();
+    public ResponseEntity<Page<AdminUserViewDTO>> getAllUsers(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "50") int size) {
+        
+        Pageable pageable = PageRequest.of(page, size);
+        Page<AdminUserViewDTO> users = adminService.getAllUsers(pageable);
         return ResponseEntity.ok(users);
     }
 
     /**
-     * endpoint per VEDERE SOLO i player
-     * GET /api/admin/users/players
+     * endpoint per VEDERE SOLO i player (CON PAGINAZIONE).
+     * GET /api/admin/users/players?page=0&size=50
      */
     @GetMapping("/users/players")
-    public ResponseEntity<List<AdminUserViewDTO>> getPlayersOnly() {
-        List<AdminUserViewDTO> users = adminService.getPlayersOnly();
+    public ResponseEntity<Page<AdminUserViewDTO>> getPlayersOnly(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "50") int size) {
+        
+        Pageable pageable = PageRequest.of(page, size);
+        Page<AdminUserViewDTO> users = adminService.getPlayersOnly(pageable);
         return ResponseEntity.ok(users);
     }
 
     /**
-     * endpoint per VEDERE SOLO i master
-     * GET /api/admin/users/masters
+     * endpoint per VEDERE SOLO i master (CON PAGINAZIONE).
+     * GET /api/admin/users/masters?page=0&size=50
      */
     @GetMapping("/users/masters")
-    public ResponseEntity<List<AdminUserViewDTO>> getMastersOnly() {
-        List<AdminUserViewDTO> users = adminService.getMastersOnly();
+    public ResponseEntity<Page<AdminUserViewDTO>> getMastersOnly(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "50") int size) {
+        
+        Pageable pageable = PageRequest.of(page, size);
+        Page<AdminUserViewDTO> users = adminService.getMastersOnly(pageable);
         return ResponseEntity.ok(users);
     }
 
@@ -58,8 +75,6 @@ public class AdminController {
      */
     @PostMapping("/users/{id}/ban")
     public ResponseEntity<?> banUser(@PathVariable Long id) {
-        
-        // delega tutta la logica (ban utente + gestione campagne) al service
         return adminService.banUser(id);
     }
 }
