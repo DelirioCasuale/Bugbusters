@@ -67,14 +67,22 @@
             </div>
             <div class="modal-body">
                 <form id="createCampaignForm">
-                    <div class="form-group"><label for="create-campaign-title">Titolo Campagna</label><input type="text"
-                            id="create-campaign-title" required></div>
+
+                    <div class="form-group">
+                        <label for="create-campaign-title">Titolo Campagna</label>
+                        <input type="text" id="create-campaign-title" required
+                            placeholder="Esempio: La Tomba degli Orrori">
+                    </div>
+
                     <div class="form-group">
                         <label for="create-campaign-description">Descrizione</label>
                         <textarea id="create-campaign-description" rows="4" required
-                            style="font-family: var(--font-main); font-size: 1rem;"></textarea>
+                            style="font-family: var(--font-main); font-size: 1rem;"
+                            placeholder="Esempio: Una spedizione mortale nel cuore di una giungla inospitale, alla ricerca della tomba di Acererak."></textarea>
                     </div>
+
                     <div id="createCampaignError" class="error-message"></div>
+
                 </form>
             </div>
             <div class="modal-footer">

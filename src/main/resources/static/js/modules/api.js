@@ -52,9 +52,16 @@ export async function apiCall(endpoint, method = 'GET', body = null) {
                  return null;
             }
             
+            let errorMessage = data.message || 'Errore sconosciuto dal server';
+
+            // NUOVA LOGICA: Tenta di estrarre messaggi di validazione specifici (Status 400)
+            if (response.status === 400 && data.errors && data.errors.length > 0) {
+                 // Estrae il primo messaggio di errore di validazione
+                 errorMessage = data.errors[0].defaultMessage || errorMessage;
+            } 
+            
             // Caso 2: Errore Client 400/404/ecc. (Passa il messaggio di errore al chiamante)
-            // NON mostriamo alert generico qui. Il chiamante (page.master.js) lo gestirà.
-            return { status: response.status, message: data.message || 'Errore sconosciuto dal server' };
+            return { status: response.status, message: errorMessage };
         }
 
         console.log(`--- API Response ${response.status} ---`, data);

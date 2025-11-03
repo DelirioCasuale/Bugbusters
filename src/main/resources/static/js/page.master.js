@@ -121,19 +121,35 @@ window.handleDeleteCampaign = handleDeleteCampaign; // Rende la funzione accessi
 async function handleCreateCampaign(event) {
   event.preventDefault();
   if (!createCampaignModal) return;
+
+  // 1. Usa la funzione hideError() del modale per pulire i messaggi precedenti
   createCampaignModal.hideError();
+
   const title = document.getElementById('create-campaign-title')?.value;
   const description = document.getElementById(
     'create-campaign-description'
   )?.value;
+
+  // 2. Controllo specifico per l'avviso
   if (!title || !description) {
-    createCampaignModal.showError('Titolo e descrizione sono obbligatori.');
+    // Se i campi sono vuoti, usa showError() che imposterà il div.error-message nel modale
+    createCampaignModal.showError('Titolo e descrizione della campagna sono obbligatori.');
     return;
   }
+
+  // La funzione apiCall, se fallisce con un errore 4xx (es. validazione lato server),
+  // restituirà un oggetto {status, message}, che verrà gestito dal blocco 'else if' sottostante.
   const data = await apiCall('/api/master/campaigns', 'POST', {
     title,
     description,
   });
+
+  // 3. Gestione della risposta API
+  if (data && data.status) { // Se è un oggetto errore restituito da apiCall (es. 400 Bad Request)
+    createCampaignModal.showError(data.message || 'Si è verificato un errore durante la creazione.');
+    return;
+  }
+
   if (data) {
     createCampaignModal.hide();
     loadMasterData();
