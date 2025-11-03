@@ -28,12 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
   createCampaignModal = new Modal('createCampaignModal');
   claimCampaignModal = new Modal('claimCampaignModal');
 
-  document
-    .getElementById('btn-show-create-campaign-modal')
-    ?.addEventListener('click', () => createCampaignModal?.show());
-  document
-    .getElementById('btn-show-claim-campaign-modal')
-    ?.addEventListener('click', () => claimCampaignModal?.show());
+  // NUOVO LISTENER: Rende le card di aggiunta cliccabili
+  document.getElementById('card-show-create-campaign-modal')?.addEventListener('click', () => createCampaignModal?.show());
+  document.getElementById('card-show-claim-campaign-modal')?.addEventListener('click', () => claimCampaignModal?.show());
 
   document
     .getElementById('createCampaignForm')
@@ -49,8 +46,18 @@ document.addEventListener('DOMContentLoaded', () => {
   loadMasterData();
 });
 
-// ... (tutte le funzioni handleCreateCampaign, handleClaimCampaign,
-//      viewCampaignDetails, e loadMasterData rimangono invariate) ...
+async function handleDeleteCampaign(campaignId, campaignTitle) {
+    if (!confirm(`Sei sicuro di voler eliminare la campagna "${campaignTitle}" (ID: ${campaignId})?\n\nLa campagna sarà eliminata SOLO se è finita O non ha giocatori.`)) {
+        return;
+    }
+    const data = await apiCall(`/api/master/campaigns/${campaignId}`, 'DELETE');
+    if (data) {
+        alert(data.message);
+        loadMasterData();
+    }
+}
+window.handleDeleteCampaign = handleDeleteCampaign;
+
 
 async function handleCreateCampaign(event) {
   event.preventDefault();
@@ -115,9 +122,11 @@ async function loadMasterData() {
                     <p>Codice Master: <span class="code">${
                       c.inviteMastersCode
                     }</span></p>
-                     <button class="btn-primary" onclick="viewCampaignDetails(${
-                       c.id
-                     })">Gestisci</button>
+                     <div class="btn-group" style="margin-top: 15px;">
+                       <button class="btn-primary" onclick="viewCampaignDetails(${c.id})">Gestisci</button>
+                       <button class="btn-secondary" style="border-color: var(--error-color); color: var(--error-color);" 
+                           onclick="handleDeleteCampaign(${c.id}, '${c.title.replace(/'/g, "\\'")}')">Elimina</button>
+                    </div>
                 </div>
             `
         )
