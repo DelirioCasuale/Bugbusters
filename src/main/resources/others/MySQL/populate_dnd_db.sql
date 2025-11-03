@@ -386,3 +386,18 @@ INSERT INTO campaign_players (campaign_id, character_id) VALUES ((SELECT id FROM
 INSERT INTO campaign_players (campaign_id, character_id) VALUES ((SELECT id FROM campaigns WHERE title='Campaign_12'), (SELECT id FROM character_sheet WHERE name='Hero_5'));
 INSERT INTO campaign_players (campaign_id, character_id) VALUES ((SELECT id FROM campaigns WHERE title='Campaign_12'), (SELECT id FROM character_sheet WHERE name='Hero_25'));
 INSERT INTO campaign_players (campaign_id, character_id) VALUES ((SELECT id FROM campaigns WHERE title='Campaign_14'), (SELECT id FROM character_sheet WHERE name='Hero_35'));
+
+
+
+INSERT INTO users (username, email, password_hash) 
+VALUES ('admin_test', 'admin@bugbusters.com', '$2a$10$1dXv7qYHvn2mGUGNphfVW.DIk.l56ZUY0r5uK04qIy4PfDCdDs0u.');
+INSERT INTO players (user_id) SELECT id FROM users WHERE username = 'admin_test';
+INSERT INTO masters (user_id) SELECT id FROM users WHERE username = 'admin_test';
+INSERT INTO users_roles (user_id, role_id) 
+SELECT 
+    (SELECT id FROM users WHERE username = 'admin_test'), 
+    (SELECT id FROM roles WHERE role_name = 'ROLE_ADMIN');
+INSERT INTO users_roles (user_id, role_id) 
+SELECT 
+    (SELECT id FROM users WHERE username = 'admin_test'), 
+    (SELECT id FROM roles WHERE role_name = 'ROLE_USER');

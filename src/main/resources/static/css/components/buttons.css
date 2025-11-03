@@ -45,3 +45,36 @@
   gap: 1rem;
   justify-content: center;
 }
+
+/* Stile personalizzato per il bottone Elimina in master.html */
+.btn-delete-custom {
+    /* Usa il viola scuro dalle tue variabili globali */
+    background-color: var(--primary-purple-dark); 
+    border-color: var(--primary-purple-dark);
+    
+    /* Ombra corrispondente (copiata da .btn-primary e adattata) */
+    box-shadow: 0 4px 15px rgba(109, 40, 217, 0.3); 
+}
+
+.btn-delete-custom:hover {
+    /* Un viola ancora più scuro per l'hover */
+    background-color: #581c87; 
+    border-color: #581c87;
+    box-shadow: 0 6px 20px rgba(109, 40, 217, 0.5);
+}
+
+.btn-accent-filled {
+  /* Colore pieno basato sul viola chiaro (più visibile) */
+  background-color: var(--primary-purple-light); 
+  color: var(--bg-dark-primary); /* Testo scuro per contrasto */
+  border: 2px solid var(--primary-purple-light);
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(167, 139, 250, 0.4);
+}
+
+.btn-accent-filled:hover {
+  background-color: var(--primary-purple-lighter); /* Ancora più chiaro on hover */
+  border-color: var(--primary-purple-lighter);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(167, 139, 250, 0.6);
+}

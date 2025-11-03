@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body class="dashboard-body">
+<body class="dashboard-body body-campaign-detail">
 
     <header>
         <div class="logo-flex">
@@ -21,9 +21,35 @@
 
     <section class="dashboard-hero">
         <div class="dashboard-hero-content">
-            <h1 id="campaign-name-title">Caricamento Campagna...</h1>
-            <p><a href="player.html" class="btn-secondary" style="border: none; text-decoration: underline;">&larr; Torna alle tue campagne</a></p>
-        </div>
+            
+            <div class="hero-flex-container" style="
+                display: flex; 
+                justify-content: space-between; 
+                align-items: center; 
+                width: 100%; 
+                margin-bottom: 20px; 
+            ">
+                
+                <a href="player.html" class="btn-secondary" style="
+                    border: none; 
+                    text-decoration: underline; 
+                    font-size: 1rem; 
+                    color: var(--primary-purple-light);
+                ">&larr; Torna alle tue campagne</a>
+
+                <h1 id="campaign-name-title" style="margin: 0 auto; white-space: nowrap;">Caricamento Campagna...</h1>
+                
+                <div style="visibility: hidden;">
+                    <a href="player.html" class="btn-secondary" style="
+                        border: none; 
+                        text-decoration: underline; 
+                        font-size: 1rem; 
+                        color: var(--primary-purple-light);
+                    ">&larr; Torna alle tue campagne</a>
+                </div>
+            </div>
+
+            </div>
     </section>
 
     <main class="dashboard-content">

@@ -7,7 +7,6 @@ import com.generation.Bugbusters.dto.JoinedCampaignDTO;
 import com.generation.Bugbusters.dto.PlayerSessionProposalDTO;
 import com.generation.Bugbusters.service.PlayerService;
 import com.generation.Bugbusters.dto.OrphanedCampaignDTO;
-import com.generation.Bugbusters.dto.CampaignDetailViewDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

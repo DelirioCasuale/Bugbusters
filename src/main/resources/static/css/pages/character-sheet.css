@@ -66,33 +66,63 @@
 
 /* COLONNA 1: STATS & SKILLS */
 .stat-boxes {
-    display: flex;
-    flex-direction: column;
+    display: grid; /* Usiamo grid per allinearli meglio */
+    grid-template-columns: 1fr 1fr 1fr; /* 3 colonne */
     gap: 10px;
 }
 .stat-box {
-    background: var(--bg-dark-primary);
-    border: 1px solid var(--border-secondary);
-    border-radius: 8px;
-    padding: 10px;
+    /* PERCORSO CORRETTO: ../../images/ */
+    background: transparent url('../../images/pagina1_punti-caratteristica.svg') no-repeat center center;
+    background-size: 100% 100%; /* Allunga l'SVG per riempire il box */
+    border: none;
+    border-radius: 0;
     text-align: center;
+    
+    /* Usiamo Flexbox per posizionare gli elementi all'interno */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    /* Forziamo l'aspect-ratio dell'SVG (122.25 L / 138.75 A) */
+    width: 100%;
+    aspect-ratio: 122.25 / 138.75;
+    padding: 20px 10px; /* Padding interno per non sovrapporre i bordi SVG */
+    box-sizing: border-box;
 }
 .stat-box label {
     font-family: var(--font-display);
-    font-size: 1.1rem;
+    font-size: 1.0rem; /* Leggermente più piccolo per adattarsi */
     color: var(--text-highlight);
     display: block;
+    text-transform: uppercase; /* Come nel PDF */
 }
-.stat-box input {
-    font-size: 1.8rem;
+.stat-box input.stat-score-input { /* Selezioniamo solo l'input del punteggio */
+    font-size: 2.5rem; /* Più grande, come nel PDF */
     font-weight: bold;
     text-align: center;
-    padding: 5px;
+    padding: 0;
     width: 80px;
-    background: var(--bg-input);
+    background: transparent; /* Sfondo trasparente */
     color: var(--text-primary);
     border: none;
-    border-radius: 4px;
+    border-radius: 0;
+    margin: 5px 0;
+}
+
+/* Nuova regola per il box del modificatore (ellisse) */
+.stat-modifier-box {
+    background-color: var(--bg-dark-primary); /* Sfondo per l'ellisse */
+    border: 1px solid var(--border-secondary);
+    border-radius: 20px; /* Forma a ellisse */
+    width: 50px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--text-primary);
 }
 
 .skills-list { list-style: none; margin-top: 15px; }

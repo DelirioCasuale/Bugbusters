@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
-<body class="dashboard-body">
+<body class="dashboard-body body-player">
 
     <header>
         <div class="logo-flex">
@@ -36,18 +36,26 @@
         <div id="player-section">
             <section class="dashboard-section">
                 <h2><i class="fas fa-scroll"></i> Le mie Schede</h2>
-                <div id="player-sheets-list" class="card-container"></div>
-                <div class="card add-card">
-                    <button class="btn-secondary" id="btn-show-create-sheet-modal"><i class="fas fa-plus"></i> Crea
-                        nuova Scheda</button>
+                <div id="player-sheets-container" class="card-container">
+
+                    <div class="card add-card" id="card-show-create-sheet-modal">
+                        <span><i class="fas fa-plus"></i> Crea nuova Scheda</span>
+                    </div>
+
+                    <div id="player-sheets-list" style="display: contents;">
+                    </div>
                 </div>
             </section>
             <section class="dashboard-section">
-                <h2><i class="fas fa-map-signs"></i> Le mie Campagne (Giocatore)</h2>
-                <div id="player-campaigns-list" class="card-container"></div>
-                <div class="card add-card">
-                    <button class="btn-secondary" id="btn-show-join-campaign-modal"><i class="fas fa-door-open"></i>
-                        Unisciti a una Campagna</button>
+                <h2><i class="fas fa-map-signs"></i> Le mie Campagne</h2>
+                <div id="player-campaigns-container" class="card-container">
+
+                    <div class="card add-card" id="card-show-join-campaign-modal">
+                        <span><i class="fas fa-door-open"></i> Unisciti a una Campagna</span>
+                    </div>
+
+                    <div id="player-campaigns-list" style="display: contents;">
+                    </div>
                 </div>
             </section>
             <section class="dashboard-section" style="display: none;">
@@ -90,7 +98,7 @@
                             <option value="Warlock">Warlock</option>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="sheet-race">Razza</label>
                         <select id="sheet-race" name="race" required>

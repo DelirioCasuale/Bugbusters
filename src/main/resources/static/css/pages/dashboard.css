@@ -9,6 +9,7 @@ body.dashboard-body {
     text-align: center;
     padding: 2rem 1rem;
     background: linear-gradient(180deg, var(--bg-dark-primary) 0%, rgba(26, 26, 46, 0.8) 100%);
+    transition: opacity 0.5s ease-in-out;
 }
 
 .dashboard-hero h1 { 
@@ -20,8 +21,38 @@ body.dashboard-body {
 .dashboard-hero p { 
   font-size: 1.1rem; 
   color: var(--text-secondary); 
+  
+  /* RESET CRUCIALE: 
+     Azzera il margine di default del browser (che impedisce la transizione max-height) 
+  */
+  margin: 0; 
 }
 
+.dashboard-hero #dashboard-subtitle {
+    /* 1. Nascondi visivamente */
+    opacity: 0;
+    
+    /* 2. Riduci l'altezza a zero */
+    max-height: 0;
+    
+    /* 3. Necessario per la transizione max-height */
+    overflow: hidden; 
+    
+    /* 4. Definisci la transizione (dovrebbe partire da margin: 0) */
+    transition: opacity 0.4s ease-out, max-height 0.4s ease-out, margin-top 0.4s ease-out;
+}
+
+/* MODIFICA: Stato all'Hover (STATO VISIBILE) */
+.dashboard-hero:hover #dashboard-subtitle {
+    /* 1. Rendi visibile */
+    opacity: 1;
+    
+    /* 2. Ripristina l'altezza */
+    max-height: 5em; /* (o 100px) */
+    
+    /* 3. Ripristina il margine desiderato */
+    margin-top: 0.5rem; 
+}
 .dashboard-content {
     flex: 1;
     padding: 1rem;
@@ -54,5 +85,167 @@ body.dashboard-body {
 
 body.body-profile {
     background: url('../../images/tavern_profile.gif') no-repeat center center/cover;
-    background-attachment: fixed; /* Questo lo rende fisso durante lo scorrimento */
+    background-attachment: fixed; 
+}
+
+/* Stile per lo sfondo di player.html*/
+body.body-player {
+    background: url('../../images/tavern_giocatore.gif') no-repeat center center/cover;
+    background-attachment: fixed; 
+}
+
+/* Stile per lo sfondo di master.html */
+body.body-master {
+    background: url('../../images/tavern_master.gif') no-repeat center center/cover;
+    background-attachment: fixed; /* Mantiene lo sfondo fisso */
+}
+
+/* Stile per lo sfondo di master-campaign-detail.html */
+body.body-master-detail {
+    background: url('../../images/tavern_background_sfondo-campagna.gif') no-repeat center center/cover;
+    background-attachment: fixed; 
+}
+
+/* Stile per lo sfondo di master-campaign-detail.html E player-campaign-detail.html */
+body.body-campaign-detail {
+    background: url('../../images/tavern_background_sfondo-campagna.gif') no-repeat center center/cover;
+    background-attachment: fixed; /* Mantiene lo sfondo fisso */
+}
+
+
+/* ============================================================================
+   STILI LAYOUT PAGINA PROFILO (profile.html)
+   ============================================================================ */
+.profile-layout-container {
+    display: grid;
+    /* Colonna nav fissa (o quasi), colonna contenuto flessibile */
+    grid-template-columns: 300px 1fr; 
+    gap: 25px;
+    align-items: start; /* Allinea l'inizio delle card */
+}
+
+/* Card Sinistra (Nav) */
+.profile-nav-card {
+    padding: 15px; /* Meno padding della card destra */
+    /* La card nav si attacca in alto */
+    position: sticky;
+    top: 20px; 
+}
+.profile-nav-card .profile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.profile-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.profile-nav-item i {
+    width: 20px;
+    text-align: center;
+    font-size: 1.1rem;
+}
+.profile-nav-item:hover {
+    background-color: var(--bg-input); /* Sfondo leggero on hover */
+    color: var(--text-highlight);
+    text-decoration: none;
+}
+.profile-nav-item.active {
+    background-color: var(--primary-purple);
+    color: white;
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+}
+.profile-nav-item.active i {
+    color: white;
+}
+
+/* Card Destra (Contenuto) */
+/* Rimuoviamo lo stile del wrapper, lo applichiamo ai pannelli interni */
+.profile-content-card-wrapper {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.profile-content-panel {
+    /* Applica lo stile standard di .dashboard-section ai pannelli */
+    background: var(--bg-card);
+    border: 2px solid var(--border-primary);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 0 20px rgba(79, 70, 229, 0.3);
+    
+    display: none; /* Nascosto di default */
+}
+.profile-content-panel.active {
+    display: block; /* Visibile se attivo */
+    animation: fadeIn 0.3s ease-in; /* (già definito in forms.css) */
+}
+.profile-content-panel h2 {
+    /* Stile per i titoli dei pannelli (allineati a sinistra) */
+    text-align: left;
+    border-bottom: 1px solid var(--border-secondary);
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+}
+.profile-content-panel h2 i {
+     margin-right: 12px;
+     color: var(--text-highlight);
+}
+
+/* ============================================================================
+   RESPONSIVE (per layout profilo)
+   ============================================================================ */
+@media (max-width: 992px) {
+    .profile-layout-container {
+        grid-template-columns: 1fr; /* Impila le card su tablet/mobile */
+        gap: 15px;
+    }
+    .profile-nav-card {
+        position: static; /* Rimuovi lo sticky */
+        padding: 10px;
+    }
+    .profile-nav {
+        /* Su mobile, la nav diventa orizzontale */
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .profile-nav-item span {
+        display: none; /* Nasconde il testo, lascia solo l'icona */
+    }
+    .profile-nav-item i {
+        font-size: 1.4rem;
+        margin: 0;
+    }
+    .profile-content-panel h2 {
+        font-size: 1.5rem;
+    }
+}
+
+.profile-image-preview-group {
+    text-align: center;
+    padding: 15px 0;
+    border: 1px solid var(--border-secondary);
+    border-radius: 8px;
+}
+.profile-preview-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: 10px;
+    border: 3px solid var(--primary-purple-light);
+    box-shadow: 0 0 10px rgba(79, 70, 229, 0.5);
+}
+
+body.admin-body {
+    background: url('../../images/tavern_admin.gif') no-repeat center center/cover;
+    background-attachment: fixed; /* Mantiene lo sfondo fisso */
 }

@@ -79,3 +79,88 @@ body.admin-body {
 #users-table .action-button.ban { background: #c82333; }
 #users-table .action-button.ban:hover { background: #a71d2a; }
 #users-table .action-button:disabled { background: #333; color: #777; cursor: not-allowed; }
+
+/* Nuovo contenitore per affiancare filtri e ricerca */
+.filters-container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap; 
+    /* Aggiungiamo una larghezza massima al contenitore per allinearlo alla tabella (1200px è il max della dashboard-content) */
+    max-width: 100%; 
+}
+
+.filters {
+    text-align: left; 
+    margin-bottom: 0; 
+}
+
+.search-bar {
+    display: flex;
+    gap: 5px;
+    margin-left: 20px; 
+    margin-right: 0; 
+}
+
+#user-search-input {
+    padding: 8px 12px;
+    border: 1px solid var(--border-primary);
+    border-radius: 8px;
+    background-color: var(--bg-input);
+    color: var(--text-primary);
+    
+    /* MODIFICATO: Aumentiamo la larghezza massima per essere utile, 
+       ma la larghezza totale sarà limitata dal .filters-container */
+    width: 250px; 
+    max-width: 100%;
+}
+
+/* Regola per l'allineamento responsivo su schermi piccoli */
+@media (max-width: 768px) {
+    .filters-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .filters {
+        margin-bottom: 15px;
+        width: 100%;
+    }
+    .search-bar {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    #user-search-input {
+        width: 100%; /* Occupa tutta la larghezza disponibile */
+    }
+}
+
+/* DENTRO admin.css */
+
+/* Stile per il contenitore della tabella e la paginazione */
+.admin-table-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra orizzontalmente la tabella */
+}
+
+.admin-table-container {
+    /* L'overflow-x era già qui, lo manteniamo */
+    overflow-x: auto;
+    width: 100%;
+}
+
+/* Stile per i controlli di paginazione */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.pagination-info {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
