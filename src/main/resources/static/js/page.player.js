@@ -5,7 +5,7 @@ import { Modal, updateGeneralUI } from './modules/ui.js';
 let createSheetModal, joinCampaignModal;
 
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // --- GUARDIA DI AUTENTICAZIONE ---
     if (!isAuthenticated()) {
         console.warn("Utente non autenticato. Reindirizzamento a landing.html");
@@ -21,15 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Se la guardia passa, inizializza la pagina
     updateGeneralUI();
-    
+
     createSheetModal = new Modal('createSheetModal');
     joinCampaignModal = new Modal('joinCampaignModal');
 
-    document.getElementById('btn-show-create-sheet-modal')?.addEventListener('click', () => createSheetModal?.show());
-    document.getElementById('btn-show-join-campaign-modal')?.addEventListener('click', () => joinCampaignModal?.show());
-
     document.getElementById('createSheetForm')?.addEventListener('submit', handleCreateSheet);
     document.getElementById('joinCampaignForm')?.addEventListener('submit', handleJoinCampaign);
+
+    document.getElementById('card-show-create-sheet-modal')?.addEventListener('click', () => createSheetModal?.show());
+    document.getElementById('card-show-join-campaign-modal')?.addEventListener('click', () => joinCampaignModal?.show());
 
     document.addEventListener('click', (e) => {
         if (e.target && e.target.id === 'logout-button') handleLogout(e);
@@ -56,31 +56,31 @@ async function handleCreateSheet(event) {
     const data = await apiCall('/api/player/sheets', 'POST', { name, primaryClass, race });
     if (data) {
         createSheetModal.hide();
-        loadPlayerData(); 
+        loadPlayerData();
     }
 }
 async function handleJoinCampaign(event) {
     event.preventDefault();
     if (!joinCampaignModal) return;
-     joinCampaignModal.hideError();
-     const inviteCode = document.getElementById('join-campaign-code')?.value;
-     const characterSheetId = document.getElementById('join-campaign-sheet-id')?.value;
-     if (!inviteCode || !characterSheetId) {
-         joinCampaignModal.showError("Codice invito e scheda sono obbligatori.");
-         return;
-     }
-     const data = await apiCall('/api/player/campaigns/join', 'POST', { inviteCode, characterSheetId: Number(characterSheetId) });
-     if(data) {
-         joinCampaignModal.hide();
-         loadPlayerData(); 
-     }
+    joinCampaignModal.hideError();
+    const inviteCode = document.getElementById('join-campaign-code')?.value;
+    const characterSheetId = document.getElementById('join-campaign-sheet-id')?.value;
+    if (!inviteCode || !characterSheetId) {
+        joinCampaignModal.showError("Codice invito e scheda sono obbligatori.");
+        return;
+    }
+    const data = await apiCall('/api/player/campaigns/join', 'POST', { inviteCode, characterSheetId: Number(characterSheetId) });
+    if (data) {
+        joinCampaignModal.hide();
+        loadPlayerData();
+    }
 }
 async function handleVoteProposal(proposalId) {
-     console.log("Voto per proposta:", proposalId);
-     const data = await apiCall(`/api/player/proposals/${proposalId}/vote`, 'POST');
-     if (data) {
-         loadPlayerData(); 
-     }
+    console.log("Voto per proposta:", proposalId);
+    const data = await apiCall(`/api/player/proposals/${proposalId}/vote`, 'POST');
+    if (data) {
+        loadPlayerData();
+    }
 }
 window.handleVoteProposal = handleVoteProposal;
 
@@ -91,18 +91,20 @@ async function loadPlayerData() {
 
     const sheets = await apiCall('/api/player/sheets');
     const sheetsList = document.getElementById('player-sheets-list');
+    
     if (sheets && sheetsList) {
         if(sheets.length > 0) {
             sheetsList.innerHTML = sheets.map(sheet => `
                 <div class="card">
                     <h3>${sheet.name || 'Senza nome'}</h3>
-                    <p>ID: ${sheet.id} · ${sheet.primaryClass || '?'} Lvl ${sheet.primaryLevel || '?'} · ${sheet.race || '?'}</p>
                     
-                    <a href="edit-sheet.html?id=${sheet.id}" class="btn-secondary">Modifica</a>
+                    <p>${sheet.primaryClass || '?'} Lvl ${sheet.primaryLevel || '?'} · ${sheet.race || '?'}</p>
+                    
+                    <a href="edit-sheet.html?id=${sheet.id}" class="btn-primary">Modifica</a>
                 </div>
             `).join('');
         } else {
-            sheetsList.innerHTML = '<p>Non hai ancora creato nessuna scheda.</p>';
+            sheetsList.innerHTML = ''; // Lasciare vuoto per un layout pulito
         }
         // Popola la select nel modal join campaign 
         const joinSheetSelect = document.getElementById('join-campaign-sheet-id');
@@ -113,32 +115,34 @@ async function loadPlayerData() {
             });
         }
     } else if (sheetsList) {
-         sheetsList.innerHTML = '<p>Errore nel caricamento delle schede.</p>';
+        sheetsList.innerHTML = '<p>Errore nel caricamento delle schede.</p>';
     }
+
     const joinedCampaigns = await apiCall('/api/player/campaigns/joined');
     const campaignsList = document.getElementById('player-campaigns-list');
+
     if (joinedCampaigns && campaignsList) {
-        if(joinedCampaigns.length > 0) {
+        if (joinedCampaigns.length > 0) {
             campaignsList.innerHTML = joinedCampaigns.map(jc => `
                 <div class="card">
                     <h3>${jc.campaignTitle || 'Campagna sconosciuta'}</h3>
-                    <p>ID Camp: ${jc.campaignId}</p>
-                    <p>Usando: ${jc.characterUsed?.name || '?'} (ID: ${jc.characterUsed?.id || '?'})</p>
+                    
+                    <p>Usando: ${jc.characterUsed?.name || '?'} (Lvl ${jc.characterUsed?.primaryLevel || '?'})</p>
                     <a href="player-campaign-detail.html?id=${jc.campaignId}" class="btn-primary">Entra</a>
                 </div>
             `).join('');
         } else {
-             campaignsList.innerHTML = '<p>Non fai ancora parte di nessuna campagna.</p>';
+            campaignsList.innerHTML = ''; // Lasciare vuoto per un layout pulito
         }
     } else if (campaignsList) {
-         campaignsList.innerHTML = '<p>Errore nel caricamento delle campagne.</p>';
+        campaignsList.innerHTML = '<p>Errore nel caricamento delle campagne.</p>';
     }
-     const orphanedCampaigns = await apiCall('/api/player/campaigns/orphaned');
-     const orphanedList = document.getElementById('player-orphaned-campaigns-list');
-     const orphanedSection = orphanedList?.closest('.dashboard-section');
-     if (orphanedCampaigns && orphanedList && orphanedSection) {
-         if(orphanedCampaigns.length > 0) {
-             orphanedList.innerHTML = orphanedCampaigns.map(oc => `
+    const orphanedCampaigns = await apiCall('/api/player/campaigns/orphaned');
+    const orphanedList = document.getElementById('player-orphaned-campaigns-list');
+    const orphanedSection = orphanedList?.closest('.dashboard-section');
+    if (orphanedCampaigns && orphanedList && orphanedSection) {
+        if (orphanedCampaigns.length > 0) {
+            orphanedList.innerHTML = orphanedCampaigns.map(oc => `
                  <div class="card">
                      <h3>${oc.campaignTitle || 'Campagna sconosciuta'} (Orfana!)</h3>
                      <p>ID Camp: ${oc.campaignId}</p>
@@ -147,36 +151,36 @@ async function loadPlayerData() {
                      <small>Scadenza: ${new Date(oc.deletionDeadline).toLocaleString()}</small>
                  </div>
              `).join('');
-             orphanedSection.style.display = 'block';
-         } else {
-             orphanedList.innerHTML = '';
-             orphanedSection.style.display = 'none';
-         }
-     } else if (orphanedSection) {
-          orphanedSection.style.display = 'none';
-     }
+            orphanedSection.style.display = 'block';
+        } else {
+            orphanedList.innerHTML = '';
+            orphanedSection.style.display = 'none';
+        }
+    } else if (orphanedSection) {
+        orphanedSection.style.display = 'none';
+    }
     const proposals = await apiCall('/api/player/proposals');
     const proposalsList = document.getElementById('player-proposals-list');
     const proposalsSection = proposalsList?.closest('.dashboard-section');
     if (proposals && proposalsList && proposalsSection) {
-        if(proposals.length > 0) {
+        if (proposals.length > 0) {
             proposalsList.innerHTML = proposals.map(p => `
                 <div class="card proposal-card">
                     <h3>${p.campaignTitle || '?'}</h3>
                     <p>Data Proposta: ${new Date(p.proposedDate).toLocaleString()}</p>
                     <p>Scadenza Voto: ${new Date(p.expiresOn).toLocaleString()}</p>
                     ${p.hasVoted
-                        ? '<span class="voted">Votato ✔️</span>'
-                        : `<button class="btn-primary" onclick="handleVoteProposal(${p.proposalId})">Vota Sì</button>`
-                     }
+                    ? '<span class="voted">Votato ✔️</span>'
+                    : `<button class="btn-primary" onclick="handleVoteProposal(${p.proposalId})">Vota Sì</button>`
+                }
                 </div>
             `).join('');
             proposalsSection.style.display = 'block';
         } else {
-             proposalsList.innerHTML = '<p>Nessuna proposta di sessione attiva al momento.</p>';
-             proposalsSection.style.display = 'block';
+            proposalsList.innerHTML = '<p>Nessuna proposta di sessione attiva al momento.</p>';
+            proposalsSection.style.display = 'block';
         }
     } else if (proposalsSection) {
-         proposalsSection.style.display = 'none';
+        proposalsSection.style.display = 'none';
     }
 }
