@@ -1,36 +1,47 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tavern Portal - Scegli il tuo Ruolo</title>
     <link rel="icon" type="image/x-icon" href="images/dice.png" />
     <link rel="stylesheet" href="css/main.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body class="dashboard-body body-profile">
 
     <header>
-         </header>
+        <div class="logo-flex">
+            <i><img src="images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
+            <div class="logo">Tavern Portal</div>
+        </div>
+        <nav id="dashboard-nav">
+        </nav>
+    </header>
 
     <section class="dashboard-hero">
         <div class="dashboard-hero-content">
             <h1 id="dashboard-title">Il tuo Profilo</h1>
             <p id="dashboard-subtitle">Gestisci i tuoi ruoli e le informazioni del tuo account.</p>
-            
+
             <div id="profile-actions" class="btn-group" style="margin-top: 20px;">
-                 <button id="btn-become-player" class="btn-primary">Diventa Player</button>
-                 <button id="btn-become-master" class="btn-primary">Diventa Master</button>
+                <button id="btn-become-player" class="btn-primary">Diventa Player</button>
+                <button id="btn-become-master" class="btn-primary">Diventa Master</button>
             </div>
-             <div id="profile-message" class="info-message" style="display: none; max-width: 500px; margin: 15px auto 0;"></div>
+            <div id="profile-message" class="info-message"
+                style="display: none; max-width: 500px; margin: 15px auto 0;"></div>
         </div>
     </section>
 
     <main class="dashboard-content">
-        
+
         <div class="profile-layout-container">
-            
+
             <div class="dashboard-section profile-nav-card">
                 <nav class="profile-nav">
                     <a href="#" class="profile-nav-item active" data-target="details">
@@ -45,7 +56,7 @@
             </div>
 
             <div class="profile-content-card-wrapper">
-                
+
                 <div id="profile-content-details" class="profile-content-panel active">
                     <h2><i class="fas fa-user-edit"></i> Modifica Profilo</h2>
                     <form id="profileEditForm" class="styled-form">
@@ -59,7 +70,8 @@
                         </div>
                         <div class="form-group">
                             <label for="profile-image-url">URL Immagine Profilo</label>
-                            <input type="text" id="profile-image-url" placeholder="Incolla l'URL di un'immagine (es. .png, .jpg)">
+                            <input type="text" id="profile-image-url"
+                                placeholder="Incolla l'URL di un'immagine (es. .png, .jpg)">
                         </div>
                         <div id="profileEditError" class="error-message"></div>
                         <div id="profileEditSuccess" class="success-message"></div>
@@ -74,15 +86,17 @@
                             <label for="profile-old-password">Vecchia Password</label>
                             <input type="password" id="profile-old-password" required>
                         </div>
-                        
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="profile-new-password">Nuova Password</label>
-                                <input type="password" id="profile-new-password" required placeholder="Minimo 6 caratteri">
+                                <input type="password" id="profile-new-password" required
+                                    placeholder="Minimo 6 caratteri">
                             </div>
                             <div class="form-group">
                                 <label for="profile-confirm-password">Conferma Nuova Password</label>
-                                <input type="password" id="profile-confirm-password" required placeholder="Reinserisci la nuova password">
+                                <input type="password" id="profile-confirm-password" required
+                                    placeholder="Reinserisci la nuova password">
                             </div>
                         </div>
 
@@ -92,11 +106,15 @@
                     </form>
                 </div>
 
-            </div> </div> </main>
+            </div>
+        </div>
+    </main>
 
     <footer class="footer">
-        </footer>
+        <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
+    </footer>
 
     <script type="module" src="js/page.profile.js"></script>
 </body>
+
 </html>
