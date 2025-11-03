@@ -79,3 +79,34 @@ body.admin-body {
 #users-table .action-button.ban { background: #c82333; }
 #users-table .action-button.ban:hover { background: #a71d2a; }
 #users-table .action-button:disabled { background: #333; color: #777; cursor: not-allowed; }
+
+/* Nuovo contenitore per affiancare filtri e ricerca */
+.filters-container {
+    display: flex;
+    justify-content: space-between; /* Spinge i filtri a sinistra, la ricerca a destra */
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap; /* Assicura che vada a capo su mobile */
+}
+
+.filters {
+    /* Rimuoviamo text-align: center; che era presente qui prima */
+    text-align: left; 
+    margin-bottom: 0; /* Rimuoviamo il margine per evitare spazio extra */
+}
+
+/* Stile per la barra di ricerca */
+.search-bar {
+    display: flex;
+    gap: 5px;
+    margin-left: 20px; /* Spazio dal gruppo filtri */
+}
+
+#user-search-input {
+    padding: 8px 12px;
+    border: 1px solid var(--border-primary);
+    border-radius: 8px;
+    background-color: var(--bg-input);
+    color: var(--text-primary);
+    width: 200px;
+}
