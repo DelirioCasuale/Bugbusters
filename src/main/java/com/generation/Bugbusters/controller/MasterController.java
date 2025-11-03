@@ -120,4 +120,23 @@ public class MasterController {
     public ResponseEntity<List<CampaignProposalDTO>> getCampaignProposals(@PathVariable Long id) {
         return masterService.getCampaignProposals(id);
     }
+
+    /**
+     * endpoint per segnare una campagna come FINITA.
+     * PUT /api/master/campaigns/{id}/finish
+     */
+    @PutMapping("/campaigns/{id}/finish")
+    public ResponseEntity<?> finishCampaign(@PathVariable Long id) {
+        return masterService.finishCampaign(id);
+    }
+    
+    /**
+     * endpoint per CANCELLARE una campagna.
+     * Solo se non ha player O è finita.
+     * DELETE /api/master/campaigns/{id}
+     */
+    @DeleteMapping("/campaigns/{id}")
+    public ResponseEntity<?> deleteCampaign(@PathVariable Long id) {
+        return masterService.deleteCampaign(id);
+    }
 }

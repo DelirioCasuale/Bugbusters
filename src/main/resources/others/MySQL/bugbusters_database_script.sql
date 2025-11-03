@@ -138,7 +138,10 @@ CREATE TABLE campaigns (
     invite_masters_code VARCHAR(10) UNIQUE,
 
     -- COLONNA AGGIUNTA PER IL BAN DEL MASTER --
-    master_ban_pending_until TIMESTAMP DEFAULT NULL -- Scadenza di 30 giorni per trovare un nuovo master
+    master_ban_pending_until TIMESTAMP DEFAULT NULL, -- Scadenza di 30 giorni per trovare un nuovo master
+    
+    -- NUOVA COLONNA PER IL FLAG 'FINITA'
+    is_finished BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE campaign_players (
