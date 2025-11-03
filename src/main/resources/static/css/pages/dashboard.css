@@ -74,3 +74,9 @@ body.body-master-detail {
     background: url('../../images/tavern_background_sfondo-campagna.gif') no-repeat center center/cover;
     background-attachment: fixed; 
 }
+
+/* Stile per lo sfondo di master-campaign-detail.html E player-campaign-detail.html */
+body.body-campaign-detail {
+    background: url('../../images/tavern_background_sfondo-campagna.gif') no-repeat center center/cover;
+    background-attachment: fixed; /* Mantiene lo sfondo fisso */
+}
