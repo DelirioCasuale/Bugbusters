@@ -83,23 +83,23 @@ public class SecurityConfig {
                 // Endpoint Pubblici API
                 .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
 
-                // Pagine HTML Pubbliche e Risorse Statiche
-                .requestMatchers("/", "/landing.html", "/register.html", 
-                                 "/player.html", "/master.html", "/profile.html",
-                                 "/edit-sheet.html",
-                                 "/master-campaign-detail.html",
-                                 "/player-campaign-detail.html", 
-                                 "/css/**", "/js/**", "/images/**").permitAll()
+                // TUTTE le pagine HTML sono ora pubbliche (protezione lato client)
+                .requestMatchers("/", "/*.html", "/css/**", "/js/**", "/images/**", "/error", "/favicon.ico").permitAll()
 
-                // Endpoint Protetti API (Qui resta la protezione DEI DATI)
+                // Controller routes - redirect pubblici
+                .requestMatchers("/landing", "/signup", "/dashboard/**", "/admin", "/profile").permitAll()
+
+                // Solo gli Endpoint API restano protetti (qui serve il JWT)
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                .requestMatchers("/api/profile/**").hasRole("USER") 
+                .requestMatchers("/api/profile/**").hasAnyRole("USER", "PLAYER", "MASTER", "ADMIN") 
                 .requestMatchers("/api/player/**").hasRole("PLAYER")
                 .requestMatchers("/api/master/**").hasRole("MASTER")
-                .requestMatchers("/admin.html").hasRole("ADMIN")
 
-                // Altre richieste
-                .anyRequest().authenticated()
+                // Altre richieste API richiedono autenticazione
+                .requestMatchers("/api/**").authenticated()
+
+                // Tutto il resto pubblico
+                .anyRequest().permitAll()
             );
 
         http.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
