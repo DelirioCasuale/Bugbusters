@@ -120,4 +120,49 @@ public class AdminService {
 
         return ResponseEntity.ok(new MessageResponse("Utente bannato con successo.")); // Semplificato
     }
+
+    /**
+     * sblocca (rimuove la sospensione) di un utente.
+     * Se l'utente era un master, annulla il timer di cancellazione delle campagne orfane.
+     */
+    @Transactional // FONDAMENTALE: modifica tabelle users e campaigns
+    public ResponseEntity<?> unbanUser(Long userId) {
+        
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Utente non trovato con ID: " + userId));
+
+        // Controllo: non sbloccare un utente attivo
+        if (!user.isBanned()) {
+            return ResponseEntity.badRequest()
+                    .body(new MessageResponse("Errore: Questo utente non è bannato."));
+        }
+
+        // Annulla il ban
+        user.setBanned(false);
+        user.setDeletionScheduledOn(null); // Rimuove la data di cancellazione
+        userRepository.save(user);
+
+        logger.info("Utente {} (ID: {}) sbloccato.", user.getUsername(), user.getId());
+
+        // Logica master: Annulla l'orfanezza delle campagne
+        if (user.getMaster() != null) {
+            
+            logger.warn("L'utente sbloccato è un Master. Annullamento timer orfano per le sue campagne.");
+            
+            List<Campaign> campaignsToSave = 
+                    campaignRepository.findByMasterId(user.getMaster().getId());
+
+            for (Campaign campaign : campaignsToSave) {
+                // ANNULLA il timer di cancellazione se era attivo
+                campaign.setMasterBanPendingUntil(null);
+                campaignRepository.save(campaign);
+                
+                logger.info("Campagna ID {} rimossa da 'pending delete'.", 
+                        campaign.getId());
+            }
+        }
+
+        return ResponseEntity.ok(new MessageResponse(
+                "Utente " + user.getUsername() + " sbloccato con successo."));
+    }
 }

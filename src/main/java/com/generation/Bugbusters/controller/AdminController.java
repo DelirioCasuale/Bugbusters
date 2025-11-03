@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -74,5 +75,15 @@ public class AdminController {
     @PostMapping("/users/{id}/ban")
     public ResponseEntity<?> banUser(@PathVariable Long id) {
         return adminService.banUser(id);
+    }
+    
+    /**
+     * NUOVO: endpoint per sbloccare (rimuovere sospensione) un utente
+     * PUT /api/admin/users/{id}/unban
+     */
+    @PutMapping("/users/{id}/unban") 
+    public ResponseEntity<?> unbanUser(@PathVariable Long id) {
+        // Usiamo PUT perché è un'operazione idempotente di aggiornamento dello stato
+        return adminService.unbanUser(id);
     }
 }
