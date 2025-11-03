@@ -32,39 +32,46 @@ public class SecurityConfig {
 
     /**
      * Questo Bean definisce il "provider" di autenticazione.
-     * Collega il servizio che carica gli utenti (UserDetailsService) con l'encoder che controlla le password (PasswordEncoder).
+     * Collega il servizio che carica gli utenti (UserDetailsService) con l'encoder
+     * che controlla le password (PasswordEncoder).
      */
     // @Bean
     // public AuthenticationProvider authenticationProvider() {
-    //     DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-    //     authProvider.setUserDetailsService(userDetailsService);
-    //     authProvider.setPasswordEncoder(passwordEncoder);
-    //     return authProvider;
+    // DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+    // authProvider.setUserDetailsService(userDetailsService);
+    // authProvider.setPasswordEncoder(passwordEncoder);
+    // return authProvider;
     // }
 
     /**
-     * Espone l'AuthenticationManager come Bean, necessario per autenticare manualmente gli utenti nel controller di login.
+     * Espone l'AuthenticationManager come Bean, necessario per autenticare
+     * manualmente gli utenti nel controller di login.
      */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
 
-    // BEAN corsFilter() c'é gia definito piú sotto ma non è necessario perché siamo sulla stessa origine (localhost:8080)
+    // BEAN corsFilter() c'é gia definito piú sotto ma non è necessario perché siamo
+    // sulla stessa origine (localhost:8080)
     /**
      * Configurazione base per il CORS (Cross-Origin Resource Sharing).
-     * FONDAMENTALE per permettere al frontend di chiamare il backend senza problemi di politica di stessa origine.
+     * FONDAMENTALE per permettere al frontend di chiamare il backend senza problemi
+     * di politica di stessa origine.
      */
     // @Bean
-    // public CorsFilter corsFilter() { // configurazione del filtro CORS in caso serva se si dovessero usare React, Angular, ecc.
-    //     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    //     CorsConfiguration config = new CorsConfiguration();
-    //     config.setAllowCredentials(true);
-    //     config.addAllowedOrigin("http://localhost:3000"); // URL per il frontend, serve a permettere le richieste da lì
-    //     config.addAllowedHeader("*");
-    //     config.addAllowedMethod("*");
-    //     source.registerCorsConfiguration("/**", config);
-    //     return new CorsFilter(source);
+    // public CorsFilter corsFilter() { // configurazione del filtro CORS in caso
+    // serva se si dovessero usare React, Angular, ecc.
+    // UrlBasedCorsConfigurationSource source = new
+    // UrlBasedCorsConfigurationSource();
+    // CorsConfiguration config = new CorsConfiguration();
+    // config.setAllowCredentials(true);
+    // config.addAllowedOrigin("http://localhost:3000"); // URL per il frontend,
+    // serve a permettere le richieste da lì
+    // config.addAllowedHeader("*");
+    // config.addAllowedMethod("*");
+    // source.registerCorsConfiguration("/**", config);
+    // return new CorsFilter(source);
     // }
 
     /**
@@ -74,33 +81,33 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())
-            .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            // .authenticationProvider(authenticationProvider())
-            
-            .authorizeHttpRequests(authz -> authz
-                // Endpoint Pubblici API
-                .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                // .authenticationProvider(authenticationProvider())
 
-                // Pagine HTML Pubbliche e Risorse Statiche
-                .requestMatchers("/", "/landing.html", "/register.html", 
-                                 "/player.html", "/master.html", "/profile.html",
-                                 "/edit-sheet.html",
-                                 "/master-campaign-detail.html",
-                                 "/player-campaign-detail.html", 
-                                 "/css/**", "/js/**", "/images/**").permitAll()
+                .authorizeHttpRequests(authz -> authz
+                        // Endpoint Pubblici API
+                        .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
 
-                // Endpoint Protetti API (Qui resta la protezione DEI DATI)
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                .requestMatchers("/api/profile/**").hasRole("USER") 
-                .requestMatchers("/api/player/**").hasRole("PLAYER")
-                .requestMatchers("/api/master/**").hasRole("MASTER")
-                .requestMatchers("/admin.html").hasRole("ADMIN")
+                        // TUTTE le pagine HTML sono ora pubbliche (protezione lato client)
+                        .requestMatchers("/", "/*.html", "/css/**", "/js/**", "/images/**", "/error", "/favicon.ico")
+                        .permitAll()
 
-                // Altre richieste
-                .anyRequest().authenticated()
-            );
+                        // Controller routes - redirect pubblici
+                        .requestMatchers("/landing", "/signup", "/dashboard/**", "/admin", "/profile").permitAll()
+
+                        // Solo gli Endpoint API restano protetti (qui serve il JWT)
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/profile/**").hasAnyRole("USER", "PLAYER", "MASTER", "ADMIN")
+                        .requestMatchers("/api/player/**").hasRole("PLAYER")
+                        .requestMatchers("/api/master/**").hasRole("MASTER")
+
+                        // Altre richieste API richiedono autenticazione
+                        .requestMatchers("/api/**").authenticated()
+
+                        // Tutto il resto pubblico
+                        .anyRequest().permitAll());
 
         http.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
