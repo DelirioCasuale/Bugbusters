@@ -45,3 +45,20 @@
   gap: 1rem;
   justify-content: center;
 }
+
+/* Stile personalizzato per il bottone Elimina in master.html */
+.btn-delete-custom {
+    /* Usa il viola scuro dalle tue variabili globali */
+    background-color: var(--primary-purple-dark); 
+    border-color: var(--primary-purple-dark);
+    
+    /* Ombra corrispondente (copiata da .btn-primary e adattata) */
+    box-shadow: 0 4px 15px rgba(109, 40, 217, 0.3); 
+}
+
+.btn-delete-custom:hover {
+    /* Un viola ancora più scuro per l'hover */
+    background-color: #581c87; 
+    border-color: #581c87;
+    box-shadow: 0 6px 20px rgba(109, 40, 217, 0.5);
+}
