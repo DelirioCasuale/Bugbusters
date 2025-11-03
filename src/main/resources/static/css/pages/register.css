@@ -2,8 +2,9 @@
    PAGINA REGISTRAZIONE
    ============================================================================ */
 body.body-register {
-   background: url('../../images/tavern_signup.gif') no-repeat center center/cover;
-   background-attachment: fixed;
+  background: url('../../images/tavern_signup.gif') no-repeat center
+    center/cover;
+  background-attachment: fixed;
 }
 
 /* Wrapper per centrare il form */
@@ -23,17 +24,25 @@ body.body-register {
   width: 90%;
   max-width: 450px;
   color: var(--text-primary);
-  box-shadow: 0 0 25px rgba(106, 90, 205, 0.4);
   text-align: center;
 }
 
-.form-card h1 { 
-  font-family: var(--font-display); 
-  color: var(--text-highlight); 
-  margin-bottom: 10px; 
+.form-card h1 {
+  font-family: var(--font-display);
+  color: var(--text-highlight);
+  margin-bottom: 10px;
 }
-.form-card .subtitle { 
-  font-size: 0.9rem; 
-  color: var(--text-secondary); 
-  margin-bottom: 25px; 
+
+/* Override for logo-styled form titles */
+.form-card h1.logo {
+  font-family: 'Cinzel Decorative', serif !important;
+  font-size: 1.7rem;
+  color: var(--primary-purple-light) !important;
+  text-shadow: 0 0 6px var(--primary-purple-dark);
+}
+
+.form-card .subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 25px;
 }

@@ -1,0 +1,28 @@
+/* ============================================================================
+   LANDING PAGE - Stili specifici per la pagina di landing
+   ============================================================================ */
+
+/* ============================================================================
+   MAIN - Override specifici per landing
+   ============================================================================ */
+main {
+  gap: 10px;
+  position: relative;
+  height: 100vh;
+  box-sizing: border-box; /* Assicura che il padding sia contenuto nell'altezza */
+}
+
+body.landing-main-bg {
+  background-image: url('../images/tavern_background.gif');
+  background-position: center center;
+}
+
+/* ============================================================================
+   UTILITY CLASSES - Override specifici per landing
+   ============================================================================ */
+
+/* OVERRIDE */
+.hero,
+.about {
+  border: 2px solid #224b97 !important;
+}

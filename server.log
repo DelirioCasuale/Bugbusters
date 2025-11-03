@@ -1,0 +1,767 @@
+nohup: ignoring input
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.generation:Bugbusters >----------------------
+[INFO] Building Bugbusters 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.5.6:run (default-cli) > test-compile @ Bugbusters >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ Bugbusters ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 59 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ Bugbusters ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ Bugbusters ---
+[INFO] skip non existing resourceDirectory C:\Users\matth\Desktop\It\Z- Generation Italy\Z) FINAL PROJECT\Bugbusters\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ Bugbusters ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:3.5.6:run (default-cli) < test-compile @ Bugbusters <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.5.6:run (default-cli) @ Bugbusters ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.6)
+
+2025-11-03T12:29:58.877+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] c.g.Bugbusters.BugbustersApplication     : Starting BugbustersApplication using Java 21.0.7 with PID 32064 (C:\Users\matth\Desktop\It\Z- Generation Italy\Z) FINAL PROJECT\Bugbusters\target\classes started by matth in C:\Users\matth\Desktop\It\Z- Generation Italy\Z) FINAL PROJECT\Bugbusters)
+2025-11-03T12:29:58.882+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] c.g.Bugbusters.BugbustersApplication     : No active profile set, falling back to 1 default profile: "default"
+2025-11-03T12:29:58.962+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-11-03T12:29:58.962+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-11-03T12:30:00.383+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-11-03T12:30:00.520+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 123 ms. Found 9 JPA repository interfaces.
+2025-11-03T12:30:01.363+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-11-03T12:30:01.378+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-03T12:30:01.379+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.46]
+2025-11-03T12:30:01.433+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-03T12:30:01.434+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2470 ms
+2025-11-03T12:30:01.730+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-11-03T12:30:01.828+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
+2025-11-03T12:30:01.868+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-11-03T12:30:02.263+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-11-03T12:30:02.303+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-11-03T12:30:02.514+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1105434f
+2025-11-03T12:30:02.516+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-11-03T12:30:02.613+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.43
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-11-03T12:30:04.431+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-11-03T12:30:04.489+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-11-03T12:30:05.133+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-11-03T12:30:05.865+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2025-11-03T12:30:06.160+01:00  WARN 32064 --- [Bugbusters] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-11-03T12:30:06.878+01:00 DEBUG 32064 --- [Bugbusters] [  restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, AuthTokenFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-11-03T12:30:07.131+01:00  WARN 32064 --- [Bugbusters] [  restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2025-11-03T12:30:07.427+01:00  WARN 32064 --- [Bugbusters] [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2025-11-03T12:30:07.473+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-11-03T12:30:07.487+01:00  INFO 32064 --- [Bugbusters] [  restartedMain] c.g.Bugbusters.BugbustersApplication     : Started BugbustersApplication in 9.291 seconds (process running for 9.887)
+2025-11-03T12:30:07.504+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Esecuzione scheduler: Conferma proposte scadute...
+Hibernate: 
+    select
+        sp1_0.id,
+        sp1_0.campaign_id,
+        sp1_0.expires_on,
+        sp1_0.is_confirmed,
+        sp1_0.proposed_date 
+    from
+        session_proposals sp1_0 
+    where
+        sp1_0.expires_on<? 
+        and not(sp1_0.is_confirmed)
+2025-11-03T12:30:07.623+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Nessuna proposta da confermare.
+2025-11-03T12:30:07.796+01:00  INFO 32064 --- [Bugbusters] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-03T12:30:07.797+01:00  INFO 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-03T12:30:07.799+01:00  INFO 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-11-03T12:30:07.820+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /test.html
+2025-11-03T12:30:07.828+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:30:07.831+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /test.html
+2025-11-03T12:30:07.860+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /error
+2025-11-03T12:30:07.860+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /error
+2025-11-03T12:30:07.939+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:30:33.490+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /landing.html?id=8b86a8de-b82c-41e2-91af-e997b73b1490&vscodeBrowserReqId=1762169433481
+2025-11-03T12:30:33.491+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:30:33.491+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /landing.html?id=8b86a8de-b82c-41e2-91af-e997b73b1490&vscodeBrowserReqId=1762169433481
+2025-11-03T12:34:48.337+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /landing.html
+2025-11-03T12:34:48.337+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.337+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.338+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /landing.html
+2025-11-03T12:34:48.390+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /.well-known/appspecific/com.chrome.devtools.json
+2025-11-03T12:34:48.391+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.391+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.392+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /.well-known/appspecific/com.chrome.devtools.json
+2025-11-03T12:34:48.397+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /error
+2025-11-03T12:34:48.397+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /error
+2025-11-03T12:34:48.401+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.408+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /css/main.css
+2025-11-03T12:34:48.408+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.408+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.408+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /css/main.css
+2025-11-03T12:34:48.430+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /images/dice.png
+2025-11-03T12:34:48.430+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.430+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.431+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /images/dice.png
+2025-11-03T12:34:48.439+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /js/page.landing.js
+2025-11-03T12:34:48.439+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.439+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.440+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /js/page.landing.js
+2025-11-03T12:34:48.683+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /css/global.css
+2025-11-03T12:34:48.688+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /css/components/footer.css
+2025-11-03T12:34:48.688+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /css/components/header.css
+2025-11-03T12:34:48.689+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.690+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.690+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /css/components/modal.css
+2025-11-03T12:34:48.690+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.690+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.690+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.690+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.690+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /css/components/header.css
+2025-11-03T12:34:48.690+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /css/components/modal.css
+2025-11-03T12:34:48.690+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /css/components/footer.css
+2025-11-03T12:34:48.691+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.692+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.692+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /css/global.css
+2025-11-03T12:34:48.692+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /css/components/buttons.css
+2025-11-03T12:34:48.692+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.692+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.693+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /css/components/buttons.css
+2025-11-03T12:34:48.696+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /css/components/forms.css
+2025-11-03T12:34:48.697+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.697+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.697+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /css/components/forms.css
+2025-11-03T12:34:48.700+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /css/components/cards.css
+2025-11-03T12:34:48.700+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.700+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.700+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /css/components/cards.css
+2025-11-03T12:34:48.703+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/landing.css
+2025-11-03T12:34:48.703+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.704+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.704+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/landing.css
+2025-11-03T12:34:48.708+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/register.css
+2025-11-03T12:34:48.708+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.709+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.709+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/register.css
+2025-11-03T12:34:48.709+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/campaign-detail.css
+2025-11-03T12:34:48.709+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.709+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.709+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/campaign-detail.css
+2025-11-03T12:34:48.709+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/dashboard.css
+2025-11-03T12:34:48.710+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.711+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.711+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/character-sheet.css
+2025-11-03T12:34:48.711+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.711+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/dashboard.css
+2025-11-03T12:34:48.712+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.712+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/character-sheet.css
+2025-11-03T12:34:48.712+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/admin.css
+2025-11-03T12:34:48.712+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.712+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.712+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/admin.css
+2025-11-03T12:34:48.719+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /css/responsive.css
+2025-11-03T12:34:48.720+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.720+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.720+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /css/responsive.css
+2025-11-03T12:34:48.726+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /js/modules/api.js
+2025-11-03T12:34:48.726+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /js/modules/auth.js
+2025-11-03T12:34:48.726+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.726+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.726+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.726+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.726+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /js/modules/api.js
+2025-11-03T12:34:48.726+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /js/modules/ui.js
+2025-11-03T12:34:48.727+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.727+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /js/modules/auth.js
+2025-11-03T12:34:48.727+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.728+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /js/modules/ui.js
+2025-11-03T12:34:48.800+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /images/tavern_background_landing.gif
+2025-11-03T12:34:48.800+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.800+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.800+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /images/tavern_background_landing.gif
+2025-11-03T12:34:48.907+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /images/dice.png
+2025-11-03T12:34:48.908+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:48.908+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:48.909+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /images/dice.png
+2025-11-03T12:34:49.024+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /images/dice.png
+2025-11-03T12:34:49.025+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:34:49.025+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:34:49.025+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /images/dice.png
+2025-11-03T12:45:07.492+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Esecuzione scheduler: Conferma proposte scadute...
+Hibernate: 
+    select
+        sp1_0.id,
+        sp1_0.campaign_id,
+        sp1_0.expires_on,
+        sp1_0.is_confirmed,
+        sp1_0.proposed_date 
+    from
+        session_proposals sp1_0 
+    where
+        sp1_0.expires_on<? 
+        and not(sp1_0.is_confirmed)
+2025-11-03T12:45:07.495+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Nessuna proposta da confermare.
+2025-11-03T12:48:39.725+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /landing.html
+2025-11-03T12:48:39.725+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:39.725+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:39.725+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /landing.html
+2025-11-03T12:48:39.872+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /css/main.css
+2025-11-03T12:48:39.872+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:39.872+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:39.872+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /css/main.css
+2025-11-03T12:48:39.872+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /images/dice.png
+2025-11-03T12:48:39.872+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:39.873+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:39.873+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /images/dice.png
+2025-11-03T12:48:39.876+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /js/page.landing.js
+2025-11-03T12:48:39.876+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:39.876+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:39.876+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /js/page.landing.js
+2025-11-03T12:48:39.981+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /css/global.css
+2025-11-03T12:48:39.981+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /css/components/header.css
+2025-11-03T12:48:39.981+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:39.981+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:39.981+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:39.981+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:39.981+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /css/global.css
+2025-11-03T12:48:39.982+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /css/components/header.css
+2025-11-03T12:48:39.982+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /css/components/footer.css
+2025-11-03T12:48:39.982+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:39.982+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:39.982+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /css/components/footer.css
+2025-11-03T12:48:39.983+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /css/components/modal.css
+2025-11-03T12:48:39.983+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:39.983+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:39.983+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /css/components/modal.css
+2025-11-03T12:48:39.984+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /css/components/buttons.css
+2025-11-03T12:48:39.984+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:39.984+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:39.984+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /css/components/buttons.css
+2025-11-03T12:48:39.988+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /css/components/forms.css
+2025-11-03T12:48:39.988+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:39.988+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:39.988+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /css/components/forms.css
+2025-11-03T12:48:39.989+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /css/components/cards.css
+2025-11-03T12:48:39.989+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/landing.css
+2025-11-03T12:48:39.989+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:39.989+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:39.989+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /css/components/cards.css
+2025-11-03T12:48:39.989+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:39.989+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:39.990+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/landing.css
+2025-11-03T12:48:39.992+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/register.css
+2025-11-03T12:48:39.993+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:39.993+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:39.993+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/register.css
+2025-11-03T12:48:39.996+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/dashboard.css
+2025-11-03T12:48:39.996+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:39.996+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:39.996+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/dashboard.css
+2025-11-03T12:48:39.998+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/admin.css
+2025-11-03T12:48:39.998+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:39.998+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:39.998+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/admin.css
+2025-11-03T12:48:39.999+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/campaign-detail.css
+2025-11-03T12:48:40.001+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/character-sheet.css
+2025-11-03T12:48:40.001+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:40.001+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:40.001+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:40.001+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:40.001+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/character-sheet.css
+2025-11-03T12:48:40.001+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/campaign-detail.css
+2025-11-03T12:48:40.002+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /css/responsive.css
+2025-11-03T12:48:40.002+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:40.003+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:40.003+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /css/responsive.css
+2025-11-03T12:48:40.005+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /js/modules/api.js
+2025-11-03T12:48:40.005+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:40.005+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:40.005+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /js/modules/api.js
+2025-11-03T12:48:40.007+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /js/modules/auth.js
+2025-11-03T12:48:40.008+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:40.008+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:40.008+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /js/modules/auth.js
+2025-11-03T12:48:40.010+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /js/modules/ui.js
+2025-11-03T12:48:40.010+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:40.010+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:40.010+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /js/modules/ui.js
+2025-11-03T12:48:40.031+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /images/tavern_background_landing.gif
+2025-11-03T12:48:40.031+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:40.032+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:40.032+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /images/tavern_background_landing.gif
+2025-11-03T12:48:55.828+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /css/global.css
+2025-11-03T12:48:55.828+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /css/components/header.css
+2025-11-03T12:48:55.828+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /css/main.css
+2025-11-03T12:48:55.829+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:55.829+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:55.829+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /css/global.css
+2025-11-03T12:48:55.830+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:55.830+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:55.831+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /css/components/header.css
+2025-11-03T12:48:55.832+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:55.832+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:55.832+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /css/main.css
+2025-11-03T12:48:55.837+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /css/components/modal.css
+2025-11-03T12:48:55.837+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /css/components/buttons.css
+2025-11-03T12:48:55.837+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:55.837+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:55.837+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:55.837+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:55.837+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /css/components/buttons.css
+2025-11-03T12:48:55.838+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /css/components/footer.css
+2025-11-03T12:48:55.838+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:55.838+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:55.838+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /css/components/footer.css
+2025-11-03T12:48:55.837+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /css/components/modal.css
+2025-11-03T12:48:55.840+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /css/components/forms.css
+2025-11-03T12:48:55.841+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:55.841+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:55.841+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /css/components/forms.css
+2025-11-03T12:48:55.843+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /css/components/cards.css
+2025-11-03T12:48:55.844+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:55.844+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:55.845+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /css/components/cards.css
+2025-11-03T12:48:55.845+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/landing.css
+2025-11-03T12:48:55.846+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:55.846+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:55.846+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/landing.css
+2025-11-03T12:48:55.854+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/register.css
+2025-11-03T12:48:55.854+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:55.854+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:55.855+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/register.css
+2025-11-03T12:48:55.862+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/admin.css
+2025-11-03T12:48:55.862+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/dashboard.css
+2025-11-03T12:48:55.862+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:55.862+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:55.862+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:55.863+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/admin.css
+2025-11-03T12:48:55.863+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:55.863+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/dashboard.css
+2025-11-03T12:48:55.864+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/campaign-detail.css
+2025-11-03T12:48:55.864+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:55.864+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:55.865+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/campaign-detail.css
+2025-11-03T12:48:55.866+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/character-sheet.css
+2025-11-03T12:48:55.868+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:55.870+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /css/responsive.css
+2025-11-03T12:48:55.870+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:55.870+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:55.870+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /css/responsive.css
+2025-11-03T12:48:55.871+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:55.871+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/character-sheet.css
+2025-11-03T12:48:55.871+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /.well-known/appspecific/com.chrome.devtools.json
+2025-11-03T12:48:55.871+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:48:55.871+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:48:55.871+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /.well-known/appspecific/com.chrome.devtools.json
+2025-11-03T12:48:55.879+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /error
+2025-11-03T12:48:55.880+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /error
+2025-11-03T12:48:55.886+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:25.911+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /landing.html
+2025-11-03T12:51:25.911+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:25.911+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:25.911+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /landing.html
+2025-11-03T12:51:25.946+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /.well-known/appspecific/com.chrome.devtools.json
+2025-11-03T12:51:25.947+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:25.947+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:25.947+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /.well-known/appspecific/com.chrome.devtools.json
+2025-11-03T12:51:25.949+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /css/main.css
+2025-11-03T12:51:25.949+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:25.949+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:25.949+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /css/main.css
+2025-11-03T12:51:25.950+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /error
+2025-11-03T12:51:25.950+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /error
+2025-11-03T12:51:25.951+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:25.975+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /images/dice.png
+2025-11-03T12:51:25.975+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:25.975+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:25.975+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /js/page.landing.js
+2025-11-03T12:51:25.975+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /images/dice.png
+2025-11-03T12:51:25.975+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:25.975+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:25.976+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /js/page.landing.js
+2025-11-03T12:51:26.148+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /css/global.css
+2025-11-03T12:51:26.149+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:26.149+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:26.149+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /css/global.css
+2025-11-03T12:51:26.150+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /css/components/header.css
+2025-11-03T12:51:26.150+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:26.151+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:26.151+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /css/components/header.css
+2025-11-03T12:51:26.152+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /css/components/footer.css
+2025-11-03T12:51:26.152+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:26.152+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:26.152+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /css/components/footer.css
+2025-11-03T12:51:26.155+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /css/components/modal.css
+2025-11-03T12:51:26.155+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:26.156+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:26.156+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /css/components/buttons.css
+2025-11-03T12:51:26.156+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:26.156+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:26.156+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /css/components/buttons.css
+2025-11-03T12:51:26.156+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /css/components/modal.css
+2025-11-03T12:51:26.158+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /css/components/forms.css
+2025-11-03T12:51:26.159+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:26.159+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:26.160+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /css/components/forms.css
+2025-11-03T12:51:26.162+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /css/components/cards.css
+2025-11-03T12:51:26.163+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:26.163+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:26.163+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /css/components/cards.css
+2025-11-03T12:51:26.165+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/landing.css
+2025-11-03T12:51:26.166+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:26.166+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:26.167+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/landing.css
+2025-11-03T12:51:26.170+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/register.css
+2025-11-03T12:51:26.171+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:26.171+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/dashboard.css
+2025-11-03T12:51:26.171+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:26.171+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/register.css
+2025-11-03T12:51:26.171+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:26.172+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:26.172+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/dashboard.css
+2025-11-03T12:51:26.174+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/admin.css
+2025-11-03T12:51:26.174+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:26.174+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:26.174+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/admin.css
+2025-11-03T12:51:26.175+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/campaign-detail.css
+2025-11-03T12:51:26.176+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:26.177+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:26.179+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/character-sheet.css
+2025-11-03T12:51:26.179+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:26.180+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:26.180+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/character-sheet.css
+2025-11-03T12:51:26.178+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/campaign-detail.css
+2025-11-03T12:51:26.187+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /css/responsive.css
+2025-11-03T12:51:26.187+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:26.187+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:26.187+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /css/responsive.css
+2025-11-03T12:51:26.215+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /images/tavern_background_landing.gif
+2025-11-03T12:51:26.215+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:26.216+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:26.216+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /images/tavern_background_landing.gif
+2025-11-03T12:51:26.313+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /js/modules/api.js
+2025-11-03T12:51:26.314+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /js/modules/auth.js
+2025-11-03T12:51:26.314+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:26.314+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:26.314+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /js/modules/ui.js
+2025-11-03T12:51:26.314+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:26.314+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:26.314+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:26.314+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /js/modules/auth.js
+2025-11-03T12:51:26.314+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /js/modules/api.js
+2025-11-03T12:51:26.314+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:26.314+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /js/modules/ui.js
+2025-11-03T12:51:26.389+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /images/dice.png
+2025-11-03T12:51:26.389+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T12:51:26.389+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T12:51:26.390+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /images/dice.png
+2025-11-03T13:00:07.495+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Esecuzione scheduler: Conferma proposte scadute...
+Hibernate: 
+    select
+        sp1_0.id,
+        sp1_0.campaign_id,
+        sp1_0.expires_on,
+        sp1_0.is_confirmed,
+        sp1_0.proposed_date 
+    from
+        session_proposals sp1_0 
+    where
+        sp1_0.expires_on<? 
+        and not(sp1_0.is_confirmed)
+2025-11-03T13:00:07.498+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Nessuna proposta da confermare.
+2025-11-03T13:15:07.497+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Esecuzione scheduler: Conferma proposte scadute...
+Hibernate: 
+    select
+        sp1_0.id,
+        sp1_0.campaign_id,
+        sp1_0.expires_on,
+        sp1_0.is_confirmed,
+        sp1_0.proposed_date 
+    from
+        session_proposals sp1_0 
+    where
+        sp1_0.expires_on<? 
+        and not(sp1_0.is_confirmed)
+2025-11-03T13:15:07.501+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Nessuna proposta da confermare.
+2025-11-03T13:30:07.498+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Esecuzione scheduler: Conferma proposte scadute...
+Hibernate: 
+    select
+        sp1_0.id,
+        sp1_0.campaign_id,
+        sp1_0.expires_on,
+        sp1_0.is_confirmed,
+        sp1_0.proposed_date 
+    from
+        session_proposals sp1_0 
+    where
+        sp1_0.expires_on<? 
+        and not(sp1_0.is_confirmed)
+2025-11-03T13:30:07.500+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Nessuna proposta da confermare.
+2025-11-03T13:45:07.490+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Esecuzione scheduler: Conferma proposte scadute...
+Hibernate: 
+    select
+        sp1_0.id,
+        sp1_0.campaign_id,
+        sp1_0.expires_on,
+        sp1_0.is_confirmed,
+        sp1_0.proposed_date 
+    from
+        session_proposals sp1_0 
+    where
+        sp1_0.expires_on<? 
+        and not(sp1_0.is_confirmed)
+2025-11-03T13:45:07.494+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Nessuna proposta da confermare.
+2025-11-03T14:00:07.489+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Esecuzione scheduler: Conferma proposte scadute...
+Hibernate: 
+    select
+        sp1_0.id,
+        sp1_0.campaign_id,
+        sp1_0.expires_on,
+        sp1_0.is_confirmed,
+        sp1_0.proposed_date 
+    from
+        session_proposals sp1_0 
+    where
+        sp1_0.expires_on<? 
+        and not(sp1_0.is_confirmed)
+2025-11-03T14:00:07.493+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Nessuna proposta da confermare.
+2025-11-03T14:11:41.572+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /landing.html
+2025-11-03T14:11:41.573+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.573+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.573+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /landing.html
+2025-11-03T14:11:41.655+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /.well-known/appspecific/com.chrome.devtools.json
+2025-11-03T14:11:41.656+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.656+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.656+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /.well-known/appspecific/com.chrome.devtools.json
+2025-11-03T14:11:41.661+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /error
+2025-11-03T14:11:41.661+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /error
+2025-11-03T14:11:41.662+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /css/main.css
+2025-11-03T14:11:41.663+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.663+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.663+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /css/main.css
+2025-11-03T14:11:41.667+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /images/dice.png
+2025-11-03T14:11:41.667+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.667+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.667+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /images/dice.png
+2025-11-03T14:11:41.670+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /js/page.landing.js
+2025-11-03T14:11:41.670+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.670+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.670+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /js/page.landing.js
+2025-11-03T14:11:41.671+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.890+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /css/global.css
+2025-11-03T14:11:41.890+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.890+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.890+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /css/global.css
+2025-11-03T14:11:41.900+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /css/components/modal.css
+2025-11-03T14:11:41.900+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.900+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.901+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /css/components/modal.css
+2025-11-03T14:11:41.903+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /css/components/footer.css
+2025-11-03T14:11:41.903+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.903+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /css/components/header.css
+2025-11-03T14:11:41.903+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.903+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.903+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /css/components/footer.css
+2025-11-03T14:11:41.903+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.904+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /css/components/header.css
+2025-11-03T14:11:41.912+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /css/components/buttons.css
+2025-11-03T14:11:41.913+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.913+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.913+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /css/components/buttons.css
+2025-11-03T14:11:41.920+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Securing GET /css/components/forms.css
+2025-11-03T14:11:41.920+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.921+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /css/components/cards.css
+2025-11-03T14:11:41.921+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.922+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.922+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.922+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /css/components/cards.css
+2025-11-03T14:11:41.922+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-4] o.s.security.web.FilterChainProxy        : Secured GET /css/components/forms.css
+2025-11-03T14:11:41.927+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/landing.css
+2025-11-03T14:11:41.928+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/register.css
+2025-11-03T14:11:41.928+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.928+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.928+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.928+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.928+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/register.css
+2025-11-03T14:11:41.928+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/landing.css
+2025-11-03T14:11:41.932+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/dashboard.css
+2025-11-03T14:11:41.933+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.933+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.933+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/dashboard.css
+2025-11-03T14:11:41.945+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/campaign-detail.css
+2025-11-03T14:11:41.945+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.945+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.945+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-7] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/campaign-detail.css
+2025-11-03T14:11:41.949+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Securing GET /css/responsive.css
+2025-11-03T14:11:41.949+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.950+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.950+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Securing GET /js/modules/api.js
+2025-11-03T14:11:41.950+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-3] o.s.security.web.FilterChainProxy        : Secured GET /css/responsive.css
+2025-11-03T14:11:41.950+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.950+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.950+01:00 DEBUG 32064 --- [Bugbusters] [io-8080-exec-10] o.s.security.web.FilterChainProxy        : Secured GET /js/modules/api.js
+2025-11-03T14:11:41.953+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/admin.css
+2025-11-03T14:11:41.953+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.953+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.953+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-8] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/admin.css
+2025-11-03T14:11:41.953+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Securing GET /css/pages/character-sheet.css
+2025-11-03T14:11:41.954+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.954+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.954+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-1] o.s.security.web.FilterChainProxy        : Secured GET /css/pages/character-sheet.css
+2025-11-03T14:11:41.958+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Securing GET /js/modules/auth.js
+2025-11-03T14:11:41.958+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.958+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.959+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-6] o.s.security.web.FilterChainProxy        : Secured GET /js/modules/auth.js
+2025-11-03T14:11:41.964+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Securing GET /js/modules/ui.js
+2025-11-03T14:11:41.964+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.964+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.964+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-9] o.s.security.web.FilterChainProxy        : Secured GET /js/modules/ui.js
+2025-11-03T14:11:41.980+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Securing GET /images/tavern_background_landing.gif
+2025-11-03T14:11:41.980+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:41.980+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:41.980+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-5] o.s.security.web.FilterChainProxy        : Secured GET /images/tavern_background_landing.gif
+2025-11-03T14:11:42.149+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Securing GET /images/dice.png
+2025-11-03T14:11:42.149+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+2025-11-03T14:11:42.149+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.s.w.session.SessionManagementFilter  : Request requested invalid session id 0A143096E93C344CF319325CF3A2440A
+2025-11-03T14:11:42.149+01:00 DEBUG 32064 --- [Bugbusters] [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /images/dice.png
+2025-11-03T14:15:07.500+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Esecuzione scheduler: Conferma proposte scadute...
+Hibernate: 
+    select
+        sp1_0.id,
+        sp1_0.campaign_id,
+        sp1_0.expires_on,
+        sp1_0.is_confirmed,
+        sp1_0.proposed_date 
+    from
+        session_proposals sp1_0 
+    where
+        sp1_0.expires_on<? 
+        and not(sp1_0.is_confirmed)
+2025-11-03T14:15:07.503+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Nessuna proposta da confermare.
+2025-11-03T14:30:07.495+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Esecuzione scheduler: Conferma proposte scadute...
+Hibernate: 
+    select
+        sp1_0.id,
+        sp1_0.campaign_id,
+        sp1_0.expires_on,
+        sp1_0.is_confirmed,
+        sp1_0.proposed_date 
+    from
+        session_proposals sp1_0 
+    where
+        sp1_0.expires_on<? 
+        and not(sp1_0.is_confirmed)
+2025-11-03T14:30:07.497+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Nessuna proposta da confermare.
+2025-11-03T14:45:07.501+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Esecuzione scheduler: Conferma proposte scadute...
+Hibernate: 
+    select
+        sp1_0.id,
+        sp1_0.campaign_id,
+        sp1_0.expires_on,
+        sp1_0.is_confirmed,
+        sp1_0.proposed_date 
+    from
+        session_proposals sp1_0 
+    where
+        sp1_0.expires_on<? 
+        and not(sp1_0.is_confirmed)
+2025-11-03T14:45:07.505+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Nessuna proposta da confermare.
+2025-11-03T15:00:07.489+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Esecuzione scheduler: Conferma proposte scadute...
+Hibernate: 
+    select
+        sp1_0.id,
+        sp1_0.campaign_id,
+        sp1_0.expires_on,
+        sp1_0.is_confirmed,
+        sp1_0.proposed_date 
+    from
+        session_proposals sp1_0 
+    where
+        sp1_0.expires_on<? 
+        and not(sp1_0.is_confirmed)
+2025-11-03T15:00:07.493+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Nessuna proposta da confermare.
+2025-11-03T15:15:07.496+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Esecuzione scheduler: Conferma proposte scadute...
+Hibernate: 
+    select
+        sp1_0.id,
+        sp1_0.campaign_id,
+        sp1_0.expires_on,
+        sp1_0.is_confirmed,
+        sp1_0.proposed_date 
+    from
+        session_proposals sp1_0 
+    where
+        sp1_0.expires_on<? 
+        and not(sp1_0.is_confirmed)
+2025-11-03T15:15:07.499+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Nessuna proposta da confermare.
+2025-11-03T15:30:07.501+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Esecuzione scheduler: Conferma proposte scadute...
+Hibernate: 
+    select
+        sp1_0.id,
+        sp1_0.campaign_id,
+        sp1_0.expires_on,
+        sp1_0.is_confirmed,
+        sp1_0.proposed_date 
+    from
+        session_proposals sp1_0 
+    where
+        sp1_0.expires_on<? 
+        and not(sp1_0.is_confirmed)
+2025-11-03T15:30:07.505+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Nessuna proposta da confermare.
+2025-11-03T15:45:07.491+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Esecuzione scheduler: Conferma proposte scadute...
+Hibernate: 
+    select
+        sp1_0.id,
+        sp1_0.campaign_id,
+        sp1_0.expires_on,
+        sp1_0.is_confirmed,
+        sp1_0.proposed_date 
+    from
+        session_proposals sp1_0 
+    where
+        sp1_0.expires_on<? 
+        and not(sp1_0.is_confirmed)
+2025-11-03T15:45:07.494+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Nessuna proposta da confermare.
+2025-11-03T16:00:07.490+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Esecuzione scheduler: Conferma proposte scadute...
+Hibernate: 
+    select
+        sp1_0.id,
+        sp1_0.campaign_id,
+        sp1_0.expires_on,
+        sp1_0.is_confirmed,
+        sp1_0.proposed_date 
+    from
+        session_proposals sp1_0 
+    where
+        sp1_0.expires_on<? 
+        and not(sp1_0.is_confirmed)
+2025-11-03T16:00:07.493+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Nessuna proposta da confermare.
+2025-11-03T16:15:07.496+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Esecuzione scheduler: Conferma proposte scadute...
+Hibernate: 
+    select
+        sp1_0.id,
+        sp1_0.campaign_id,
+        sp1_0.expires_on,
+        sp1_0.is_confirmed,
+        sp1_0.proposed_date 
+    from
+        session_proposals sp1_0 
+    where
+        sp1_0.expires_on<? 
+        and not(sp1_0.is_confirmed)
+2025-11-03T16:15:07.506+01:00  INFO 32064 --- [Bugbusters] [   scheduling-1] c.g.B.scheduler.SessionScheduler         : Nessuna proposta da confermare.
+^C

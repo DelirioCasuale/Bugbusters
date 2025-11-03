@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,40 +9,16 @@
     <link rel="stylesheet" href="css/main.css" />
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
+
 <body class="body-register">
 
-    <header>
-        <div class="logo-flex">
-            <i><img src="images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
-            <div class="logo">Tavern Portal</div>
-        </div>
-        <nav>
-            <a href="landing.html">Home</a>
-            <a href="#" class="login-trigger">Accedi</a>
-        </nav>
-    </header>
+    <div id="header-placeholder"></div>
 
-    <div id="loginModal" class="custom-modal">
-        <div class="modal-overlay"></div>
-        <div class="modal-container">
-            <div class="modal-header"><h2 class="modal-title">Accedi</h2><button type="button" class="modal-close">&times;</button></div>
-            <div class="modal-body">
-                <form id="loginForm">
-                    <div class="form-group"><label for="login-username">Username</label><input type="text" id="login-username" required></div>
-                    <div class="form-group"><label for="login-password">Password</label><input type="password" id="login-password" required></div>
-                    <div id="loginError" class="error-message"></div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <a href="register.html">Non hai un account?</a>
-                <div class="btn-group"><button type="button" class="btn btn-secondary modal-cancel">Chiudi</button><button type="submit" form="loginForm" class="btn btn-primary">Accedi</button></div>
-            </div>
-        </div>
-    </div>
+    <div id="modal-placeholder"></div>
 
     <main class="content-wrapper">
         <section class="form-card">
-            <h1>Crea il tuo account</h1>
+            <h1 class="logo">Crea il tuo account</h1>
             <p class="subtitle">Unisciti alla taverna e inizia la tua avventura!</p>
 
             <form id="registerForm" class="styled-form">
@@ -55,7 +32,23 @@
                 </div>
                 <div class="form-group">
                     <label for="reg-password">Password</label>
-                    <input type="password" id="reg-password" name="password" placeholder="Minimo 6 caratteri" required>
+                    <div class="password-input-container">
+                        <input type="password" id="reg-password" name="password" placeholder="Minimo 6 caratteri" required>
+                        <button type="button" class="password-toggle" id="password-toggle-reg" aria-label="Mostra/Nascondi password">
+                            <img src="images/eye-visible.svg" class="eye-icon" id="eye-icon-visible-reg" alt="Show password" width="20" height="20" />
+                            <img src="images/eye-hidden.svg" class="eye-icon hidden" id="eye-icon-hidden-reg" alt="Hide password" width="20" height="20" />
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-confirm-password">Conferma Password</label>
+                    <div class="password-input-container">
+                        <input type="password" id="reg-confirm-password" name="confirmPassword" placeholder="Ripeti la password" required>
+                        <button type="button" class="password-toggle" id="password-toggle-confirm" aria-label="Mostra/Nascondi password">
+                            <img src="images/eye-visible.svg" class="eye-icon" id="eye-icon-visible-confirm" alt="Show password" width="20" height="20" />
+                            <img src="images/eye-hidden.svg" class="eye-icon hidden" id="eye-icon-hidden-confirm" alt="Hide password" width="20" height="20" />
+                        </button>
+                    </div>
                 </div>
                 <div id="registerError" class="error-message"></div>
                 <div id="registerSuccess" class="success-message"></div>
@@ -63,15 +56,15 @@
             </form>
 
             <p class="form-footer">
-                Hai già un account? <a href="#" class="login-trigger">Accedi</a>
+                <a href="#" class="login-trigger register-link"></a>Hai già un account? <span class="register-highlight">Accedi</span></a>
             </p>
         </section>
     </main>
 
-    <footer class="footer">
-        <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
-    </footer>
+    <div id="footer-placeholder"></div>
 
+    <script type="module" src="js/modules/components.js"></script>
     <script type="module" src="js/page.register.js"></script>
 </body>
+
 </html>

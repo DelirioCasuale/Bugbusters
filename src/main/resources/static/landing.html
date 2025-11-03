@@ -7,164 +7,85 @@
     <title>Tavern Portal</title>
     <link rel="icon" type="image/x-icon" href="images/dice.png" />
     <link rel="stylesheet" href="css/main.css" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
-<body class="body-landing">
-    <header>
-        <div class="logo-flex">
-            <i><img src="images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
-            <div class="logo">Tavern Portal</div>
-        </div>
-        <nav>
-        </nav>
-    </header>
+<body class="main-bg-base landing-main-bg">
 
-    <div id="loginModal" class="custom-modal">
-        <div class="modal-overlay"></div>
-        <div class="modal-container">
-            <div class="modal-header">
-                <h2 class="modal-title">Accedi</h2>
-                <button type="button" class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label for="login-username">Username</label>
-                        <input type="text" id="login-username" name="username" required
-                            placeholder="Inserisci username">
+    <div id="header-placeholder"></div>
+
+    <div id="modal-placeholder"></div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Benvenuto -->
+        <section class="hero-section">
+            <!-- Content for non-authenticated users -->
+            <div id="hero-not-authenticated" class="hero">
+                <div class="hero-content">
+                    <h1>Benvenuto nella Taverna</h1>
+                    <p>Gestisci le tue campagne di D&D, crea personaggi e vivi nuove avventure.</p>
+                    <div class="btn-group">
+                        <button class="btn-primary btn-auth"><a href="register.html">Inizia Ora</a></button>
+                        <button class="btn-primary btn-auth login-btn">Accedi</button>
                     </div>
-                    <div class="form-group">
-                        <label for="login-password">Password</label>
-                        <input type="password" id="login-password" name="password" required
-                            placeholder="Inserisci password">
-                    </div>
-                    <div id="loginError" class="error-message"></div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <a href="register.html">Non hai un account? Registrati</a>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-secondary modal-cancel">Chiudi</button>
-                    <button type="submit" form="loginForm" class="btn btn-primary">Accedi</button>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <main>
-        <section id="banner" class="major">
-            <div class="inner">
-                <h1>Benvenuto nella Taverna</h1>
-                <p>Gestisci le tue campagne di D&D, crea personaggi e vivi nuove avventure.</p>
-                <div class="btn-group">
-                    <a href="register.html" class="btn-primary">Inizia Ora</a>
-                    <button class="btn-secondary login-trigger">Già Iscritto?</button>
+            <!-- Content for authenticated admin users -->
+            <div id="hero-admin" class="hero" style="display: none;">
+                <div class="hero-content">
+                    <h1>Benvenuto Admin</h1>
+                    <p>Gestisci la piattaforma e supervisiona gli utenti.</p>
+                    <div class="btn-group">
+                        <button class="btn-primary btn-dashboard"><a href="admin.html">Dashboard Admin</a></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content for authenticated guest users (players/masters) -->
+            <div id="hero-authenticated" class="hero" style="display: none;">
+                <div class="hero-content">
+                    <h1>Bentornato alla Taverna</h1>
+                    <p>Sei pronto a tornare alla tua avventura?</p>
+                    <div class="btn-group">
+                        <button id="btn-player-dashboard" class="btn-primary btn-dashboard" style="display: none;"><a href="player.html">Visuale Player</a></button>
+                        <button id="btn-master-dashboard" class="btn-primary btn-dashboard" style="display: none;"><a href="master.html">Visuale Master</a></button>
+                        <button id="btn-choose-role" class="btn-primary btn-dashboard" style="display: none;"><a href="profile.html">Scegli Ruolo</a></button>
+                        <button id="become-master-btn" class="btn-primary" style="display: none;">Diventa Master</button>
+                        <button id="become-player-btn" class="btn-primary" style="display: none;">Diventa Player</button>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <div id="main-landing">
+        <!-- About -->
+        <section class="about">
+            <!-- Content for non-authenticated users -->
+            <div id="about-not-authenticated" class="info">
+                <h2>Cos'è Tavern Portal?</h2>
+                <p>
+                    La piattaforma per Dungeon Master e Giocatori per pianificare, creare e condividere
+                    le tue campagne di Dungeons&Dragons in un unico portale.
+                </p>
+            </div>
 
-            <section id="tiles" class="tiles-container">
-                <article class="tile">
-                    <div class="content">
-                        <h3>Cos'è Tavern Portal?</h3>
-                        <p>Una piattaforma per DM e Giocatori per pianificare, creare e condividere le tue campagne in
-                            un unico portale.</p>
-                    </div>
-                </article>
-                <article class="tile">
-                    <div class="content">
-                        <h3>La Nostra Mission</h3>
-                        <p>Fornire lo strumento più intuitivo per dare vita alle tue storie, eliminando la complessità
-                            della gestione.</p>
-                    </div>
-                </article>
-                <article class="tile">
-                    <div class="content">
-                        <h3>La Nostra Vision</h3>
-                        <p>Diventare il punto di riferimento digitale che connette giocatori e master per avventure
-                            memorabili ovunque nel mondo.</p>
-                    </div>
-                </article>
-                <article class="tile">
-                    <div class="content">
-                        <h3>Seguici sui Social</h3>
-                        <p>Rimani aggiornato sulle nuove feature e condividi le tue storie con la community!</p>
-                        <div class="social-icons">
-                            <a href="#" class="icon-link"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="icon-link"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" class="icon-link"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="icon-link"><i class="fab fa-discord"></i></a>
-                        </div>
-                    </div>
-                </article>
-            </section>
-
-            <section id="contact" class="dashboard-section">
-                <div class="contact-wrapper">
-                    <div class="contact-form-container">
-                        <form id="contactForm" class="styled-form">
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="contact-name">Name</label>
-                                    <input type="text" id="contact-name" name="name" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="contact-email">Email</label>
-                                    <input type="email" id="contact-email" name="email" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="contact-message">Message</label>
-                                <textarea id="contact-message" name="message" rows="6" required></textarea>
-                            </div>
-
-                            <div class="btn-group">
-                                <button type="submit" class="btn-primary">Send Message</button>
-                                <button type="reset" class="btn-secondary">Clear</button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <div>
-                                <h3>Email</h3>
-                                <a href="mailto:information@untitled.tld">information@untitled.tld</a>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <div>
-                                <h3>Phone</h3>
-                                <p>(000) 000-0000 x12387</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div>
-                                <h3>Address</h3>
-                                <p>1234 Somewhere Road #5432<br>Nashville, TN 00000<br>United States of America</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
+            <!-- Content for authenticated users (placeholder for future features) -->
+            <div id="about-authenticated" class="chat" style="display: none;">
+                <h2>Futura implementazione in arrivo</h2>
+                <p>Presto sarà disponibile una chat per gli utenti loggati.</p>
+            </div>
+        </section>
     </main>
 
-    <footer class="footer">
-        <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
-    </footer>
+    <div id="footer-placeholder"></div>
 
+    <script type="module" src="js/modules/components.js"></script>
     <script type="module" src="js/page.landing.js"></script>
+
+
+
 </body>
 
 </html>

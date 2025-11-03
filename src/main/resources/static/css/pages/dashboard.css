@@ -1,70 +1,272 @@
 /* ============================================================================
-   DASHBOARD (Player, Master, Profile)
+   DASHBOARD SECTIONS - Schede personaggio e campagne
    ============================================================================ */
-body.dashboard-body {
-    background: var(--bg-dark-secondary);
+
+body.master-main-bg {
+  background-image: url('../images/master.gif');
+  background-position: center bottom;
 }
 
+body.player-main-bg {
+  background-image: url('../images/player.gif');
+  background-position: center center;
+}
+
+main {
+  /* Override specifici per dashboard */
+  gap: 3rem;
+}
+
+.switch-visual {
+  max-width: 350px;
+}
+
+.switch-visual h2 {
+  font-family: 'Cinzel Decorative', serif;
+  margin-bottom: 1rem;
+  color: var(--primary-purple-light);
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--bg-container);
+  margin: 0 5vw;
+  border-radius: 12px;
+  gap: 1rem;
+  width: calc(100% - 10vw);
+  box-sizing: border-box;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.page-header > :first-child {
+  margin-bottom: 10px;
+}
+
+.page-label {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+}
+
+.page-content {
+  overflow: hidden;
+  width: 100%;
+  min-width: 0;
+  flex: 1;
+}
+
+.card-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 20px;
+  max-width: 100%;
+  width: 100%;
+  /* Stili per lo scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-purple-light) var(--bg-individual-card);
+}
+
+/* Webkit scrollbar styling per Chrome/Safari */
+.card-container::-webkit-scrollbar {
+  height: 16px;
+}
+
+.card-container::-webkit-scrollbar-track {
+  background: var(--bg-individual-card);
+  border-radius: 4px;
+}
+
+.card-container::-webkit-scrollbar-thumb {
+  background: var(--primary-purple-light);
+  border-radius: 4px;
+}
+
+.card-container::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-purple);
+}
+
+/* Cards */
+.card {
+  background: var(--bg-individual-card);
+  border: 2px solid var(--border-secondary);
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px var(--shadow-medium);
+  min-width: 280px;
+  max-width: 320px;
+  flex-shrink: 0;
+}
+
+.card:hover {
+  background: var(--bg-individual-card-hover);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px var(--shadow-hover-intense);
+}
+
+.card h3 {
+  color: var(--text-card);
+  margin-bottom: 10px;
+  font-family: 'Cinzel Decorative', serif;
+}
+
+.card p {
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+/* Add Card */
+.add-card {
+  background: var(--bg-add-card);
+  border: 2px dashed var(--border-secondary);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 280px;
+  max-width: 320px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-card:hover {
+  border-color: var(--primary-purple-light);
+  background: var(--bg-individual-card);
+  transform: translateY(-5px);
+}
+
+.add-card i {
+  font-size: 2rem;
+  color: var(--primary-purple-light);
+  margin-bottom: 10px;
+}
+
+.add-card p {
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Dashboard Hero */
 .dashboard-hero {
-    text-align: center;
-    padding: 2rem 1rem;
-    background: linear-gradient(180deg, var(--bg-dark-primary) 0%, rgba(26, 26, 46, 0.8) 100%);
+  text-align: center;
+  padding: 2rem 1rem;
+  background: var(--bg-hero-alt);
+  border-radius: 12px;
+  margin: 0 2rem 2rem 2rem;
+  box-shadow: 0 4px 20px var(--shadow-dashboard);
 }
 
-.dashboard-hero h1 { 
-  font-family: var(--font-display); 
-  font-size: 2.5rem; 
-  margin-bottom: 0.5rem; 
-  color: var(--primary-purple-light); 
-}
-.dashboard-hero p { 
-  font-size: 1.1rem; 
-  color: var(--text-secondary); 
+.dashboard-hero-content h1 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary-purple-light);
+  text-shadow: 0 0 10px var(--primary-purple-dark);
 }
 
-.dashboard-content {
-    flex: 1;
-    padding: 1rem;
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
+.dashboard-hero-content p {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
 }
 
+/* Dashboard Sections */
 .dashboard-section {
-    margin: 30px auto;
-    background: var(--bg-card);
-    border: 2px solid var(--border-primary);
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 0 20px rgba(79, 70, 229, 0.3);
+  margin: 2rem;
+  padding: 1.5rem;
+  background: var(--bg-dashboard-card);
+  border-radius: 12px;
+  border: 1px solid var(--border-secondary);
+  box-shadow: 0 4px 15px var(--shadow-medium);
 }
 
 .dashboard-section h2 {
-    font-family: var(--font-display);
-    text-align: center;
-    color: var(--primary-purple-light);
-    margin-bottom: 25px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--border-primary);
-}
-.dashboard-section h2 i {
-    margin-right: 12px;
-    color: var(--text-highlight);
+  font-family: 'Cinzel Decorative', serif;
+  color: var(--primary-purple-light);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 1.8rem;
 }
 
-body.body-profile {
-    background: url('../../images/tavern_profile.gif') no-repeat center center/cover;
-    background-attachment: fixed; 
+/* Page Searchbar */
+.page-searchbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
 }
 
-/* Stile per lo sfondo di player.html*/
-body.body-player {
-    background: url('../../images/tavern_giocatore.gif') no-repeat center center/cover;
-    background-attachment: fixed; 
+.search-form {
+  display: flex;
+  align-items: center;
+  background: var(--bg-input);
+  border: 2px solid var(--border-primary);
+  border-radius: 25px;
+  padding: 8px 15px;
+  transition: all 0.3s ease;
 }
 
-/* Stile per lo sfondo di master.html */
-body.body-master {
-    background: url('../../images/tavern_master.gif') no-repeat center center/cover;
-    background-attachment: fixed; /* Mantiene lo sfondo fisso */
+.search-form:focus-within {
+  border-color: var(--primary-purple-light);
+  box-shadow: 0 0 0 3px var(--focus-outline);
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-icon {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  padding: 5px 0;
+  width: 200px;
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Special classes for different dashboard types */
+.dashboard-body {
+  /* Background specifico per dashboard */
+}
+
+.body-player {
+  /* Background specifico per player dashboard */
+}
+
+.body-master {
+  /* Background specifico per master dashboard */
 }
