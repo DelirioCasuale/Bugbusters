@@ -6,6 +6,8 @@ import { Modal, updateGeneralUI } from './modules/ui.js';
 const PAGE_SIZE = 50; // Dimensione fissa di 50
 let currentPage = 0; // Pagina iniziale (indice 0)
 let editUserModal; // Nuovo modal
+let infoModal;
+let confirmationModal; // <-- DICHIARAZIONE NUOVO MODALE
 let currentEditingUserId = null; // ID dell'utente che stiamo modificando
 
 // --- GUARDIA DI AUTENTICAZIONE ---
@@ -32,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (searchInput) {
         searchInput.addEventListener('keyup', () => {
             // Quando l'utente digita, resetta la pagina a 0 e ricarica i dati
-            currentPage = 0; 
+            currentPage = 0;
             const activeFilter = document.querySelector('.btn-filter.active')?.dataset.filter || 'all';
             loadAdminData(activeFilter, currentPage); // Chiamiamo loadAdminData
         });
@@ -59,6 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-prev-page')?.addEventListener('click', () => changePage(-1));
     document.getElementById('btn-next-page')?.addEventListener('click', () => changePage(1));
     editUserModal = new Modal('editUserModal'); // Inizializza il nuovo modal
+    infoModal = new Modal('infoModal'); // <-- INIZIALIZZAZIONE NUOVO MODALE
+    confirmationModal = new Modal('confirmationModal'); // <-- INIZIALIZZAZIONE NUOVO MODALE
     document.getElementById('editUserForm')?.addEventListener('submit', handleUpdateUser);
 
     loadAdminData();// Primo caricamento
@@ -88,30 +92,55 @@ document.addEventListener('DOMContentLoaded', () => {
 //     renderUsersTable(usersToRender, tableBody, filter);
 // }
 
-async function handleBanUser(userId, username) {
-    if (confirm(`Sei sicuro di voler bannare l'utente ${username} (ID: ${userId})? L'utente sarà sospeso per 1 anno.`)) {
-        const data = await apiCall(`/api/admin/users/${userId}/ban`, 'POST');
-        if (data) {
-            alert(data.message);
-            const activeFilter = document.querySelector('.btn-filter.active')?.dataset.filter || 'all';
-            // Dopo il ban, ricarichiamo i dati originali e poi filtriamo
-            loadAdminData(activeFilter);
-        }
+// NUOVA FUNZIONE HELPER: Per mostrare il modal di Notifica (Successo/Errore)
+function showInfoModal(title, text, isError = false) {
+    const titleEl = document.getElementById('adminInfoModalTitle');
+    const textEl = document.getElementById('adminInfoModalText');
+
+    if (titleEl) {
+        titleEl.textContent = title;
+        titleEl.style.color = isError ? 'var(--error-color)' : 'var(--primary-purple-light)';
     }
+    if (textEl) {
+        textEl.textContent = text;
+    }
+
+    infoModal?.show();
+}
+
+// FUNZIONE MODIFICATA: GESTIONE BAN (Usa il modal personalizzato)
+async function handleBanUser(userId, username) {
+    const title = "Conferma Ban Utente";
+    const text = `Sei sicuro di voler bannare l'utente ${username} (ID: ${userId})? L'utente sarà sospeso per 1 anno e le sue campagne Master orfane.`;
+
+    showConfirmation(title, text, async () => {
+        const data = await apiCall(`/api/admin/users/${userId}/ban`, 'POST');
+        if (data && data.status) { // Errore 4xx
+            showInfoModal("Operazione Fallita", data.message, true);
+        } else if (data && data.message) { // Successo
+            showInfoModal("Utente Bannato", data.message, false);
+            const activeFilter = document.querySelector('.btn-filter.active')?.dataset.filter || 'all';
+            loadAdminData(activeFilter, currentPage);
+        }
+    });
 }
 window.handleBanUser = handleBanUser;
 
-// NUOVO HANDLER: SBLOCCA UTENTE
+// FUNZIONE MODIFICATA: GESTIONE SBLOCCA (Usa il modal personalizzato)
 async function handleUnbanUser(userId, username) {
-    if (confirm(`Sei sicuro di voler sbloccare l'utente ${username} (ID: ${userId})?`)) {
-        // Usiamo PUT, come definito nel Controller
+    const title = "Conferma Sblocco Utente";
+    const text = `Sei sicuro di voler sbloccare l'utente ${username} (ID: ${userId})? La sospensione sarà revocata.`;
+
+    showConfirmation(title, text, async () => {
         const data = await apiCall(`/api/admin/users/${userId}/unban`, 'PUT');
-        if (data) {
-            alert(data.message);
+        if (data && data.status) { // Errore 4xx
+            showInfoModal("Operazione Fallita", data.message, true);
+        } else if (data && data.message) { // Successo
+            showInfoModal("Utente Sbloccato", data.message, false);
             const activeFilter = document.querySelector('.btn-filter.active')?.dataset.filter || 'all';
-            loadAdminData(activeFilter);
+            loadAdminData(activeFilter, currentPage);
         }
-    }
+    });
 }
 window.handleUnbanUser = handleUnbanUser;
 
@@ -127,6 +156,28 @@ function showEditUserModal(user) {
 }
 window.showEditUserModal = showEditUserModal; // Rendi accessibile dall'HTML
 
+// FUNZIONE HELPER: Mostra il Modale di Conferma e Gestisce l'Azione
+function showConfirmation(title, text, callback) {
+    // Imposta il testo nel modal di conferma
+    document.getElementById('confirmationModalTitle').textContent = title;
+    document.getElementById('confirmationModalText').textContent = text;
+
+    const confirmBtn = document.getElementById('confirmationModalConfirmBtn');
+
+    // TRUCCO per pulire vecchi listener: cloniamo il bottone
+    const newConfirmBtn = confirmBtn.cloneNode(true);
+    confirmBtn.parentNode.replaceChild(newConfirmBtn, confirmBtn);
+
+    // Aggiungiamo il nuovo listener che chiude il modal ed esegue la callback
+    newConfirmBtn.onclick = () => {
+        confirmationModal.hide();
+        callback(); // Esegui la funzione di ban/promozione
+    };
+
+    // Mostra il modal di conferma
+    confirmationModal.show();
+}
+
 // NUOVO: Gestisce l'invio del form di modifica
 async function handleUpdateUser(event) {
     event.preventDefault();
@@ -141,31 +192,36 @@ async function handleUpdateUser(event) {
         isAdmin: document.getElementById('edit-is-admin').checked,
     };
 
-    // Chiama l'API PUT
     const data = await apiCall(`/api/admin/users/${currentEditingUserId}`, 'PUT', dto);
 
-    if (data && data.status) { // Errore
-        editUserModal.showError(data.message);
+    if (data && data.status) { // Errore 4xx (Validazione, Email/Username già in uso)
+        editUserModal.showError(data.message); // Mantiene l'errore nel modale di modifica
         return;
     }
 
-    if (data) {
+    if (data && data.message) { // Successo
         editUserModal.hide();
+        showInfoModal("Modifica Salvata", data.message, false); // <-- Mostra modal info
         // Ricarica la pagina corrente
         loadAdminData(document.querySelector('.btn-filter.active')?.dataset.filter || 'all', currentPage);
     }
 }
 
-// NUOVO: Gestisce la promozione ad Admin
+// FUNZIONE MODIFICATA: GESTIONE PROMUOVI (Usa il modal personalizzato)
 async function handlePromoteUser(userId, username) {
-    if (confirm(`Sei sicuro di voler promuovere ${username} ad ADMIN?`)) {
+    const title = "Conferma Promozione";
+    const text = `Sei sicuro di voler promuovere ${username} ad ADMIN? L'utente otterrà pieni privilegi amministrativi.`;
+
+    showConfirmation(title, text, async () => {
         const data = await apiCall(`/api/admin/users/${userId}/promote`, 'POST');
-        if (data) {
-            alert(data.message);
-            // Ricarica la pagina corrente
-            loadAdminData(document.querySelector('.btn-filter.active')?.dataset.filter || 'all', currentPage);
+        if (data && data.status) { // Errore 4xx
+            showInfoModal("Promozione Fallita", data.message, true);
+        } else if (data && data.message) { // Successo
+            showInfoModal("Promozione Riuscita", data.message, false);
+            const activeFilter = document.querySelector('.btn-filter.active')?.dataset.filter || 'all';
+            loadAdminData(activeFilter, currentPage);
         }
-    }
+    });
 }
 window.handlePromoteUser = handlePromoteUser;
 
@@ -178,43 +234,43 @@ function changePage(delta) {
 }
 
 async function loadAdminData(filter = 'all', pageIndex = 0) {
-     console.log(`Caricamento dati Admin, filtro: ${filter}, pagina: ${pageIndex}`);
-     if (!isAdmin()) return; 
-     
-     // 1. Prendi il termine di ricerca dall'input
-     const searchInput = document.getElementById('user-search-input')?.value.trim();
-     
-     let endpoint = '/api/admin/users';
-     if(filter === 'players') endpoint = '/api/admin/users/players';
-     else if (filter === 'masters') endpoint = '/api/admin/users/masters';
-     
-     // 2. Costruisci i parametri URL (Paginazione + Ricerca)
-     const urlParams = new URLSearchParams({
-         page: pageIndex,
-         size: PAGE_SIZE
-     });
-     
-     if (searchInput) {
-         urlParams.append('search', searchInput); // Aggiungi la ricerca se presente
-     }
-     
-     const urlWithParams = `${endpoint}?${urlParams.toString()}`;
-     
-     const responseData = await apiCall(urlWithParams); 
-     
-     const users = responseData.content || []; 
-     const totalPages = responseData.totalPages || 1;
-     
-     // 3. Rimuovi il filtro client-side (non più necessario)
-     // loadedUsers = users; // <-- RIMUOVI
-     
-     const tableBody = document.querySelector('#users-table tbody');
-     
-     // 4. Renderizza direttamente i risultati (già filtrati dal backend)
-     renderUsersTable(users, tableBody, filter); 
-     
-     // 5. Aggiorna i controlli di paginazione
-     updatePaginationControls(totalPages);
+    console.log(`Caricamento dati Admin, filtro: ${filter}, pagina: ${pageIndex}`);
+    if (!isAdmin()) return;
+
+    // 1. Prendi il termine di ricerca dall'input
+    const searchInput = document.getElementById('user-search-input')?.value.trim();
+
+    let endpoint = '/api/admin/users';
+    if (filter === 'players') endpoint = '/api/admin/users/players';
+    else if (filter === 'masters') endpoint = '/api/admin/users/masters';
+
+    // 2. Costruisci i parametri URL (Paginazione + Ricerca)
+    const urlParams = new URLSearchParams({
+        page: pageIndex,
+        size: PAGE_SIZE
+    });
+
+    if (searchInput) {
+        urlParams.append('search', searchInput); // Aggiungi la ricerca se presente
+    }
+
+    const urlWithParams = `${endpoint}?${urlParams.toString()}`;
+
+    const responseData = await apiCall(urlWithParams);
+
+    const users = responseData.content || [];
+    const totalPages = responseData.totalPages || 1;
+
+    // 3. Rimuovi il filtro client-side (non più necessario)
+    // loadedUsers = users; // <-- RIMUOVI
+
+    const tableBody = document.querySelector('#users-table tbody');
+
+    // 4. Renderizza direttamente i risultati (già filtrati dal backend)
+    renderUsersTable(users, tableBody, filter);
+
+    // 5. Aggiorna i controlli di paginazione
+    updatePaginationControls(totalPages);
 }
 
 function updatePaginationControls(totalPages) {
@@ -254,14 +310,14 @@ function renderUsersTable(usersToRender, tableBody, filter) {
                               onclick="handlePromoteUser(${user.id}, '${user.username}')">Promuovi</button>` : ''
             }
                      
-                     ${user.banned && !user.admin // Se bannato e non admin, mostra Sblocca
-                ? `<button class="action-button" onclick="handleUnbanUser(${user.id}, '${user.username}')">Sblocca</button>`
-                : !user.banned && !user.admin // Se attivo e non admin, mostra Banna
+                     ${user.banned && !user.admin
+                ? `<button class="action-button unban" onclick="handleUnbanUser(${user.id}, '${user.username}')">Sblocca</button>`
+                : !user.banned && !user.admin
                     ? `<button class="action-button ban" onclick="handleBanUser(${user.id}, '${user.username}')">Banna</button>`
                     : ''
             }
 
-                     <button class="action-button" 
+                     <button class="action-button edit" 
                           onclick="showEditUserModal({
                               id: ${user.id}, 
                               username: '${user.username.replace(/'/g, "\\'")}', 

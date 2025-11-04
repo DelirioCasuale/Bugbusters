@@ -68,13 +68,47 @@
             </div>
             </div>
         </section>
+
+        <div id="infoModal" class="custom-modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-container" style="max-width: 500px;">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="adminInfoModalTitle">Notifica</h2>
+                    <button type="button" class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p id="adminInfoModalText">Operazione completata.</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group" style="justify-content: flex-end;">
+                        <button type="button" class="btn btn-primary modal-cancel">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="confirmationModal" class="custom-modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-container" style="max-width: 500px;">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="confirmationModalTitle">Conferma Azione</h2>
+                    <button type="button" class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p id="confirmationModalText">Sei sicuro?</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary modal-cancel">Annulla</button>
+                        <button type="button" id="confirmationModalConfirmBtn" class="btn-primary">Conferma</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <footer class="footer">
-        <div class="footer-content">
-            <h3>Supporto Admin</h3>
-            <p>Contatto: <a href="mailto:admin@tavernportal.example">admin@tavernportal.example</a></p>
-        </div>
         <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
     </footer>
 

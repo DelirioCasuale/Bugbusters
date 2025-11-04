@@ -57,8 +57,14 @@ body.admin-body {
     background-color: rgba(79, 70, 229, 0.1);
 }
 
-#users-table .status-banned { color: var(--error-color); font-weight: bold; }
-#users-table .status-active { color: var(--success-color); }
+#users-table .status-banned { 
+    color: var(--error-color); 
+    font-weight: 400; /* Rimosso il grassetto */
+}
+#users-table .status-active { 
+    color: var(--success-color); 
+    font-weight: 400; /* Rimosso il grassetto */
+}
 
 #users-table .role-badge {
     display: inline-block;
@@ -167,4 +173,24 @@ body.admin-body {
 .pagination-info {
     color: var(--text-secondary);
     font-size: 0.95rem;
+}
+
+/* MODIFICA: Nuovo stile per il pulsante Promuovi/Sblocca (Viola Chiaro) */
+#users-table .action-button.unban { 
+    background: var(--primary-purple-light); /* Viola Chiaro */
+    color: var(--bg-dark-primary); /* Testo scuro */
+    font-weight: 500;
+}
+#users-table .action-button.unban:hover { 
+    background: var(--primary-purple-lighter); 
+}
+
+
+/* NUOVO STILE: Pulsante Modifica (Viola Scuro) */
+#users-table .action-button.edit { 
+    background: var(--primary-purple-dark); /* Viola Scuro */
+    color: white;
+}
+#users-table .action-button.edit:hover { 
+    background: #581c87; /* Un tono più scuro */
 }
