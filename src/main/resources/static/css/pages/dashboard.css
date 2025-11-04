@@ -283,3 +283,9 @@ body.admin-body {
 .search-bar {
     max-width: 400px;
 }
+
+/* NUOVO: Sfondo per la pagina di modifica scheda */
+body.body-edit-sheet {
+    background: url('../../images/tavern_scheda-personaggio.gif') no-repeat center center/cover;
+    background-attachment: fixed; /* Mantiene lo sfondo fisso */
+}
