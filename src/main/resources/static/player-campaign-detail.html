@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dettaglio Campagna - Tavern Portal</title>
     <link rel="icon" type="image/x-icon" href="images/dice.png" />
     <link rel="stylesheet" href="css/main.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body class="dashboard-body body-campaign-detail">
 
     <header>
-        <div class="logo-flex">
-            <i><img src="images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
-            <div class="logo">Tavern Portal</div>
-        </div>
+        <a href="landing.html" class="logo-link">
+            <div class="logo-flex">
+                <i><img src="images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
+                <div class="logo">Tavern Portal</div>
+            </div>
+        </a>
         <nav id="dashboard-nav"></nav>
     </header>
 
     <section class="dashboard-hero">
         <div class="dashboard-hero-content">
-            
+
             <div class="hero-flex-container" style="
                 display: flex; 
                 justify-content: space-between; 
@@ -29,7 +35,7 @@
                 width: 100%; 
                 margin-bottom: 20px; 
             ">
-                
+
                 <a href="player.html" class="btn-secondary" style="
                     border: none; 
                     text-decoration: underline; 
@@ -38,7 +44,7 @@
                 ">&larr; Torna alle tue campagne</a>
 
                 <h1 id="campaign-name-title" style="margin: 0 auto; white-space: nowrap;">Caricamento Campagna...</h1>
-                
+
                 <div style="visibility: hidden;">
                     <a href="player.html" class="btn-secondary" style="
                         border: none; 
@@ -49,12 +55,12 @@
                 </div>
             </div>
 
-            </div>
+        </div>
     </section>
 
     <main class="dashboard-content">
         <div class="detail-grid">
-            
+
             <div class="detail-col-main">
                 <section class="dashboard-section">
                     <h2><i class="fas fa-book-open"></i> Dettagli Campagna</h2>
@@ -74,10 +80,10 @@
                                     <th>Username</th>
                                     <th>Personaggio</th>
                                     <th>Classe/Livello</th>
-                                    </tr>
+                                </tr>
                             </thead>
                             <tbody id="player-list-tbody">
-                                </tbody>
+                            </tbody>
                         </table>
                     </div>
                 </section>
@@ -86,7 +92,7 @@
             <div class="detail-col-side">
                 <section class="dashboard-section">
                     <h2><i class="fas fa-calendar-alt"></i> Calendario</h2>
-                    
+
                     <div class="form-group">
                         <label>Data Inizio Campagna</label>
                         <p id="start-date-text">Nessuna data impostata.</p>
@@ -97,23 +103,26 @@
                     </div>
 
                     <hr style="border-color: var(--border-secondary); margin: 20px 0;">
-                    
+
                     <h3>Proposte in attesa di Voto</h3>
                     <div id="proposal-list-container" class="proposal-card-container">
-                        </div>
+                    </div>
 
                     <hr style="border-color: var(--border-secondary); margin: 20px 0;">
 
                     <h3>Proposte Scadute/Votate</h3>
                     <div id="past-proposal-list-container" class="proposal-card-container past-proposals">
-                        </div>
+                    </div>
                 </section>
             </div>
         </div>
     </main>
 
-    <footer class="footer"><p>© 2025 Tavern Portal. Tutti i diritti riservati.</p></footer>
+    <footer class="footer">
+        <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
+    </footer>
 
     <script type="module" src="js/page.player-campaign-detail.js"></script>
 </body>
+
 </html>
