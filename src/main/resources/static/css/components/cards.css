@@ -2,165 +2,201 @@
    CARD (Player, Master)
    ============================================================================ */
 .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+  display: flex;
+  /* flex-wrap: wrap; */
+  gap: 20px;
+  padding-bottom: 30px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-purple) var(--bg-dark-primary);
+}
+
+/* Custom scrollbar for webkit browsers */
+.card-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.card-container::-webkit-scrollbar-track {
+  background: var(--bg-card);
+  border-radius: 8px;
+}
+
+.card-container::-webkit-scrollbar-thumb {
+  background: var(--primary-purple);
+  border-radius: 8px;
+}
+
+.card-container::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-purple-light);
 }
 
 .card {
-    background: var(--bg-card-hover);
-    border: 1px solid var(--border-secondary);
-    border-radius: 10px;
-    padding: 20px;
-    width: 280px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 170px;
+  background: var(--bg-card-hover);
+  border: 1px solid var(--border-secondary);
+  border-radius: 10px;
+  padding: 20px;
+  min-width: 280px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 170px;
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
 }
 
 .card h3 {
-    font-family: var(--font-display);
-    color: var(--primary-purple-light);
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+  font-family: var(--font-display);
+  color: var(--primary-purple-light);
+  font-size: 1.2rem;
+  margin-bottom: 10px;
 }
 
 .card p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    margin-bottom: 15px;
-    flex-grow: 1;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+  flex-grow: 1;
 }
 .card span.code {
-    display: block;
-    background: var(--bg-dark-primary);
-    padding: 5px;
-    border-radius: 4px;
-    font-family: monospace;
-    font-size: 0.9em;
-    margin-top: 8px;
-    word-break: break-all;
-    color: var(--text-highlight);
+  display: block;
+  background: var(--bg-dark-primary);
+  padding: 5px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.9em;
+  margin-top: 8px;
+  word-break: break-all;
+  color: var(--text-highlight);
 }
 .card small {
-    display: block;
-    font-size: 0.8em;
-    color: var(--text-muted);
-    margin-top: 5px;
+  display: block;
+  font-size: 0.8em;
+  color: var(--text-muted);
+  margin-top: 5px;
 }
 
 .add-card {
-    background: transparent;
-    border: 2px dashed var(--border-primary);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: none;
-    min-height: 170px;
+  background: transparent;
+  border: 2px dashed var(--border-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: none;
+  min-height: 170px;
 }
 .add-card:hover {
-    background: rgba(79, 70, 229, 0.1);
-    border-color: var(--primary-purple-light);
-    transform: none;
+  background: rgba(79, 70, 229, 0.1);
+  border-color: var(--primary-purple-light);
+  transform: none;
 }
-.add-card button { 
-    width: 100%; 
-    height: 100%; 
-    border: none; 
-    background: transparent; /* Aggiunto per rimuovere stile bottone */
-    color: var(--text-secondary); /* Aggiunto per coerenza */
+.add-card button {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent; /* Aggiunto per rimuovere stile bottone */
+  color: var(--text-secondary); /* Aggiunto per coerenza */
 }
 .add-card button:hover {
-    color: var(--text-highlight);
+  color: var(--text-highlight);
 }
-.add-card button i { margin-right: 8px; }
-
+.add-card button i {
+  margin-right: 8px;
+}
 
 /* Card Proposte Voto */
-.proposal-card-container { gap: 15px; }
+.proposal-card-container {
+  gap: 15px;
+}
 
 .proposal-card {
-    width: 100%;
-    max-width: 500px;
-    text-align: left;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 10px 15px;
-    align-items: center;
-    min-height: 0;
+  width: 100%;
+  max-width: 500px;
+  text-align: left;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px 15px;
+  align-items: center;
+  min-height: 0;
 }
-.proposal-card h3 { grid-column: 1 / 4; margin-bottom: 5px; }
-.proposal-card p { margin-bottom: 5px; grid-column: 1 / 3; flex-grow: 0; }
-.proposal-card .btn-primary { grid-column: 3 / 4; grid-row: 2 / 4; justify-self: end; }
+.proposal-card h3 {
+  grid-column: 1 / 4;
+  margin-bottom: 5px;
+}
+.proposal-card p {
+  margin-bottom: 5px;
+  grid-column: 1 / 3;
+  flex-grow: 0;
+}
+.proposal-card .btn-primary {
+  grid-column: 3 / 4;
+  grid-row: 2 / 4;
+  justify-self: end;
+}
 .proposal-card span.voted {
-    grid-column: 3 / 4;
-    grid-row: 2 / 4;
-    justify-self: end;
-    color: var(--success-color);
-    font-weight: bold;
-    font-size: 1.1rem;
+  grid-column: 3 / 4;
+  grid-row: 2 / 4;
+  justify-self: end;
+  color: var(--success-color);
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 /* Correzione CSS, se necessario, per forzare l'unione dei nodi */
 #master-campaigns-list {
-    display: contents; /* Fa sì che i figli (le card) si comportino come figli diretti di .card-container */
+  display: contents; /* Fa sì che i figli (le card) si comportino come figli diretti di .card-container */
 }
 
 /* * 1. Contenitore per le card di aggiunta impilate.
  * Occupa lo stesso spazio (larghezza/altezza min) di una singola card.
 */
 .add-card-stack {
-    display: flex;
-    flex-direction: column;
-    
-    /* Gap tra le due card stackate (es. 10px) */
-    gap: 10px; 
-    
-    /* Occupa lo spazio di una card (come da cards.css) */
-    width: 280px; 
-    min-height: 170px; /* Altezza minima di una card (da cards.css) */
-    
-    /* Necessario per il layout flex di .card-container */
-    flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+
+  /* Gap tra le due card stackate (es. 10px) */
+  gap: 10px;
+
+  /* Occupa lo spazio di una card (come da cards.css) */
+  width: 280px;
+  min-height: 170px; /* Altezza minima di una card (da cards.css) */
+
+  /* Necessario per il layout flex di .card-container */
+  flex-shrink: 0;
 }
 
 /* * 2. Stile per le singole card stackate (Crea/Reclama)
  * Sovrascrive .add-card per dividerle a metà altezza.
 */
 .add-card-stacked {
-    flex: 1; /* Le due card si dividono l'altezza (grazie a flex-direction: column) */
-    min-height: 0; /* SOVRASCRIVE min-height: 170px di .add-card */
-    
-    /* .add-card ha già display:flex, justify-content:center, align-items:center */
-    
-    /* Stile del testo (che era nel bottone) */
-    color: var(--text-secondary);
-    font-weight: 500;
-    font-size: 0.95rem;
+  flex: 1; /* Le due card si dividono l'altezza (grazie a flex-direction: column) */
+  min-height: 0; /* SOVRASCRIVE min-height: 170px di .add-card */
+
+  /* .add-card ha già display:flex, justify-content:center, align-items:center */
+
+  /* Stile del testo (che era nel bottone) */
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.95rem;
 }
 
 /* 3. Stile per l'icona interna */
 .add-card-stacked i {
-    margin-right: 8px;
+  margin-right: 8px;
 }
 
 /* 4. Nasconde il bottone (che abbiamo rimosso dall'HTML) */
 .add-card-stacked button {
-    display: none;
+  display: none;
 }
 
 /* 5. Gestisce l'hover (già in .add-card, ma applichiamo al testo) */
 .add-card-stacked:hover {
-    color: var(--text-highlight);
+  color: var(--text-highlight);
 }
