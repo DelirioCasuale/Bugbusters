@@ -123,3 +123,40 @@
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+
+/* ============================================================================
+   TOGGLE VISIBILITÀ PASSWORD
+   ============================================================================ */
+.password-toggle-wrapper {
+    position: relative;
+}
+
+.password-toggle-btn {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    
+    background: none;
+    border: none;
+    cursor: pointer;
+    
+    /* MODIFICA: Usa un colore grigio più visibile */
+    color: var(--text-muted); 
+    
+    font-size: 1rem;
+    padding: 5px;
+    
+    /* Aggiungi transizione per l'hover */
+    transition: color 0.3s ease;
+}
+
+.password-toggle-btn:hover {
+    color: var(--text-highlight); /* Viola chiaro su hover */
+}
+
+.password-toggle-wrapper input[type="password"],
+.password-toggle-wrapper input[type="text"] {
+     padding-right: 45px; 
+}
