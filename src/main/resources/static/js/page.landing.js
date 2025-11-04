@@ -24,8 +24,43 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target && e.target.id === 'logout-button') handleLogout(e);
     });
 
+    // --- NUOVA AGGIUNTA: Gestione Toggle Password (Copiato da register.js) ---
+    const toggleButtons = document.querySelectorAll('.password-toggle-btn');
+
+    toggleButtons.forEach(button => {
+        const targetInput = document.getElementById(button.dataset.target);
+        const icon = button.querySelector('i');
+
+        if (!targetInput) return;
+
+        // Mostra password (tieni premuto)
+        button.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            targetInput.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        });
+
+        // Nascondi password (rilascia)
+        button.addEventListener('mouseup', (e) => {
+            e.preventDefault();
+            targetInput.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        });
+
+        // Gestisce il caso in cui l'utente sposti il mouse fuori dal bottone
+        button.addEventListener('mouseleave', () => {
+            if (targetInput.type === 'text') {
+                targetInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+    });
+
     // --- NUOVA AGGIUNTA: Intersection Observer per animazioni on-scroll ---
-    
+
     // 1. Opzioni per l'observer
     const observerOptions = {
         root: null, // usa il viewport come area di intersezione
@@ -51,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. Trova tutti gli elementi da animare (.tile e #contact) e avvia l'osservazione
     const elementsToObserve = document.querySelectorAll('.tile, #contact');
     elementsToObserve.forEach(el => scrollObserver.observe(el));
-    
+
     // --- FINE NUOVA AGGIUNTA ---
 });
 
@@ -68,10 +103,26 @@ async function handleLogin(event) {
     }
 
     const data = await apiCall('/api/auth/login', 'POST', { username, password });
+
+    // Caso 1: Errore (data ha 'status')
+    if (data && data.status) {
+
+        // MODIFICA CRUCIALE:
+        // Intercetta l'errore 401 (Unauthorized) o 403 (Forbidden)
+        // e sovrascrivi il messaggio, ignorando data.message ("Forbidden").
+        if (data.status === 401 || data.status === 403) {
+            loginModal.showError('Credenziali non valide. Controlla username e password.');
+        } else {
+            // Mostra altri errori (es. 500)
+            loginModal.showError(data.message || 'Errore sconosciuto.');
+        }
+        return;
+    }
+
+    // Caso 2: Successo (data ha 'token')
     if (data && data.token) {
-        saveLoginData(data.token, data); // Salva i dati PRIMA di controllare i ruoli
+        saveLoginData(data.token, data);
         loginModal.hide();
-        
         // Logica di Reindirizzamento
         if (isAdmin()) {
             window.location.href = 'admin.html';
@@ -83,8 +134,7 @@ async function handleLogin(event) {
             window.location.href = 'profile.html';
         }
     } else if (!data) {
+        // Errore generico (es. rete)
         loginModal.showError('Errore durante il login. Controlla la console.');
-    } else {
-        loginModal.showError(data.message || 'Credenziali non valide.');
     }
 }

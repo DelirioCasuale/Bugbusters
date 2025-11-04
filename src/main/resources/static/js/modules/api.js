@@ -43,25 +43,33 @@ export async function apiCall(endpoint, method = 'GET', body = null) {
 
         if (!response.ok) {
             console.error(`--- API Error ${response.status} ---`, data);
-            
-            // Caso 1: Errore di Autenticazione (Logout forzato)
+
+            // Caso 1: Errore di Autenticazione (401/403)
             if (response.status === 403 || response.status === 401) {
-                 alert(`Sessione scaduta o non autorizzata. Riprovare il login.`);
-                 clearLoginData();
-                 window.location.href = 'landing.html';
-                 return null;
+
+                // MODIFICA: Non fare alert/redirect se stiamo già tentando il login
+                if (endpoint.startsWith('/api/auth/login')) {
+                    // Restituisci l'errore al form di login per la gestione personalizzata
+                    return { status: response.status, message: data.message || "Credenziali non valide." };
+                }
+
+                // Altrimenti (se l'errore 401/403 avviene altrove), fai il logout forzato
+                alert(`Sessione scaduta o non autorizzata. Riprovare il login.`);
+                clearLoginData();
+                window.location.href = 'landing.html';
+                return null;
             }
-            
+
             let errorMessage = data.message || 'Errore sconosciuto dal server';
 
             // NUOVA LOGICA: Tenta di estrarre messaggi di validazione specifici (Status 400)
             if (response.status === 400 && data.errors && data.errors.length > 0) {
-                 // Estrae il primo messaggio di errore di validazione
-                 errorMessage = data.errors[0].defaultMessage || errorMessage;
-            } 
-            
+                // Estrae il primo messaggio di errore di validazione
+                errorMessage = data.errors[0].defaultMessage || errorMessage;
+            }
+
             // Caso 2: Errore Client 400/404/ecc. (Passa il messaggio di errore al chiamante)
-            return { status: response.status, message: errorMessage };
+            return { status: response.status, message: data.message || 'Errore sconosciuto dal server' };
         }
 
         console.log(`--- API Response ${response.status} ---`, data);
