@@ -296,3 +296,82 @@ body.body-landing main {
 .about {
   display: none;
 }
+
+/* NUOVO: Sfondo per il tile "Cos'è Tavern Portal?" */
+.tile.tile-what-is {
+    /* La GIF dovrebbe essere nella stessa cartella 'images' o specificare il percorso */
+    background-image: url('../../images/tavern_cos-e.gif');
+    background-repeat: no-repeat;
+    
+    /* Sposta il bordo inferiore della GIF sul bordo inferiore del riquadro */
+    background-position: center bottom; /* Centra orizzontalmente, allinea in basso */
+    
+    /* Assicurati che l'immagine copra (o sia contenuta) adeguatamente */
+    background-size: cover; /* o 'contain' se preferisci che l'intera GIF sia visibile */
+    
+    /* Opzionale: Aggiusta la dimensione del tile se la GIF lo richiede */
+    /* min-height: 250px; */ /* Esempio, se la GIF è alta */
+}
+
+/* Stile per il testo del tile "Cos'è Tavern Portal?" */
+.tile.tile-what-is .content {
+    /* Applica lo stesso sfondo lineare del tile Mission */
+    background: linear-gradient(to top, rgba(30, 25, 60, 0.8), rgba(30, 25, 60, 0.5));
+    
+    /* Assicurati che abbia la stessa ombra */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    
+    /* Rimuovi eventuali stili specifici precedenti (come il padding extra o il border-radius) */
+    padding: 2rem; /* Ripristina il padding di default dei tile */
+    border-radius: 0; /* Rimuovi il border-radius se lo avevi aggiunto */
+    color: white;
+}
+
+.tile.tile-what-is .content h3,
+.tile.tile-what-is .content p {
+    color: white; /* Assicurati che il testo sia leggibile */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Ombra per migliorare la leggibilità */
+}
+
+/* NUOVO: Sfondo per il tile "Mission" */
+.tile.tile-mission {
+    background-image: url('../../images/tavern_mission.gif');
+    background-repeat: no-repeat;
+    background-position: center center; /* Centra la GIF */
+    background-size: cover; /* Fa sì che la GIF copra l'intero tile */
+}
+
+/* Aggiungi lo sfondo scuro per leggibilità anche qui */
+.tile.tile-mission .content {
+    background: linear-gradient(to top, rgba(30, 25, 60, 0.8), rgba(30, 25, 60, 0.5));
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+
+/* NUOVO: Sfondo per il tile "Vision" */
+.tile.tile-vision {
+    background-image: url('../../images/tavern_vision.gif');
+    background-repeat: no-repeat;
+    background-position: center center; /* Centra la GIF */
+    background-size: cover; /* Fa sì che la GIF copra l'intero tile */
+}
+
+/* Aggiungi lo sfondo scuro per leggibilità anche qui */
+.tile.tile-vision .content {
+    background: linear-gradient(to top, rgba(30, 25, 60, 0.8), rgba(30, 25, 60, 0.5));
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+/* NUOVO: Sfondo per il tile "Social" */
+.tile.tile-social {
+    background-image: url('../../images/tavern_social.gif');
+    background-repeat: no-repeat;
+    background-position: center center; /* Centra la GIF */
+    background-size: cover; /* Fa sì che la GIF copra l'intero tile */
+}
+
+/* Aggiungi lo sfondo scuro per leggibilità anche qui */
+.tile.tile-social .content {
+    background: linear-gradient(to top, rgba(30, 25, 60, 0.8), rgba(30, 25, 60, 0.5));
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
