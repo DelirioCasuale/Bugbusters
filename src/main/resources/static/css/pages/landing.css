@@ -29,3 +29,34 @@ body.landing-main-bg {
 .about {
   border: 2px solid #224b97 !important;
 }
+
+/* ============================================================================
+   BOTTONI RUOLO - Stili specifici per i bottoni "Diventa Player/Master"
+   ============================================================================ */
+
+/* Tutti i bottoni nei btn-group dentro hero-content */
+.hero-content .btn-group button {
+  width: 200px !important;
+  min-width: 200px;
+  white-space: nowrap;
+  text-align: center;
+  box-sizing: border-box;
+  margin: 5px;
+}
+
+#become-master-btn,
+#become-player-btn {
+  width: 200px !important;
+  min-width: 200px;
+  white-space: nowrap;
+  text-align: center;
+  box-sizing: border-box;
+  margin: 5px;
+}
+
+/* Assicura che il testo rimanga su una riga */
+#become-master-btn span,
+#become-player-btn span {
+  display: inline-block;
+  width: 100%;
+}

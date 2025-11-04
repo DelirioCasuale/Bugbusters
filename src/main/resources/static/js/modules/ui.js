@@ -121,7 +121,7 @@ export function updateGeneralUI() {
       (el) =>
         (el.onclick = (e) => {
           e.preventDefault();
-          if (window.loginModal) window.loginModal.show();
+          if (window.showLoginModal) window.showLoginModal();
         })
     );
   }

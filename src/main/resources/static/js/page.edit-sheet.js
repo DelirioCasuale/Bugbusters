@@ -4,14 +4,45 @@ import { updateGeneralUI, initLogoNavigation } from './modules/ui.js';
 
 let currentSheetId = null;
 
+/**
+ * Gestisce la risposta API con logica di errore migliorata
+ * @param {*} data - Risposta dell'API
+ * @param {string} operation - Descrizione dell'operazione per il log
+ * @returns {boolean} - true se i dati sono validi, false altrimenti
+ */
+function handleApiResponse(data, operation = 'API call') {
+  console.log(`handleApiResponse for ${operation}:`, data);
+
+  if (data === null) {
+    // API call fallita - potrebbe essere 403, 401, 404, etc.
+    // Se l'utente è autenticato ma la richiesta è fallita,
+    // assumiamo che sia un problema di autorizzazione (403)
+    console.log(`${operation} failed - redirecting to error403`);
+    window.location.href = 'error403.html';
+    return false;
+  }
+
+  if (
+    data === undefined ||
+    (typeof data === 'object' && Object.keys(data).length === 0)
+  ) {
+    // Risposta vuota ma API call riuscita - risorsa non trovata (404)
+    console.log(`${operation} returned empty data - redirecting to error404`);
+    window.location.href = 'error404.html';
+    return false;
+  }
+
+  return true;
+}
+
 // --- GUARDIA DI AUTENTICAZIONE ---
 document.addEventListener('DOMContentLoaded', () => {
   if (!isAuthenticated()) {
-    window.location.replace('landing.html');
+    window.location.replace('error403.html');
     return;
   }
   if (!isPlayer()) {
-    window.location.replace('profile.html');
+    window.location.replace('error403.html');
     return;
   }
 
@@ -38,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadSheetData(currentSheetId);
   } else {
     alert("Errore: ID scheda non trovato nell'URL.");
-    window.location.href = 'player.html';
+    window.location.href = 'error403.html';
   }
 });
 
@@ -46,12 +77,19 @@ document.addEventListener('DOMContentLoaded', () => {
  * Carica i dati della scheda e popola il form
  */
 async function loadSheetData(sheetId) {
-  const data = await apiCall(`/api/player/sheets/${sheetId}`);
-  if (data) {
-    populateForm(data);
-  } else {
-    window.location.href = 'player.html';
+  const data = await apiCall(
+    `/api/player/sheets/${sheetId}`,
+    'GET',
+    null,
+    false
+  );
+
+  // Check sheet data with improved error handling
+  if (!handleApiResponse(data, 'Sheet data load')) {
+    return;
   }
+
+  populateForm(data);
 }
 
 /**

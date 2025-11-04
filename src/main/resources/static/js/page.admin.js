@@ -1,20 +1,28 @@
 import { apiCall } from './modules/api.js';
-import { isAuthenticated, isAdmin, handleLogout } from './modules/auth.js';
+import {
+  isAuthenticated,
+  isAdmin,
+  handleLogout,
+  getCurrentUserFromStorage,
+} from './modules/auth.js';
 import { updateGeneralUI, initLogoNavigation } from './modules/ui.js';
 
 // --- GUARDIA DI AUTENTICAZIONE ---
 document.addEventListener('DOMContentLoaded', () => {
-  if (!isAuthenticated()) {
-    console.warn('Utente non autenticato. Reindirizzamento a landing.html');
-    window.location.replace('landing.html');
-    return;
-  }
+  console.log('Admin page: Checking authentication...');
+  console.log('isAuthenticated():', isAuthenticated());
+  console.log('isAdmin():', isAdmin());
+
+  // For admin page: if not admin (whether authenticated or not), show 403
   if (!isAdmin()) {
-    console.warn('Accesso non admin a admin.html. Reindirizzamento...');
-    alert("Accesso non autorizzato all'area admin.");
-    window.location.replace('landing.html');
+    console.warn(
+      'Accesso non admin a admin.html. Reindirizzamento a error403...'
+    );
+    window.location.replace('error403.html');
     return;
   }
+
+  console.log('Admin access granted - initializing page...');
   // ---------------------------------
 
   // Se la guardia passa, inizializza

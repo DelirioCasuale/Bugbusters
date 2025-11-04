@@ -8,6 +8,37 @@ import {
 import { updateGeneralUI, initLogoNavigation } from './modules/ui.js';
 
 let campaignId = null;
+
+/**
+ * Gestisce la risposta API con logica di errore migliorata
+ * @param {*} data - Risposta dell'API
+ * @param {string} operation - Descrizione dell'operazione per il log
+ * @returns {boolean} - true se i dati sono validi, false altrimenti
+ */
+function handleApiResponse(data, operation = 'API call') {
+  console.log(`handleApiResponse for ${operation}:`, data);
+
+  if (data === null) {
+    // API call fallita - potrebbe essere 403, 401, 404, etc.
+    // Se l'utente è autenticato ma la richiesta è fallita,
+    // assumiamo che sia un problema di autorizzazione (403)
+    console.log(`${operation} failed - redirecting to error403`);
+    window.location.href = 'error403.html';
+    return false;
+  }
+
+  if (
+    data === undefined ||
+    (typeof data === 'object' && Object.keys(data).length === 0)
+  ) {
+    // Risposta vuota ma API call riuscita - risorsa non trovata (404)
+    console.log(`${operation} returned empty data - redirecting to error404`);
+    window.location.href = 'error404.html';
+    return false;
+  }
+
+  return true;
+}
 let currentUserId = null; // Salviamo l'ID dell'utente loggato
 
 // --- GUARDIA DI AUTENTICAZIONE ---
@@ -22,14 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!isPlayer()) {
     console.warn('Utente non player su pagina dettaglio. Reindirizzamento...');
-    window.location.replace('profile.html');
+    window.location.replace('player.html');
     return;
   }
 
   const params = new URLSearchParams(window.location.search);
   campaignId = params.get('id');
   if (!campaignId) {
-    alert('ID campagna non specificato.');
     window.location.href = 'player.html';
     return;
   }
@@ -47,37 +77,44 @@ document.addEventListener('DOMContentLoaded', () => {
  * Carica tutti i dati della campagna (chiamata singola)
  */
 async function loadCampaignData() {
-  const data = await apiCall(`/api/player/campaigns/${campaignId}`);
+  const data = await apiCall(
+    `/api/player/campaigns/${campaignId}`,
+    'GET',
+    null,
+    false
+  ); // Silent API call
 
-  if (data) {
-    // Popola Info Base
-    document.getElementById('campaign-name-title').textContent =
-      data.title || 'Dettaglio Campagna';
-    document.getElementById('master-username').textContent =
-      data.masterUsername || 'N/D';
-    document.getElementById('campaign-description').textContent =
-      data.description || 'Nessuna descrizione.';
-
-    if (data.startDate) {
-      document.getElementById('start-date-text').textContent = new Date(
-        data.startDate
-      ).toLocaleDateString();
-    }
-    if (data.scheduledNextSession) {
-      document.getElementById('next-session-text').textContent = new Date(
-        data.scheduledNextSession
-      ).toLocaleDateString();
-    }
-
-    // --- CORREZIONE BUG GIOCATORI ---
-    // Il DTO ora invia 'players', non 'fellowPlayers'
-    populatePlayerList(data.players || []);
-
-    // --- LOGICA PROPOSTE DIVISA ---
-    populateProposalList(data.activeProposals || []);
-    populatePastProposalList(data.pastProposals || []);
+  // Check campaign data with improved error handling
+  if (!handleApiResponse(data, 'Campaign data load')) {
+    return;
   }
-  // else: apiCall ha già gestito l'errore e reindirizzato
+
+  // Popola Info Base
+  document.getElementById('campaign-name-title').textContent =
+    data.title || 'Dettaglio Campagna';
+  document.getElementById('master-username').textContent =
+    data.masterUsername || 'N/D';
+  document.getElementById('campaign-description').textContent =
+    data.description || 'Nessuna descrizione.';
+
+  if (data.startDate) {
+    document.getElementById('start-date-text').textContent = new Date(
+      data.startDate
+    ).toLocaleDateString();
+  }
+  if (data.scheduledNextSession) {
+    document.getElementById('next-session-text').textContent = new Date(
+      data.scheduledNextSession
+    ).toLocaleDateString();
+  }
+
+  // --- CORREZIONE BUG GIOCATORI ---
+  // Il DTO ora invia 'players', non 'fellowPlayers'
+  populatePlayerList(data.players || []);
+
+  // --- LOGICA PROPOSTE DIVISA ---
+  populateProposalList(data.activeProposals || []);
+  populatePastProposalList(data.pastProposals || []);
 }
 
 /**
@@ -174,7 +211,6 @@ async function handleVoteProposal(proposalId) {
     'POST'
   );
   if (data) {
-    alert('Voto registrato!');
     loadCampaignData(); // Ricarica i dati della pagina
   }
 }

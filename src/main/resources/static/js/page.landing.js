@@ -6,6 +6,7 @@ import {
   isMaster,
   handleLogout,
   isAuthenticated,
+  getCurrentUserFromStorage,
 } from './modules/auth.js';
 import { Modal, updateGeneralUI, initLogoNavigation } from './modules/ui.js';
 
@@ -165,7 +166,6 @@ function updateLandingContent() {
       // Show appropriate dashboard buttons based on roles
       const btnPlayer = document.getElementById('btn-player-dashboard');
       const btnMaster = document.getElementById('btn-master-dashboard');
-      const btnChooseRole = document.getElementById('btn-choose-role');
       const btnBecomeMaster = document.getElementById('become-master-btn');
       const btnBecomePlayer = document.getElementById('become-player-btn');
 
@@ -176,28 +176,24 @@ function updateLandingContent() {
         // User has both roles - show both dashboard buttons
         btnPlayer.style.display = 'inline-block';
         btnMaster.style.display = 'inline-block';
-        btnChooseRole.style.display = 'none';
         btnBecomeMaster.style.display = 'none';
         btnBecomePlayer.style.display = 'none';
       } else if (hasPlayerRole) {
         // User is only a player - show player dashboard and option to become master
         btnPlayer.style.display = 'inline-block';
         btnMaster.style.display = 'none';
-        btnChooseRole.style.display = 'none';
         btnBecomeMaster.style.display = 'inline-block';
         btnBecomePlayer.style.display = 'none';
       } else if (hasMasterRole) {
         // User is only a master - show master dashboard and option to become player
         btnPlayer.style.display = 'none';
         btnMaster.style.display = 'inline-block';
-        btnChooseRole.style.display = 'none';
         btnBecomeMaster.style.display = 'none';
         btnBecomePlayer.style.display = 'inline-block';
       } else {
-        // User has no specific role - show choose role button and both role options
+        // User has no specific role - show both role options
         btnPlayer.style.display = 'none';
         btnMaster.style.display = 'none';
-        btnChooseRole.style.display = 'inline-block';
         btnBecomeMaster.style.display = 'inline-block';
         btnBecomePlayer.style.display = 'inline-block';
       }
@@ -250,30 +246,20 @@ async function handleLogin(event) {
 }
 
 /**
- * Handles becoming a Master
+ * Handles becoming a Master (using same logic as profile page)
  */
 async function handleBecomeMaster(event) {
   event.preventDefault();
 
   try {
-    const data = await apiCall('/api/auth/add-role', 'POST', {
-      role: 'ROLE_MASTER',
-    });
+    const data = await apiCall('/api/profile/become-master', 'POST');
 
-    if (data && data.success) {
-      // Update user data in storage
-      const currentUser = getCurrentUserFromStorage();
-      if (currentUser) {
-        currentUser.roles = data.roles || [...currentUser.roles, 'ROLE_MASTER'];
-        sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
-      }
+    if (data && data.token) {
+      // Save the updated token with new roles
+      saveLoginData(data.token, data);
 
-      // Update UI
-      updateGeneralUI();
-      updateLandingContent();
-
-      // Show success message or redirect
-      alert('Ora sei un Master! Puoi gestire le tue campagne.');
+      // Direct redirect to master dashboard without alert
+      window.location.replace('master.html');
     } else {
       alert("Errore durante l'aggiunta del ruolo Master.");
     }
@@ -284,32 +270,20 @@ async function handleBecomeMaster(event) {
 }
 
 /**
- * Handles becoming a Player
+ * Handles becoming a Player (using same logic as profile page)
  */
 async function handleBecomePlayer(event) {
   event.preventDefault();
 
   try {
-    const data = await apiCall('/api/auth/add-role', 'POST', {
-      role: 'ROLE_PLAYER',
-    });
+    const data = await apiCall('/api/profile/become-player', 'POST');
 
-    if (data && data.success) {
-      // Update user data in storage
-      const currentUser = getCurrentUserFromStorage();
-      if (currentUser) {
-        currentUser.roles = data.roles || [...currentUser.roles, 'ROLE_PLAYER'];
-        sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
-      }
+    if (data && data.token) {
+      // Save the updated token with new roles
+      saveLoginData(data.token, data);
 
-      // Update UI
-      updateGeneralUI();
-      updateLandingContent();
-
-      // Show success message or redirect
-      alert(
-        'Ora sei un Player! Puoi creare personaggi e unirti alle campagne.'
-      );
+      // Direct redirect to player dashboard without alert
+      window.location.replace('player.html');
     } else {
       alert("Errore durante l'aggiunta del ruolo Player.");
     }

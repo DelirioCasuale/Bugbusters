@@ -2,7 +2,38 @@ import { apiCall } from './modules/api.js';
 import { isAuthenticated, isMaster, handleLogout } from './modules/auth.js';
 import { updateGeneralUI, initLogoNavigation } from './modules/ui.js';
 
-let campaignId = null;
+let currentCampaignId = null;
+
+/**
+ * Gestisce la risposta API con logica di errore migliorata
+ * @param {*} data - Risposta dell'API
+ * @param {string} operation - Descrizione dell'operazione per il log
+ * @returns {boolean} - true se i dati sono validi, false altrimenti
+ */
+function handleApiResponse(data, operation = 'API call') {
+  console.log(`handleApiResponse for ${operation}:`, data);
+
+  if (data === null) {
+    // API call fallita - potrebbe essere 403, 401, 404, etc.
+    // Se l'utente è autenticato ma la richiesta è fallita,
+    // assumiamo che sia un problema di autorizzazione (403)
+    console.log(`${operation} failed - redirecting to error403`);
+    window.location.href = 'error403.html';
+    return false;
+  }
+
+  if (
+    data === undefined ||
+    (typeof data === 'object' && Object.keys(data).length === 0)
+  ) {
+    // Risposta vuota ma API call riuscita - risorsa non trovata (404)
+    console.log(`${operation} returned empty data - redirecting to error404`);
+    window.location.href = 'error404.html';
+    return false;
+  }
+
+  return true;
+}
 
 // --- GUARDIA DI AUTENTICAZIONE ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,13 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
   if (!isMaster()) {
-    window.location.replace('profile.html');
+    window.location.replace('master.html');
     return;
   }
   const params = new URLSearchParams(window.location.search);
   campaignId = params.get('id');
   if (!campaignId) {
-    alert('ID campagna non specificato.');
     window.location.href = 'master.html';
     return;
   }
@@ -42,13 +72,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function loadAllCampaignData() {
   const [campaignData, proposalsData] = await Promise.all([
-    apiCall(`/api/master/campaigns/${campaignId}`),
-    apiCall(`/api/master/campaigns/${campaignId}/proposals`),
+    apiCall(`/api/master/campaigns/${campaignId}`, 'GET', null, false), // Silent API call
+    apiCall(
+      `/api/master/campaigns/${campaignId}/proposals`,
+      'GET',
+      null,
+      false
+    ), // Silent API call
   ]);
-  if (campaignData) {
-    populateCampaignDetails(campaignData);
-    populatePlayerList(campaignData.players || []);
+
+  // Check campaign data with improved error handling
+  if (!handleApiResponse(campaignData, 'Campaign data load')) {
+    return;
   }
+
+  populateCampaignDetails(campaignData);
+  populatePlayerList(campaignData.players || []);
+
   if (proposalsData) {
     populateProposalList(proposalsData);
   }
@@ -185,7 +225,6 @@ async function handleKickPlayer(characterId, characterName) {
       'DELETE'
     );
     if (data) {
-      alert(data.message);
       loadAllCampaignData(); // Ricarica tutto
     }
   }

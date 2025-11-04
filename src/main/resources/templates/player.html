@@ -5,17 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tavern Portal - Dashboard Giocatore</title>
-    <link rel="icon" type="image/x-icon" href="images/dice.png" />
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="icon" type="image/x-icon" href="/images/dice.png" />
+    <link rel="stylesheet" href="/css/main.css" />
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body class="main-bg-base player-main-bg">
 
-    <div id="header-placeholder"></div>
-
-    <div id="modal-placeholder"></div>
+    <header>
+        <div class="logo-flex">
+            <i><img src="/images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
+            <div class="logo">Tavern Portal</div>
+        </div>
+        <nav id="dashboard-nav">
+        </nav>
+    </header>
 
     <main>
         <!-- Benvenuto Giocatore -->
@@ -191,10 +196,11 @@
         </div>
     </div>
 
-    <div id="footer-placeholder"></div>
+    <footer class="footer">
+        <p>&copy; 2024 Tavern Portal. Tutti i diritti riservati.</p>
+    </footer>
 
-    <script type="module" src="js/modules/components.js"></script>
-    <script type="module" src="js/page.player.js"></script>
+    <script type="module" src="/js/page.player.js"></script>
 </body>
 
 </html>
@@ -204,7 +210,7 @@
 <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
 </footer>
 
-<script type="module" src="js/page.player.js"></script>
+<script type="module" src="/js/page.player.js"></script>
 </body>
 
 </html>

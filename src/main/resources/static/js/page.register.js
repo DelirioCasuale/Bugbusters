@@ -8,28 +8,34 @@ import {
 } from './modules/auth.js';
 import { Modal, updateGeneralUI, initLogoNavigation } from './modules/ui.js';
 
-let loginModal;
-
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Inizializza UI
   updateGeneralUI();
   initLogoNavigation();
-  loginModal = new Modal('loginModal');
 
-  // 2. Aggiungi Listener
-  document.querySelectorAll('.login-trigger').forEach(
-    (el) =>
-      (el.onclick = (e) => {
-        e.preventDefault();
-        loginModal?.show();
-      })
-  );
-  document.getElementById('loginForm')?.addEventListener('submit', handleLogin);
+  // 2. Aggiungi Listener per login trigger usando event delegation
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.login-trigger')) {
+      e.preventDefault();
+      if (window.showLoginModal) window.showLoginModal();
+    }
+  });
+
+  // 2.1. Chiudi modal quando si clicca "Registrati" nel modal (siamo già nella register page)
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.register-link')) {
+      e.preventDefault();
+      const modalClose = document.querySelector('.modal-close');
+      if (modalClose) modalClose.click();
+    }
+  });
+
+  // 3. Listener per il form di registrazione
   document
     .getElementById('registerForm')
     ?.addEventListener('submit', handleRegister);
 
-  // 3. Initialize shared password toggle for registration fields
+  // 4. Initialize shared password toggle for registration fields
   initSharedPasswordToggle();
 
   document.addEventListener('click', (e) => {
@@ -113,32 +119,6 @@ function initSharedPasswordToggle() {
       }
     });
   });
-}
-
-// handleLogin (necessario per il modal in questa pagina)
-async function handleLogin(event) {
-  event.preventDefault();
-  if (!loginModal) return;
-  loginModal.hideError();
-  const username = document.getElementById('login-username')?.value;
-  const password = document.getElementById('login-password')?.value;
-  if (!username || !password) {
-    loginModal.showError('Inserisci username e password');
-    return;
-  }
-  const data = await apiCall('/api/auth/login', 'POST', { username, password });
-  if (data && data.token) {
-    saveLoginData(data.token, data);
-    loginModal.hide();
-    if (isAdmin()) window.location.href = 'admin.html';
-    else if (isPlayer()) window.location.href = 'player.html';
-    else if (isMaster()) window.location.href = 'master.html';
-    else window.location.href = 'profile.html';
-  } else if (!data) {
-    loginModal.showError('Errore durante il login. Controlla la console.');
-  } else {
-    loginModal.showError(data.message || 'Credenziali non valide.');
-  }
 }
 
 // handleRegister

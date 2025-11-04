@@ -12,7 +12,7 @@ import { updateGeneralUI, initLogoNavigation } from './modules/ui.js';
 document.addEventListener('DOMContentLoaded', () => {
   // --- GUARDIA ---
   if (!isAuthenticated()) {
-    window.location.replace('landing.html');
+    window.location.replace('error403.html');
     return;
   }
 

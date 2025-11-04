@@ -88,9 +88,8 @@ function redirectToLogin() {
  * Mostra messaggio di accesso negato
  */
 function showAccessDenied() {
-  alert('Accesso negato: non hai i permessi necessari per questa pagina.');
-  // Reindirizza a una pagina appropriata basata sui ruoli dell'utente
-  redirectBasedOnRole();
+  // Redirect to 403 error page instead of showing alert
+  window.location.href = '/error403.html';
 }
 
 /**

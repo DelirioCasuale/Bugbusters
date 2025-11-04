@@ -157,38 +157,41 @@ export class ComponentLoader {
     }
 
     try {
-      const data = await apiCall('/api/auth/login', 'POST', {
-        username,
-        password,
+      // Use fetch directly for login to handle errors without alerts
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
       });
 
-      if (data && data.token) {
-        saveLoginData(data.token, data);
+      if (response.ok) {
+        const data = await response.json();
+        if (data && data.token) {
+          saveLoginData(data.token, data);
 
-        // Close modal
-        const loginModal = document.getElementById('loginModal');
-        if (loginModal) {
-          loginModal.classList.remove('show');
-        }
-
-        // Update UI to reflect authentication status
-        updateGeneralUI();
-
-        // Update landing page content if we're on the landing page
-        if (
-          window.location.pathname.includes('landing.html') ||
-          window.location.pathname === '/'
-        ) {
-          // Check if updateLandingContent function exists (from page.landing.js)
-          if (typeof window.updateLandingContent === 'function') {
-            window.updateLandingContent();
+          // Close modal
+          const loginModal = document.getElementById('loginModal');
+          if (loginModal) {
+            loginModal.classList.remove('show');
           }
-        }
 
-        // Show success message instead of redirecting
-        console.log('Login successful! Welcome back!');
+          // Update UI to reflect authentication status
+          updateGeneralUI();
+
+          // Always redirect to landing page after successful login
+          console.log('Login successful! Redirecting to landing page...');
+          window.location.replace('landing.html');
+        } else {
+          this.showLoginError('Combinazione username e password non valida');
+        }
       } else {
-        this.showLoginError('Credenziali non valide');
+        // Handle HTTP error responses (401, 403, etc.) - always show our custom message
+        this.showLoginError('Combinazione username e password non valida');
       }
     } catch (error) {
       console.error('Login error:', error);
@@ -198,9 +201,16 @@ export class ComponentLoader {
 
   static showLoginError(message) {
     const errorElement = document.getElementById('loginError');
+    const passwordField = document.getElementById('login-password');
+
     if (errorElement) {
       errorElement.textContent = message;
       errorElement.style.display = 'block';
+    }
+
+    // Clear password field on error
+    if (passwordField) {
+      passwordField.value = '';
     }
   }
 }

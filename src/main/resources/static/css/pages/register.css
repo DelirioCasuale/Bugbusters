@@ -9,11 +9,11 @@ body.body-register {
 
 /* Wrapper per centrare il form */
 .content-wrapper {
-  flex: 1;
-  display: flex;
+  /* flex: 1;
+  display: flex; */
   justify-content: center;
-  align-items: center;
-  padding: 2rem 1rem;
+  /* align-items: center;
+  padding: 5rem 1rem; */
 }
 
 .form-card {

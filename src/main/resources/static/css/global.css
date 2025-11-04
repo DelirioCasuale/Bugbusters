@@ -286,8 +286,7 @@ main {
 
   /* Layout base per tutte le pagine */
   overflow-y: auto;
-  padding-top: 80px; /* Spazio per l'header fisso */
-  padding-bottom: 60px; /* Spazio per il footer fisso */
+  padding: 80px 20px 50px 20px;
 
   /* Stili per lo scrollbar verticale */
   scrollbar-width: thin;
@@ -315,10 +314,8 @@ main::-webkit-scrollbar-thumb:hover {
 
 main > *:first-child {
   margin-top: 60px;
-  margin-bottom: 10px;
 }
 main > *:last-child {
-  margin-top: 10px;
   margin-bottom: 90px; /* Spazio aumentato per il footer fisso */
 }
 
