@@ -1,10 +1,12 @@
 import { apiCall } from './modules/api.js';
 import { isAuthenticated, isAdmin, handleLogout } from './modules/auth.js';
-import { updateGeneralUI } from './modules/ui.js';
+import { Modal, updateGeneralUI } from './modules/ui.js';
 
 let loadedUsers = [];
 const PAGE_SIZE = 50; // Dimensione fissa di 50
 let currentPage = 0; // Pagina iniziale (indice 0)
+let editUserModal; // Nuovo modal
+let currentEditingUserId = null; // ID dell'utente che stiamo modificando
 
 // --- GUARDIA DI AUTENTICAZIONE ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -51,6 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('btn-prev-page')?.addEventListener('click', () => changePage(-1));
     document.getElementById('btn-next-page')?.addEventListener('click', () => changePage(1));
+    editUserModal = new Modal('editUserModal'); // Inizializza il nuovo modal
+    document.getElementById('editUserForm')?.addEventListener('submit', handleUpdateUser);
 
     loadAdminData();// Primo caricamento
 });
@@ -106,7 +110,59 @@ async function handleUnbanUser(userId, username) {
 }
 window.handleUnbanUser = handleUnbanUser;
 
+// NUOVO: Prepara e mostra il modal di modifica
+function showEditUserModal(user) {
+    currentEditingUserId = user.id;
+    document.getElementById('edit-username').value = user.username;
+    document.getElementById('edit-email').value = user.email;
+    document.getElementById('edit-image-url').value = user.profileImageUrl || '';
+    document.getElementById('edit-is-admin').checked = user.admin;
 
+    editUserModal.show();
+}
+window.showEditUserModal = showEditUserModal; // Rendi accessibile dall'HTML
+
+// NUOVO: Gestisce l'invio del form di modifica
+async function handleUpdateUser(event) {
+    event.preventDefault();
+    if (!currentEditingUserId) return;
+
+    editUserModal.hideError();
+
+    const dto = {
+        username: document.getElementById('edit-username').value,
+        email: document.getElementById('edit-email').value,
+        profileImageUrl: document.getElementById('edit-image-url').value,
+        isAdmin: document.getElementById('edit-is-admin').checked,
+    };
+
+    // Chiama l'API PUT
+    const data = await apiCall(`/api/admin/users/${currentEditingUserId}`, 'PUT', dto);
+
+    if (data && data.status) { // Errore
+        editUserModal.showError(data.message);
+        return;
+    }
+
+    if (data) {
+        editUserModal.hide();
+        // Ricarica la pagina corrente
+        loadAdminData(document.querySelector('.btn-filter.active')?.dataset.filter || 'all', currentPage);
+    }
+}
+
+// NUOVO: Gestisce la promozione ad Admin
+async function handlePromoteUser(userId, username) {
+    if (confirm(`Sei sicuro di voler promuovere ${username} ad ADMIN?`)) {
+        const data = await apiCall(`/api/admin/users/${userId}/promote`, 'POST');
+        if (data) {
+            alert(data.message);
+            // Ricarica la pagina corrente
+            loadAdminData(document.querySelector('.btn-filter.active')?.dataset.filter || 'all', currentPage);
+        }
+    }
+}
+window.handlePromoteUser = handlePromoteUser;
 
 function changePage(delta) {
     // Incrementa o decrementa la pagina
@@ -183,13 +239,26 @@ function renderUsersTable(usersToRender, tableBody, filter) {
                      </span>
                  </td>
                  <td>
+                     ${!user.admin ?
+                `<button class="action-button" style="background: #28a745;" 
+                              onclick="handlePromoteUser(${user.id}, '${user.username}')">Promuovi</button>` : ''
+            }
+                     
                      ${user.banned && !user.admin // Se bannato e non admin, mostra Sblocca
                 ? `<button class="action-button" onclick="handleUnbanUser(${user.id}, '${user.username}')">Sblocca</button>`
                 : !user.banned && !user.admin // Se attivo e non admin, mostra Banna
                     ? `<button class="action-button ban" onclick="handleBanUser(${user.id}, '${user.username}')">Banna</button>`
-                    : user.admin ? 'N/A' : '' // Admin non bannabile/sbloccabile
+                    : ''
             }
-                      <button class="action-button" disabled>Modifica (WIP)</button>
+
+                     <button class="action-button" 
+                          onclick="showEditUserModal({
+                              id: ${user.id}, 
+                              username: '${user.username.replace(/'/g, "\\'")}', 
+                              email: '${user.email.replace(/'/g, "\\'")}', 
+                              profileImageUrl: '${user.profileImageUrl || ''}', 
+                              admin: ${user.admin}
+                          })">Modifica</button>
                  </td>
              </tr>
          `).join('');

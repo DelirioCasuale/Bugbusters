@@ -2,7 +2,7 @@ package com.generation.Bugbusters.controller;
 
 import com.generation.Bugbusters.dto.AdminUserViewDTO;
 import com.generation.Bugbusters.service.AdminService;
-
+import com.generation.Bugbusters.dto.AdminUserUpdateDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -85,5 +86,24 @@ public class AdminController {
     public ResponseEntity<?> unbanUser(@PathVariable Long id) {
         // Usiamo PUT perché è un'operazione idempotente di aggiornamento dello stato
         return adminService.unbanUser(id);
+    }
+
+    /**
+     * NUOVO: endpoint per modificare un utente (username, email, ruoli).
+     * PUT /api/admin/users/{id}
+     */
+    @PutMapping("/users/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable Long id, 
+                                        @RequestBody AdminUserUpdateDTO dto) {
+        return adminService.updateUserByAdmin(id, dto);
+    }
+    
+    /**
+     * NUOVO: endpoint per promuovere un utente ad Admin.
+     * POST /api/admin/users/{id}/promote
+     */
+    @PostMapping("/users/{id}/promote")
+    public ResponseEntity<?> promoteUser(@PathVariable Long id) {
+        return adminService.promoteToAdmin(id);
     }
 }
