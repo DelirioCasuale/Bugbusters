@@ -29,40 +29,44 @@
             <h2><i class="fas fa-users-cog"></i> Gestione Utenti</h2>
 
             <div class="filters-container">
+                <div class="filters-top-row">
+                    <div class="filters">
+                        <button class="btn-filter active" data-filter="all">Tutti</button>
+                        <button class="btn-filter" data-filter="players">Solo Player</button>
+                        <button class="btn-filter" data-filter="masters">Solo Master</button>
+                    </div>
+                    <div class="search-bar">
+                        <input type="text" id="user-search-input" placeholder="Cerca username o email..." />
+                        <button id="user-search-button" class="btn-secondary"
+                            style="min-width: 0; padding: 8px 12px;"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
 
-                <div class="filters">
-                    <button class="btn-filter active" data-filter="all">Tutti</button>
-                    <button class="btn-filter" data-filter="players">Solo Player</button>
-                    <button class="btn-filter" data-filter="masters">Solo Master</button>
-                </div>
-                <div class="search-bar">
-                    <input type="text" id="user-search-input" placeholder="Cerca username o email..." />
-                    <button id="user-search-button" class="btn-secondary" style="min-width: 0; padding: 8px 12px;"><i
-                            class="fas fa-search"></i></button>
-                </div>
                 <div class="admin-table-wrapper">
-                    <div class="admin-table-container">
-                        <table id="users-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Username</th>
-                                    <th>Email</th>
-                                    <th>Ruoli</th>
-                                    <th>Stato</th>
-                                    <th>Azioni</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="pagination-controls">
-                        <button id="btn-prev-page" class="btn-secondary" disabled>&larr; Precedente</button>
-                        <span id="page-info" class="pagination-info">Pagina 1</span>
-                        <button id="btn-next-page" class="btn-secondary">Successivo &rarr;</button>
-                    </div>
                 </div>
+            </div>
+            <div class="admin-table-container">
+                <table id="users-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Ruoli</th>
+                            <th>Stato</th>
+                            <th>Azioni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination-controls">
+                <button id="btn-prev-page" class="btn-secondary" disabled>&larr; Precedente</button>
+                <span id="page-info" class="pagination-info">Pagina 1</span>
+                <button id="btn-next-page" class="btn-secondary">Successivo &rarr;</button>
+            </div>
+            </div>
         </section>
     </main>
 

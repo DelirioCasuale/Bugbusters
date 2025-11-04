@@ -25,6 +25,11 @@ body.admin-body {
 
 .admin-table-container {
     overflow-x: auto;
+    
+    /* CRUCIALE: Definisci una larghezza massima per permettere la centratura 
+       e usa margin: auto per centrare la tabella orizzontalmente. */
+    max-width: 100%; /* Limita alla larghezza del genitore */
+    margin: 0 auto;  /* CENTRA LA TABELLA */
 }
 
 #users-table {
@@ -142,13 +147,12 @@ body.admin-body {
 .admin-table-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centra orizzontalmente la tabella */
+    /* align-items: center; <-- Rimuovi o commenta questa riga se presente */
 }
 
 .admin-table-container {
-    /* L'overflow-x era già qui, lo manteniamo */
     overflow-x: auto;
-    width: 100%;
+    max-width: 100%;
 }
 
 /* Stile per i controlli di paginazione */
