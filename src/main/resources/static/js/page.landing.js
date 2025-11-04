@@ -86,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /**
  * Initializes password toggle functionality for the login modal
+ * This function is also exposed globally for components.js to call
  */
 function initPasswordToggle() {
   const passwordToggle = document.getElementById('password-toggle');
@@ -93,10 +94,24 @@ function initPasswordToggle() {
   const eyeIconVisible = document.getElementById('eye-icon-visible');
   const eyeIconHidden = document.getElementById('eye-icon-hidden');
 
-  if (!passwordToggle || !passwordInput || !eyeIconVisible || !eyeIconHidden)
-    return;
+  console.log('Initializing password toggle...', {
+    passwordToggle: !!passwordToggle,
+    passwordInput: !!passwordInput,
+    eyeIconVisible: !!eyeIconVisible,
+    eyeIconHidden: !!eyeIconHidden,
+  });
 
-  passwordToggle.addEventListener('click', (e) => {
+  if (!passwordToggle || !passwordInput || !eyeIconVisible || !eyeIconHidden) {
+    console.warn('Password toggle elements not found, retrying in 100ms...');
+    setTimeout(initPasswordToggle, 100);
+    return;
+  }
+
+  // Remove any existing listeners to avoid duplicates
+  const newPasswordToggle = passwordToggle.cloneNode(true);
+  passwordToggle.parentNode.replaceChild(newPasswordToggle, passwordToggle);
+
+  newPasswordToggle.addEventListener('click', (e) => {
     e.preventDefault();
 
     const isPassword = passwordInput.type === 'password';
@@ -116,7 +131,7 @@ function initPasswordToggle() {
     }
 
     // Update aria-label for accessibility
-    passwordToggle.setAttribute(
+    newPasswordToggle.setAttribute(
       'aria-label',
       isPassword ? 'Nascondi password' : 'Mostra password'
     );
@@ -126,13 +141,18 @@ function initPasswordToggle() {
   });
 
   // Also allow Enter key to toggle
-  passwordToggle.addEventListener('keydown', (e) => {
+  newPasswordToggle.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      passwordToggle.click();
+      newPasswordToggle.click();
     }
   });
+
+  console.log('Password toggle initialized successfully');
 }
+
+// Expose the function globally so components.js can call it
+window.initSharedPasswordToggle = initPasswordToggle;
 
 /**
  * Updates the landing page content based on user authentication status and roles

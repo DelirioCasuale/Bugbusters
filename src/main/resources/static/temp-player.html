@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tavern Portal - Dashboard Giocatore</title>
+    <link rel="icon" type="image/x-icon" href="images/dice.png" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/template-noth.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body class="main-bg-base player-dashboard">
+
+    <div id="header-placeholder"></div>
+
+    <div id="modal-placeholder"></div>
+
+    <main>
+        <!-- Benvenuto Giocatore -->
+        <section class="dashboard-hero">
+            <div class="dashboard-hero-content">
+                <h1>Bentornato, Avventuriero!</h1>
+                <p>Qui puoi gestire i tuoi personaggi e le tue campagne di Dungeons&Dragons.</p>
+            </div>
+        </section>
+
+        <div class="dashboard-content">
+
+            <!-- Schede personaggio -->
+            <section class="dashboard-section">
+                <h2>Le mie Schede</h2>
+                <div class="card-container">
+                    <!-- Add Card at the beginning -->
+                    <div class="card add-card" id="btn-show-create-sheet-modal">
+                        <button><i class="fas fa-plus"></i> Crea nuova Scheda</button>
+                    </div>
+                    <!-- Dynamic content will be loaded here -->
+                    <div id="player-sheets-list">
+                        <!-- Placeholder sheets -->
+                        <div class="card">
+                            <h3>Giovanni Muciaccia</h3>
+                            <p>Livello 8 · paladino</p>
+                            <button class="btn-primary">Modifica</button>
+                        </div>
+                        <div class="card">
+                            <h3>Strega Varana</h3>
+                            <p>Livello 5 · strega</p>
+                            <button class="btn-primary">Modifica</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Campagne giocatore -->
+            <section class="dashboard-section">
+                <h2>Le mie Campagne</h2>
+                <div class="card-container">
+                    <!-- Add Card at the beginning -->
+                    <div class="card add-card" id="btn-show-join-campaign-modal">
+                        <button><i class="fas fa-users"></i> Unisciti a una Campagna</button>
+                    </div>
+                    <!-- Dynamic content will be loaded here -->
+                    <div id="player-campaigns-list">
+                        <!-- Placeholder campaigns -->
+                        <div class="card">
+                            <h3>La Cittadella Perduta</h3>
+                            <p>DM: Gabibbo · 4 giocatori</p>
+                            <button class="btn-primary">Entra</button>
+                        </div>
+                        <div class="card">
+                            <h3>Il Fantabosco</h3>
+                            <p>DM: Lupo Lucio · 7 giocatori</p>
+                            <button class="btn-primary">Entra</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Calendario -->
+            <section class="dashboard-section">
+                <h2>Prossime Sessioni</h2>
+                <div class="calendar-container">
+                    <input type="date" id="session-date" class="calendar-input">
+                    <button class="btn-primary" style="margin-top: 20px;">Partecipa</button>
+                </div>
+            </section>
+
+        </div>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script type="module" src="js/modules/components.js"></script>
+    <script type="module" src="js/page.player.js"></script>
+</body>
+
+</html>
