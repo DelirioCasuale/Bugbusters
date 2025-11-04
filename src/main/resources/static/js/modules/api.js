@@ -44,32 +44,45 @@ export async function apiCall(endpoint, method = 'GET', body = null) {
         if (!response.ok) {
             console.error(`--- API Error ${response.status} ---`, data);
 
-            // Caso 1: Errore di Autenticazione (401/403)
+            // Caso 1: Errore di Autenticazione (Logout forzato)
             if (response.status === 403 || response.status === 401) {
-
-                // MODIFICA: Non fare alert/redirect se stiamo già tentando il login
+                // ... (logica 401/403 invariata) ...
                 if (endpoint.startsWith('/api/auth/login')) {
-                    // Restituisci l'errore al form di login per la gestione personalizzata
-                    return { status: response.status, message: data.message || "Credenziali non valide." };
+                    return { status: response.status, message: "Credenziali non valide." };
                 }
-
-                // Altrimenti (se l'errore 401/403 avviene altrove), fai il logout forzato
                 alert(`Sessione scaduta o non autorizzata. Riprovare il login.`);
                 clearLoginData();
                 window.location.href = 'landing.html';
                 return null;
             }
 
+            // Caso 2: Altri Errori (400, 404, ecc.)
+
             let errorMessage = data.message || 'Errore sconosciuto dal server';
 
-            // NUOVA LOGICA: Tenta di estrarre messaggi di validazione specifici (Status 400)
-            if (response.status === 400 && data.errors && data.errors.length > 0) {
-                // Estrae il primo messaggio di errore di validazione
-                errorMessage = data.errors[0].defaultMessage || errorMessage;
+            // --- NUOVA LOGICA: Tenta di estrarre messaggi di validazione (Status 400) ---
+            // Spring Boot ha diverse strutture di errore di validazione
+            try {
+                if (response.status === 400) {
+                    if (data.errors && Array.isArray(data.errors) && data.errors.length > 0) {
+                        // Struttura 1 (ProblemDetail standard con @Valid)
+                        errorMessage = data.errors[0].defaultMessage;
+                    } else if (data.fieldErrors && Array.isArray(data.fieldErrors) && data.fieldErrors.length > 0) {
+                        // Struttura 2 (Vecchia struttura Spring)
+                        errorMessage = data.fieldErrors[0].defaultMessage;
+                    }
+                    // Se il messaggio è ancora quello generico, usa il 'detail' se esiste (comune con spring-boot-starter-validation)
+                    if (errorMessage.startsWith("Validation failed") && data.detail) {
+                        errorMessage = data.detail;
+                    }
+                }
+            } catch (e) {
+                // Se il parsing dell'errore fallisce, resta l'errorMessage di default
+                console.warn("Impossibile analizzare la struttura dell'errore di validazione", e);
             }
+            // --- FINE NUOVA LOGICA ---
 
-            // Caso 2: Errore Client 400/404/ecc. (Passa il messaggio di errore al chiamante)
-            return { status: response.status, message: data.message || 'Errore sconosciuto dal server' };
+            return { status: response.status, message: errorMessage };
         }
 
         console.log(`--- API Response ${response.status} ---`, data);
