@@ -3,6 +3,7 @@ import { isAuthenticated, isPlayer, handleLogout } from './modules/auth.js';
 import { Modal, updateGeneralUI } from './modules/ui.js';
 
 let createSheetModal, joinCampaignModal;
+let infoModal; // <--- NUOVO
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -24,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     createSheetModal = new Modal('createSheetModal');
     joinCampaignModal = new Modal('joinCampaignModal');
+    infoModal = new Modal('infoModal'); // <--- INIZIALIZZAZIONE
 
     document.getElementById('createSheetForm')?.addEventListener('submit', handleCreateSheet);
     document.getElementById('joinCampaignForm')?.addEventListener('submit', handleJoinCampaign);
@@ -59,26 +61,44 @@ async function handleCreateSheet(event) {
         loadPlayerData();
     }
 }
+
+// NUOVA FUNZIONE HELPER: Per mostrare il modal di Notifica (Successo/Errore)
+function showInfoModal(title, text, isError = false) {
+    // Assumi che gli ID del modale siano coerenti con gli altri file (infoModalTitle, infoModalText)
+    const titleEl = document.getElementById('infoModalTitle');
+    const textEl = document.getElementById('infoModalText');
+
+    if (titleEl) {
+        titleEl.textContent = title;
+        titleEl.style.color = isError ? 'var(--error-color)' : 'var(--primary-purple-light)';
+    }
+    if (textEl) {
+        textEl.textContent = text;
+    }
+
+    infoModal?.show();
+}
+
 async function handleJoinCampaign(event) {
     event.preventDefault();
     if (!joinCampaignModal) return;
-     
+
     // 1. Pulisce eventuali errori precedenti
     joinCampaignModal.hideError();
-     
+
     const inviteCode = document.getElementById('join-campaign-code')?.value;
     const characterSheetId = document.getElementById('join-campaign-sheet-id')?.value;
-     
+
     // 2. Validazione lato client (campi vuoti)
     if (!inviteCode || !characterSheetId) {
         joinCampaignModal.showError("Codice invito e scheda sono obbligatori.");
         return;
     }
-     
+
     // 3. Chiamata API (api.js restituirà {status, message} se 4xx)
-    const data = await apiCall('/api/player/campaigns/join', 'POST', { 
-        inviteCode, 
-        characterSheetId: Number(characterSheetId) 
+    const data = await apiCall('/api/player/campaigns/join', 'POST', {
+        inviteCode,
+        characterSheetId: Number(characterSheetId)
     });
 
     // 4. GESTIONE ERRORE PERSONALIZZATO
@@ -87,16 +107,16 @@ async function handleJoinCampaign(event) {
         // Mostra il messaggio specifico del backend (es. "Codice invito non valido", 
         // "Fai già parte di questa campagna.", "Scheda non trovata.", ecc.)
         joinCampaignModal.showError(data.message || 'Si è verificato un errore.');
-        return; 
+        return;
     }
-     
-    // 5. GESTIONE SUCCESSO
-    if(data && data.message) {
+
+    // 5. GESTIONE SUCCESSO (MODIFICATA)
+    if (data && data.message) {
+        // Se è successo, chiudi il modale di unione e mostra il modale Info
         joinCampaignModal.hide();
-        loadPlayerData(); 
-        
-        // (Opzionale) Mostra un alert di successo (o usa il modal 'infoModal' se lo hai)
-        alert(data.message); // Es. "Ti sei unito alla campagna '...'!"
+        loadPlayerData();
+
+        showInfoModal("Unione Riuscita!", data.message, false); // false = non è un errore
     }
 }
 async function handleVoteProposal(proposalId) {
@@ -111,13 +131,13 @@ window.handleVoteProposal = handleVoteProposal;
 // Funzione di caricamento dati
 async function loadPlayerData() {
     console.log("Caricamento dati Player...");
-    if (!isPlayer()) return; 
+    if (!isPlayer()) return;
 
     const sheets = await apiCall('/api/player/sheets');
     const sheetsList = document.getElementById('player-sheets-list');
-    
+
     if (sheets && sheetsList) {
-        if(sheets.length > 0) {
+        if (sheets.length > 0) {
             sheetsList.innerHTML = sheets.map(sheet => `
                 <div class="card">
                     <h3>${sheet.name || 'Senza nome'}</h3>
