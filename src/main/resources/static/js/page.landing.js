@@ -1,15 +1,18 @@
 import { apiCall } from './modules/api.js';
-import { saveLoginData, isAdmin, isPlayer, isMaster, handleLogout } from './modules/auth.js';
+import { saveLoginData, isAuthenticated, isAdmin, isPlayer, isMaster, handleLogout } from './modules/auth.js';
 import { Modal, updateGeneralUI } from './modules/ui.js';
 
 let loginModal;
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Inizializza UI (Navbar e Modal)
+    // 1. Inizializza UI (Navbar)
     updateGeneralUI();
     loginModal = new Modal('loginModal');
 
-    // 2. Aggiungi Listener (Form, bottoni, ecc.)
+    // 2. MODIFICA 2: Aggiunta la chiamata per aggiornare i bottoni del banner
+    updateBannerButtons();
+
+    // 3. Aggiungi Listener (Form, bottoni, ecc.)
     document.querySelectorAll('.login-trigger').forEach(el => el.onclick = (e) => {
         e.preventDefault();
         loginModal?.show();
@@ -90,6 +93,48 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- FINE NUOVA AGGIUNTA ---
 });
 
+/**
+ * Controlla se l'utente è loggato e, in caso affermativo,
+ * sostituisce i pulsanti "Inizia Ora" / "Già Iscritto?"
+ * con i link alle dashboard appropriate.
+ */
+function updateBannerButtons() {
+    // Se l'utente NON è loggato, non fare nulla (i pulsanti HTML di default vanno bene)
+    if (!isAuthenticated()) {
+        return;
+    }
+
+    // Se l'utente È loggato, trova il contenitore dei pulsanti nel banner
+    const bannerBtnGroup = document.querySelector('#banner .btn-group');
+    if (!bannerBtnGroup) return;
+
+    // Costruisci i nuovi pulsanti
+    let newButtonsHTML = '';
+
+    // Logica di priorità per i pulsanti
+    if (isAdmin()) {
+        newButtonsHTML += '<a href="admin.html" class="btn-primary">Vista Admin</a>';
+    }
+    if (isMaster()) {
+        // Se è anche Admin, Master è secondario
+        const btnClass = isAdmin() ? 'btn-secondary' : 'btn-primary';
+        newButtonsHTML += `<a href="master.html" class="${btnClass}">Vista Master</a>`;
+    }
+    if (isPlayer()) {
+        // Se è Admin o Master, Player è secondario
+        const btnClass = (isAdmin() || isMaster()) ? 'btn-secondary' : 'btn-primary';
+        newButtonsHTML += `<a href="player.html" class="${btnClass}">Vista Player</a>`;
+    }
+
+    // Se l'utente è loggato ma non ha ruoli (solo ROLE_USER)
+    if (!isAdmin() && !isMaster() && !isPlayer()) {
+        newButtonsHTML += '<a href="profile.html" class="btn-primary">Vai al Profilo</a>';
+    }
+
+    // Sostituisci i vecchi pulsanti
+    bannerBtnGroup.innerHTML = newButtonsHTML;
+}
+
 async function handleLogin(event) {
     event.preventDefault();
     if (!loginModal) return;
@@ -104,37 +149,37 @@ async function handleLogin(event) {
 
     const data = await apiCall('/api/auth/login', 'POST', { username, password });
 
-    // Caso 1: Errore (data ha 'status')
+    // Gestione Errore Login (Credenziali errate)
     if (data && data.status) {
-
-        // MODIFICA CRUCIALE:
-        // Intercetta l'errore 401 (Unauthorized) o 403 (Forbidden)
-        // e sovrascrivi il messaggio, ignorando data.message ("Forbidden").
         if (data.status === 401 || data.status === 403) {
             loginModal.showError('Credenziali non valide. Controlla username e password.');
         } else {
-            // Mostra altri errori (es. 500)
             loginModal.showError(data.message || 'Errore sconosciuto.');
         }
         return;
     }
 
-    // Caso 2: Successo (data ha 'token')
+    // Gestione Successo
     if (data && data.token) {
         saveLoginData(data.token, data);
         loginModal.hide();
-        // Logica di Reindirizzamento
+
+        // MODIFICA 4: Ricarica la pagina dopo il login
+        // Questo forzerà l'aggiornamento sia della navbar che dei bottoni del banner
+        window.location.reload();
+
+        /* // Vecchia logica di reindirizzamento (ora gestita dal reload)
         if (isAdmin()) {
             window.location.href = 'admin.html';
-        } else if (isPlayer()) { // Priorità a Player
+        } else if (isPlayer()) { 
             window.location.href = 'player.html';
-        } else if (isMaster()) { // Se è *solo* master
+        } else if (isMaster()) { 
             window.location.href = 'master.html';
-        } else { // Se non è nessuno dei tre (solo ROLE_USER)
+        } else { 
             window.location.href = 'profile.html';
         }
+        */
     } else if (!data) {
-        // Errore generico (es. rete)
         loginModal.showError('Errore durante il login. Controlla la console.');
     }
 }
