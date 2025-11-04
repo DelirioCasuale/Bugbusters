@@ -51,11 +51,13 @@ public class AdminService {
      * recupera TUTTI gli utenti nel sistema (PAGINATI)
      */
     @Transactional(readOnly = true)
-    public Page<AdminUserViewDTO> getAllUsers(Pageable pageable) {
-
-        Page<User> usersPage = userRepository.findAll(pageable);
-
-        // Usa la funzione .map() di Page per convertire il contenuto
+    public Page<AdminUserViewDTO> getAllUsers(Pageable pageable, String search) { // Aggiunto 'search'
+        Page<User> usersPage;
+        if (search != null && !search.isEmpty()) {
+            usersPage = userRepository.findByUsernameContainingOrEmailContaining(search, pageable);
+        } else {
+            usersPage = userRepository.findAll(pageable); // Chiamata standard
+        }
         return usersPage.map(userMapper::toAdminViewDTO);
     }
 
@@ -63,10 +65,13 @@ public class AdminService {
      * recupera solo gli utenti che sono player (PAGINATI)
      */
     @Transactional(readOnly = true)
-    public Page<AdminUserViewDTO> getPlayersOnly(Pageable pageable) {
-
-        Page<User> usersPage = userRepository.findByPlayerIsNotNull(pageable);
-
+    public Page<AdminUserViewDTO> getPlayersOnly(Pageable pageable, String search) { // Aggiunto 'search'
+        Page<User> usersPage;
+        if (search != null && !search.isEmpty()) {
+            usersPage = userRepository.findPlayersBySearch(search, pageable);
+        } else {
+            usersPage = userRepository.findByPlayerIsNotNull(pageable); // Chiamata standard
+        }
         return usersPage.map(userMapper::toAdminViewDTO);
     }
 
@@ -74,10 +79,13 @@ public class AdminService {
      * recupera solo gli utenti che sono master (PAGINATI)
      */
     @Transactional(readOnly = true)
-    public Page<AdminUserViewDTO> getMastersOnly(Pageable pageable) {
-
-        Page<User> usersPage = userRepository.findByMasterIsNotNull(pageable);
-
+    public Page<AdminUserViewDTO> getMastersOnly(Pageable pageable, String search) { // Aggiunto 'search'
+        Page<User> usersPage;
+        if (search != null && !search.isEmpty()) {
+            usersPage = userRepository.findMastersBySearch(search, pageable);
+        } else {
+            usersPage = userRepository.findByMasterIsNotNull(pageable); // Chiamata standard
+        }
         return usersPage.map(userMapper::toAdminViewDTO);
     }
 

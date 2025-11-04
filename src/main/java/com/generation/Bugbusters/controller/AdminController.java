@@ -34,10 +34,11 @@ public class AdminController {
     @GetMapping("/users")
     public ResponseEntity<Page<AdminUserViewDTO>> getAllUsers(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "50") int size) {
-        
+            @RequestParam(defaultValue = "50") int size,
+            @RequestParam(required = false) String search) { // Aggiunto 'search'
+
         Pageable pageable = PageRequest.of(page, size);
-        Page<AdminUserViewDTO> users = adminService.getAllUsers(pageable);
+        Page<AdminUserViewDTO> users = adminService.getAllUsers(pageable, search); // Passa 'search'
         return ResponseEntity.ok(users);
     }
 
@@ -48,10 +49,11 @@ public class AdminController {
     @GetMapping("/users/players")
     public ResponseEntity<Page<AdminUserViewDTO>> getPlayersOnly(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "50") int size) {
-        
+            @RequestParam(defaultValue = "50") int size,
+            @RequestParam(required = false) String search) { // Aggiunto 'search'
+
         Pageable pageable = PageRequest.of(page, size);
-        Page<AdminUserViewDTO> users = adminService.getPlayersOnly(pageable);
+        Page<AdminUserViewDTO> users = adminService.getPlayersOnly(pageable, search); // Passa 'search'
         return ResponseEntity.ok(users);
     }
 
@@ -62,10 +64,11 @@ public class AdminController {
     @GetMapping("/users/masters")
     public ResponseEntity<Page<AdminUserViewDTO>> getMastersOnly(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "50") int size) {
-        
+            @RequestParam(defaultValue = "50") int size,
+            @RequestParam(required = false) String search) { // Aggiunto 'search'
+
         Pageable pageable = PageRequest.of(page, size);
-        Page<AdminUserViewDTO> users = adminService.getMastersOnly(pageable);
+        Page<AdminUserViewDTO> users = adminService.getMastersOnly(pageable, search); // Passa 'search'
         return ResponseEntity.ok(users);
     }
 
@@ -77,12 +80,12 @@ public class AdminController {
     public ResponseEntity<?> banUser(@PathVariable Long id) {
         return adminService.banUser(id);
     }
-    
+
     /**
      * NUOVO: endpoint per sbloccare (rimuovere sospensione) un utente
      * PUT /api/admin/users/{id}/unban
      */
-    @PutMapping("/users/{id}/unban") 
+    @PutMapping("/users/{id}/unban")
     public ResponseEntity<?> unbanUser(@PathVariable Long id) {
         // Usiamo PUT perché è un'operazione idempotente di aggiornamento dello stato
         return adminService.unbanUser(id);
@@ -93,11 +96,11 @@ public class AdminController {
      * PUT /api/admin/users/{id}
      */
     @PutMapping("/users/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable Long id, 
-                                        @RequestBody AdminUserUpdateDTO dto) {
+    public ResponseEntity<?> updateUser(@PathVariable Long id,
+            @RequestBody AdminUserUpdateDTO dto) {
         return adminService.updateUserByAdmin(id, dto);
     }
-    
+
     /**
      * NUOVO: endpoint per promuovere un utente ad Admin.
      * POST /api/admin/users/{id}/promote

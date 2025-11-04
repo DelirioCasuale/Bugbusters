@@ -2,7 +2,7 @@ import { apiCall } from './modules/api.js';
 import { isAuthenticated, isAdmin, handleLogout } from './modules/auth.js';
 import { Modal, updateGeneralUI } from './modules/ui.js';
 
-let loadedUsers = [];
+// let loadedUsers = [];
 const PAGE_SIZE = 50; // Dimensione fissa di 50
 let currentPage = 0; // Pagina iniziale (indice 0)
 let editUserModal; // Nuovo modal
@@ -31,8 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (searchInput) {
         searchInput.addEventListener('keyup', () => {
+            // Quando l'utente digita, resetta la pagina a 0 e ricarica i dati
+            currentPage = 0; 
             const activeFilter = document.querySelector('.btn-filter.active')?.dataset.filter || 'all';
-            filterUsersAndRender(activeFilter);
+            loadAdminData(activeFilter, currentPage); // Chiamiamo loadAdminData
         });
     }
 
@@ -44,7 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     document.querySelectorAll('.btn-filter')?.forEach(btn => {
-        btn.addEventListener('click', (e) => loadAdminData(e.target.dataset.filter));
+        btn.addEventListener('click', (e) => {
+            currentPage = 0; // Resetta la pagina
+            loadAdminData(e.target.dataset.filter, currentPage);
+        });
     });
 
     document.addEventListener('click', (e) => {
@@ -61,27 +66,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ... (funzioni handleBanUser e loadAdminData rimangono invariate) ...
 
-function filterUsersAndRender(filter) {
-    // ... (omissis) ...
-    // Se stai usando la paginazione, la logica di 'filter' qui è ridondante,
-    // perché i filtri 'players'/'masters' sono già gestiti dall'endpoint nel loadAdminData.
-    // Qui devi solo applicare la barra di ricerca.
+// function filterUsersAndRender(filter) {
+//     // ... (omissis) ...
+//     // Se stai usando la paginazione, la logica di 'filter' qui è ridondante,
+//     // perché i filtri 'players'/'masters' sono già gestiti dall'endpoint nel loadAdminData.
+//     // Qui devi solo applicare la barra di ricerca.
 
-    const searchInput = document.getElementById('user-search-input')?.value.toLowerCase().trim();
+//     const searchInput = document.getElementById('user-search-input')?.value.toLowerCase().trim();
 
-    // Applica solo la ricerca testuale, la paginazione e i filtri di ruolo vengono dal backend
-    let usersToRender = loadedUsers;
+//     // Applica solo la ricerca testuale, la paginazione e i filtri di ruolo vengono dal backend
+//     let usersToRender = loadedUsers;
 
-    if (searchInput) {
-        usersToRender = loadedUsers.filter(user =>
-            user.username.toLowerCase().includes(searchInput) ||
-            user.email.toLowerCase().includes(searchInput)
-        );
-    }
+//     if (searchInput) {
+//         usersToRender = loadedUsers.filter(user =>
+//             user.username.toLowerCase().includes(searchInput) ||
+//             user.email.toLowerCase().includes(searchInput)
+//         );
+//     }
 
-    const tableBody = document.querySelector('#users-table tbody');
-    renderUsersTable(usersToRender, tableBody, filter);
-}
+//     const tableBody = document.querySelector('#users-table tbody');
+//     renderUsersTable(usersToRender, tableBody, filter);
+// }
 
 async function handleBanUser(userId, username) {
     if (confirm(`Sei sicuro di voler bannare l'utente ${username} (ID: ${userId})? L'utente sarà sospeso per 1 anno.`)) {
@@ -165,46 +170,51 @@ async function handlePromoteUser(userId, username) {
 window.handlePromoteUser = handlePromoteUser;
 
 function changePage(delta) {
-    // Incrementa o decrementa la pagina
     const newPage = currentPage + delta;
-
-    // Non carichiamo se l'indice è negativo
     if (newPage < 0) return;
-
-    // Aggiorniamo la pagina corrente
     currentPage = newPage;
-
-    // Ricarica i dati dal backend con il nuovo indice di pagina
+    // Ricarica i dati inviando anche il termine di ricerca
     loadAdminData(document.querySelector('.btn-filter.active')?.dataset.filter || 'all', currentPage);
 }
 
 async function loadAdminData(filter = 'all', pageIndex = 0) {
-    console.log(`Caricamento dati Admin, filtro: ${filter}, pagina: ${pageIndex}`);
-    if (!isAdmin()) return;
-    let endpoint = '/api/admin/users';
-
-    if (filter === 'players') endpoint = '/api/admin/users/players';
-    else if (filter === 'masters') endpoint = '/api/admin/users/masters';
-
-    // Aggiunge i parametri di paginazione all'URL (il backend DEVE supportarli)
-    const urlWithPagination = `${endpoint}?page=${pageIndex}&size=${PAGE_SIZE}`;
-
-    const responseData = await apiCall(urlWithPagination); // responseData è ora l'oggetto di paginazione Spring (es. Page<AdminUserViewDTO>)
-
-    // Assumendo che il backend restituisca un oggetto 'Page' di Spring Data
-    const users = responseData.content || [];
-    const totalPages = responseData.totalPages || 1;
-
-    // Salva l'elenco completo degli utenti per la ricerca lato client (solo la pagina corrente)
-    loadedUsers = users;
-
-    const tableBody = document.querySelector('#users-table tbody');
-
-    // 1. Applica filtro di ricerca lato client sulla pagina corrente
-    filterUsersAndRender(filter);
-
-    // 2. Aggiorna i controlli di paginazione
-    updatePaginationControls(totalPages);
+     console.log(`Caricamento dati Admin, filtro: ${filter}, pagina: ${pageIndex}`);
+     if (!isAdmin()) return; 
+     
+     // 1. Prendi il termine di ricerca dall'input
+     const searchInput = document.getElementById('user-search-input')?.value.trim();
+     
+     let endpoint = '/api/admin/users';
+     if(filter === 'players') endpoint = '/api/admin/users/players';
+     else if (filter === 'masters') endpoint = '/api/admin/users/masters';
+     
+     // 2. Costruisci i parametri URL (Paginazione + Ricerca)
+     const urlParams = new URLSearchParams({
+         page: pageIndex,
+         size: PAGE_SIZE
+     });
+     
+     if (searchInput) {
+         urlParams.append('search', searchInput); // Aggiungi la ricerca se presente
+     }
+     
+     const urlWithParams = `${endpoint}?${urlParams.toString()}`;
+     
+     const responseData = await apiCall(urlWithParams); 
+     
+     const users = responseData.content || []; 
+     const totalPages = responseData.totalPages || 1;
+     
+     // 3. Rimuovi il filtro client-side (non più necessario)
+     // loadedUsers = users; // <-- RIMUOVI
+     
+     const tableBody = document.querySelector('#users-table tbody');
+     
+     // 4. Renderizza direttamente i risultati (già filtrati dal backend)
+     renderUsersTable(users, tableBody, filter); 
+     
+     // 5. Aggiorna i controlli di paginazione
+     updatePaginationControls(totalPages);
 }
 
 function updatePaginationControls(totalPages) {

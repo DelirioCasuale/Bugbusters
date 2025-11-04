@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -56,4 +58,16 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * spring capisce "MasterIsNotNull" e lo traduce in SQL.
      */
     Page<User> findByMasterIsNotNull(Pageable pageable);
+
+    // NUOVO: Cerca TUTTI gli utenti per username o email
+    @Query("SELECT u FROM User u WHERE (u.username LIKE %:search% OR u.email LIKE %:search%)")
+    Page<User> findByUsernameContainingOrEmailContaining(@Param("search") String search, Pageable pageable);
+
+    // NUOVO: Cerca SOLO PLAYER per username o email
+    @Query("SELECT u FROM User u WHERE u.player IS NOT NULL AND (u.username LIKE %:search% OR u.email LIKE %:search%)")
+    Page<User> findPlayersBySearch(@Param("search") String search, Pageable pageable);
+
+    // NUOVO: Cerca SOLO MASTER per username o email
+    @Query("SELECT u FROM User u WHERE u.master IS NOT NULL AND (u.username LIKE %:search% OR u.email LIKE %:search%)")
+    Page<User> findMastersBySearch(@Param("search") String search, Pageable pageable);
 }
