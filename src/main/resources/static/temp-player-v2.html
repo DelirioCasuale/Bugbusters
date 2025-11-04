@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tavern Portal - Dashboard Giocatore</title>
+    <link rel="icon" type="image/x-icon" href="images/dice.png" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body class="main-bg-base player-main-bg">
+
+    <!-- Header Component -->
+    <div id="header-placeholder"></div>
+
+    <main>
+
+        <!-- Benvenuto Giocatore -->
+        <section class="hero-section">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Bentornato, Avventuriero!</h1>
+                    <p>Qui puoi gestire i tuoi personaggi e le tue campagne di Dungeons&Dragons.</p>
+                </div>
+            </div>
+            <div class="switch-visual">
+                <div class="hero">
+                    <div class="hero-content">
+                        <h3>vuoi guidare il tuo party in epiche avventure?</h3>
+                        <button class="btn-primary">Diventa Master</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Schede personaggio -->
+        <section class="page">
+            <!-- Page Header -->
+            <div class="page-header">
+                <!-- Page Label -->
+                <div class="page-label">
+                    <h2>Le mie Schede</h2>
+                </div>
+                <!-- Page Searchbar -->
+                <div class="page-searchbar">
+                    <div class="search-container">
+                        <div class="search-icon">
+                            <img src="images/search-icon.svg" alt="Search" width="20" height="20" />
+                        </div>
+                        <input name="search-characters" type="text" class="search-input" placeholder="Cerca schede..." />
+                    </div>
+                </div>
+            </div>
+            <!-- Cards Container -->
+            <div class="card-container">
+                <!-- Add Card at the beginning -->
+                <div class="card add-card" id="btn-show-create-sheet-modal">
+                    <button><i class="fas fa-plus"></i> Crea nuova Scheda</button>
+                </div>
+                <!-- Dynamic character cards will be inserted here -->
+                <div id="player-sheets-list">
+                    <!-- Placeholder content will be replaced by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Campagne giocatore -->
+        <section class="page">
+            <!-- Page Header -->
+            <div class="page-header">
+                <!-- Page Label -->
+                <div class="page-label">
+                    <h2>Le mie Campagne</h2>
+                </div>
+                <!-- Page Searchbar -->
+                <div class="page-searchbar">
+                    <div class="search-container">
+                        <div class="search-icon">
+                            <img src="images/search-icon.svg" alt="Search" width="20" height="20" />
+                        </div>
+                        <input name="search-player-campaigns" type="text" class="search-input" placeholder="Cerca campagne..." />
+                    </div>
+                </div>
+            </div>
+            <!-- Cards Container -->
+            <div class="card-container">
+                <!-- Add Card at the beginning -->
+                <div class="card add-card" id="btn-show-join-campaign-modal">
+                    <button><i class="fas fa-users"></i> Unisciti a una Campagna</button>
+                </div>
+                <!-- Dynamic campaign cards will be inserted here -->
+                <div id="player-campaigns-list">
+                    <!-- Placeholder content will be replaced by JavaScript -->
+                </div>
+                <!-- this card is always shown even if there are no campaigns -->
+                <div class="card add-campaign-card">
+                    <p>Hai un codice invito? <br> Scegli il tuo personaggio</p>
+                    <!-- form per entrare in una campagna con codice invito -->
+                    <div class="campaign-invite-form">
+                        <form action="">
+                            <input type="text" name="invite-code" class="invite-input" placeholder="Inserisci codice invito" />
+                            <select name="character" class="character-select">
+                                <!-- le opzioni saranno dinamiche in base alle schede senza una campagna già associata -->
+                                <option>Personaggio 1</option>
+                                <option>Personaggio 2</option>
+                                <option>Personaggio 3</option>
+                            </select>
+                            <button class="btn-primary">Entra</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calendario -->
+        <section class="page">
+            <!-- Page Header -->
+            <div class="page-header">
+                <!-- Page Label -->
+                <div class="page-label">
+                    <h2>Prossime Sessioni</h2>
+                </div>
+                <!-- Page Searchbar -->
+                <div class="page-searchbar">
+                    <form class="search-form" onsubmit="return false;">
+                        <div class="search-container">
+                            <div class="search-icon">
+                                <img src="images/search-icon.svg" alt="Search" width="20" height="20" />
+                            </div>
+                            <input name="search-sessions" type="text" class="search-input" placeholder="Cerca sessioni..." />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Page Content -->
+            <div class="page-content">
+                <div class="card-container" id="player-proposals-list">
+                    <!-- Dynamic session/proposal cards will be inserted here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Component -->
+    <div id="modal-placeholder"></div>
+
+    <!-- Footer Component -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script type="module">
+        // Bypass authentication temporarily for debugging
+        import { ComponentLoader } from './js/modules/components.js';
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('Loading components...');
+            
+            // Load components
+            await ComponentLoader.loadAllComponents();
+            
+            // Load some test data
+            const sheetsList = document.getElementById('player-sheets-list');
+            if (sheetsList) {
+                sheetsList.innerHTML = `
+                    <div class="card">
+                        <h3>Test Scheda 1</h3>
+                        <p>Livello 5 · Guerriero · Umano</p>
+                        <button class="btn-secondary">Modifica</button>
+                    </div>
+                    <div class="card">
+                        <h3>Test Scheda 2</h3>
+                        <p>Livello 3 · Mago · Elfo</p>
+                        <button class="btn-secondary">Modifica</button>
+                    </div>
+                `;
+            }
+            
+            const campaignsList = document.getElementById('player-campaigns-list');
+            if (campaignsList) {
+                campaignsList.innerHTML = `
+                    <div class="card">
+                        <h3>La Cittadella Perduta</h3>
+                        <p>DM: Master Test · 4 giocatori</p>
+                        <button class="btn-primary">Entra</button>
+                    </div>
+                `;
+            }
+            
+            const proposalsList = document.getElementById('player-proposals-list');
+            if (proposalsList) {
+                proposalsList.innerHTML = `
+                    <div class="card">
+                        <h3>Sessione Programmata</h3>
+                        <p>5 novembre 2025 · La Cittadella Perduta</p>
+                        <button class="btn-primary">Partecipa</button>
+                    </div>
+                `;
+            }
+            
+            console.log('Test data loaded');
+        });
+    </script>
+    
+    <!-- Original scripts commented out for debugging -->
+    <!--
+    <script type="module" src="js/modules/components.js"></script>
+    <script type="module" src="js/page.player.js"></script>
+    -->
+
+</body>
+
+</html>

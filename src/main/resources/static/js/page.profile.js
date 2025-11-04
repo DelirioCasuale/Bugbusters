@@ -9,6 +9,44 @@ import {
 } from './modules/auth.js';
 import { updateGeneralUI, initLogoNavigation } from './modules/ui.js';
 
+function updatePreview(imageUrl) {
+  const previewEl = document.getElementById('profile-image-preview');
+  // Usa l'URL fornito, o un'immagine di default (dice.png) se l'URL è vuoto/nullo
+  const src = imageUrl || 'images/dice.png';
+  if (previewEl && src) {
+    previewEl.src = src;
+  }
+}
+
+/**
+ * Setup per la navigazione tra le sezioni del profilo
+ */
+function setupProfileNavigation() {
+  const navItems = document.querySelectorAll('.profile-nav-item');
+  const contentPanels = document.querySelectorAll('.profile-content-panel');
+
+  navItems.forEach((item) => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const target = item.dataset.target;
+
+      // Rimuovi la classe active da tutti i nav items
+      navItems.forEach((nav) => nav.classList.remove('active'));
+      // Aggiungi active al nav item cliccato
+      item.classList.add('active');
+
+      // Nascondi tutti i content panels
+      contentPanels.forEach((panel) => panel.classList.remove('active'));
+      // Mostra il panel target
+      const targetPanel = document.getElementById(`profile-content-${target}`);
+      if (targetPanel) {
+        targetPanel.classList.add('active');
+      }
+    });
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   // --- GUARDIA ---
   if (!isAuthenticated()) {
@@ -19,13 +57,26 @@ document.addEventListener('DOMContentLoaded', () => {
   updateGeneralUI(); // Aggiorna la navbar
   initLogoNavigation();
 
+  // Setup profile navigation
+  setupProfileNavigation();
+
   // Popola i form con i dati utente attuali
   const user = getCurrentUserFromStorage();
   if (user) {
     document.getElementById('profile-username').value = user.username;
     document.getElementById('profile-email').value = user.email;
-    document.getElementById('profile-image-url').value =
-      user.profileImageUrl || '';
+    const imageUrlInput = document.getElementById('profile-image-url');
+    if (imageUrlInput) {
+      imageUrlInput.value = user.profileImageUrl || '';
+
+      // 1. CHIAMATA INIZIALE: Popola l'anteprima al caricamento della pagina
+      updatePreview(user.profileImageUrl);
+
+      // 2. AGGIUNGI LISTENER: Aggiorna l'anteprima ogni volta che l'utente scrive
+      imageUrlInput.addEventListener('input', (e) => {
+        updatePreview(e.target.value);
+      });
+    }
   }
 
   // --- GESTIONE DINAMICA BOTTONI RUOLO (MODIFICATA) ---

@@ -62,6 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
     .getElementById('btn-download-pdf')
     ?.addEventListener('click', handleDownloadPdf);
 
+  // Setup per calcolare automaticamente i modificatori delle stats
+  setupStatModifiers();
+
   const params = new URLSearchParams(window.location.search);
   currentSheetId = params.get('id');
 
@@ -72,6 +75,33 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = 'error403.html';
   }
 });
+
+/**
+ * Setup per calcolare automaticamente i modificatori delle stats
+ */
+function setupStatModifiers() {
+  const statInputs = document.querySelectorAll('.stat-score-input');
+  statInputs.forEach((input) => {
+    input.addEventListener('input', calculateStatModifier);
+    input.addEventListener('change', calculateStatModifier);
+  });
+}
+
+/**
+ * Calcola il modificatore di una statistica
+ */
+function calculateStatModifier(event) {
+  const statValue = parseInt(event.target.value, 10) || 10;
+  const modifier = Math.floor((statValue - 10) / 2);
+  const modifierString = modifier >= 0 ? `+${modifier}` : `${modifier}`;
+
+  // Trova l'elemento modificatore corrispondente
+  const statId = event.target.id;
+  const modifierElement = document.getElementById(statId + '-mod');
+  if (modifierElement) {
+    modifierElement.textContent = modifierString;
+  }
+}
 
 /**
  * Carica i dati della scheda e popola il form
@@ -114,6 +144,11 @@ function populateForm(dto) {
   document.getElementById('cs-intelligence').value = dto.intelligence || 10;
   document.getElementById('cs-wisdom').value = dto.wisdom || 10;
   document.getElementById('cs-charisma').value = dto.charisma || 10;
+
+  // Calcola i modificatori iniziali
+  document.querySelectorAll('.stat-score-input').forEach((input) => {
+    calculateStatModifier({ target: input });
+  });
 
   // Col 1 - Skills (Checkboxes)
   // (Usa "name" dal DTO per trovare l'ID nel form)

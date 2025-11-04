@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tavern Portal - Dashboard Giocatore (Debug)</title>
+    <link rel="icon" type="image/x-icon" href="images/dice.png" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body class="main-bg-base player-main-bg">
+
+    <!-- Header Component -->
+    <div id="header-placeholder"></div>
+
+    <main>
+
+        <!-- Benvenuto Giocatore -->
+        <section class="hero-section">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Bentornato, Avventuriero!</h1>
+                    <p>Qui puoi gestire i tuoi personaggi e le tue campagne di Dungeons&Dragons.</p>
+                </div>
+            </div>
+            <div class="switch-visual">
+                <div class="hero">
+                    <div class="hero-content">
+                        <h3>vuoi guidare il tuo party in epiche avventure?</h3>
+                        <button class="btn-primary">Diventa Master</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Schede personaggio -->
+        <section class="page">
+            <!-- Page Header -->
+            <div class="page-header">
+                <!-- Page Label -->
+                <div class="page-label">
+                    <h2>Le mie Schede</h2>
+                </div>
+                <!-- Page Searchbar -->
+                <div class="page-searchbar">
+                    <div class="search-container">
+                        <div class="search-icon">
+                            <img src="images/search-icon.svg" alt="Search" width="20" height="20" />
+                        </div>
+                        <input name="search-characters" type="text" class="search-input" placeholder="Cerca schede..." />
+                    </div>
+                </div>
+            </div>
+            <!-- Cards Container -->
+            <div class="card-container">
+                <!-- Add Card at the beginning -->
+                <div class="card add-card" id="btn-show-create-sheet-modal">
+                    <button><i class="fas fa-plus"></i> Crea nuova Scheda</button>
+                </div>
+                <!-- Dynamic character cards will be inserted here -->
+                <div id="player-sheets-list">
+                    <div class="card">
+                        <h3>Caricamento...</h3>
+                        <p>Sto caricando le tue schede...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Campagne giocatore -->
+        <section class="page">
+            <!-- Page Header -->
+            <div class="page-header">
+                <!-- Page Label -->
+                <div class="page-label">
+                    <h2>Le mie Campagne</h2>
+                </div>
+                <!-- Page Searchbar -->
+                <div class="page-searchbar">
+                    <div class="search-container">
+                        <div class="search-icon">
+                            <img src="images/search-icon.svg" alt="Search" width="20" height="20" />
+                        </div>
+                        <input name="search-player-campaigns" type="text" class="search-input" placeholder="Cerca campagne..." />
+                    </div>
+                </div>
+            </div>
+            <!-- Cards Container -->
+            <div class="card-container">
+                <!-- Add Card at the beginning -->
+                <div class="card add-card" id="btn-show-join-campaign-modal">
+                    <button><i class="fas fa-users"></i> Unisciti a una Campagna</button>
+                </div>
+                <!-- Dynamic campaign cards will be inserted here -->
+                <div id="player-campaigns-list">
+                    <div class="card">
+                        <h3>Caricamento...</h3>
+                        <p>Sto caricando le tue campagne...</p>
+                    </div>
+                </div>
+                <!-- this card is always shown even if there are no campaigns -->
+                <div class="card add-campaign-card">
+                    <p>Hai un codice invito? <br> Scegli il tuo personaggio</p>
+                    <!-- form per entrare in una campagna con codice invito -->
+                    <div class="campaign-invite-form">
+                        <form action="">
+                            <input type="text" name="invite-code" class="invite-input" placeholder="Inserisci codice invito" />
+                            <select name="character" class="character-select">
+                                <!-- le opzioni saranno dinamiche in base alle schede senza una campagna già associata -->
+                                <option>Personaggio 1</option>
+                                <option>Personaggio 2</option>
+                                <option>Personaggio 3</option>
+                            </select>
+                            <button class="btn-primary">Entra</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calendario -->
+        <section class="page">
+            <!-- Page Header -->
+            <div class="page-header">
+                <!-- Page Label -->
+                <div class="page-label">
+                    <h2>Prossime Sessioni</h2>
+                </div>
+                <!-- Page Searchbar -->
+                <div class="page-searchbar">
+                    <form class="search-form" onsubmit="return false;">
+                        <div class="search-container">
+                            <div class="search-icon">
+                                <img src="images/search-icon.svg" alt="Search" width="20" height="20" />
+                            </div>
+                            <input name="search-sessions" type="text" class="search-input" placeholder="Cerca sessioni..." />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Page Content -->
+            <div class="page-content">
+                <div class="card-container" id="player-proposals-list">
+                    <div class="card">
+                        <h3>Caricamento...</h3>
+                        <p>Sto caricando le sessioni...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Component -->
+    <div id="modal-placeholder"></div>
+
+    <!-- Footer Component -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Debug Script -->
+    <script>
+        console.log('=== DEBUG SCRIPT START ===');
+        
+        // Check if components load
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('DOM loaded, starting debug...');
+            
+            // Load components manually
+            try {
+                const headerResponse = await fetch('fragments/header.html');
+                const headerHtml = await headerResponse.text();
+                document.getElementById('header-placeholder').innerHTML = headerHtml;
+                console.log('✓ Header loaded');
+                
+                const footerResponse = await fetch('fragments/footer.html');
+                const footerHtml = await footerResponse.text();
+                document.getElementById('footer-placeholder').innerHTML = footerHtml;
+                console.log('✓ Footer loaded');
+                
+                const modalResponse = await fetch('fragments/login-modal.html');
+                const modalHtml = await modalResponse.text();
+                document.getElementById('modal-placeholder').innerHTML = modalHtml;
+                console.log('✓ Modal loaded');
+                
+            } catch (error) {
+                console.error('Component loading error:', error);
+            }
+            
+            // Test API call
+            try {
+                const response = await fetch('/api/player/sheets', {
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                    }
+                });
+                console.log('API Response status:', response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('API Data:', data);
+                    
+                    // Update the sheets list
+                    const sheetsList = document.getElementById('player-sheets-list');
+                    if (data && data.length > 0) {
+                        sheetsList.innerHTML = data.map(sheet => `
+                            <div class="card">
+                                <h3>${sheet.name || 'Senza nome'}</h3>
+                                <p>ID: ${sheet.id} · ${sheet.primaryClass || '?'} Lvl ${sheet.primaryLevel || '?'} · ${sheet.race || '?'}</p>
+                                <a href="edit-sheet.html?id=${sheet.id}" class="btn-secondary">Modifica</a>
+                            </div>
+                        `).join('');
+                        console.log('✓ Sheets loaded successfully');
+                    } else {
+                        sheetsList.innerHTML = '<div class="card"><p>Non hai ancora creato nessuna scheda.</p></div>';
+                        console.log('ℹ No sheets found');
+                    }
+                } else {
+                    console.error('API call failed:', response.status, response.statusText);
+                    document.getElementById('player-sheets-list').innerHTML = '<div class="card"><p style="color: red;">Errore nel caricamento delle schede (Status: ' + response.status + ')</p></div>';
+                }
+            } catch (error) {
+                console.error('API call error:', error);
+                document.getElementById('player-sheets-list').innerHTML = '<div class="card"><p style="color: red;">Errore di rete nel caricamento delle schede</p></div>';
+            }
+            
+            console.log('=== DEBUG SCRIPT END ===');
+        });
+    </script>
+
+</body>
+
+</html>

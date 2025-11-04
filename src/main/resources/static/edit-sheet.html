@@ -14,9 +14,13 @@
 
 <body class="dashboard-body">
 
-    <div id="header-placeholder"></div>
-
-    <div id="modal-placeholder"></div>
+    <header>
+        <div class="logo-flex">
+            <i><img src="images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
+            <div class="logo">Tavern Portal</div>
+        </div>
+        <nav id="dashboard-nav"></nav>
+    </header>
 
     <main class="dashboard-content">
         <form id="editSheetForm" class="sheet-container">
@@ -39,12 +43,48 @@
 
                 <div class="sheet-col-1">
                     <div class="stat-boxes">
-                        <div class="stat-box"><label>Strength</label><input type="number" id="cs-strength" name="strength"></div>
-                        <div class="stat-box"><label>Dexterity</label><input type="number" id="cs-dexterity" name="dexterity"></div>
-                        <div class="stat-box"><label>Constitution</label><input type="number" id="cs-constitution" name="constitution"></div>
-                        <div class="stat-box"><label>Intelligence</label><input type="number" id="cs-intelligence" name="intelligence"></div>
-                        <div class="stat-box"><label>Wisdom</label><input type="number" id="cs-wisdom" name="wisdom"></div>
-                        <div class="stat-box"><label>Charisma</label><input type="number" id="cs-charisma" name="charisma"></div>
+                        <div class="stat-box">
+                            <label for="cs-strength">Strength</label>
+                            <input type="number" id="cs-strength" name="strength" class="stat-score-input">
+                            <div class="stat-modifier-box">
+                                <span id="cs-strength-mod">+0</span>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <label for="cs-dexterity">Dexterity</label>
+                            <input type="number" id="cs-dexterity" name="dexterity" class="stat-score-input">
+                            <div class="stat-modifier-box">
+                                <span id="cs-dexterity-mod">+0</span>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <label for="cs-constitution">Constitution</label>
+                            <input type="number" id="cs-constitution" name="constitution" class="stat-score-input">
+                            <div class="stat-modifier-box">
+                                <span id="cs-constitution-mod">+0</span>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <label for="cs-intelligence">Intelligence</label>
+                            <input type="number" id="cs-intelligence" name="intelligence" class="stat-score-input">
+                            <div class="stat-modifier-box">
+                                <span id="cs-intelligence-mod">+0</span>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <label for="cs-wisdom">Wisdom</label>
+                            <input type="number" id="cs-wisdom" name="wisdom" class="stat-score-input">
+                            <div class="stat-modifier-box">
+                                <span id="cs-wisdom-mod">+0</span>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <label for="cs-charisma">Charisma</label>
+                            <input type="number" id="cs-charisma" name="charisma" class="stat-score-input">
+                            <div class="stat-modifier-box">
+                                <span id="cs-charisma-mod">+0</span>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="sheet-box skills-box">
@@ -141,7 +181,7 @@
                 <div id="editSheetError" class="error-message"></div>
                 <div class="btn-group" style="margin-top: 15px;">
                     <a href="player.html" class="btn-secondary">Indietro</a>
-                    <button type="button" class_="btn-secondary btn-download" id="btn-download-pdf">Scarica PDF</button>
+                    <button type="button" class="btn-secondary btn-download" id="btn-download-pdf">Scarica PDF</button>
                     <button type="submit" class="btn-primary">Salva Modifiche</button>
                 </div>
             </div>
@@ -149,9 +189,10 @@
         </form>
     </main>
 
-    <div id="footer-placeholder"></div>
+    <footer class="footer">
+        <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
+    </footer>
 
-    <script type="module" src="js/modules/components.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script type="module" src="js/page.edit-sheet.js"></script>
 </body>

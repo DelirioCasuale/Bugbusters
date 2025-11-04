@@ -7,6 +7,7 @@
     <title>Tavern Portal - Dashboard Master</title>
     <link rel="icon" type="image/x-icon" href="images/dice.png" />
     <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -28,6 +29,18 @@
             </div>
         </section>
 
+        <!-- Switch Visual Section -->
+        <section class="hero-section">
+            <div class="switch-visual">
+                <div class="hero">
+                    <div class="hero-content">
+                        <h3>il tuo party ha bisogno di te?</h3>
+                        <button class="btn-primary" onclick="window.location.href='player.html'">Visuale Player</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Campagne Master -->
         <section class="page">
             <!-- Page Header -->
@@ -35,7 +48,6 @@
                 <!-- Page Label -->
                 <div class="page-label">
                     <h2>Le mie Campagne</h2>
-                    <button class="btn-primary add-card" id="btn-show-create-campaign-modal" title="Crea nuova Campagna">&plus;</button>
                 </div>
                 <!-- Page Searchbar -->
                 <div class="page-searchbar">
@@ -51,6 +63,11 @@
             </div>
             <!-- Cards Container -->
             <div class="card-container">
+                <div class="card add-card">
+                    <button class="btn-primary" id="btn-show-create-campaign-modal" title="Crea nuova Campagna">
+                        <i class="fas fa-plus"></i> Crea Campagna
+                    </button>
+                </div>
                 <div id="master-campaigns-list"></div>
                 <div class="card add-card">
                     <button class="btn-secondary" id="btn-show-claim-campaign-modal"><i class="fas fa-shield-alt"></i> Reclama Campagna Orfana</button>

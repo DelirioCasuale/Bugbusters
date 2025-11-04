@@ -2,15 +2,13 @@
    DASHBOARD SECTIONS - Schede personaggio e campagne
    ============================================================================ */
 
-body.master-main-bg {
-  background-image: url('../images/master.gif');
-  background-position: center bottom;
-}
-
-body.player-main-bg {
-  background-image: url('../images/player.gif');
-  background-position: center center;
-}
+/* body.main-bg-base.player-main-bg {
+  background-image: url('../images/player.gif') !important;
+  background-position: center center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+} */
 
 main {
   /* Override specifici per dashboard */
@@ -48,13 +46,9 @@ main {
   flex-wrap: wrap;
 }
 
-.page-header > :first-child {
-  margin-bottom: 10px;
-}
-
 .page-label {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   gap: 15px;
 }
@@ -67,18 +61,23 @@ main {
 }
 
 .card-container {
+  /* Basic container setup - minimal styling */
+  max-width: 100%;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* Stili per lo scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-purple-light) var(--bg-individual-card);
+}
+
+/* Apply main styling to the dynamically populated container (usually last child or specific container) */
+.card-container > div[id$='-list'] {
   display: flex;
   justify-content: flex-start;
   flex-wrap: nowrap;
   gap: 20px;
-  overflow-x: auto;
-  overflow-y: hidden;
   padding: 20px;
-  max-width: 100%;
-  width: 100%;
-  /* Stili per lo scrollbar */
-  scrollbar-width: thin;
-  scrollbar-color: var(--primary-purple-light) var(--bg-individual-card);
 }
 
 /* Webkit scrollbar styling per Chrome/Safari */
@@ -218,20 +217,7 @@ main {
   gap: 10px;
 }
 
-.search-form {
-  display: flex;
-  align-items: center;
-  background: var(--bg-input);
-  border: 2px solid var(--border-primary);
-  border-radius: 25px;
-  padding: 8px 15px;
-  transition: all 0.3s ease;
-}
-
-.search-form:focus-within {
-  border-color: var(--primary-purple-light);
-  box-shadow: 0 0 0 3px var(--focus-outline);
-}
+/* .search-form styling removed - using .search-container instead */
 
 .search-container {
   display: flex;
@@ -269,4 +255,120 @@ main {
 
 .body-master {
   /* Background specifico per master dashboard */
+}
+
+/* ============================================================================
+   STILI LAYOUT PAGINA PROFILO (profile.html)
+   ============================================================================ */
+.profile-layout-container {
+  display: grid;
+  /* Colonna nav fissa (o quasi), colonna contenuto flessibile */
+  grid-template-columns: 300px 1fr;
+  gap: 25px;
+  align-items: start; /* Allinea l'inizio delle card */
+}
+
+/* Card Sinistra (Nav) */
+.profile-nav-card {
+  padding: 15px; /* Meno padding della card destra */
+  /* La card nav si attacca in alto */
+  position: sticky;
+  top: 20px;
+}
+.profile-nav-card .profile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.profile-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.profile-nav-item i {
+  width: 20px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+.profile-nav-item:hover {
+  background-color: var(--bg-input); /* Sfondo leggero on hover */
+  color: var(--text-highlight);
+  text-decoration: none;
+}
+.profile-nav-item.active {
+  background-color: var(--primary-purple);
+  color: white;
+  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+}
+.profile-nav-item.active i {
+  color: white;
+}
+
+/* Card Destra (Contenuto) */
+/* Rimuoviamo lo stile del wrapper, lo applichiamo ai pannelli interni */
+.profile-content-card-wrapper {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.profile-content-panel {
+  /* Applica lo stile standard di .dashboard-section ai pannelli */
+  background: var(--bg-card);
+  border: 2px solid var(--border-primary);
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 0 20px rgba(79, 70, 229, 0.3);
+
+  display: none; /* Nascosto di default */
+}
+.profile-content-panel.active {
+  display: block; /* Visibile se attivo */
+  animation: fadeIn 0.3s ease-in; /* (già definito in forms.css) */
+}
+
+.profile-image-preview-group {
+  text-align: center;
+}
+
+.profile-preview-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--border-primary);
+  background: var(--bg-card);
+  padding: 5px;
+}
+
+/* Responsive per profilo */
+@media (max-width: 768px) {
+  .profile-layout-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .profile-nav-card {
+    position: static;
+  }
+
+  .profile-nav {
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  .profile-nav-item span {
+    display: none;
+  }
+
+  .profile-nav-item i {
+    font-size: 1.3rem;
+  }
 }
