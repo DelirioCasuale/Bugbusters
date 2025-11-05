@@ -1,3 +1,4 @@
+-- Bugbusters Database Script per MySQL DA AVVIARE NON DIRETTAMENTE SU VISUAL STUDIO CODE MA TRAMITE UN CLIENT MySQL COME MySQL Workbench --
 DROP DATABASE IF EXISTS tavern_portal;
 
 CREATE DATABASE tavern_portal;
@@ -12,16 +13,16 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     profile_image_url VARCHAR(255) DEFAULT NULL,
     is_banned BOOLEAN DEFAULT FALSE,
-    deletion_scheduled_on TIMESTAMP DEFAULT NULL
+    deletion_scheduled_on TIMESTAMP DEFAULT NULL 
 );
 
-CREATE TABLE roles (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    role_name VARCHAR(50) NOT NULL UNIQUE
+CREATE TABLE roles(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	role_name VARCHAR(50) NOT NULL UNIQUE
 );
 
--- Ho modificato ROLE_GUEST in ROLE_USER per chiarezza --
-INSERT INTO roles (role_name) VALUES ('ROLE_ADMIN'), ('ROLE_USER');
+INSERT INTO roles (role_name) VALUES ('ROLE_ADMIN'),('ROLE_USER');
+
 
 CREATE TABLE users_roles (
     user_id BIGINT NOT NULL,
@@ -31,6 +32,7 @@ CREATE TABLE users_roles (
     FOREIGN KEY (role_id) REFERENCES roles (id) ON DELETE CASCADE
 );
 
+
 CREATE TABLE players (
     user_id BIGINT NOT NULL PRIMARY KEY,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
@@ -38,7 +40,7 @@ CREATE TABLE players (
 
 CREATE TABLE character_sheet (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    player_id BIGINT NOT NULL,
+    player_id BIGINT NOT NULL, 
     FOREIGN KEY (player_id) REFERENCES players (user_id) ON DELETE CASCADE,
     name VARCHAR(20) NOT NULL,
     primary_class VARCHAR(20) NOT NULL,
@@ -58,31 +60,31 @@ CREATE TABLE character_sheet (
     ),
     race ENUM(
         'HUMAN',
-        'ELF',
-        'DWARF',
-        'HALFLING',
-        'ORC',
-        'GNOME',
-        'TIEFLING',
-        'DRAGONBORN',
-        'HALF_ELF',
-        'HALF_ORC'
+		'ELF', 
+		'DWARF',
+		'HALFLING',
+		'ORC',
+		'GNOME',
+		'TIEFLING',
+		'DRAGONBORN',
+		'HALF_ELF',
+		'HALF_ORC'
     ),
     background VARCHAR(30),
     experience_points INT DEFAULT 0,
-    strength SMALLINT, -- MODIFICATO da TINYINT UNSIGNED
-    dexterity SMALLINT, -- MODIFICATO da TINYINT UNSIGNED
-    constitution SMALLINT, -- MODIFICATO da TINYINT UNSIGNED
-    intelligence SMALLINT, -- MODIFICATO da TINYINT UNSIGNED
-    wisdom SMALLINT, -- MODIFICATO da TINYINT UNSIGNED
-    charisma SMALLINT, -- MODIFICATO da TINYINT UNSIGNED
-    proficiency_bonus SMALLINT, -- MODIFICATO da TINYINT
+    strength SMALLINT,
+    dexterity SMALLINT,
+    constitution SMALLINT,
+    intelligence SMALLINT,
+    wisdom SMALLINT,
+    charisma SMALLINT,
+    proficiency_bonus SMALLINT,
     max_hit_points INT,
     current_hit_points INT,
     temporary_hit_points INT DEFAULT 0,
-    armor_class SMALLINT, -- MODIFICATO da TINYINT
-    initiative SMALLINT, -- MODIFICATO da TINYINT
-    speed SMALLINT, -- MODIFICATO da TINYINT
+    armor_class SMALLINT,
+    initiative SMALLINT,
+    speed SMALLINT,
     inspiration BOOLEAN DEFAULT FALSE,
     acrobatics_skill_proficiency BOOLEAN DEFAULT FALSE,
     animal_handling_skill_proficiency BOOLEAN DEFAULT FALSE,
@@ -123,15 +125,15 @@ CREATE TABLE masters (
 
 CREATE TABLE campaigns (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    master_id BIGINT, -- MODIFICATO: Rende il master_id NULLABILE per la logica di ban
+    master_id BIGINT,
     title VARCHAR(100) NOT NULL,
     description TEXT,
     start_date DATE,
     scheduled_next_session DATE,
-    FOREIGN KEY (master_id) REFERENCES masters (user_id) ON DELETE SET NULL, -- ON DELETE SET NULL se il master viene eliminato
-    invite_players_code VARCHAR(10) UNIQUE,
+    FOREIGN KEY (master_id) REFERENCES masters (user_id) ON DELETE SET NULL,
+    invite_players_code VARCHAR(10) UNIQUE, 
     invite_masters_code VARCHAR(10) UNIQUE,
-    master_ban_pending_until TIMESTAMP DEFAULT NULL, -- Scadenza di 30 giorni per trovare un nuovo master
+    master_ban_pending_until TIMESTAMP DEFAULT NULL,
     is_finished BOOLEAN DEFAULT FALSE
 );
 
@@ -151,20 +153,21 @@ CREATE TABLE campaign_sessions (
     FOREIGN KEY (campaign_id) REFERENCES campaigns (id) ON DELETE CASCADE
 );
 
+
 -- TABELLE AGGIUNTE PER LA LOGICA DI VOTAZIONE SESSIONI --
 
 CREATE TABLE session_proposals (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     campaign_id BIGINT NOT NULL,
     proposed_date TIMESTAMP NOT NULL,
-    expires_on TIMESTAMP NOT NULL, -- Per la logica della scadenza di 48h
+    expires_on TIMESTAMP NOT NULL,
     is_confirmed BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (campaign_id) REFERENCES campaigns (id) ON DELETE CASCADE
 );
 
 CREATE TABLE proposal_votes (
     proposal_id BIGINT NOT NULL,
-    player_id BIGINT NOT NULL, -- ID utente del giocatore che vota
+    player_id BIGINT NOT NULL,
     PRIMARY KEY (proposal_id, player_id),
     FOREIGN KEY (proposal_id) REFERENCES session_proposals (id) ON DELETE CASCADE,
     FOREIGN KEY (player_id) REFERENCES players (user_id) ON DELETE CASCADE

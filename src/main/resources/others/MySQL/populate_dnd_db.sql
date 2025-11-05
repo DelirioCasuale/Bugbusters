@@ -78,280 +78,280 @@ INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alig
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player1')),
-        'Hero_1', 'Wizard', 3, 'NEUTRAL_EVIL', 'DWARF', 'Criminal', -- CORRETTO
+        'Hero_1', 'Wizard', 3, 'NEUTRAL_EVIL', 'DWARF', 'Criminal',
         460, 13, 12, 16, 15, 10, 10,
         2, 33, 55, 14, 3, 27);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player2')),
-        'Hero_2', 'Paladin', 4, 'NEUTRAL_GOOD', 'ELF', 'Sage', -- CORRETTO
+        'Hero_2', 'Paladin', 4, 'NEUTRAL_GOOD', 'ELF', 'Sage',
         1352, 8, 8, 16, 11, 8, 15,
         2, 13, 21, 16, 1, 35);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player3')),
-        'Hero_3', 'Monk', 4, 'NEUTRAL_GOOD', 'HALF_ORC', 'Criminal', -- CORRETTO
+        'Hero_3', 'Monk', 4, 'NEUTRAL_GOOD', 'HALF_ORC', 'Criminal',
         1109, 12, 11, 14, 18, 12, 17,
         2, 16, 13, 10, 1, 30);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player4')),
-        'Hero_4', 'Bard', 4, 'LAWFUL_EVIL', 'ORC', 'Criminal', -- CORRETTO
+        'Hero_4', 'Bard', 4, 'LAWFUL_EVIL', 'ORC', 'Criminal',
         2902, 14, 8, 17, 15, 12, 15,
         2, 59, 5, 14, 4, 28);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player5')),
-        'Hero_5', 'Cleric', 5, 'LAWFUL_GOOD', 'TIEFLING', 'Acolyte', -- CORRETTO
+        'Hero_5', 'Cleric', 5, 'LAWFUL_GOOD', 'TIEFLING', 'Acolyte',
         533, 16, 10, 13, 14, 8, 17,
         2, 41, 32, 14, 2, 26);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player6')),
-        'Hero_6', 'Barbarian', 1, 'NEUTRAL_EVIL', 'TIEFLING', 'Soldier', -- CORRETTO
+        'Hero_6', 'Barbarian', 1, 'NEUTRAL_EVIL', 'TIEFLING', 'Soldier',
         2232, 10, 15, 12, 17, 8, 11,
         2, 20, 35, 18, 0, 35);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player7')),
-        'Hero_7', 'Wizard', 1, 'CHAOTIC_NEUTRAL', 'HALFLING', 'Soldier', -- CORRETTO
+        'Hero_7', 'Wizard', 1, 'CHAOTIC_NEUTRAL', 'HALFLING', 'Soldier',
         3686, 8, 11, 11, 17, 18, 13,
         2, 45, 13, 16, 5, 33);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player8')),
-        'Hero_8', 'Barbarian', 5, 'NEUTRAL_EVIL', 'ELF', 'Soldier', -- CORRETTO
+        'Hero_8', 'Barbarian', 5, 'NEUTRAL_EVIL', 'ELF', 'Soldier',
         1082, 17, 17, 13, 9, 18, 15,
         2, 27, 57, 17, 1, 26);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player9')),
-        'Hero_9', 'Cleric', 1, 'CHAOTIC_GOOD', 'TIEFLING', 'Guild Artisan', -- CORRETTO
+        'Hero_9', 'Cleric', 1, 'CHAOTIC_GOOD', 'TIEFLING', 'Guild Artisan',
         352, 11, 16, 17, 13, 12, 10,
         2, 24, 53, 16, 2, 31);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player10')),
-        'Hero_10', 'Rogue', 4, 'TRUE_NEUTRAL', 'DWARF', 'Soldier', -- CORRETTO
+        'Hero_10', 'Rogue', 4, 'TRUE_NEUTRAL', 'DWARF', 'Soldier',
         3941, 8, 11, 13, 18, 15, 8,
         2, 11, 17, 16, 3, 34);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player11')),
-        'Hero_11', 'Bard', 1, 'CHAOTIC_EVIL', 'HALFLING', 'Guild Artisan', -- CORRETTO
+        'Hero_11', 'Bard', 1, 'CHAOTIC_EVIL', 'HALFLING', 'Guild Artisan',
         4597, 8, 14, 16, 12, 8, 10,
         2, 55, 41, 18, 1, 25);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player12')),
-        'Hero_12', 'Bard', 5, 'LAWFUL_GOOD', 'ORC', 'Entertainer', -- CORRETTO
+        'Hero_12', 'Bard', 5, 'LAWFUL_GOOD', 'ORC', 'Entertainer',
         3582, 14, 17, 10, 17, 15, 18,
         2, 60, 48, 13, 1, 26);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player13')),
-        'Hero_13', 'Barbarian', 1, 'NEUTRAL_EVIL', 'TIEFLING', 'Criminal', -- CORRETTO
+        'Hero_13', 'Barbarian', 1, 'NEUTRAL_EVIL', 'TIEFLING', 'Criminal',
         4923, 10, 17, 18, 18, 17, 13,
         2, 38, 60, 13, 5, 33);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player14')),
-        'Hero_14', 'Ranger', 5, 'LAWFUL_NEUTRAL', 'TIEFLING', 'Noble', -- CORRETTO
+        'Hero_14', 'Ranger', 5, 'LAWFUL_NEUTRAL', 'TIEFLING', 'Noble',
         2866, 17, 13, 13, 9, 18, 15,
         2, 46, 38, 13, 4, 27);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player15')),
-        'Hero_15', 'Warlock', 5, 'NEUTRAL_EVIL', 'DRAGONBORN', 'Acolyte', -- CORRETTO
+        'Hero_15', 'Warlock', 5, 'NEUTRAL_EVIL', 'DRAGONBORN', 'Acolyte',
         136, 18, 12, 18, 10, 8, 11,
         2, 57, 7, 14, 3, 28);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player16')),
-        'Hero_16', 'Ranger', 5, 'NEUTRAL_GOOD', 'DWARF', 'Sage', -- CORRETTO
+        'Hero_16', 'Ranger', 5, 'NEUTRAL_GOOD', 'DWARF', 'Sage',
         2562, 14, 12, 17, 14, 9, 13,
         2, 59, 12, 13, 5, 31);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player17')),
-        'Hero_17', 'Paladin', 4, 'TRUE_NEUTRAL', 'GNOME', 'Guild Artisan', -- CORRETTO
+        'Hero_17', 'Paladin', 4, 'TRUE_NEUTRAL', 'GNOME', 'Guild Artisan',
         1472, 16, 11, 16, 8, 12, 8,
         2, 26, 49, 14, 0, 28);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player18')),
-        'Hero_18', 'Cleric', 3, 'CHAOTIC_EVIL', 'HALFLING', 'Soldier', -- CORRETTO
+        'Hero_18', 'Cleric', 3, 'CHAOTIC_EVIL', 'HALFLING', 'Soldier',
         673, 12, 18, 11, 16, 11, 14,
         2, 58, 28, 12, 1, 32);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player19')),
-        'Hero_19', 'Bard', 2, 'TRUE_NEUTRAL', 'HUMAN', 'Guild Artisan', -- CORRETTO
+        'Hero_19', 'Bard', 2, 'TRUE_NEUTRAL', 'HUMAN', 'Guild Artisan',
         4278, 9, 9, 12, 12, 14, 17,
         2, 25, 28, 17, 5, 28);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player20')),
-        'Hero_20', 'Cleric', 5, 'NEUTRAL_EVIL', 'HALF_ELF', 'Entertainer', -- CORRETTO
+        'Hero_20', 'Cleric', 5, 'NEUTRAL_EVIL', 'HALF_ELF', 'Entertainer',
         3988, 18, 16, 9, 16, 14, 14,
         2, 27, 52, 12, 0, 31);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player21')),
-        'Hero_21', 'Wizard', 2, 'CHAOTIC_GOOD', 'DWARF', 'Hermit', -- CORRETTO
+        'Hero_21', 'Wizard', 2, 'CHAOTIC_GOOD', 'DWARF', 'Hermit',
         3204, 18, 17, 16, 12, 18, 9,
         2, 47, 54, 11, 4, 26);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player22')),
-        'Hero_22', 'Paladin', 4, 'TRUE_NEUTRAL', 'DWARF', 'Urchin', -- CORRETTO
+        'Hero_22', 'Paladin', 4, 'TRUE_NEUTRAL', 'DWARF', 'Urchin',
         301, 9, 16, 17, 11, 13, 16,
         2, 60, 51, 18, 5, 35);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player23')),
-        'Hero_23', 'Wizard', 5, 'LAWFUL_NEUTRAL', 'GNOME', 'Noble', -- CORRETTO
+        'Hero_23', 'Wizard', 5, 'LAWFUL_NEUTRAL', 'GNOME', 'Noble',
         1661, 10, 12, 15, 15, 8, 11,
         2, 33, 8, 13, 1, 25);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player24')),
-        'Hero_24', 'Wizard', 2, 'CHAOTIC_NEUTRAL', 'DWARF', 'Acolyte', -- CORRETTO
+        'Hero_24', 'Wizard', 2, 'CHAOTIC_NEUTRAL', 'DWARF', 'Acolyte',
         2073, 9, 15, 9, 16, 17, 17,
         2, 60, 5, 13, 5, 35);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player25')),
-        'Hero_25', 'Rogue', 3, 'NEUTRAL_EVIL', 'ORC', 'Hermit', -- CORRETTO
+        'Hero_25', 'Rogue', 3, 'NEUTRAL_EVIL', 'ORC', 'Hermit',
         3559, 14, 10, 9, 13, 12, 12,
         2, 54, 45, 13, 0, 30);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player26')),
-        'Hero_26', 'Warlock', 5, 'CHAOTIC_NEUTRAL', 'DRAGONBORN', 'Urchin', -- CORRETTO
+        'Hero_26', 'Warlock', 5, 'CHAOTIC_NEUTRAL', 'DRAGONBORN', 'Urchin',
         2542, 16, 8, 14, 18, 13, 9,
         2, 34, 50, 14, 1, 32);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player27')),
-        'Hero_27', 'Warlock', 4, 'LAWFUL_NEUTRAL', 'DRAGONBORN', 'Soldier', -- CORRETTO
+        'Hero_27', 'Warlock', 4, 'LAWFUL_NEUTRAL', 'DRAGONBORN', 'Soldier',
         4531, 10, 8, 9, 12, 11, 18,
         2, 60, 59, 13, 4, 30);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player28')),
-        'Hero_28', 'Paladin', 5, 'LAWFUL_NEUTRAL', 'HUMAN', 'Entertainer', -- CORRETTO
+        'Hero_28', 'Paladin', 5, 'LAWFUL_NEUTRAL', 'HUMAN', 'Entertainer',
         122, 12, 14, 15, 16, 15, 15,
         2, 58, 34, 10, 3, 27);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player29')),
-        'Hero_29', 'Bard', 1, 'LAWFUL_EVIL', 'ELF', 'Hermit', -- CORRETTO
+        'Hero_29', 'Bard', 1, 'LAWFUL_EVIL', 'ELF', 'Hermit',
         625, 12, 18, 11, 18, 14, 13,
         2, 55, 20, 11, 1, 32);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player30')),
-        'Hero_30', 'Wizard', 1, 'CHAOTIC_NEUTRAL', 'TIEFLING', 'Soldier', -- CORRETTO
+        'Hero_30', 'Wizard', 1, 'CHAOTIC_NEUTRAL', 'TIEFLING', 'Soldier',
         1613, 11, 11, 13, 9, 16, 14,
         2, 50, 6, 11, 0, 30);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player31')),
-        'Hero_31', 'Ranger', 4, 'LAWFUL_EVIL', 'ELF', 'Hermit', -- CORRETTO
+        'Hero_31', 'Ranger', 4, 'LAWFUL_EVIL', 'ELF', 'Hermit',
         704, 17, 17, 11, 17, 14, 16,
         2, 47, 36, 13, 0, 30);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player32')),
-        'Hero_32', 'Monk', 2, 'NEUTRAL_EVIL', 'HALF_ELF', 'Criminal', -- CORRETTO
+        'Hero_32', 'Monk', 2, 'NEUTRAL_EVIL', 'HALF_ELF', 'Criminal',
         1859, 10, 10, 9, 8, 17, 12,
         2, 28, 27, 14, 3, 32);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player33')),
-        'Hero_33', 'Paladin', 2, 'LAWFUL_NEUTRAL', 'DRAGONBORN', 'Guild Artisan', -- CORRETTO
+        'Hero_33', 'Paladin', 2, 'LAWFUL_NEUTRAL', 'DRAGONBORN', 'Guild Artisan',
         2751, 8, 16, 14, 13, 12, 10,
         2, 22, 45, 13, 4, 26);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player34')),
-        'Hero_34', 'Wizard', 4, 'CHAOTIC_GOOD', 'ORC', 'Hermit', -- CORRETTO
+        'Hero_34', 'Wizard', 4, 'CHAOTIC_GOOD', 'ORC', 'Hermit',
         210, 10, 13, 10, 10, 15, 11,
         2, 22, 36, 11, 2, 28);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player35')),
-        'Hero_35', 'Barbarian', 4, 'NEUTRAL_GOOD', 'DWARF', 'Criminal', -- CORRETTO
+        'Hero_35', 'Barbarian', 4, 'NEUTRAL_GOOD', 'DWARF', 'Criminal',
         596, 11, 13, 17, 15, 15, 17,
         2, 60, 15, 14, 2, 27);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player36')),
-        'Hero_36', 'Fighter', 2, 'CHAOTIC_GOOD', 'HALF_ORC', 'Sage', -- CORRETTO
+        'Hero_36', 'Fighter', 2, 'CHAOTIC_GOOD', 'HALF_ORC', 'Sage',
         3253, 8, 17, 16, 8, 18, 16,
         2, 60, 29, 11, 2, 30);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player37')),
-        'Hero_37', 'Bard', 2, 'LAWFUL_NEUTRAL', 'TIEFLING', 'Soldier', -- CORRETTO
+        'Hero_37', 'Bard', 2, 'LAWFUL_NEUTRAL', 'TIEFLING', 'Soldier',
         169, 11, 8, 10, 11, 12, 14,
         2, 19, 57, 10, 2, 29);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player38')),
-        'Hero_38', 'Rogue', 4, 'CHAOTIC_GOOD', 'ELF', 'Guild Artisan', -- CORRETTO
+        'Hero_38', 'Rogue', 4, 'CHAOTIC_GOOD', 'ELF', 'Guild Artisan',
         3209, 17, 8, 14, 14, 17, 10,
         2, 32, 51, 18, 0, 34);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player39')),
-        'Hero_39', 'Bard', 3, 'CHAOTIC_GOOD', 'HALFLING', 'Acolyte', -- CORRETTO
+        'Hero_39', 'Bard', 3, 'CHAOTIC_GOOD', 'HALFLING', 'Acolyte',
         948, 15, 12, 17, 9, 9, 18,
         2, 50, 20, 10, 0, 35);
 INSERT INTO character_sheet (player_id, name, primary_class, primary_level, alignment, race, background,
         experience_points, strength, dexterity, constitution, intelligence, wisdom, charisma,
         proficiency_bonus, max_hit_points, current_hit_points, armor_class, initiative, speed)
         VALUES ((SELECT user_id FROM players WHERE user_id=(SELECT id FROM users WHERE username='player40')),
-        'Hero_40', 'Ranger', 1, 'NEUTRAL_EVIL', 'HALFLING', 'Criminal', -- CORRETTO
+        'Hero_40', 'Ranger', 1, 'NEUTRAL_EVIL', 'HALFLING', 'Criminal',
         4055, 13, 16, 12, 15, 15, 12,
         2, 48, 33, 18, 2, 34);
 
@@ -390,14 +390,14 @@ INSERT INTO campaign_players (campaign_id, character_id) VALUES ((SELECT id FROM
 
 
 INSERT INTO users (username, email, password_hash) 
-VALUES ('admin_test', 'admin@bugbusters.com', '$2a$10$1dXv7qYHvn2mGUGNphfVW.DIk.l56ZUY0r5uK04qIy4PfDCdDs0u.');
+VALUES ('Eladmin', 'admin@bugbusters.com', '$2a$10$1dXv7qYHvn2mGUGNphfVW.DIk.l56ZUY0r5uK04qIy4PfDCdDs0u.');
 INSERT INTO players (user_id) SELECT id FROM users WHERE username = 'admin_test';
 INSERT INTO masters (user_id) SELECT id FROM users WHERE username = 'admin_test';
 INSERT INTO users_roles (user_id, role_id) 
 SELECT 
-    (SELECT id FROM users WHERE username = 'admin_test'), 
+    (SELECT id FROM users WHERE username = 'Eladmin'), 
     (SELECT id FROM roles WHERE role_name = 'ROLE_ADMIN');
 INSERT INTO users_roles (user_id, role_id) 
 SELECT 
-    (SELECT id FROM users WHERE username = 'admin_test'), 
+    (SELECT id FROM users WHERE username = 'Eladmin'), 
     (SELECT id FROM roles WHERE role_name = 'ROLE_USER');
