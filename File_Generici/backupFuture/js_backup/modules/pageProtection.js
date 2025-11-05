@@ -3,7 +3,7 @@ import {
   getCurrentUserFromStorage,
   hasRole,
   clearLoginData,
-} from './auth.js';
+} from '../../../../src/main/resources/static/js/modules/auth.js';
 
 /**
  * Protezione delle pagine lato client
