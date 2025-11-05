@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestisci Campagna - Tavern Portal</title>
+    <link rel="icon" type="image/x-icon" href="/images/dice.png" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="dashboard-body">
+
+    <header>
+        <div class="logo-flex">
+            <i><img src="/images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
+            <div class="logo">Tavern Portal</div>
+        </div>
+        <nav id="dashboard-nav"></nav>
+    </header>
+
+    <section class="dashboard-hero">
+        <div class="dashboard-hero-content">
+            <h1 id="campaign-name-title">Caricamento Campagna...</h1>
+            <p><a href="master.html" class="btn-secondary" style="border: none; text-decoration: underline;">&larr; Torna alle tue campagne</a></p>
+        </div>
+    </section>
+
+    <main class="dashboard-content">
+        <div class="detail-grid">
+            <div class="detail-col-main">
+                <section class="dashboard-section">
+                    <h2><i class="fas fa-edit"></i> Dettagli Campagna</h2>
+                    <form id="editCampaignForm" class="styled-form">
+                        <div class="form-group"><label for="campaign-title">Titolo</label><input type="text" id="campaign-title" required></div>
+                        <div class="form-group"><label for="campaign-description">Descrizione</label><textarea id="campaign-description" rows="5" required></textarea></div>
+                        <div id="editCampaignSuccess" class="success-message"></div>
+                        <div id="editCampaignError" class="error-message"></div>
+                        <button type="submit" class="btn-primary">Salva Modifiche</button>
+                    </form>
+                </section>
+                <section class="dashboard-section">
+                    <h2><i class="fas fa-users"></i> Giocatori Partecipanti</h2>
+                    <div id="player-list-container" class="admin-table-container">
+                        <table id="players-table">
+                            <thead><tr><th>Username</th><th>Personaggio</th><th>Classe/Livello</th><th>Azione</th></tr></thead>
+                            <tbody id="player-list-tbody"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+            <div class="detail-col-side">
+                <section class="dashboard-section">
+                    <h2><i class="fas fa-calendar-alt"></i> Calendario</h2>
+                    <form id="setStartDateForm" class="styled-form">
+                        <div class="form-group"><label for="start-date">Data Inizio Campagna</label><input type="date" id="start-date" class="calendar-input"></div>
+                        <button type="submit" class="btn-secondary">Imposta Data</button>
+                        <div id="startDateSuccess" class="success-message" style="margin-top: 10px;"></div>
+                    </form>
+                    <hr style="border-color: var(--border-secondary); margin: 20px 0;">
+                    <form id="proposeSessionForm" class="styled-form">
+                        <div class="form-group"><label for="propose-date">Proponi Nuova Sessione</label><input type="datetime-local" id="propose-date" class="calendar-input"></div>
+                        <button type="submit" class="btn-primary">Invia Proposta</button>
+                        <div id="proposeSuccess" class="success-message" style="margin-top: 10px;"></div>
+                    </form>
+                    <hr style="border-color: var(--border-secondary); margin: 20px 0;">
+                    <h3>Proposte Esistenti</h3>
+                    <div id="proposal-list-container"></div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer"><p>© 2025 Tavern Portal. Tutti i diritti riservati.</p></footer>
+
+    <script type="module" src="/js/page.master-campaign-detail.js"></script>
+</body>
+</html>

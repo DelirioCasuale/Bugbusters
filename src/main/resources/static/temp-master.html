@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tavern Portal - Dashboard Master</title>
+    <link rel="icon" type="image/x-icon" href="images/dice.png" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/template-noth.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body class="main-bg-base master-dashboard">
+
+    <div id="header-placeholder"></div>
+
+    <div id="modal-placeholder"></div>
+
+    <main>
+        <!-- Benvenuto Master -->
+        <section class="dashboard-hero">
+            <div class="dashboard-hero-content">
+                <h1>Bentornato, Dungeon Master!</h1>
+                <p>Qui puoi gestire direttamente le campagne e i personaggi che stai guidando.</p>
+            </div>
+        </section>
+
+        <div class="dashboard-content">
+
+            <!-- Gestione Campagne -->
+            <section class="dashboard-section">
+                <h2>Le mie Campagne</h2>
+                <div class="card-container">
+                    <!-- Add Card at the beginning -->
+                    <div class="card add-card" id="btn-show-create-campaign-modal">
+                        <button><i class="fas fa-plus"></i> Crea nuova Campagna</button>
+                    </div>
+                    <!-- Dynamic content will be loaded here -->
+                    <div id="master-campaigns-list">
+                        <!-- Placeholder campaigns -->
+                        <div class="card">
+                            <h3>La Fortezza Maledetta</h3>
+                            <p>2 sessioni · 3 giocatori</p>
+                            <button class="btn-primary">Gestisci</button>
+                        </div>
+                        <div class="card">
+                            <h3>La Cittadella Perduta</h3>
+                            <p>8 sessioni · 4 giocatori</p>
+                            <button class="btn-primary">Gestisci</button>
+                        </div>
+                    </div>
+                    <!-- Claim Campaign Card -->
+                    <div class="card add-card" id="btn-show-claim-campaign-modal">
+                        <button><i class="fas fa-shield-alt"></i> Reclama Campagna Orfana</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gestione Giocatori -->
+            <section class="dashboard-section">
+                <h2>Gestione Giocatori</h2>
+                <div class="card-container">
+                    <div class="card">
+                        <h3>mario_rossi99</h3>
+                        <p>Livello 9 · ladro</p>
+                        <p>La Fortezza Maledetta</p>
+                        <button class="btn-secondary">Modifica Giocatore</button>
+                    </div>
+                    <div class="card">
+                        <h3>mario_rossi02</h3>
+                        <p>Livello 3 · bardo</p>
+                        <p>La Fortezza Maledetta</p>
+                        <button class="btn-secondary">Modifica Giocatore</button>
+                    </div>
+                    <div class="card">
+                        <h3>luigi_verdi93</h3>
+                        <p>Livello 12 · druido</p>
+                        <p>La Cittadella Perduta</p>
+                        <button class="btn-secondary">Modifica Giocatore</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Calendario -->
+            <section class="dashboard-section">
+                <h2>Prossime Sessioni</h2>
+                <div class="calendar-container">
+                    <input type="date" id="session-date" class="calendar-input">
+                    <button class="btn-primary" style="margin-top: 20px;">Pianifica Sessione</button>
+                </div>
+            </section>
+
+        </div>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script type="module" src="js/modules/components.js"></script>
+    <script type="module" src="js/page.master.js"></script>
+</body>
+
+</html>

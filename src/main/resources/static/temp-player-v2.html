@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tavern Portal - Dashboard Giocatore</title>
+    <link rel="icon" type="image/x-icon" href="images/dice.png" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body class="main-bg-base player-main-bg">
+
+    <!-- Header Component -->
+    <div id="header-placeholder"></div>
+
+    <main>
+
+        <!-- Benvenuto Giocatore -->
+        <section class="hero-section">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Bentornato, Avventuriero!</h1>
+                    <p>Qui puoi gestire i tuoi personaggi e le tue campagne di Dungeons&Dragons.</p>
+                </div>
+            </div>
+            <div class="switch-visual">
+                <div class="hero">
+                    <div class="hero-content">
+                        <h3>vuoi guidare il tuo party in epiche avventure?</h3>
+                        <button class="btn-primary">Diventa Master</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Schede personaggio -->
+        <section class="page">
+            <!-- Page Header -->
+            <div class="page-header">
+                <!-- Page Label -->
+                <div class="page-label">
+                    <h2>Le mie Schede</h2>
+                </div>
+                <!-- Page Searchbar -->
+                <div class="page-searchbar">
+                    <div class="search-container">
+                        <div class="search-icon">
+                            <img src="images/search-icon.svg" alt="Search" width="20" height="20" />
+                        </div>
+                        <input name="search-characters" type="text" class="search-input" placeholder="Cerca schede..." />
+                    </div>
+                </div>
+            </div>
+            <!-- Cards Container -->
+            <div class="card-container">
+                <!-- Add Card at the beginning -->
+                <div class="card add-card" id="btn-show-create-sheet-modal">
+                    <button><i class="fas fa-plus"></i> Crea nuova Scheda</button>
+                </div>
+                <!-- Dynamic character cards will be inserted here -->
+                <div id="player-sheets-list">
+                    <!-- Placeholder content will be replaced by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Campagne giocatore -->
+        <section class="page">
+            <!-- Page Header -->
+            <div class="page-header">
+                <!-- Page Label -->
+                <div class="page-label">
+                    <h2>Le mie Campagne</h2>
+                </div>
+                <!-- Page Searchbar -->
+                <div class="page-searchbar">
+                    <div class="search-container">
+                        <div class="search-icon">
+                            <img src="images/search-icon.svg" alt="Search" width="20" height="20" />
+                        </div>
+                        <input name="search-player-campaigns" type="text" class="search-input" placeholder="Cerca campagne..." />
+                    </div>
+                </div>
+            </div>
+            <!-- Cards Container -->
+            <div class="card-container">
+                <!-- Add Card at the beginning -->
+                <div class="card add-card" id="btn-show-join-campaign-modal">
+                    <button><i class="fas fa-users"></i> Unisciti a una Campagna</button>
+                </div>
+                <!-- Dynamic campaign cards will be inserted here -->
+                <div id="player-campaigns-list">
+                    <!-- Placeholder content will be replaced by JavaScript -->
+                </div>
+                <!-- this card is always shown even if there are no campaigns -->
+                <div class="card add-campaign-card">
+                    <p>Hai un codice invito? <br> Scegli il tuo personaggio</p>
+                    <!-- form per entrare in una campagna con codice invito -->
+                    <div class="campaign-invite-form">
+                        <form action="">
+                            <input type="text" name="invite-code" class="invite-input" placeholder="Inserisci codice invito" />
+                            <select name="character" class="character-select">
+                                <!-- le opzioni saranno dinamiche in base alle schede senza una campagna già associata -->
+                                <option>Personaggio 1</option>
+                                <option>Personaggio 2</option>
+                                <option>Personaggio 3</option>
+                            </select>
+                            <button class="btn-primary">Entra</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calendario -->
+        <section class="page">
+            <!-- Page Header -->
+            <div class="page-header">
+                <!-- Page Label -->
+                <div class="page-label">
+                    <h2>Prossime Sessioni</h2>
+                </div>
+                <!-- Page Searchbar -->
+                <div class="page-searchbar">
+                    <form class="search-form" onsubmit="return false;">
+                        <div class="search-container">
+                            <div class="search-icon">
+                                <img src="images/search-icon.svg" alt="Search" width="20" height="20" />
+                            </div>
+                            <input name="search-sessions" type="text" class="search-input" placeholder="Cerca sessioni..." />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Page Content -->
+            <div class="page-content">
+                <div class="card-container" id="player-proposals-list">
+                    <!-- Dynamic session/proposal cards will be inserted here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Component -->
+    <div id="modal-placeholder"></div>
+
+    <!-- Footer Component -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/modules/components.js"></script>
+    <script type="module">
+        // Enhanced version of page.player.js with better error handling
+        import { apiCall } from './js/modules/api.js';
+        import { isAuthenticated, isPlayer, handleLogout } from './js/modules/auth.js';
+        import { Modal, updateGeneralUI, initLogoNavigation } from './js/modules/ui.js';
+
+        let createSheetModal, joinCampaignModal;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('=== TEMP PLAYER V2 DEBUG START ===');
+
+            // Check authentication status
+            console.log('Is authenticated:', isAuthenticated());
+            console.log('Is player:', isPlayer());
+            console.log('Current token:', sessionStorage.getItem('jwtToken') ? 'EXISTS' : 'MISSING');
+            console.log('Current user:', sessionStorage.getItem('currentUser'));
+
+            // --- GUARDIA DI AUTENTICAZIONE ---
+            if (!isAuthenticated()) {
+                console.warn('Utente non autenticato. Reindirizzamento a landing.html');
+                alert('Devi effettuare il login per accedere a questa pagina.');
+                window.location.replace('landing.html');
+                return;
+            }
+
+            if (!isPlayer()) {
+                console.warn('Utente non player su player.html. Reindirizzamento...');
+                alert('Devi avere il ruolo PLAYER per accedere a questa pagina.');
+                window.location.replace('profile.html');
+                return;
+            }
+            // ---------------------------------
+
+            console.log('Authentication passed, initializing page...');
+
+            // Se la guardia passa, inizializza la pagina
+            updateGeneralUI();
+            initLogoNavigation();
+
+            try {
+                createSheetModal = new Modal('createSheetModal');
+                joinCampaignModal = new Modal('joinCampaignModal');
+            } catch (error) {
+                console.error('Error creating modals:', error);
+            }
+
+            // Event listeners
+            document.getElementById('btn-show-create-sheet-modal')?.addEventListener('click', () => {
+                console.log('Create sheet modal clicked');
+                createSheetModal?.show();
+            });
+
+            document.getElementById('btn-show-join-campaign-modal')?.addEventListener('click', () => {
+                console.log('Join campaign modal clicked');
+                joinCampaignModal?.show();
+            });
+
+            document.addEventListener('click', (e) => {
+                if (e.target && e.target.id === 'logout-button') handleLogout(e);
+            });
+
+            // Load data with enhanced error handling
+            loadPlayerDataEnhanced();
+        });
+
+        async function loadPlayerDataEnhanced() {
+            console.log('Loading player data...');
+
+            if (!isPlayer()) {
+                console.warn('User is not a player, skipping data load');
+                return;
+            }
+
+            // Load character sheets
+            try {
+                console.log('Fetching character sheets...');
+                const sheets = await apiCall('/api/player/sheets', 'GET', null, false);
+                console.log('Sheets response:', sheets);
+
+                const sheetsList = document.getElementById('player-sheets-list');
+                if (sheets && sheetsList) {
+                    if (Array.isArray(sheets) && sheets.length > 0) {
+                        sheetsList.innerHTML = sheets.map(sheet => `
+                            <div class="card">
+                                <h3>${sheet.name || 'Senza nome'}</h3>
+                                <p>ID: ${sheet.id} · ${sheet.primaryClass || '?'} Lvl ${sheet.primaryLevel || '?'} · ${sheet.race || '?'}</p>
+                                <a href="edit-sheet.html?id=${sheet.id}" class="btn-secondary">Modifica</a>
+                            </div>
+                        `).join('');
+                        console.log('✓ Character sheets loaded successfully');
+                    } else {
+                        sheetsList.innerHTML = '<div class="card"><p>Non hai ancora creato nessuna scheda.</p></div>';
+                        console.log('ℹ No character sheets found');
+                    }
+                } else if (sheetsList) {
+                    sheetsList.innerHTML = '<div class="card"><p style="color: red;">Errore nel caricamento delle schede.</p></div>';
+                    console.error('Failed to load character sheets');
+                }
+            } catch (error) {
+                console.error('Error loading character sheets:', error);
+                const sheetsList = document.getElementById('player-sheets-list');
+                if (sheetsList) {
+                    sheetsList.innerHTML = '<div class="card"><p style="color: red;">Errore di rete nel caricamento delle schede.</p></div>';
+                }
+            }
+
+            // Load campaigns
+            try {
+                console.log('Fetching joined campaigns...');
+                const joinedCampaigns = await apiCall('/api/player/campaigns/joined', 'GET', null, false);
+                console.log('Campaigns response:', joinedCampaigns);
+
+                const campaignsList = document.getElementById('player-campaigns-list');
+                if (joinedCampaigns && campaignsList) {
+                    if (Array.isArray(joinedCampaigns) && joinedCampaigns.length > 0) {
+                        campaignsList.innerHTML = joinedCampaigns.map(jc => `
+                            <div class="card">
+                                <h3>${jc.campaignTitle || 'Campagna sconosciuta'}</h3>
+                                <p>ID Camp: ${jc.campaignId}</p>
+                                <p>Usando: ${jc.characterUsed?.name || '?'} (ID: ${jc.characterUsed?.id || '?'})</p>
+                                <a href="player-campaign-detail.html?id=${jc.campaignId}" class="btn-primary">Entra</a>
+                            </div>
+                        `).join('');
+                        console.log('✓ Campaigns loaded successfully');
+                    } else {
+                        campaignsList.innerHTML = '<div class="card"><p>Non fai ancora parte di nessuna campagna.</p></div>';
+                        console.log('ℹ No campaigns found');
+                    }
+                } else if (campaignsList) {
+                    campaignsList.innerHTML = '<div class="card"><p style="color: red;">Errore nel caricamento delle campagne.</p></div>';
+                    console.error('Failed to load campaigns');
+                }
+            } catch (error) {
+                console.error('Error loading campaigns:', error);
+                const campaignsList = document.getElementById('player-campaigns-list');
+                if (campaignsList) {
+                    campaignsList.innerHTML = '<div class="card"><p style="color: red;">Errore di rete nel caricamento delle campagne.</p></div>';
+                }
+            }
+
+            // Load proposals
+            try {
+                console.log('Fetching proposals...');
+                const proposals = await apiCall('/api/player/proposals', 'GET', null, false);
+                console.log('Proposals response:', proposals);
+
+                const proposalsList = document.getElementById('player-proposals-list');
+                if (proposals && proposalsList) {
+                    if (Array.isArray(proposals) && proposals.length > 0) {
+                        proposalsList.innerHTML = proposals.map(p => `
+                            <div class="card proposal-card">
+                                <h3>${p.campaignTitle || '?'}</h3>
+                                <p>Data Proposta: ${new Date(p.proposedDate).toLocaleString()}</p>
+                                <p>Scadenza Voto: ${new Date(p.expiresOn).toLocaleString()}</p>
+                                ${p.hasVoted ? '<span class="voted">Votato ✔️</span>' : `<button class="btn-primary" onclick="handleVoteProposal(${p.proposalId})">Vota Sì</button>`}
+                            </div>
+                        `).join('');
+                        console.log('✓ Proposals loaded successfully');
+                    } else {
+                        proposalsList.innerHTML = '<div class="card"><p>Nessuna proposta di sessione attiva al momento.</p></div>';
+                        console.log('ℹ No proposals found');
+                    }
+                } else if (proposalsList) {
+                    proposalsList.innerHTML = '<div class="card"><p style="color: red;">Errore nel caricamento delle sessioni.</p></div>';
+                    console.error('Failed to load proposals');
+                }
+            } catch (error) {
+                console.error('Error loading proposals:', error);
+                const proposalsList = document.getElementById('player-proposals-list');
+                if (proposalsList) {
+                    proposalsList.innerHTML = '<div class="card"><p style="color: red;">Errore di rete nel caricamento delle sessioni.</p></div>';
+                }
+            }
+
+            console.log('=== TEMP PLAYER V2 DEBUG END ===');
+        }
+    </script>
+
+</body>
+
+</html>

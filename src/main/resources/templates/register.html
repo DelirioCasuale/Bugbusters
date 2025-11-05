@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tavern Portal - Registrazione</title>
+    <link rel="icon" type="image/x-icon" href="/images/dice.png" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+
+<body class="body-register">
+
+    <div id="header-placeholder"></div>
+
+    <div id="modal-placeholder"></div>
+
+    <main class="content-wrapper">
+        <section class="form-card">
+            <h1 class="logo">Crea il tuo account</h1>
+            <p class="subtitle">Unisciti alla taverna e inizia la tua avventura!</p>
+
+            <form id="registerForm" class="styled-form">
+                <div class="form-group">
+                    <label for="reg-username">Nome utente</label>
+                    <input type="text" id="reg-username" name="username" placeholder="Scegli un nome utente" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">Email</label>
+                    <input type="email" id="reg-email" name="email" placeholder="Inserisci la tua email" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">Password</label>
+                    <div class="password-input-container">
+                        <input type="password" id="reg-password" name="password" placeholder="Minimo 6 caratteri" required>
+                        <button type="button" class="password-toggle" id="password-toggle-reg" aria-label="Mostra/Nascondi password">
+                            <img src="/images/eye-visible.svg" class="eye-icon" id="eye-icon-visible-reg" alt="Show password" width="20" height="20" />
+                            <img src="/images/eye-hidden.svg" class="eye-icon hidden" id="eye-icon-hidden-reg" alt="Hide password" width="20" height="20" />
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="reg-confirm-password">Conferma Password</label>
+                    <div class="password-input-container">
+                        <input type="password" id="reg-confirm-password" name="confirmPassword" placeholder="Ripeti la password" required>
+                        <button type="button" class="password-toggle" id="password-toggle-confirm" aria-label="Mostra/Nascondi password">
+                            <img src="/images/eye-visible.svg" class="eye-icon" id="eye-icon-visible-confirm" alt="Show password" width="20" height="20" />
+                            <img src="/images/eye-hidden.svg" class="eye-icon hidden" id="eye-icon-hidden-confirm" alt="Hide password" width="20" height="20" />
+                        </button>
+                    </div>
+                </div>
+                <div id="registerError" class="error-message"></div>
+                <div id="registerSuccess" class="success-message"></div>
+                <button type="submit" class="btn-primary">Registrati</button>
+            </form>
+
+            <p class="form-footer">
+                <a href="#" class="login-trigger register-link"></a>Hai già un account? <span class="register-highlight">Accedi</span></a>
+            </p>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script type="module" src="/js/modules/components.js"></script>
+    <script type="module" src="/js/page.register.js"></script>
+</body>
+
+</html>
