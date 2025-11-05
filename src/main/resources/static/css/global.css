@@ -1,5 +1,5 @@
 /* ============================================================================
-   CSS VARIABLES - Colori ricorrenti (unificati)
+   CSS VARIABLES E RESET GLOBALE
    ============================================================================ */
 :root {
   /* Colori principali */
@@ -7,66 +7,48 @@
   --primary-purple-dark: #6d28d9;
   --primary-purple-light: #a78bfa;
   --primary-purple-lighter: #c4b5fd;
-
-  /* Colori secondari */
   --secondary-gray: #6b7280;
   --secondary-gray-light: #9ca3af;
 
-  /* Background colors */
+  /* Backgrounds */
   --bg-dark-primary: #1a1a2e;
   --bg-dark-secondary: #0f0f1a;
   --bg-header-start: #1b1b3a;
   --bg-header-end: #2b2b5a;
-  --bg-card: rgba(45, 45, 80, 0.6);
-  --bg-container: rgba(20, 20, 40, 0.7);
-  --bg-dashboard-card: rgba(30, 25, 60, 0.8);
-  --bg-individual-card: rgba(40, 30, 70, 0.9);
-  --bg-individual-card-hover: rgba(50, 40, 85, 0.95);
-  --bg-add-card: rgba(30, 20, 60, 0.7);
-  --bg-register-card: rgba(20, 20, 40, 0.9);
-  --bg-register-bg: radial-gradient(circle at center, #1b1b2f, #0a0a1a);
-  --bg-hero-alt: radial-gradient(circle at center, #232347, #0f0f1a 70%);
+  --bg-card: rgba(30, 25, 60, 0.8);
+  --bg-card-hover: rgba(40, 30, 70, 0.9);
   --bg-input: #2b2b5a;
   --bg-input-focus: #353566;
+  --bg-register-card: rgba(20, 20, 40, 0.9);
 
-  /* Text colors (unificati) */
+  /* Testi */
   --text-primary: #dcdcff;
-  --text-secondary: #d1c4ff; /* Usato per text-calendar, nav a, etc. */
+  --text-secondary: #d1c4ff;
+  --text-highlight: #c4b5fd;
+  --text-logo: #bfacf6;
   --text-muted: #9ca3af;
-  --text-register: #e0d9ff;
-  --text-register-label: #d0c7f7;
-  --text-register-subtitle: #a79ac9;
-  --text-register-link: #b79cff;
-  --text-card: #d9c7ff;
 
-  /* Border colors (unificati) */
+  /* Bordi */
   --border-primary: #4f46e5;
-  --border-secondary: #57419d; /* Usato per border-card, calendar, etc. */
+  --border-secondary: #57419d;
   --border-register: #6a5acd;
 
-  /* Shadow colors (unificati) */
-  --shadow-primary: rgba(0, 0, 0, 0.5);
-  --shadow-header: rgba(100, 100, 255, 0.2);
-  --shadow-button: rgba(109, 40, 217, 0.3);
-  --shadow-button-hover: rgba(167, 139, 250, 0.6);
-  --shadow-medium: rgba(90, 60, 140, 0.6); /* Usato per card, calendar, etc. */
-  --shadow-dashboard: rgba(100, 70, 200, 0.5);
-  --shadow-register: rgba(106, 90, 205, 0.4);
-  --shadow-hover-intense: rgba(167, 139, 250, 0.8); /* Per hover effects */
-  --shadow-footer: rgba(80, 70, 150, 0.3);
-
-  /* Error colors */
+  /* Messaggi */
   --error-color: #ff6b6b;
   --error-bg: rgba(255, 107, 107, 0.1);
   --error-border: rgba(255, 107, 107, 0.3);
+  --success-color: #6bffb8;
+  --success-bg: rgba(107, 255, 184, 0.1);
+  --success-border: rgba(107, 255, 184, 0.3);
+  --info-bg: rgba(167, 216, 250, 0.1);
+  --info-border: rgba(167, 216, 250, 0.3);
+  --info-text: #a7d8fa;
 
-  /* Focus colors */
-  --focus-outline: rgba(167, 139, 250, 0.2);
+  /* Font */
+  --font-main: 'Roboto', sans-serif;
+  --font-display: 'Cinzel Decorative', serif;
 }
 
-/* ============================================================================
-   RESET AND BASE STYLES - Applicati a tutte le pagine
-   ============================================================================ */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -74,353 +56,12 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
-  margin: 0;
-  padding: 0;
-  background: radial-gradient(
-    circle at top,
-    var(--bg-dark-primary),
-    var(--bg-dark-secondary)
-  );
+  font-family: var(--font-main);
+  background: radial-gradient(circle at top, var(--bg-dark-primary), var(--bg-dark-secondary));
   color: var(--text-primary);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
-
-/* ============================================================================
-   BUTTONS - Componenti riutilizzabili per tutte le pagine
-   ============================================================================ */
-.btn-primary {
-  background-color: var(--primary-purple);
-  color: #fffeef;
-  border: 2px solid var(--primary-purple-dark);
-  padding: 0.7rem 1.5rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-}
-
-.btn-primary:hover {
-  background-color: var(--primary-purple-dark);
-  transform: scale(1.05);
-}
-
-.btn-secondary {
-  background-color: var(--secondary-gray);
-  color: #fff;
-  border: 2px solid var(--secondary-gray-light);
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.btn-secondary:hover {
-  background-color: var(--secondary-gray-light);
-  transform: scale(1.05);
-}
-
-.btn-group {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-}
-
-/* Default equal width buttons in btn-group */
-.btn-group .btn-primary,
-.btn-group .btn-secondary {
-  flex: 1;
-  text-align: center;
-}
-
-/* Smaller buttons for authentication actions */
-.btn-group .btn-auth {
-  min-width: 120px;
-}
-
-/* Medium buttons for dashboard/visuale navigation */
-.btn-group .btn-dashboard {
-  min-width: 160px;
-}
-
-/* Larger buttons for admin actions */
-.btn-group .btn-admin {
-  min-width: 180px;
-}
-
-/* Remove link styling from buttons with a tags */
-.btn-primary a,
-.btn-secondary a {
-  color: inherit;
-  text-decoration: none;
-  display: block;
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-}
-
-.btn-primary a:hover,
-.btn-secondary a:hover {
-  color: inherit;
-  text-decoration: none;
-}
-
-/* ============================================================================
-   FORM STYLES - Form base riutilizzabili
-   ============================================================================ */
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 8px;
-  color: var(--text-secondary);
-  font-weight: 500;
-  font-size: 0.95rem;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 12px 15px;
-  border: 2px solid var(--border-primary);
-  border-radius: 8px;
-  background-color: var(--bg-input);
-  color: var(--text-primary);
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  box-sizing: border-box;
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: var(--primary-purple-light);
-  box-shadow: 0 0 0 3px var(--focus-outline);
-  background-color: var(--bg-input-focus);
-}
-
-.form-group input::placeholder {
-  color: var(--text-muted);
-}
-
-.error-message {
-  color: var(--error-color);
-  font-size: 0.9rem;
-  margin-top: 10px;
-  padding: 8px 12px;
-  background-color: var(--error-bg);
-  border: 1px solid var(--error-border);
-  border-radius: 6px;
-  display: none;
-}
-
-.error-message.show {
-  display: block;
-  animation: fadeIn 0.3s ease-in;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ============================================================================
-   UTILITY CLASSES - Stili di supporto globali
-   ============================================================================ */
-/* Animation Base */
-button,
-a,
-.logo {
-  transition: all 0.3s ease;
-}
-
-/* Authentication Info */
-.user-info {
-  background: rgba(45, 45, 80, 0.6);
-  padding: 15px;
-  border-radius: 8px;
-  border: 1px solid var(--border-primary);
-  margin: 10px 0;
-}
-
-.user-info p {
-  margin: 5px 0;
-  color: var(--text-secondary);
-}
-
-.user-info strong {
-  color: var(--primary-purple-light);
-}
-
-/* Test Section */
-.test-section {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.test-section h3 {
-  color: var(--primary-purple-light);
-  font-family: 'Cinzel Decorative', serif;
-  margin-bottom: 15px;
-}
-
-/* ============================================================================
-   LAYOUT BASE - Layout riutilizzabile
-   ============================================================================ */
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-
-  /* Layout base per tutte le pagine */
-  overflow-y: auto;
-  padding: 80px 20px 50px 20px;
-
-  /* Stili per lo scrollbar verticale */
-  scrollbar-width: thin;
-  scrollbar-color: var(--primary-purple-light) var(--bg-individual-card);
-}
-
-/* Webkit scrollbar styling per Chrome/Safari - scrollbar verticale del main */
-main::-webkit-scrollbar {
-  width: 8px;
-}
-
-main::-webkit-scrollbar-track {
-  background: var(--bg-individual-card);
-  border-radius: 4px;
-}
-
-main::-webkit-scrollbar-thumb {
-  background: var(--primary-purple-light);
-  border-radius: 4px;
-}
-
-main::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-purple);
-}
-
-main > *:first-child {
-  margin-top: 60px;
-}
-main > *:last-child {
-  margin-bottom: 90px; /* Spazio aumentato per il footer fisso */
-}
-
-/* ============================================================================
-   BACKGROUND BASE CLASSES - Pattern comuni per sfondi
-   ============================================================================ */
-.main-bg-base {
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  width: 100%;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-}
-
-/* ============================================================================
-   SCROLLBAR STYLING - Stili globali per scrollbar
-   ============================================================================ */
-/* Stili per lo scrollbar globale della pagina (body/html) */
-html,
-body {
-  /* Stili per lo scrollbar verticale */
-  scrollbar-width: thin;
-  scrollbar-color: var(--primary-purple-light) var(--bg-individual-card);
-}
-
-/* Webkit scrollbar styling per Chrome/Safari - scrollbar globale */
-html::-webkit-scrollbar,
-body::-webkit-scrollbar {
-  width: 8px;
-}
-
-html::-webkit-scrollbar-track,
-body::-webkit-scrollbar-track {
-  background: var(--bg-individual-card);
-  border-radius: 4px;
-}
-
-html::-webkit-scrollbar-thumb,
-body::-webkit-scrollbar-thumb {
-  background: var(--primary-purple-light);
-  border-radius: 4px;
-}
-
-html::-webkit-scrollbar-thumb:hover,
-body::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-purple);
-}
-
-.hero-section {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-/* Hero Section */
-.hero {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 1rem 2rem;
-  background: var(--bg-card);
-  border-radius: 12px;
-}
-
-.hero-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.hero-content h1 {
-  font-family: 'Cinzel Decorative', serif;
-  font-size: 2.8rem;
-  margin-bottom: 1rem;
-  color: var(--primary-purple-light);
-  text-shadow: 0 0 10px var(--primary-purple-dark);
-}
-
-.hero-content p {
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-  color: var(--text-secondary);
-}
-
-/* About Section */
-.about {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 1rem 2rem;
-  background: var(--bg-card);
-  border-radius: 12px;
-}
-
-h2 {
-  font-family: 'Cinzel Decorative', serif;
-  color: var(--primary-purple-lighter);
-  margin-bottom: 1rem;
 }
 
 a {
@@ -435,5 +76,5 @@ a:hover {
 }
 
 main {
-  flex: 1;
+    flex: 1;
 }

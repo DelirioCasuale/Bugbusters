@@ -1,6 +1,6 @@
 import { apiCall } from './modules/api.js';
 import { isAuthenticated, isMaster, handleLogout } from './modules/auth.js';
-import { Modal, updateGeneralUI, initLogoNavigation } from './modules/ui.js';
+import { Modal, updateGeneralUI } from './modules/ui.js';
 
 // Dichiarazione delle variabili per i modali
 let createCampaignModal;
@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Se la guardia passa, inizializza
   updateGeneralUI();
-  initLogoNavigation();
 
   createCampaignModal = new Modal('createCampaignModal');
   claimCampaignModal = new Modal('claimCampaignModal');
