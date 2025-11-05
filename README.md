@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://images.unsplash.com/photo-1603570417039-03a2c0f4c9d2?auto=format&fit=crop&w=1600&q=80" alt="Tavern Portal Banner" width="100%" style="border-radius: 12px;">
+  <img src="https://64.media.tumblr.com/39dd1d98385cd4252b73d858d1ad9402/4a3ef35e6c4ab562-da/s1280x1920/16c0e2ec346cb7660dbc2fd3307bc8a1e305792d.gif" alt="Tavern Portal Banner" width="100%" style="border-radius: 12px;">
 </p>
 
 <h1 align="center">🎲 Tavern Portal</h1>
