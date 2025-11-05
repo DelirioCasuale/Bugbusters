@@ -10,22 +10,18 @@ CREATE TABLE users (
     email VARCHAR(100) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    
-    -- NUOVA COLONNA --
     profile_image_url VARCHAR(255) DEFAULT NULL,
-    
     is_banned BOOLEAN DEFAULT FALSE,
-    deletion_scheduled_on TIMESTAMP DEFAULT NULL 
+    deletion_scheduled_on TIMESTAMP DEFAULT NULL
 );
 
-CREATE TABLE roles(
-	id INT AUTO_INCREMENT PRIMARY KEY,
-	role_name VARCHAR(50) NOT NULL UNIQUE
+CREATE TABLE roles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    role_name VARCHAR(50) NOT NULL UNIQUE
 );
 
 -- Ho modificato ROLE_GUEST in ROLE_USER per chiarezza --
-INSERT INTO roles (role_name) VALUES ('ROLE_ADMIN'),('ROLE_USER');
-
+INSERT INTO roles (role_name) VALUES ('ROLE_ADMIN'), ('ROLE_USER');
 
 CREATE TABLE users_roles (
     user_id BIGINT NOT NULL,
@@ -35,7 +31,6 @@ CREATE TABLE users_roles (
     FOREIGN KEY (role_id) REFERENCES roles (id) ON DELETE CASCADE
 );
 
-
 CREATE TABLE players (
     user_id BIGINT NOT NULL PRIMARY KEY,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
@@ -43,7 +38,7 @@ CREATE TABLE players (
 
 CREATE TABLE character_sheet (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    player_id BIGINT NOT NULL, 
+    player_id BIGINT NOT NULL,
     FOREIGN KEY (player_id) REFERENCES players (user_id) ON DELETE CASCADE,
     name VARCHAR(20) NOT NULL,
     primary_class VARCHAR(20) NOT NULL,
@@ -63,15 +58,15 @@ CREATE TABLE character_sheet (
     ),
     race ENUM(
         'HUMAN',
-		'ELF', 
-		'DWARF',
-		'HALFLING',
-		'ORC',
-		'GNOME',
-		'TIEFLING',
-		'DRAGONBORN',
-		'HALF_ELF',
-		'HALF_ORC'
+        'ELF',
+        'DWARF',
+        'HALFLING',
+        'ORC',
+        'GNOME',
+        'TIEFLING',
+        'DRAGONBORN',
+        'HALF_ELF',
+        'HALF_ORC'
     ),
     background VARCHAR(30),
     experience_points INT DEFAULT 0,
@@ -134,13 +129,9 @@ CREATE TABLE campaigns (
     start_date DATE,
     scheduled_next_session DATE,
     FOREIGN KEY (master_id) REFERENCES masters (user_id) ON DELETE SET NULL, -- ON DELETE SET NULL se il master viene eliminato
-    invite_players_code VARCHAR(10) UNIQUE, 
+    invite_players_code VARCHAR(10) UNIQUE,
     invite_masters_code VARCHAR(10) UNIQUE,
-
-    -- COLONNA AGGIUNTA PER IL BAN DEL MASTER --
     master_ban_pending_until TIMESTAMP DEFAULT NULL, -- Scadenza di 30 giorni per trovare un nuovo master
-    
-    -- NUOVA COLONNA PER IL FLAG 'FINITA'
     is_finished BOOLEAN DEFAULT FALSE
 );
 
@@ -159,7 +150,6 @@ CREATE TABLE campaign_sessions (
     summary TEXT,
     FOREIGN KEY (campaign_id) REFERENCES campaigns (id) ON DELETE CASCADE
 );
-
 
 -- TABELLE AGGIUNTE PER LA LOGICA DI VOTAZIONE SESSIONI --
 

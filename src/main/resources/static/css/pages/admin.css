@@ -25,6 +25,11 @@ body.admin-body {
 
 .admin-table-container {
     overflow-x: auto;
+    
+    /* CRUCIALE: Definisci una larghezza massima per permettere la centratura 
+       e usa margin: auto per centrare la tabella orizzontalmente. */
+    max-width: 100%; /* Limita alla larghezza del genitore */
+    margin: 0 auto;  /* CENTRA LA TABELLA */
 }
 
 #users-table {
@@ -52,8 +57,14 @@ body.admin-body {
     background-color: rgba(79, 70, 229, 0.1);
 }
 
-#users-table .status-banned { color: var(--error-color); font-weight: bold; }
-#users-table .status-active { color: var(--success-color); }
+#users-table .status-banned { 
+    color: var(--error-color); 
+    font-weight: 400; /* Rimosso il grassetto */
+}
+#users-table .status-active { 
+    color: var(--success-color); 
+    font-weight: 400; /* Rimosso il grassetto */
+}
 
 #users-table .role-badge {
     display: inline-block;
@@ -142,13 +153,12 @@ body.admin-body {
 .admin-table-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centra orizzontalmente la tabella */
+    /* align-items: center; <-- Rimuovi o commenta questa riga se presente */
 }
 
 .admin-table-container {
-    /* L'overflow-x era già qui, lo manteniamo */
     overflow-x: auto;
-    width: 100%;
+    max-width: 100%;
 }
 
 /* Stile per i controlli di paginazione */
@@ -163,4 +173,24 @@ body.admin-body {
 .pagination-info {
     color: var(--text-secondary);
     font-size: 0.95rem;
+}
+
+/* MODIFICA: Nuovo stile per il pulsante Promuovi/Sblocca (Viola Chiaro) */
+#users-table .action-button.unban { 
+    background: var(--primary-purple-light); /* Viola Chiaro */
+    color: var(--bg-dark-primary); /* Testo scuro */
+    font-weight: 500;
+}
+#users-table .action-button.unban:hover { 
+    background: var(--primary-purple-lighter); 
+}
+
+
+/* NUOVO STILE: Pulsante Modifica (Viola Scuro) */
+#users-table .action-button.edit { 
+    background: var(--primary-purple-dark); /* Viola Scuro */
+    color: white;
+}
+#users-table .action-button.edit:hover { 
+    background: #581c87; /* Un tono più scuro */
 }

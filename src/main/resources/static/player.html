@@ -16,10 +16,12 @@
 <body class="dashboard-body body-player">
 
     <header>
-        <div class="logo-flex">
-            <i><img src="images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
-            <div class="logo">Tavern Portal</div>
-        </div>
+        <a href="landing.html" class="logo-link">
+            <div class="logo-flex">
+                <i><img src="images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
+                <div class="logo">Tavern Portal</div>
+            </div>
+        </a>
         <nav id="dashboard-nav">
         </nav>
     </header>
@@ -158,12 +160,25 @@
         </div>
     </div>
 
-    <footer class="footer">
-        <div class="footer-content">
-            <h3>Supporto Giocatore</h3>
-            <p>Hai bisogno di aiuto? Contatta il supporto <a
-                    href="mailto:support@tavernportal.example">support@tavernportal.example</a></p>
+    <div id="infoModal" class="custom-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-container" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2 class="modal-title" id="infoModalTitle">Notifica</h2>
+                <button type="button" class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="infoModalText">Operazione completata.</p>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group" style="justify-content: flex-end;">
+                    <button type="button" class="btn btn-primary modal-cancel">OK</button>
+                </div>
+            </div>
         </div>
+    </div>
+
+    <footer class="footer">
         <p>© 2025 Tavern Portal. Tutti i diritti riservati.</p>
     </footer>
 

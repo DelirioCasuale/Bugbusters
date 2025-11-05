@@ -217,8 +217,7 @@ async function loadMasterData() {
         )
         .join('');
     } else {
-      campaignsList.innerHTML =
-        '<p>Non hai ancora creato nessuna campagna.</p>';
+      campaignsList.innerHTML = '';
     }
   } else if (campaignsList) {
     campaignsList.innerHTML = '<p>Errore nel caricamento delle campagne.</p>';

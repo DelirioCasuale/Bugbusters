@@ -121,7 +121,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        // serve affinché un utente bannato sia considerato locked
+        // Se isBanned è true, l'account è considerato locked
         return !isBanned;
     }
 

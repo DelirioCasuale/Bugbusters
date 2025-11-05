@@ -74,3 +74,17 @@ nav #welcome-user {
     object-fit: cover;
     border: 1px solid var(--primary-purple-light);
 }
+
+
+/* Stile per il nuovo link del logo */
+.logo-link {
+    text-decoration: none; /* Rimuove la sottolineatura */
+    display: inline-block; /* Mantiene il layout */
+    transition: transform 0.3s ease;
+}
+
+/* Opzionale: Aggiungi un leggero effetto hover al link */
+.logo-link:hover {
+    transform: scale(1.03);
+    text-decoration: none; /* Assicura che non appaia al passaggio del mouse */
+}

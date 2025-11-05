@@ -249,3 +249,43 @@ body.admin-body {
     background: url('../../images/tavern_admin.gif') no-repeat center center/cover;
     background-attachment: fixed; /* Mantiene lo sfondo fisso */
 }
+
+/* ============================================================================
+   STILI ADMIN - Centramento e Layout
+   ============================================================================ */
+
+/* Rende il contenitore flessibile e con spaziatura */
+.filters-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Spazio tra la riga filtri/ricerca e la tabella */
+}
+
+/* Gestisce la riga filtri e ricerca */
+.filters-top-row {
+    display: flex;
+    justify-content: space-between; /* Sposta la ricerca a destra */
+    align-items: center;
+    width: 100%; /* Si estende per tutta la larghezza */
+    max-width: 100%; /* Importante per il centramento successivo */
+}
+
+/* Centra il contenitore principale della tabella (e gli altri elementi se necessario) */
+.admin-table-wrapper {
+    /* Centra l'elemento stesso all'interno del suo contenitore flex (filters-container) */
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%; /* Assicura che la tabella occupi tutto lo spazio orizzontale disponibile */
+    max-width: 100%;
+}
+
+/* Assicura che la barra di ricerca non abbia una larghezza fissa troppo grande */
+.search-bar {
+    max-width: 400px;
+}
+
+/* NUOVO: Sfondo per la pagina di modifica scheda */
+body.body-edit-sheet {
+    background: url('../../images/tavern_scheda-personaggio.gif') no-repeat center center/cover;
+    background-attachment: fixed; /* Mantiene lo sfondo fisso */
+}

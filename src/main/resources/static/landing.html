@@ -15,10 +15,12 @@
 
 <body class="body-landing">
     <header>
-        <div class="logo-flex">
-            <i><img src="images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
-            <div class="logo">Tavern Portal</div>
-        </div>
+        <a href="landing.html" class="logo-link">
+            <div class="logo-flex">
+                <i><img src="images/dice.png" class="logo-icon" alt="Tavern Portal Logo" /></i>
+                <div class="logo">Tavern Portal</div>
+            </div>
+        </a>
         <nav>
         </nav>
     </header>
@@ -39,9 +41,15 @@
                     </div>
                     <div class="form-group">
                         <label for="login-password">Password</label>
-                        <input type="password" id="login-password" name="password" required
-                            placeholder="Inserisci password">
+                        <div class="password-toggle-wrapper">
+                            <input type="password" id="login-password" name="password" required
+                                placeholder="Inserisci password">
+                            <button type="button" class="password-toggle-btn" data-target="login-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
                     </div>
+
                     <div id="loginError" class="error-message"></div>
                 </form>
             </div>
@@ -70,28 +78,40 @@
         <div id="main-landing">
 
             <section id="tiles" class="tiles-container">
-                <article class="tile">
+                <article class="tile tile-what-is">
                     <div class="content">
                         <h3>Cos'è Tavern Portal?</h3>
-                        <p>Una piattaforma per DM e Giocatori per pianificare, creare e condividere le tue campagne in
-                            un unico portale.</p>
+                        <p>La tua base operativa digitale per il TTRPG. È una <strong>piattaforma completa</strong> per
+                            creare,
+                            gestire e giocare campagne, integrando schede personaggio dinamiche, strumenti Master e
+                            pianificazione di sessioni in un unico posto.</p>
                     </div>
                 </article>
-                <article class="tile">
+
+                <article class="tile tile-mission">
                     <div class="content">
                         <h3>La Nostra Mission</h3>
-                        <p>Fornire lo strumento più intuitivo per dare vita alle tue storie, eliminando la complessità
-                            della gestione.</p>
+                        <p><strong>Democratizzare il gioco di ruolo.</strong> Vogliamo eliminare la frustrazione della
+                            gestione
+                            cartacea e digitale frammentata, fornendo al Dungeon Master e al Giocatore gli strumenti più
+                            <strong>intuitivi ed efficaci</strong> per immergersi nelle loro storie senza interruzioni.
+                        </p>
                     </div>
                 </article>
-                <article class="tile">
+
+                <article class="tile tile-vision">
                     <div class="content">
                         <h3>La Nostra Vision</h3>
-                        <p>Diventare il punto di riferimento digitale che connette giocatori e master per avventure
-                            memorabili ovunque nel mondo.</p>
+                        <p>Creare una <strong>community globale</strong> in cui ogni tavolo virtuale o fisico abbia
+                            accesso a
+                            strumenti di livello professionale. Vogliamo diventare il <strong>punto di
+                                riferimento</strong> per
+                            connettere narratori e avventurieri, dando vita a campagne indimenticabili in ogni angolo
+                            del mondo.</p>
                     </div>
                 </article>
-                <article class="tile">
+
+                <article class="tile tile-social">
                     <div class="content">
                         <h3>Seguici sui Social</h3>
                         <p>Rimani aggiornato sulle nuove feature e condividi le tue storie con la community!</p>
@@ -137,21 +157,21 @@
                             <i class="fas fa-envelope"></i>
                             <div>
                                 <h3>Email</h3>
-                                <a href="mailto:information@untitled.tld">information@untitled.tld</a>
+                                <a href="mailto:information@untitled.tld"> bugbusters@info.it</a>
                             </div>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-phone"></i>
                             <div>
                                 <h3>Phone</h3>
-                                <p>(000) 000-0000 x12387</p>
+                                <p>+39 (051) 333456</p>
                             </div>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-map-marker-alt"></i>
                             <div>
                                 <h3>Address</h3>
-                                <p>1234 Somewhere Road #5432<br>Nashville, TN 00000<br>United States of America</p>
+                                <p>Via dei Maghi, 333<br>Bologna, BO 40127<br>Italy</p>
                             </div>
                         </div>
                     </div>
