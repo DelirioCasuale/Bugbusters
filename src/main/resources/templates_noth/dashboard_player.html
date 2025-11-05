@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tavern Portal - Dashboard Giocatore</title>
+  <link rel="icon" type="image/x-icon" href="../static/images/dice.png" />
+  <link rel="stylesheet" href="../static/css/main.css" />
+  <link rel="stylesheet" href="../static/css/dashboard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+
+<body class="main-bg-base player-main-bg">
+
+  <!-- Header Component -->
+  <div data-component="header"></div>
+
+  <main>
+
+    <!-- Benvenuto Giocatore -->
+    <section class="hero-section">
+      <div class="hero">
+        <div class="hero-content">
+          <h1>Bentornato, Avventuriero!</h1>
+          <p>Qui puoi gestire i tuoi personaggi e le tue campagne di Dungeons&Dragons.</p>
+        </div>
+      </div>
+      <div class="switch-visual" sec:authorize="isMaster()">
+        <div class="hero">
+          <div class="hero-content">
+            <h3>le tue campagne ti stanno aspettando</h3>
+            <button class="btn-primary">Visuale Master</button>
+          </div>
+        </div>
+      </div>
+      <div class="switch-visual" sec:authorize="!isMaster()">
+        <div class="hero">
+          <div class="hero-content">
+            <h3>vuoi guidare il tuo party in epiche avventure?</h3>
+            <button class="btn-primary">Diventa Master</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Schede personaggio -->
+    <section class="page">
+      <!-- Page Header -->
+      <div class="page-header">
+        <!-- Page Label -->
+        <div class="page-label">
+          <h2>Le mie Schede</h2>
+          <abbr title="Crea nuova Scheda"><button class="btn-primary add-card">&plus;</button></abbr>
+        </div>
+        <!-- Page Searchbar -->
+        <div class="page-searchbar">
+          <div class="search-container">
+            <div class="search-icon">
+              <img src="../static/images/search-icon.svg" alt="Search" width="20" height="20" />
+            </div>
+            <input name="search-characters" type="text" class="search-input" placeholder="Cerca schede..." />
+          </div>
+        </div>
+      </div>
+      <!-- Cards Container -->
+      <div class="card-container">
+        <!-- cards here are only for demo purposes, real cards will be generated dynamically -->
+        <div class="card">
+          <h3>Giovanni Muciaccia</h3>
+          <p>Livello 8 · paladino</p>
+        </div>
+        <div class="card">
+          <h3>Strega Varana</h3>
+          <p>Livello 5 · strega</p>
+        </div>
+      </div>
+      </div>
+    </section>
+    <!-- Campagne giocatore -->
+    <section class="page">
+      <!-- Page Header -->
+      <div class="page-header">
+        <!-- Page Label -->
+        <div class="page-label">
+          <h2>Le mie Campagne</h2>
+          <!-- TODO implementare un comportamento javascript al bottone add-card che scrolla alla fine e highlita l'ultima card che permette l'unione a campagna tramite codice invito -->
+          <abbr title="Unisciti a una Campagna"><button class="btn-primary add-card" id="join-campaign">&plus;</button></abbr>
+        </div>
+        <!-- Page Searchbar -->
+        <div class="page-searchbar">
+          <div class="search-container">
+            <div class="search-icon">
+              <img src="../static/images/search-icon.svg" alt="Search" width="20" height="20" />
+            </div>
+            <input name="search-player-campaigns" type="text" class="search-input" placeholder="Cerca campagne..." />
+          </div>
+        </div>
+      </div>
+      <!-- Cards Container -->
+      <div class="card-container">
+        <!-- cards here are only for demo purposes, real cards will be generated dynamically -->
+        <div class="card">
+          <h3>La Cittadella Perduta</h3>
+          <p>DM: Gabibbo · 4 giocatori</p>
+        </div>
+        <div class="card">
+          <h3>Il Fantabosco</h3>
+          <p>DM: Lupo Lucio · 7 giocatori</p>
+        </div>
+        <div class="card">
+          <h3>Il Fantabosco</h3>
+          <p>DM: Lupo Lucio · 7 giocatori</p>
+        </div>
+        <div class="card">
+          <h3>Il Fantabosco</h3>
+          <p>DM: Lupo Lucio · 7 giocatori</p>
+        </div>
+        <div class="card">
+          <h3>Il Fantabosco</h3>
+          <p>DM: Lupo Lucio · 7 giocatori</p>
+        </div>
+        <div class="card">
+          <h3>Il Fantabosco</h3>
+          <p>DM: Lupo Lucio · 7 giocatori</p>
+        </div>
+        <div class="card">
+          <h3>Il Fantabosco</h3>
+          <p>DM: Lupo Lucio · 7 giocatori</p>
+        </div>
+
+        <!-- this card is always shown even if there are no campaigns -->
+        <div class="card add-campaign-card">
+          <p>Hai un codice invito? <br> Scegli il tuo personaggio</p>
+          <!-- form per entrare in una campagna con codice invito -->
+          <div class="campaign-invite-form">
+            <form action="">
+              <input type="text" name="invite-code" class="invite-input" placeholder="Inserisci codice invito" />
+              <select name="character" class="character-select">
+                <!-- le opzioni saranno dinamiche in base alle schede senza una campagna già associata -->
+                <option>Personaggio 1</option>
+                <option>Personaggio 2</option>
+                <option>Personaggio 3</option>
+              </select>
+              <button class="btn-primary">Entra</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+    <!-- Calendario -->
+    <section class="page">
+      <!-- Page Header -->
+      <div class="page-header">
+        <!-- Page Label -->
+        <div class="page-label">
+          <h2>Prossime Sessioni</h2>
+        </div>
+        <!-- Page Searchbar -->
+        <div class="page-searchbar">
+          <form class="search-form" onsubmit="return false;">
+            <div class="search-container">
+              <div class="search-icon">
+                <img src="../static/images/search-icon.svg" alt="Search" width="20" height="20" />
+              </div>
+              <input name="search-sessions" type="text" class="search-input" placeholder="Cerca sessioni..." />
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- Page Content -->
+      <div class="page-content">
+        <div class="card-container">
+          <div class="card">
+            <h3>La Cittadella Perduta</h3>
+            <p>DM: Gabibbo · 4 giocatori</p>
+          </div>
+          <div class="card">
+            <h3>Il Fantabosco</h3>
+            <p>DM: Lupo Lucio · 7 giocatori</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal Component -->
+  <div data-component="login-modal"></div>
+
+  <!-- Footer Component -->
+  <div data-component="footer"></div>
+
+  <!-- Scripts personalizzati -->
+  <script src="../static/js/components.js"></script>
+  <script src="../static/js/frontend-development-script.js"></script>
+  <script src="../static/js/script.js"></script>
+  <!-- <script src="../static/js/script-dashboard.js"></script> -->
+  <script src="../static/js/join-campaign.js"></script>
+
+</body>
+
+</html>

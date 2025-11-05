@@ -1,0 +1,68 @@
+/* ============================================================================
+   HEADER - Intestazione 
+   ============================================================================ */
+header {
+  background: linear-gradient(
+    90deg,
+    var(--bg-header-start),
+    var(--bg-header-end)
+  );
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgb(43, 43, 90);
+  box-shadow: inset 0px -1px 4px var(--shadow-footer);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Header standard per landing */
+header {
+  padding: 0.8rem 2rem;
+}
+
+/* Logo */
+.logo-flex {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.logo {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.7rem;
+  color: var(--primary-purple-light);
+  text-shadow: 0 0 6px var(--primary-purple-dark);
+}
+
+.logo-icon {
+  width: auto;
+  height: 36px;
+}
+
+/* Navigation */
+nav {
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+nav a:hover {
+  color: #fff;
+  text-shadow: 0 0 8px #8b5cf6;
+}
+
+nav span {
+  color: var(--primary-purple-light);
+  font-weight: 500;
+}
