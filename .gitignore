@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Variabili d'Ambiente e Segreti Locali
+# Importante: questo file contiene credenziali DB, chiavi API, etc.
+.env
