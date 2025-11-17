@@ -9,10 +9,10 @@
 </p>
 
 <p align="center">
-  <a href="https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html"><img src="https://img.shields.io/badge/Java-17%2B-orange?logo=openjdk&logoColor=white" alt="Java 17+"></a>
-  <a href="#"><img src="https://img.shields.io/badge/Spring%20Boot-3.0-brightgreen?logo=springboot&logoColor=white" alt="Spring Boot 3"></a>
-  <a href="#"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License"></a>
-  <a href="#"><img src="https://img.shields.io/badge/Status-In%20Development-yellow" alt="Project Status"></a>
+  <img src="https://img.shields.io/badge/Java-17%2B-orange?logo=openjdk&logoColor=white" alt="Java 17+">
+  <img src="https://img.shields.io/badge/Spring%20Boot-3.0-brightgreen?logo=springboot&logoColor=white" alt="Spring Boot 3">
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License">
+  <img src="https://img.shields.io/badge/Status-In%20Development-yellow" alt="Project Status">
 </p>
 
 ---
@@ -63,7 +63,7 @@ Il portale è basato su un **sistema di ruoli dinamico**, che offre funzionalit�
 ## 🔐 Autenticazione e Sistema
 
 * **JWT Security:** Autenticazione stateless basata su **JSON Web Token (JWT)**.
-* **Ruoli Dinamici:** Gli utenti iniziano come `ROLE_USER` e possono evolversi in `ROLE_PLAYER` o `ROLE_MASTER`.
+* **Ruoli Dinamici:** Gli utenti iniziano come `ROLE_USER` e possono evolversi in `ROLE_PLAYER`, `ROLE_MASTER` o `ROLE_ADMIN`.
 * **Scheduler:** Task automatici (`@Scheduled`) per:
     * Pulizia utenti bannati e campagne orfane scadute.
     * Conferma automatica delle sessioni dopo il timer.
@@ -111,46 +111,75 @@ Il portale è basato su un **sistema di ruoli dinamico**, che offre funzionalit�
 
 ---
 
-### 1️⃣ Configurazione del Database
+### 1️⃣ Clona il Repository
 
+```bash
+git clone https://github.com/DelirioCasuale/Bugbusters.git
+cd Bugbusters
+```
+---
+
+### 2️⃣ Configura le Credenziali (JWT + DB)
+
+Crea un file `.env` nella root del progetto ed inserisci:
+
+```env
+# File .env (NON COMMITTARE MAI)
+DB_USERNAME=ilTuoUsername
+DB_PASSWORD=laTuaPassword
+JWT_SECRET=laTuaChiaveSegreta
+```
+
+**Sconsigliato**: In alternativa, se non puoi usare un file `.env` loader, puoi sostituire i placeholder direttamente in `src/main/resources/application.properties` con i tuoi valori, MA DEVI FARE ATTENZIONE A NON COMMITTARE TALE MODIFICA.
+
+```properties
+spring.datasource.username=ilTuoUsername
+spring.datasource.password=laTuaPassword
+jwt.secret=laTuaChiaveSegreta
+```
+
+---
+
+### 3️⃣ Configura il Database MySQL
+
+Importa gli script SQL presenti nel repository:
 1.  Assicurati che MySQL sia in esecuzione.
 2.  Apri un client (es. *DBeaver* o *MySQL Workbench*).
 3.  Esegui lo script:
 
-    ```sql
-    -- Crea il database e le tabelle necessarie
-    source bugbusters_database_script.sql;
+```sql
+-- Crea database e tabelle
+source bugbusters_database_script.sql;
 
-    -- (Opzionale) Popola il DB con dati di test:
-    source populate_dnd_db.sql;
-    -- Oppure:
-    source populate_tavern_real_users.sql;
-    
-    ```
+-- (Opzionale) Popola con dati generici
+source populate_tavern_real_users.sql;
 
-### 2️⃣ Avvio del Backend (Spring Boot)
-
-```bash
-# Clona il repository
-git clone https://github.com/DelirioCasuale/Bugbusters.git
-
-# Entra nella directory del progetto
-cd Bugbusters
-
-# Aggiorna application.properties con le tue credenziali MySQL (se necessario)
-
-# Avvia l’applicazione
-mvn spring-boot:run
-
-# Il server sarà disponibile su 👉 http://localhost:8080
+-- (Opzionale) Popola con dati test base
+source populate_dnd_db.sql;
 ```
 
-### 3️⃣ Accesso al Frontend
+---
 
-Il frontend è servito staticamente da Spring Boot (cartella `src/main/resources/static`).
+### 4️⃣ Avvia l’Applicazione Backend
+
+Avvia Spring Boot:
+
+```bash
+mvn spring-boot:run
+```
+
+---
+
+### 5️⃣ Accesso al Frontend
+
+Il frontend è servito automaticamente da Spring Boot (cartella `src/main/resources/static`).
+
+---
 
 Apri il browser e visita:
 👉 [`http://localhost:8080/`](http://localhost:8080/)
+
+---
 
 ### 🔑 Utenti di Prova
 
@@ -159,13 +188,13 @@ Per test completi, puoi usare l’utente Admin:
 
 | Ruolo | Username | Password | Note |
 | :--- | :--- | :--- | :--- |
-| Admin | Eladmin | prova1 | Include tutti i ruoli: ADMIN, USER, PLAYER, MASTER (in entrambi i populate) |
-| Player | player1 | playerpass1 | Se si avvia il populate_dnd_db.sql |
-| Master | master1 | password1 | Se si avvia il populate_dnd_db.sql |
-| Player/Master | usernameGenerici | prova1 | Se si avvia il populate_tavern_real_users.sql controllare il nome degli username per accedere |
+| Admin | Eladmin | prova1 | Ha tutti i ruoli (presente in entrambi i populate) |
+| Player | player1 | playerpass1 | Da `populate_dnd_db.sql` |
+| Master | master1 | password1 | Da `populate_dnd_db.sql` |
+| Player/Master | usernameGenerici | prova1 | Da `populate_tavern_real_users.sql`, controllare il nome degli username per accedere |
 
 ### 📄 Licenza
 
-Questo progetto è distribuito sotto la Licenza MIT. Consulta il file LICENSE per i dettagli.
+Il progetto è rilasciato sotto licenza **MIT**. Per maggiori dettagli consulta il file `LICENSE`.
 
 <p align="center"> <em>“May your rolls be ever natural 20s.”</em> 🐉 </p>
